@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 17:32:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/23 22:20:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int main(int ac, char **av)
 	}
 	if (!ft_strcmp(av[1], "md5"))
 		return (command_md5(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "sha1"))
+		return (command_sha1(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "sha256"))
 		return (command_sha256(ac - 2, av + 2));
 	else

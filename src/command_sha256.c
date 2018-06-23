@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:27:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 21:43:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/23 22:35:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	command_sha256_fd(int fd, int print)
 		return (0);
 	sha256_final(digest, &ctx);
 	for (int i = 0; i < 32; ++i)
-		printf("%x", digest[i]);
+		printf("%02x", digest[i]);
 	printf("\n");
 	return (1);
 }

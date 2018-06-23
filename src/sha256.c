@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 20:57:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 22:17:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/23 22:39:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha256.h"
-#include <stdio.h>
 
 uint32_t sha256_k[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
 			, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5
@@ -63,7 +62,6 @@ static void	sha256_chunk(t_sha256_ctx *ctx)
 	uint32_t	w[64];
 	int		i;
 
-	ft_memcpy(w, ctx->data, 64);
 	i = -1;
 	while (++i < 16)
 		w[i] = ft_swap_uint(ctx->data[i]);
