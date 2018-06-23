@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/23 17:59:24 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/23 21:19:34 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,11 @@ SRCS_PATH = src/
 
 SRCS_NAME = main.c \
 	    print_usage.c \
+	    rotate.c \
 	    command_md5.c \
 	    command_sha256.c \
 	    md5.c \
+	    sha256.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

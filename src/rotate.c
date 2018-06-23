@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.h                                           :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 20:57:43 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 21:20:04 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/23 21:18:18 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/23 21:19:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHA256_H
-# define SHA256_H
+#include "ft_ssl.h"
 
-typedef struct		s_sha256_ctx
+uint32_t	rotate_left(uint32_t v, uint32_t c)
 {
-	uint32_t	h[8];
-	uint32_t	data[16];
-	uint32_t	data_len;
-	uint64_t	total_len;
-}			t_sha256_ctx;
+	return ((v << c) | (v >> (32 - c)));
+}
 
-int	sha256_init(t_sha256_ctx *ctx);
-int	sha256_update(t_sha256_ctx *ctx, const uint8_t *data, size_t len);
-int	sha256_final(uint8_t *md, t_sha256_ctx *ctx);
-
-#endif
+uint32_t	rotate_right(uint32_t v, uint32_t c)
+{
+	return ((v >> c) | (v << (32 - c)));
+}
