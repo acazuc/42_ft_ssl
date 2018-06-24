@@ -6,21 +6,21 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 14:09:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 15:56:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "base64.h"
-#include <stdio.h>
 #include <fcntl.h>
+#include <stdio.h>
 
-static void	callback(uint8_t *data, size_t len, void *userptr)
+static void	encode_callback(uint8_t *data, size_t len, void *userptr)
 {
 	t_b64e_data	*ptr;
 	int		osef;
 	int		tmp;
-	
+
 	ptr = (t_b64e_data*)userptr;
 	while (ptr->count + len >= 64)
 	{
@@ -38,6 +38,14 @@ static void	callback(uint8_t *data, size_t len, void *userptr)
 	(void)osef;
 }
 
+static void	decode_callback(uint8_t *data, size_t len, void *userptr)
+{
+	int	osef;
+	
+	osef = write(((t_b64d_data*)userptr)->fd, data, len);
+	(void)osef;
+}
+
 static int	encode(int fdin, int fdout)
 {
 	t_b64e_data	data;
@@ -47,7 +55,7 @@ static int	encode(int fdin, int fdout)
 
 	data.fd = fdout;
 	data.count = 0;
-	if (!b64e_init(&ctx, callback, &data))
+	if (!b64e_init(&ctx, encode_callback, &data))
 		return (EXIT_FAILURE);
 	while ((readed = read(fdin, buffer, 4096)) > 0)
 	{
@@ -71,7 +79,7 @@ static int	decode(int fdin, int fdout)
 	int		readed;
 
 	data.fd = fdout;
-	if (!b64d_init(&ctx, callback, &data))
+	if (!b64d_init(&ctx, decode_callback, &data))
 		return (EXIT_FAILURE);
 	while ((readed = read(fdin, buffer, 4096)) > 0)
 	{

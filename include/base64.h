@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:25:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 12:59:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 15:19:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct		s_b64e_ctx
 	void		*userptr;
 	uint8_t		*buff;
 	uint32_t	buff_len;
-	uint8_t		tmp;
-	uint8_t		tmp_len;
+	uint8_t		tmpin[2];
+	uint8_t		tmpin_len;
 }			t_b64e_ctx;
 
 typedef struct		s_b64d_ctx
@@ -32,8 +32,8 @@ typedef struct		s_b64d_ctx
 	void		*userptr;
 	uint8_t		*buff;
 	uint32_t	buff_len;
-	uint8_t		tmp;
-	uint8_t		tmp_len;
+	uint8_t		tmpin[3];
+	uint8_t		tmpin_len;
 }			t_b64d_ctx;
 
 int	b64e_init(t_b64e_ctx *ctx, t_b64e_callback callback, void *userptr);
