@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 19:58:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 23:02:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
 int		command_base64(int ac, char **av);
 int		command_des(int ac, char **av);
+int		command_des_ecb(int ac, char **av);
+int		command_des_cbc(int ac, char **av);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

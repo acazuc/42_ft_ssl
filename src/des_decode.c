@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_ext.c                                          :+:      :+:    :+:   */
+/*   des_decode.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 22:03:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 22:33:41 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 22:52:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
 
-int	des_init(t_des_ctx *ctx, uint64_t key, t_des_callback callback
-		, void *userptr)
+int	des_decore_init(t_des_ctx *ctx, t_des_mode mode, uint64_t key
+		, t_des_callback callback, void *userptr)
 {
 	des_generate_keys(ctx, key);
 	ctx->callback = callback;
 	ctx->userptr = userptr;
+	ctx->block_mode = mode;
+	ctx->mode = 1;
 	if (!(ctx->buff = malloc(DES_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
 	return (1);
 }
 
-int	des_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
+int	des_decode_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 {
 	uint64_t	tmp;
 
@@ -50,7 +52,7 @@ int	des_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 	return (1);
 }
 
-int	des_final(t_des_ctx *ctx)
+int	des_decode_final(t_des_ctx *ctx)
 {
 	free(ctx->buff);
 	return (1);

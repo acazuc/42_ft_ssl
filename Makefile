@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/24 22:30:34 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/24 23:03:03 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ SRCS_NAME = main.c \
 	    command_sha512.c \
 	    command_base64.c \
 	    command_des.c \
+	    command_des_ecb.c \
+	    command_des_cbc.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \
@@ -44,7 +46,8 @@ SRCS_NAME = main.c \
 	    base64_encode.c \
 	    base64_decode.c \
 	    des.c \
-	    des_ext.c \
+	    des_encode.c \
+	    des_decode.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
