@@ -6,14 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 15:56:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 16:26:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "base64.h"
 #include <fcntl.h>
-#include <stdio.h>
 
 static void	encode_callback(uint8_t *data, size_t len, void *userptr)
 {

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/24 14:07:56 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/24 16:53:23 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS_NAME = main.c \
 	    print_usage.c \
 	    rotate.c \
 	    bin2hex.c \
+	    command_hash.c \
 	    command_md5.c \
 	    command_sha1.c \
 	    command_sha224.c \
@@ -31,6 +32,7 @@ SRCS_NAME = main.c \
 	    command_sha384.c \
 	    command_sha512.c \
 	    command_base64.c \
+	    command_des.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \
