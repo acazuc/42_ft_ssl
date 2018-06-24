@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 09:49:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 19:55:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void	sha1_loop(int i, uint32_t *tmp, uint32_t *w)
 		f = (tmp[1] & tmp[2]) | (tmp[1] & tmp[3]) | (tmp[2] & tmp[3]);
 	else
 		f = tmp[1] ^ tmp[2] ^ tmp[3];
-	tmp1 = rotate_left(tmp[0], 5) + f + tmp[4] + k + w[i];
+	tmp1 = rotate_left32(tmp[0], 5) + f + tmp[4] + k + w[i];
 	tmp[4] = tmp[3];
 	tmp[3] = tmp[2];
-	tmp[2] = rotate_left(tmp[1], 30);
+	tmp[2] = rotate_left32(tmp[1], 30);
 	tmp[1] = tmp[0];
 	tmp[0] = tmp1;
 }
@@ -50,7 +50,7 @@ static void	sha1_chunk(t_sha1_ctx *ctx)
 		w[i] = ft_swap_uint(ctx->data[i]);
 	while (i < 80)
 	{
-		w[i] = rotate_left(w[i - 3] ^ w[i - 8] ^ w[i - 14]
+		w[i] = rotate_left32(w[i - 3] ^ w[i - 8] ^ w[i - 14]
 				^ w[i - 16], 1);
 		++i;
 	}

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/24 16:53:23 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/24 22:30:34 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,10 @@ SRCS_PATH = src/
 
 SRCS_NAME = main.c \
 	    print_usage.c \
-	    rotate.c \
+	    rotate_left.c \
+	    rotate_right.c \
 	    bin2hex.c \
+	    random_bytes.c \
 	    command_hash.c \
 	    command_md5.c \
 	    command_sha1.c \
@@ -41,6 +43,8 @@ SRCS_NAME = main.c \
 	    sha512.c \
 	    base64_encode.c \
 	    base64_decode.c \
+	    des.c \
+	    des_ext.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 16:26:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 22:34:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	encode(int fdin, int fdout)
 	}
 	if (readed < 0)
 		return (EXIT_FAILURE);
-	if (!b64e_finish(&ctx))
+	if (!b64e_final(&ctx))
 		return (EXIT_FAILURE);
 	if (data.count)
 		ft_putchar('\n');
@@ -87,7 +87,7 @@ static int	decode(int fdin, int fdout)
 	}
 	if (readed < 0)
 		return (EXIT_FAILURE);
-	if (!b64d_finish(&ctx))
+	if (!b64d_final(&ctx))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

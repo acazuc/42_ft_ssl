@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:55:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 16:15:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 19:56:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static void	sha224_loop(int i, uint32_t *tmp
 	uint32_t	tmp3;
 	uint32_t	tmp4;
 
-	tmp1 = rotate_right(tmp[4], 6) ^ rotate_right(tmp[4], 11)
-		^ rotate_right(tmp[4], 25);
+	tmp1 = rotate_right32(tmp[4], 6) ^ rotate_right32(tmp[4], 11)
+		^ rotate_right32(tmp[4], 25);
 	tmp2 = (tmp[4] & tmp[5]) ^ ((~tmp[4]) & tmp[6]);
 	tmp3 = tmp[7] + tmp1 + tmp2 + sha224_k[i] + w[i];
-	tmp1 = rotate_right(tmp[0], 2) ^ rotate_right(tmp[0], 13)
-		^ rotate_right(tmp[0], 22);
+	tmp1 = rotate_right32(tmp[0], 2) ^ rotate_right32(tmp[0], 13)
+		^ rotate_right32(tmp[0], 22);
 	tmp2 = (tmp[0] & tmp[1]) ^ (tmp[0] & tmp[2]) ^ (tmp[1] & tmp[2]);
 	tmp4 = tmp1 + tmp2;
 	tmp[7] = tmp[6];
@@ -67,9 +67,9 @@ static void	sha224_chunk(t_sha224_ctx *ctx)
 		w[i] = ft_swap_uint(ctx->data[i]);
 	while (i < 64)
 	{
-		w[i] = w[i - 16] + (rotate_right(w[i - 15], 7) ^ rotate_right(
-		w[i - 15], 18) ^ (w[i - 15] >> 3)) + w[i - 7]
-		+ (rotate_right(w[i - 2], 17) ^ rotate_right(w[i - 2], 19)
+		w[i] = w[i - 16] + (rotate_right32(w[i - 15], 7)
+		^ rotate_right32(w[i - 15], 18) ^ (w[i - 15] >> 3)) + w[i - 7]
+		+ (rotate_right32(w[i - 2], 17) ^ rotate_right32(w[i - 2], 19)
 		^ (w[i - 2] >> 10));
 		++i;
 	}

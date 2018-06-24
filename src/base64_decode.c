@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:29:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 16:02:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 22:33:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	b64d_chunk(t_b64d_ctx *ctx, uint8_t *tmp, uint8_t *tmplen
 	return (1);
 }
 
-int		b64d_init(t_b64d_ctx *ctx, t_b64d_callback callback, void *userptr)
+int		b64d_init(t_b64d_ctx *ctx, t_b64_callback callback, void *userptr)
 {
 	ctx->callback = callback;
 	ctx->userptr = userptr;
@@ -82,16 +82,15 @@ int		b64d_update(t_b64d_ctx *ctx, const uint8_t *data, size_t len)
 
 	if (!len)
 		return (1);
+	ctx->buff_len = 0;
 	tmplen = 0;
 	i = -1;
 	while (++i < ctx->tmpin_len)
 		tmp[tmplen++] = ctx->tmpin[ctx->tmpin_len];
 	ctx->tmpin_len = 0;
 	while (tmplen < 4 && len)
-	{
 		if (!b64d_chunk(ctx, tmp, &tmplen, &data, &len))
 			return (0);
-	}
 	ctx->tmpin_len = -1;
 	while (++ctx->tmpin_len < tmplen)
 	{
@@ -104,7 +103,7 @@ int		b64d_update(t_b64d_ctx *ctx, const uint8_t *data, size_t len)
 	return (1);
 }
 
-int		b64d_finish(t_b64d_ctx *ctx)
+int		b64d_final(t_b64d_ctx *ctx)
 {
 	free(ctx->buff);
 	if (ctx->tmpin_len)

@@ -6,16 +6,25 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 16:40:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 22:15:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
-#include <fcntl.h>
+#include <stdio.h>
 
 int		command_des(int ac, char **av)
 {
+	t_des_ctx	ctx;
+	uint64_t	val;
+
+	ctx.mode = 1;
+	des_generate_keys(&ctx, 0b0001001100110100010101110111100110011011101111001101111111110001);
+	//val = 0b0000000100100011010001010110011110001001101010111100110111101111;
+	val = 0b1000010111101000000100110101010000001111000010101011010000000101;
+	val = des_operate_block(&ctx, val);
+	printf("%lx\n", val);
 	(void)ac;
 	(void)av;
 	return (EXIT_SUCCESS);

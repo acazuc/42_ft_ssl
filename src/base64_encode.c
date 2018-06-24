@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 15:34:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 22:33:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	b64e_chunk(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 	ctx->buff[ctx->buff_len++] = alphabet[vals[2] & 0x3f];
 }
 
-int		b64e_init(t_b64e_ctx *ctx, t_b64e_callback callback
+int		b64e_init(t_b64e_ctx *ctx, t_b64_callback callback
 		, void *userptr)
 {
 	ctx->callback = callback;
@@ -89,7 +89,7 @@ int		b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
 	return (1);
 }
 
-int		b64e_finish(t_b64e_ctx *ctx)
+int		b64e_final(t_b64e_ctx *ctx)
 {
 	if (!ctx->tmpin_len)
 	{

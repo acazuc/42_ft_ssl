@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin2hex.c                                          :+:      :+:    :+:   */
+/*   rotate_left.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 14:05:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 17:52:39 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/23 21:18:18 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 19:59:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-char	bin2char(uint8_t val)
+uint32_t	rotate_left28(uint32_t v, uint32_t c)
 {
-	if (val >= 10)
-		return ('a' + val - 10);
-	return ('0' + val);
+	return ((v << c) | (v >> (28 - c)));
 }
 
-void	bin2hex(char *dst, const uint8_t *src, size_t len)
+uint32_t	rotate_left32(uint32_t v, uint32_t c)
 {
-	size_t	i;
+	return ((v << c) | (v >> (32 - c)));
+}
 
-	i = 0;
-	while (i < len)
-	{
-		dst[i * 2 + 0] = bin2char(src[i] >> 4);
-		dst[i * 2 + 1] = bin2char(src[i] & 0xf);
-		++i;
-	}
+uint64_t	rotate_left64(uint64_t v, uint64_t c)
+{
+	return ((v << c) | (v >> (64 - c)));
 }

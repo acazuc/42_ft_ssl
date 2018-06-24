@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:56:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 09:48:56 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 19:55:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	md5_loop(t_md5_ctx *ctx, int i, uint32_t *tmp, uint32_t f
 	tmp[0] = tmp[3];
 	tmp[3] = tmp[2];
 	tmp[2] = tmp[1];
-	tmp[1] += rotate_left(f, md5_s[i]);
+	tmp[1] += rotate_left32(f, md5_s[i]);
 }
 
 static void	md5_chunk(t_md5_ctx *ctx)

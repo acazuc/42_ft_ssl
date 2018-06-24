@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin2hex.c                                          :+:      :+:    :+:   */
+/*   random_bytes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 14:05:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 17:52:39 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/24 18:17:18 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 18:19:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include <fcntl.h>
 
-char	bin2char(uint8_t val)
+int	random_bytes(uint8_t *dst, int len)
 {
-	if (val >= 10)
-		return ('a' + val - 10);
-	return ('0' + val);
-}
+	int	fd;
 
-void	bin2hex(char *dst, const uint8_t *src, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len)
+	if ((fd = open("/dev/urandom", O_RDONLY)) == -1)
+		return (0);
+	if (read(fd, dst, len) != len)
 	{
-		dst[i * 2 + 0] = bin2char(src[i] >> 4);
-		dst[i * 2 + 1] = bin2char(src[i] & 0xf);
-		++i;
+		close(fd);
+		return (0);
 	}
+	close(fd);
+	return (1);
 }
