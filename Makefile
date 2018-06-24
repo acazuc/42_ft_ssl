@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/24 12:03:38 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/24 14:07:56 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS_PATH = src/
 SRCS_NAME = main.c \
 	    print_usage.c \
 	    rotate.c \
+	    bin2hex.c \
 	    command_md5.c \
 	    command_sha1.c \
 	    command_sha224.c \

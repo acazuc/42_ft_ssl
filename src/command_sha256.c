@@ -6,34 +6,37 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:27:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 22:35:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 14:14:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha256.h"
-#include <stdio.h>
 
 int	command_sha256_fd(int fd, int print)
 {
 	t_sha256_ctx	ctx;
 	uint8_t		digest[32];
 	uint8_t		buf[4096];
+	char		hash[65];
 	int		readed;
 
-	sha256_init(&ctx);
+	if (!sha256_init(&ctx))
+		return (0);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		sha256_update(&ctx, buf, readed);
+		if (!sha256_update(&ctx, buf, readed))
+			return (0);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	sha256_final(digest, &ctx);
-	for (int i = 0; i < 32; ++i)
-		printf("%02x", digest[i]);
-	printf("\n");
+	if (!sha256_final(digest, &ctx))
+		return (0);
+	bin2hex(hash, digest, 32);
+	hash[64] = 0;
+	ft_putendl(hash);
 	return (1);
 }
 

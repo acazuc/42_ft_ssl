@@ -105,13 +105,15 @@ echo
 echo
 
 echo "base64_decode ft_ssl short"
-echo "plop" | openssl base64 | ./ft_ssl base64 -d | openssl sha512
-echo "plop" | openssl base64 | openssl base64 -d | openssl sha512
+data=`echo "plop" | openssl base64`
+echo $data | ./ft_ssl base64 -d | openssl sha512
+echo $data | openssl base64 -d | openssl sha512
 echo "base64_decode openssl short"
 
 echo
 
-echo "base6_decode ft_ssl long"
-cat Makefile | openssl base64 | ./ft_ssl base64 -d | openssl sha512
-cat Makefile | openssl base64 | openssl base64 -d | openssl sha512
+echo "base64_decode ft_ssl long"
+data=`cat Makefile | openssl base64`
+echo $data | ./ft_ssl base64 -d | openssl sha512
+echo $data | openssl base64 -d | openssl sha512
 echo "base64_decode openssl long"

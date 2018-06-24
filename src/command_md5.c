@@ -6,34 +6,37 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:26:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 22:34:58 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 14:13:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "md5.h"
-#include <stdio.h>
 
 int	command_md5_fd(int fd, int print)
 {
 	t_md5_ctx	ctx;
 	uint8_t		digest[16];
 	uint8_t		buf[4096];
+	char		hash[33];
 	int		readed;
 
-	md5_init(&ctx);
+	if (!md5_init(&ctx))
+		return (0);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		md5_update(&ctx, buf, readed);
+		if (!md5_update(&ctx, buf, readed))
+			return (0);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	md5_final(digest, &ctx);
-	for (int i = 0; i < 16; ++i)
-		printf("%02x", digest[i]);
-	printf("\n");
+	if (!md5_final(digest, &ctx))
+		return (0);
+	bin2hex(hash, digest, 16);
+	hash[32] = 0;
+	ft_putendl(hash);
 	return (1);
 }
 

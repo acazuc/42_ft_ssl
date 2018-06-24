@@ -6,34 +6,37 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:54:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 10:54:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 14:14:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha224.h"
-#include <stdio.h>
 
 int	command_sha224_fd(int fd, int print)
 {
 	t_sha224_ctx	ctx;
 	uint8_t		digest[28];
 	uint8_t		buf[4096];
+	char		hash[57];
 	int		readed;
 
-	sha224_init(&ctx);
+	if (!sha224_init(&ctx))
+		return (0);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		sha224_update(&ctx, buf, readed);
+		if (!sha224_update(&ctx, buf, readed))
+			return (0);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	sha224_final(digest, &ctx);
-	for (int i = 0; i < 28; ++i)
-		printf("%02x", digest[i]);
-	printf("\n");
+	if (!sha224_final(digest, &ctx))
+		return (0);
+	bin2hex(hash, digest, 28);
+	hash[56] = 0;
+	ft_putendl(hash);
 	return (1);
 }
 

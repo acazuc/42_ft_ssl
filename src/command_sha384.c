@@ -6,34 +6,37 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 10:49:40 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 14:15:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha384.h"
-#include <stdio.h>
 
 int	command_sha384_fd(int fd, int print)
 {
 	t_sha384_ctx	ctx;
 	uint8_t		digest[48];
 	uint8_t		buf[4096];
+	char		hash[97];
 	int		readed;
 
-	sha384_init(&ctx);
+	if (!sha384_init(&ctx))
+		return (0);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		sha384_update(&ctx, buf, readed);
+		if (!sha384_update(&ctx, buf, readed))
+			return (0);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	sha384_final(digest, &ctx);
-	for (int i = 0; i < 48; ++i)
-		printf("%02x", digest[i]);
-	printf("\n");
+	if (!sha384_final(digest, &ctx))
+		return (0);
+	bin2hex(hash, digest, 48);
+	hash[96] = 0;
+	ft_putendl(hash);
 	return (1);
 }
 

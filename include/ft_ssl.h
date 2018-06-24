@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 11:55:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 14:06:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ typedef struct	s_b64e_data
 	int	count;
 }		t_b64e_data;
 
+typedef struct	s_b64d_data
+{
+	int	fd;
+}		t_b64d_data;
+
 void		print_usage();
 void		print_usage_commands();
 int		command_md5(int ac, char **av);
@@ -36,5 +41,6 @@ uint32_t	rotate_left(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);
 uint32_t	rotate_right(uint32_t v, uint32_t c);
 uint64_t	rotate_right64(uint64_t v, uint64_t c);
+void		bin2hex(char *dst, const uint8_t *src, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 12:46:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 13:16:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0"
 static void	b64e_loop(t_b64e_ctx *ctx, const uint8_t **data, size_t *len
 		, char *len_off)
 {
-	if (ctx->tmp_len > 0)
+	if (ctx->tmp_len)
 	{
 		ctx->buff[ctx->buff_len++] = alphabet[(((ctx->tmp << (8
 		- ctx->tmp_len)) | ((*data)[0] >> ctx->tmp_len)) & 0xfc) >> 2];
@@ -37,11 +37,6 @@ static void	b64e_loop(t_b64e_ctx *ctx, const uint8_t **data, size_t *len
 			*len_off -= 8;
 		}
 		*len -= 6;
-	}
-	if (ctx->buff_len >= BASE64_BUFF_LEN)
-	{
-		ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
-		ctx->buff_len = 0;
 	}
 }
 
@@ -70,6 +65,11 @@ int		b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
 	while (len + ctx->tmp_len > 6)
 	{
 		b64e_loop(ctx, &data, &len, &len_off);
+		if (ctx->buff_len >= BASE64_BUFF_LEN)
+		{
+			ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
+			ctx->buff_len = 0;
+		}
 	}
 	if (ctx->buff_len)
 		ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
