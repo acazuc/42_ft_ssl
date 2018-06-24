@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha512.c                                           :+:      :+:    :+:   */
+/*   sha384.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 09:32:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 10:46:52 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/24 10:49:54 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 10:51:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "sha512.h"
+#include "sha384.h"
 
-static uint64_t sha512_k[128] = {0x428a2f98d728ae22, 0x7137449123ef65cd
+static uint64_t sha384_k[128] = {0x428a2f98d728ae22, 0x7137449123ef65cd
 				, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc
 				, 0x3956c25bf348b538, 0x59f111f1b605d019
 				, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118
@@ -54,7 +54,7 @@ static uint64_t sha512_k[128] = {0x428a2f98d728ae22, 0x7137449123ef65cd
 				, 0x4cc5d4becb3e42b6, 0x597f299cfc657e2a
 				, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817};
 
-static void	sha512_loop(int i, uint64_t *tmp
+static void	sha384_loop(int i, uint64_t *tmp
 		, uint64_t *w)
 {
 	uint64_t	tmp1;
@@ -65,7 +65,7 @@ static void	sha512_loop(int i, uint64_t *tmp
 	tmp1 = rotate_right64(tmp[4], 14) ^ rotate_right64(tmp[4], 18)
 		^ rotate_right64(tmp[4], 41);
 	tmp2 = (tmp[4] & tmp[5]) ^ ((~tmp[4]) & tmp[6]);
-	tmp3 = tmp[7] + tmp1 + tmp2 + sha512_k[i] + w[i];
+	tmp3 = tmp[7] + tmp1 + tmp2 + sha384_k[i] + w[i];
 	tmp1 = rotate_right64(tmp[0], 28) ^ rotate_right64(tmp[0], 34)
 		^ rotate_right64(tmp[0], 39);
 	tmp2 = (tmp[0] & tmp[1]) ^ (tmp[0] & tmp[2]) ^ (tmp[1] & tmp[2]);
@@ -80,7 +80,7 @@ static void	sha512_loop(int i, uint64_t *tmp
 	tmp[0] = tmp3 + tmp4;
 }
 
-static void	sha512_chunk(t_sha512_ctx *ctx)
+static void	sha384_chunk(t_sha384_ctx *ctx)
 {
 	uint64_t	tmp[8];
 	uint64_t	w[80];
@@ -102,28 +102,28 @@ static void	sha512_chunk(t_sha512_ctx *ctx)
 		tmp[i] = ctx->h[i];
 	i = -1;
 	while (++i < 80)
-		sha512_loop(i, tmp, w);
+		sha384_loop(i, tmp, w);
 	i = -1;
 	while (++i < 8)
 		ctx->h[i] += tmp[i];
 }
 
-int		sha512_init(t_sha512_ctx *ctx)
+int		sha384_init(t_sha384_ctx *ctx)
 {
 	ctx->total_len = 0;
 	ctx->data_len = 0;
-	ctx->h[0] = 0x6a09e667f3bcc908;
-	ctx->h[1] = 0xbb67ae8584caa73b;
-	ctx->h[2] = 0x3c6ef372fe94f82b;
-	ctx->h[3] = 0xa54ff53a5f1d36f1;
-	ctx->h[4] = 0x510e527fade682d1;
-	ctx->h[5] = 0x9b05688c2b3e6c1f;
-	ctx->h[6] = 0x1f83d9abfb41bd6b;
-	ctx->h[7] = 0x5be0cd19137e2179;
+	ctx->h[0] = 0xcbbb9d5dc1059ed8;
+	ctx->h[1] = 0x629a292a367cd507;
+	ctx->h[2] = 0x9159015a3070dd17;
+	ctx->h[3] = 0x152fecd8f70e5939;
+	ctx->h[4] = 0x67332667ffc00b31;
+	ctx->h[5] = 0x8eb44a8768581511;
+	ctx->h[6] = 0xdb0c2e0d64f98fa7;
+	ctx->h[7] = 0x47b5481dbefa4fa4;
 	return (1);
 }
 
-int		sha512_update(t_sha512_ctx *ctx, const uint8_t *data, size_t len)
+int		sha384_update(t_sha384_ctx *ctx, const uint8_t *data, size_t len)
 {
 	while (1)
 	{
@@ -139,12 +139,12 @@ int		sha512_update(t_sha512_ctx *ctx, const uint8_t *data, size_t len)
 		data += 128 - ctx->data_len;
 		ctx->total_len += 128 - ctx->data_len;
 		ctx->data_len = 0;
-		sha512_chunk(ctx);
+		sha384_chunk(ctx);
 	}
 	return (1);
 }
 
-int		sha512_final(uint8_t *md, t_sha512_ctx *ctx)
+int		sha384_final(uint8_t *md, t_sha384_ctx *ctx)
 {
 	int	i;
 
@@ -153,16 +153,16 @@ int		sha512_final(uint8_t *md, t_sha512_ctx *ctx)
 	{
 		while (ctx->data_len < 128)
 			((char*)ctx->data)[ctx->data_len++] = 0;
-		sha512_update(ctx, NULL, 0);
+		sha384_update(ctx, NULL, 0);
 	}
 	while (ctx->data_len < 120)
 		((char*)ctx->data)[ctx->data_len++] = 0;
 	ctx->total_len = ft_swap_ulong(ctx->total_len * 8);
 	ft_memcpy(ctx->data + 15, &ctx->total_len, 8);
 	ctx->data_len = 128;
-	sha512_update(ctx, NULL, 0);
+	sha384_update(ctx, NULL, 0);
 	i = -1;
-	while (++i < 8)
+	while (++i < 6)
 	{
 		md[i * 8 + 0] = ctx->h[i] >> 56;
 		md[i * 8 + 1] = ctx->h[i] >> 48;

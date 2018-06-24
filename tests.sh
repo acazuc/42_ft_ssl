@@ -29,6 +29,21 @@ echo "sha1 openssl long"
 echo
 echo
 
+echo "sha224 ft_ssl short"
+echo "plop" | ./ft_ssl sha224
+echo "plop" | openssl sha224 -r
+echo "sha224 openssl short"
+
+echo
+
+echo "sha224 ft_ssl long"
+cat Makefile | ./ft_ssl sha224
+cat Makefile | openssl sha224 -r
+echo "sha224 openssl long"
+
+echo
+echo
+
 echo "sha256 ft_ssl short"
 echo "plop" | ./ft_ssl sha256
 echo "plop" | openssl sha256 -r
@@ -40,6 +55,21 @@ echo "sha256 ft_ssl long"
 cat Makefile | ./ft_ssl sha256
 cat Makefile | openssl sha256 -r
 echo "sha256 openssl long"
+
+echo
+echo
+
+echo "sha384 ft_ssl short"
+echo "plop" | ./ft_ssl sha384
+echo "plop" | openssl sha384 -r
+echo "sha384 openssl short"
+
+echo
+
+echo "sha384 ft_ssl long"
+cat Makefile | ./ft_ssl sha384
+cat Makefile | openssl sha384 -r
+echo "sha384 openssl long"
 
 echo
 echo

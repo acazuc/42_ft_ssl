@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/24 09:54:25 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/24 10:53:42 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,16 @@ SRCS_NAME = main.c \
 	    rotate.c \
 	    command_md5.c \
 	    command_sha1.c \
+	    command_sha224.c \
 	    command_sha256.c \
+	    command_sha384.c \
 	    command_sha512.c \
 	    command_base64.c \
 	    md5.c \
 	    sha1.c \
+	    sha224.c \
 	    sha256.c \
+	    sha384.c \
 	    sha512.c \
 	    base64_encode.c \
 	    base64_decode.c \
