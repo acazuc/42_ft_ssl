@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl.h                                           :+:      :+:    :+:   */
+/*   base64.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 23:30:27 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/23 23:25:36 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 09:28:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_H
-# define FT_SSL_H
+#ifndef BASE64_H
+# define BASE64_H
 
-# include "libft.h"
-# include <stdint.h>
-# include <math.h>
+typedef void (*t_b64e_callback)(uint8_t *data, size_t len, void *userptr);
 
-void		print_usage();
-void		print_usage_commands();
-int		command_md5(int ac, char **av);
-int		command_sha1(int ac, char **av);
-int		command_sha256(int ac, char **av);
-int		command_base64(int ac, char **av);
-uint32_t	rotate_left(uint32_t v, uint32_t c);
-uint32_t	rotate_right(uint32_t v, uint32_t c);
+typedef struct		s_b64e_ctx
+{
+	t_b64e_callback	callback;
+	void		*userptr;
+	uint8_t		*buff;
+	uint8_t		buff_off;
+}			t_b64e_ctx;
+
+int	b64e_init(t_b64e_ctx *ctx, t_b64e_callback callback, void *userptr);
+int	b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len);
+int	b64e_finish(t_b64e_ctx *ctx);
 
 #endif

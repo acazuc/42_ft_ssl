@@ -40,3 +40,33 @@ echo "sha256 ft_ssl long"
 cat Makefile | ./ft_ssl sha256
 cat Makefile | openssl sha256 -r
 echo "sha256 openssl long"
+
+echo
+echo
+
+echo "base64_encode ft_ssl short"
+echo "plop" | ./ft_ssl base64 | openssl sha512
+echo "plop" | openssl base64 | openssl sha512
+echo "base64_encode openssl short"
+
+echo
+
+echo "base6_encode ft_ssl long"
+cat Makefile | ./ft_ssl base64 | openssl sha512
+cat Makefile | openssl base64 | openssl sha512
+echo "base64_encode openssl long"
+
+echo
+echo
+
+echo "base64_decode ft_ssl short"
+echo "plop" | openssl base64 | ./ft_ssl base64 -d | openssl sha512
+echo "plop" | openssl base64 | openssl base64 -d | openssl sha512
+echo "base64_decode openssl short"
+
+echo
+
+echo "base6_decode ft_ssl long"
+cat Makefile | openssl base64 | ./ft_ssl base64 -d | openssl sha512
+cat Makefile | openssl base64 | openssl base64 -d | openssl sha512
+echo "base64_decode openssl long"
