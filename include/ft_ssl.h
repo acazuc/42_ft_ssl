@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 10:59:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 11:55:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include "libft.h"
 # include <stdint.h>
 # include <math.h>
+
+typedef struct	s_b64e_data
+{
+	int	fd;
+	int	count;
+}		t_b64e_data;
 
 void		print_usage();
 void		print_usage_commands();
