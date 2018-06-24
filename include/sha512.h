@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5.h                                              :+:      :+:    :+:   */
+/*   sha512.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 17:54:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 09:42:26 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/24 09:32:59 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 10:00:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MD5_H
-# define MD5_H
+#ifndef SHA512_H
+# define SHA512_H
 
-typedef struct		s_md5_ctx
+typedef struct		s_sha512_ctx
 {
-	uint32_t	h[4];
-	uint32_t	data[16];
-	uint32_t	data_len;
+	uint64_t	h[8];
+	uint64_t	data[16];
+	uint64_t	data_len;
 	uint64_t	total_len;
-}			t_md5_ctx;
+}			t_sha512_ctx;
 
-int	md5_init(t_md5_ctx *ctx);
-int	md5_update(t_md5_ctx *ctx, const uint8_t *data, size_t len);
-int	md5_final(uint8_t *md, t_md5_ctx *ctx);
+int	sha512_init(t_sha512_ctx *ctx);
+int	sha512_update(t_sha512_ctx *ctx, const uint8_t *data, size_t len);
+int	sha512_final(uint8_t *md, t_sha512_ctx *ctx);
 
 #endif

@@ -44,6 +44,21 @@ echo "sha256 openssl long"
 echo
 echo
 
+echo "sha512 ft_ssl short"
+echo "plop" | ./ft_ssl sha512
+echo "plop" | openssl sha512 -r
+echo "sha512 openssl short"
+
+echo
+
+echo "sha512 ft_ssl long"
+cat Makefile | ./ft_ssl sha512
+cat Makefile | openssl sha512 -r
+echo "sha512 openssl long"
+
+echo
+echo
+
 echo "base64_encode ft_ssl short"
 echo "plop" | ./ft_ssl base64 | openssl sha512
 echo "plop" | openssl base64 | openssl sha512
@@ -51,7 +66,7 @@ echo "base64_encode openssl short"
 
 echo
 
-echo "base6_encode ft_ssl long"
+echo "base64_encode ft_ssl long"
 cat Makefile | ./ft_ssl base64 | openssl sha512
 cat Makefile | openssl base64 | openssl sha512
 echo "base64_encode openssl long"

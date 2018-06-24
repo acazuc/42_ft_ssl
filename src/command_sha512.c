@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_sha1.c                                     :+:      :+:    :+:   */
+/*   command_sha512.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 17:27:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 09:32:06 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/24 09:31:29 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/24 09:31:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "sha1.h"
+#include "sha512.h"
 #include <stdio.h>
 
-int	command_sha1_fd(int fd, int print)
+int	command_sha512_fd(int fd, int print)
 {
-	t_sha1_ctx	ctx;
-	uint8_t		digest[20];
+	t_sha512_ctx	ctx;
+	uint8_t		digest[64];
 	uint8_t		buf[4096];
 	int		readed;
 
-	sha1_init(&ctx);
+	sha512_init(&ctx);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		sha1_update(&ctx, buf, readed);
+		sha512_update(&ctx, buf, readed);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	sha1_final(digest, &ctx);
-	for (int i = 0; i < 20; ++i)
+	sha512_final(digest, &ctx);
+	for (int i = 0; i < 64; ++i)
 		printf("%02x", digest[i]);
 	printf("\n");
 	return (1);
 }
 
-int	command_sha1_strings(int ac, char **av, int *i, int quiet, int reverse)
+int	command_sha512_strings(int ac, char **av, int *i, int quiet, int reverse)
 {
 	++(*i);
 	if (*i >= ac)
@@ -48,14 +48,14 @@ int	command_sha1_strings(int ac, char **av, int *i, int quiet, int reverse)
 	return (1);
 }
 
-int	command_sha1(int ac, char **av)
+int	command_sha512(int ac, char **av)
 {
 	int reverse;
 	int quiet;
 	int i;
 
 	if (!ac)
-		return (command_sha1_fd(0, 0));
+		return (command_sha512_fd(0, 0));
 	reverse = 0;
 	quiet = 0;
 	i = 0;
@@ -63,7 +63,7 @@ int	command_sha1(int ac, char **av)
 	{
 		if (!ft_strcmp(av[i], "-p"))
 		{
-			if (!command_sha1_fd(0, 1))
+			if (!command_sha512_fd(0, 1))
 				return (EXIT_FAILURE);
 		}
 		else if (!ft_strcmp(av[i], "-q"))
@@ -71,7 +71,7 @@ int	command_sha1(int ac, char **av)
 		else if (!ft_strcmp(av[i], "-r"))
 			reverse = 1;
 		else if (!ft_strcmp(av[i], "-s"))
-			if (!command_sha1_strings(ac, av, &i, quiet, reverse))
+			if (!command_sha512_strings(ac, av, &i, quiet, reverse))
 				return (EXIT_FAILURE);
 		++i;
 	}

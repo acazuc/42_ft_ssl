@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 23:01:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 09:49:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha1.h"
-#include <stdio.h>
 
 static uint32_t		sha1_k[4] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC
 	, 0xCA62C1D6};

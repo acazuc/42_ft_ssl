@@ -6,14 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 20:57:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/23 22:39:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/24 09:49:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha256.h"
 
-uint32_t sha256_k[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
+static uint32_t	sha256_k[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
 			, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5
 			, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3
 			, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174
