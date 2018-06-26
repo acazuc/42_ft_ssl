@@ -6,14 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 22:52:51 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/25 18:33:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
 
-int	des_decore_init(t_des_ctx *ctx, t_des_mode mode, uint64_t key
+int	des_decode_init(t_des_ctx *ctx, t_des_mode mode, uint64_t key
 		, t_des_callback callback, void *userptr)
 {
 	des_generate_keys(ctx, key);

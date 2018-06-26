@@ -6,14 +6,17 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 19:55:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:09:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha1.h"
 
-static uint32_t		sha1_k[4] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC
+t_hash		g_hash_sha1 = {(t_hash_init*)sha1_init
+	, (t_hash_update*)sha1_update, (t_hash_final*)sha1_final, 20, 64};
+
+static uint32_t		g_sha1_k[4] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC
 	, 0xCA62C1D6};
 
 static void	sha1_loop(int i, uint32_t *tmp, uint32_t *w)
@@ -22,7 +25,7 @@ static void	sha1_loop(int i, uint32_t *tmp, uint32_t *w)
 	uint32_t f;
 	uint32_t k;
 
-	k = sha1_k[i / 20];
+	k = g_sha1_k[i / 20];
 	if (i <= 19)
 		f = (tmp[1] & tmp[2]) | ((~tmp[1]) & tmp[3]);
 	else if (i <= 39)

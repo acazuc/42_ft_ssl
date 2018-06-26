@@ -6,20 +6,23 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:56:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 19:55:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:00:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "md5.h"
 
-static uint32_t	md5_s[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7
+t_hash		g_hash_md5 = {(t_hash_init*)md5_init, (t_hash_update*)md5_update
+	, (t_hash_final*)md5_final, 16, 64};
+
+static uint32_t	g_md5_s[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7
 			, 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20
 			, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16
 			, 23, 4, 11, 16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6
 			, 10, 15, 21, 6, 10, 15, 21};
 
-static uint32_t	md5_k[64] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee
+static uint32_t	g_md5_k[64] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee
 			, 0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501
 			, 0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be
 			, 0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821
@@ -59,11 +62,11 @@ static void	md5_loop(t_md5_ctx *ctx, int i, uint32_t *tmp, uint32_t f
 		f = tmp[2] ^ (tmp[1] | (~tmp[3]));
 		g = (7 * i) % 16;
 	}
-	f = f + tmp[0] + md5_k[i] + ctx->data[g];
+	f = f + tmp[0] + g_md5_k[i] + ctx->data[g];
 	tmp[0] = tmp[3];
 	tmp[3] = tmp[2];
 	tmp[2] = tmp[1];
-	tmp[1] += rotate_left32(f, md5_s[i]);
+	tmp[1] += rotate_left32(f, g_md5_s[i]);
 }
 
 static void	md5_chunk(t_md5_ctx *ctx)

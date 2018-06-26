@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:19:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 16:15:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 21:52:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ typedef struct		s_sha1_ctx
 int	sha1_init(t_sha1_ctx *ctx);
 int	sha1_update(t_sha1_ctx *ctx, const uint8_t *data, size_t len);
 int	sha1_final(uint8_t *md, t_sha1_ctx *ctx);
+
+extern t_hash		g_hash_sha1;
 
 #endif

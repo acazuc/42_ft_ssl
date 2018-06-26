@@ -6,14 +6,17 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 20:57:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 19:57:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:11:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha256.h"
 
-static uint32_t	sha256_k[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
+t_hash		g_hash_sha256 = {(t_hash_init*)sha256_init
+	, (t_hash_update*)sha256_update, (t_hash_final*)sha256_final, 32, 64};
+
+static uint32_t	g_sha256_k[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5
 			, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5
 			, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3
 			, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174
@@ -41,7 +44,7 @@ static void	sha256_loop(int i, uint32_t *tmp
 	tmp1 = rotate_right32(tmp[4], 6) ^ rotate_right32(tmp[4], 11)
 		^ rotate_right32(tmp[4], 25);
 	tmp2 = (tmp[4] & tmp[5]) ^ ((~tmp[4]) & tmp[6]);
-	tmp3 = tmp[7] + tmp1 + tmp2 + sha256_k[i] + w[i];
+	tmp3 = tmp[7] + tmp1 + tmp2 + g_sha256_k[i] + w[i];
 	tmp1 = rotate_right32(tmp[0], 2) ^ rotate_right32(tmp[0], 13)
 		^ rotate_right32(tmp[0], 22);
 	tmp2 = (tmp[0] & tmp[1]) ^ (tmp[0] & tmp[2]) ^ (tmp[1] & tmp[2]);

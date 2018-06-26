@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:54:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 09:42:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 21:51:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ typedef struct		s_md5_ctx
 int	md5_init(t_md5_ctx *ctx);
 int	md5_update(t_md5_ctx *ctx, const uint8_t *data, size_t len);
 int	md5_final(uint8_t *md, t_md5_ctx *ctx);
+
+extern t_hash		g_hash_md5;
 
 #endif

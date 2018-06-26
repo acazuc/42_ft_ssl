@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:53:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 10:54:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:07:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ typedef struct		s_sha224_ctx
 int	sha224_init(t_sha224_ctx *ctx);
 int	sha224_update(t_sha224_ctx *ctx, const uint8_t *data, size_t len);
 int	sha224_final(uint8_t *md, t_sha224_ctx *ctx);
+
+extern t_hash		g_hash_sha224;
 
 #endif

@@ -6,14 +6,17 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:49:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 10:51:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:10:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha384.h"
 
-static uint64_t sha384_k[128] = {0x428a2f98d728ae22, 0x7137449123ef65cd
+t_hash		g_hash_sha384 = {(t_hash_init*)sha384_init
+	, (t_hash_update*)sha384_update, (t_hash_final*)sha384_final, 48, 128};
+
+static uint64_t g_sha384_k[128] = {0x428a2f98d728ae22, 0x7137449123ef65cd
 				, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc
 				, 0x3956c25bf348b538, 0x59f111f1b605d019
 				, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118
@@ -65,7 +68,7 @@ static void	sha384_loop(int i, uint64_t *tmp
 	tmp1 = rotate_right64(tmp[4], 14) ^ rotate_right64(tmp[4], 18)
 		^ rotate_right64(tmp[4], 41);
 	tmp2 = (tmp[4] & tmp[5]) ^ ((~tmp[4]) & tmp[6]);
-	tmp3 = tmp[7] + tmp1 + tmp2 + sha384_k[i] + w[i];
+	tmp3 = tmp[7] + tmp1 + tmp2 + g_sha384_k[i] + w[i];
 	tmp1 = rotate_right64(tmp[0], 28) ^ rotate_right64(tmp[0], 34)
 		^ rotate_right64(tmp[0], 39);
 	tmp2 = (tmp[0] & tmp[1]) ^ (tmp[0] & tmp[2]) ^ (tmp[1] & tmp[2]);

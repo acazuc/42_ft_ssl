@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 22:39:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/25 18:48:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,19 @@ int		command_base64(int ac, char **av)
 		else if (!ft_strcmp(av[i], "-d"))
 			mode = 1;
 		else if (!ft_strcmp(av[i], "-i"))
-			fdin = file_open(ac, av, &i, 0);
+		{
+			if (fdin != 0)
+				close(fdin);
+			if ((fdin = file_open(ac, av, &i, 0)) == -1)
+				return (EXIT_FAILURE);
+		}
 		else if (!ft_strcmp(av[i], "-o"))
-			fdout = file_open(ac, av, &i, 1);
+		{
+			if (fdout != 1)
+				close(fdout);
+			if ((fdout = file_open(ac, av, &i, 1)) == -1)
+				return (EXIT_FAILURE);
+		}
 		++i;
 	}
 	if (mode)

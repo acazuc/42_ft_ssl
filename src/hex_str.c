@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.h                                           :+:      :+:    :+:   */
+/*   hex_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 20:57:43 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:07:36 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/26 16:43:45 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/26 16:52:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHA256_H
-# define SHA256_H
+#include "ft_ssl.h"
 
-typedef struct		s_sha256_ctx
+char	*str2hex(const char *str)
 {
-	uint32_t	h[8];
-	uint32_t	data[16];
-	uint32_t	data_len;
-	uint64_t	total_len;
-}			t_sha256_ctx;
+	char	*result;
+	int	len;
+	int	i;
 
-int	sha256_init(t_sha256_ctx *ctx);
-int	sha256_update(t_sha256_ctx *ctx, const uint8_t *data, size_t len);
-int	sha256_final(uint8_t *md, t_sha256_ctx *ctx);
-
-extern t_hash		g_hash_sha256;
-
-#endif
+	len = ft_strlen(str);
+	if (!(result = malloc(len * 2 + 1)))
+		return (NULL);
+	bin2hex(result, str, len);
+	return (result);
+}
