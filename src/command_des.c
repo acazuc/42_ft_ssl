@@ -6,13 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:12:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:36:55 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
-#include "sha1.h"
+#include "sha256.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -29,9 +29,9 @@ static int	file_open(int ac, char **av, int *i, int type)
 int		command_des(int ac, char **av)
 {
 	t_hmac_ctx	hctx;
-	t_sha1_ctx	hhctx;
+	t_sha256_ctx	hhctx;
 
-	hctx.h.h = &g_hash_sha1;
+	hctx.h.h = &g_hash_sha256;
 	hctx.h.ctx = &hhctx;
 	hctx.key = (uint8_t*)"key";
 	hctx.key_len = 3;
@@ -40,6 +40,7 @@ int		command_des(int ac, char **av)
 	uint8_t *result = hmac(&hctx);
 	char tmp[65];
 	bin2hex(tmp, result, 32);
+	free(result);
 	tmp[64] = 0;
 	ft_putendl(tmp);
 	return (EXIT_SUCCESS);
