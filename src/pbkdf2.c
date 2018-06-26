@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:06:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:21:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ char		*pbkdf2(t_pbkdf2_ctx *ctx)
 
 	if (!(tmp = malloc(ctx->salt_len + 4)))
 		return (NULL);
-	if (!(hash = malloc(ctx->hmac->h.h->digest_len)))
+	if (!(hash = malloc(ctx->h.h->digest_len)))
 	{
 		free(tmp);
 		return (NULL);
 	}
-	blocks = ctx->out_len / ctx->hmac->h.h->digest_len
-		+ (ctx->out_len % ctx->hmac->h.h->digest_len > 0 ? 1 : 0);
+	blocks = ctx->out_len / ctx->h.h->digest_len
+		+ (ctx->out_len % ctx->h.h->digest_len > 0 ? 1 : 0);
 	i = 0;
 	while (++i <= blocks)
 	{

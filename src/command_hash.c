@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 17:58:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:29:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,29 @@ static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 	uint8_t		buf[4096];
 	int		readed;
 
-	if (!data->init(data->ctx))
+	if (!data->h.h->init(data->h.ctx))
 		return (0);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		if (!data->update(data->ctx, buf, readed))
+		if (!data->h.h->update(data->h.ctx, buf, readed))
 			return (0);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	if (!(digest = malloc(sizeof(*digest) * data->digest_size)))
+	if (!(digest = malloc(sizeof(*digest) * data->h.h->digest_len)))
 		return (0);
-	if (!data->final(digest, data->ctx))
+	if (!data->h.h->final(digest, data->h.ctx))
 		return (0);
-	if (!(hash = malloc(sizeof(*hash) * (data->digest_size * 2 + 1))))
+	if (!(hash = malloc(sizeof(*hash) * (data->h.h->digest_len * 2 + 1))))
 		return (0);
-	bin2hex(hash, digest, data->digest_size);
+	bin2hex(hash, digest, data->h.h->digest_len);
 	free(digest);
-	hash[data->digest_size * 2] = 0;
+	hash[data->h.h->digest_len * 2] = 0;
 	if (!print && !data->quiet && !data->reverse)
 	{
-		ft_putstr(data->hash_name);
+		ft_putstr(data->h.h->name);
 		ft_putstr(" (");
 		ft_putstr(fn);
 		ft_putstr(") = ");
@@ -54,13 +54,13 @@ static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 		ft_putstr(" ");
 		ft_putstr(fn);
 	}
-	else
-		ft_putchar('\n');
+	ft_putchar('\n');
 	free(hash);
 	return (1);
 }
 
-static int	command_hash_string(t_hash_data *data, int ac, char **av, int *i)
+static int	command_hash_string(t_hash_data *data, int ac, char **av
+		, int *i)
 {
 	uint8_t		*digest;
 	char		*hash;
@@ -70,22 +70,23 @@ static int	command_hash_string(t_hash_data *data, int ac, char **av, int *i)
 		ft_putendl_fd("ft_ssl: you must specify a string to hash", 2);
 		return (0);
 	}
-	if (!data->init(data->ctx))
+	if (!data->h.h->init(data->h.ctx))
 		return (0);
-	if (!data->update(data->ctx, (const uint8_t*)av[*i], strlen(av[*i])))
+	if (!data->h.h->update(data->h.ctx, (const uint8_t*)av[*i]
+				, strlen(av[*i])))
 		return (0);
-	if (!(digest = malloc(sizeof(*digest) * data->digest_size)))
+	if (!(digest = malloc(sizeof(*digest) * data->h.h->digest_len)))
 		return (0);
-	if (!data->final(digest, data->ctx))
+	if (!data->h.h->final(digest, data->h.ctx))
 		return (0);
-	if (!(hash = malloc(sizeof(*hash) * (data->digest_size * 2 + 1))))
+	if (!(hash = malloc(sizeof(*hash) * (data->h.h->digest_len * 2 + 1))))
 		return (0);
-	bin2hex(hash, digest, data->digest_size);
+	bin2hex(hash, digest, data->h.h->digest_len);
 	free(digest);
-	hash[data->digest_size * 2] = 0;
+	hash[data->h.h->digest_len * 2] = 0;
 	if (!data->quiet && !data->reverse)
 	{
-		ft_putstr(data->hash_name);
+		ft_putstr(data->h.h->name);
 		ft_putstr(" (\"");
 		ft_putstr(av[*i]);
 		ft_putstr("\") = ");
@@ -95,10 +96,9 @@ static int	command_hash_string(t_hash_data *data, int ac, char **av, int *i)
 	{
 		ft_putstr(" \"");
 		ft_putstr(av[*i]);
-		ft_putendl("\"");
+		ft_putstr("\"");
 	}
-	else
-		ft_putchar('\n');
+	ft_putchar('\n');
 	free(hash);
 	return (1);
 }
@@ -143,28 +143,41 @@ static int	command_hash_files(t_hash_data *data, int ac, char **av, int *i)
 
 int	command_hash(int ac, char **av, t_hash_data *data)
 {
+	int	written;
 	int	err;
 	int	i;
 
-	if (!ac)
-		return (command_hash_fd(data, 0, 0, "stdin"));
 	data->reverse = 0;
 	data->quiet = 0;
+	written = 0;
+	if (!ac)
+		return (command_hash_fd(data, 0, 0, "stdin"));
 	err = 0;
 	i = 0;
 	while (i < ac)
 	{
 		if (!ft_strcmp(av[i], "-p"))
+		{
 			err |= !command_hash_fd(data, 0, 1, "stdin");
+			written = 1;
+		}
 		else if (!ft_strcmp(av[i], "-q"))
 			data->quiet = 1;
 		else if (!ft_strcmp(av[i], "-r"))
 			data->reverse = 1;
 		else if (!ft_strcmp(av[i], "-s"))
+		{
 			err |= !command_hash_string(data, ac, av, &i);
+			written = 1;
+		}
 		else
+		{
 			err |= !command_hash_files(data, ac, av, &i);
+			written = 1;
+		}
 		++i;
 	}
+	if (!written)
+		return (command_hash_fd(data, 0, 0, "stdin"));
 	return (err ? EXIT_FAILURE : EXIT_SUCCESS);
 }

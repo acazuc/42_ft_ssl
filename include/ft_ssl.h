@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:12:00 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:22:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_hash
 	t_hash_final	*final;
 	uint8_t		digest_len;
 	uint8_t		block_len;
+	char		*name;
 }		t_hash;
 
 typedef struct	s_hash_ctx
@@ -70,12 +71,7 @@ typedef struct	s_pbkdf2_ctx
 
 typedef struct	s_hash_data
 {
-	t_hash_init	*init;
-	t_hash_update	*update;
-	t_hash_final	*final;
-	uint8_t		digest_size;
-	char		*hash_name;
-	void		*ctx;
+	t_hash_ctx	h;
 	int		reverse;
 	int		quiet;
 }		t_hash_data;

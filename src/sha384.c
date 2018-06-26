@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:49:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:10:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/26 22:21:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "sha384.h"
 
 t_hash		g_hash_sha384 = {(t_hash_init*)sha384_init
-	, (t_hash_update*)sha384_update, (t_hash_final*)sha384_final, 48, 128};
+		, (t_hash_update*)sha384_update, (t_hash_final*)sha384_final
+		, 48, 128, "SHA384"};
 
 static uint64_t g_sha384_k[128] = {0x428a2f98d728ae22, 0x7137449123ef65cd
 				, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc
