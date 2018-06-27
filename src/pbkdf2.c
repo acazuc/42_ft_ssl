@@ -6,19 +6,39 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/27 15:51:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/27 18:34:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
+static int	loop_part(t_pbkdf2_ctx *ctx, t_hmac_ctx *hmac_ctx
+		, uint8_t *hash_tmp, uint8_t *sum)
+{
+	uint32_t	j;
+	uint8_t		*hash_tmp2;
+
+	j = 1;
+	while (j < ctx->iterations)
+	{
+		hmac_ctx->msg = hash_tmp;
+		hmac_ctx->msg_len = ctx->h.h->digest_len;
+		hash_tmp2 = hmac(hmac_ctx);
+		free(hash_tmp);
+		if (!hash_tmp2)
+			return (0);
+		hash_tmp = hash_tmp2;
+		ft_memxor(sum, sum, hash_tmp, ctx->h.h->digest_len);
+		++j;
+	}
+	return (1);
+}
+
 static int	loop(t_pbkdf2_ctx *ctx, int i_swap, uint8_t *tmp
 		, uint8_t *sum)
 {
 	t_hmac_ctx	hmac_ctx;
-	uint32_t	j;
 	uint8_t		*hash_tmp;
-	uint8_t		*hash_tmp2;
 
 	hmac_ctx.h = ctx->h;
 	ft_memcpy(tmp, ctx->salt, ctx->salt_len);
@@ -28,27 +48,10 @@ static int	loop(t_pbkdf2_ctx *ctx, int i_swap, uint8_t *tmp
 	hmac_ctx.key = ctx->password;
 	hmac_ctx.key_len = ctx->password_len;
 	if (!(hash_tmp = hmac(&hmac_ctx)))
-	{
-		free(sum);
 		return (0);
-	}
 	ft_memcpy(sum, hash_tmp, ctx->h.h->digest_len);
-	j = 1;
-	while (j < ctx->iterations)
-	{
-		hmac_ctx.msg = hash_tmp;
-		hmac_ctx.msg_len = ctx->h.h->digest_len;
-		if (!(hash_tmp2 = hmac(&hmac_ctx)))
-		{
-			free(sum);
-			free(hash_tmp);
-			return (0);
-		}
-		free(hash_tmp);
-		hash_tmp = hash_tmp2;
-		ft_memxor(sum, sum, hash_tmp, ctx->h.h->digest_len);
-		++j;
-	}
+	if (!loop_part(ctx, &hmac_ctx, hash_tmp, sum))
+		return (0);
 	return (1);
 }
 
