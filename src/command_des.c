@@ -6,13 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:36:55 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/27 15:55:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
-#include "sha256.h"
+#include "sha512.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -28,20 +28,23 @@ static int	file_open(int ac, char **av, int *i, int type)
 
 int		command_des(int ac, char **av)
 {
-	t_hmac_ctx	hctx;
-	t_sha256_ctx	hhctx;
+	t_pbkdf2_ctx	hctx;
+	t_sha512_ctx	hhctx;
 
-	hctx.h.h = &g_hash_sha256;
+	hctx.h.h = &g_hash_sha512;
 	hctx.h.ctx = &hhctx;
-	hctx.key = (uint8_t*)"key";
-	hctx.key_len = 3;
-	hctx.msg = (uint8_t*)"The quick brown fox jumps over the lazy dog";
-	hctx.msg_len = 43;
-	uint8_t *result = hmac(&hctx);
-	char tmp[65];
-	bin2hex(tmp, result, 32);
-	free(result);
-	tmp[64] = 0;
+	hctx.salt = (uint8_t*)"salt";
+	hctx.salt_len = 4;
+	hctx.password = (uint8_t*)"password";
+	hctx.password_len = 8;
+	hctx.iterations = 1024;
+	uint8_t out[500];
+	char tmp[1001];
+	hctx.out = out;
+	hctx.out_len = 500;
+	pbkdf2(&hctx);
+	bin2hex(tmp, out, 500);
+	tmp[1000] = 0;
 	ft_putendl(tmp);
 	return (EXIT_SUCCESS);
 	t_des_ctx	ctx;
