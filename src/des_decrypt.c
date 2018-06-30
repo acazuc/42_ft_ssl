@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_decode.c                                       :+:      :+:    :+:   */
+/*   des_decrypt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/25 18:33:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 19:17:43 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
 
-int	des_decode_init(t_des_ctx *ctx, t_des_mode mode, uint64_t key
-		, t_des_callback callback, void *userptr)
+int	des_decrypt_init(t_des_ctx *ctx, uint64_t key)
 {
 	des_generate_keys(ctx, key);
-	ctx->callback = callback;
-	ctx->userptr = userptr;
-	ctx->block_mode = mode;
 	ctx->mode = 1;
 	if (!(ctx->buff = malloc(DES_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
 	return (1);
 }
 
-int	des_decode_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
+int	des_decrypt_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 {
 	uint64_t	tmp;
 
@@ -37,7 +33,10 @@ int	des_decode_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 		data += 8 - ctx->tmp_len;
 		len -= 8 - ctx->tmp_len;
 		ctx->tmp_len = 0;
-		tmp = des_operate_block(ctx, *(uint64_t*)ctx->tmp);
+		tmp = *(uint64_t*)ctx->tmp;
+		ctx->pre_mod(ctx, &tmp);
+		tmp = des_operate_block(ctx, tmp);
+		ctx->post_mod(ctx, &tmp);
 		ft_memcpy(ctx->buff + ctx->buff_len, &tmp, 8);
 		if ((ctx->buff_len += 8) >= DES_BUFF_LEN - 8)
 		{
@@ -52,7 +51,7 @@ int	des_decode_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 	return (1);
 }
 
-int	des_decode_final(t_des_ctx *ctx)
+int	des_decrypt_final(t_des_ctx *ctx)
 {
 	free(ctx->buff);
 	return (1);

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/26 20:58:13 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/30 19:09:19 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,18 @@ SRCS_NAME = main.c \
 	    base64_encode.c \
 	    base64_decode.c \
 	    des.c \
-	    des_encode.c \
-	    des_decode.c \
+	    des_encrypt.c \
+	    des_decrypt.c \
+	    des_ecb_encrypt.c \
+	    des_ecb_decrypt.c \
+	    des_cbc_encrypt.c \
+	    des_cbc_decrypt.c \
+	    des_pcbc_encrypt.c \
+	    des_pcbc_decrypt.c \
+	    des_cfb_encrypt.c \
+	    des_cfb_decrypt.c \
+	    des_ofb_encrypt.c \
+	    des_ofb_decrypt.c \
 	    hmac.c \
 	    pbkdf2.c \
 

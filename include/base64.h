@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:25:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/25 18:38:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 18:38:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct		s_b64d_ctx
 	uint8_t		tmpin_len;
 }			t_b64d_ctx;
 
-int	b64e_init(t_b64e_ctx *ctx, t_b64_callback callback, void *userptr);
+int	b64e_init(t_b64e_ctx *ctx);
 int	b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len);
 int	b64e_final(t_b64e_ctx *ctx);
 
-int	b64d_init(t_b64d_ctx *ctx, t_b64_callback callback, void *userptr);
+int	b64d_init(t_b64d_ctx *ctx);
 int	b64d_update(t_b64d_ctx *ctx, const uint8_t *data, size_t len);
 int	b64d_final(t_b64d_ctx *ctx);
 

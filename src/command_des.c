@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/27 18:27:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 18:50:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,40 @@ static int	file_open(int ac, char **av, int *i, int type)
 	return (open(av[*i], O_RDONLY));
 }
 
+static int	generate_key(uint64_t *key, char *salt, char *password)
+{
+	t_sha512_ctx	hash_ctx;
+	t_pbkdf2_ctx	ctx;
+
+	ctx.h.h = &g_hash_sha512;
+	ctx.h.ctx = &hash_ctx;
+	ctx.salt = (uint8_t*)salt;
+	ctx.salt_len = ft_strlen(salt);
+	ctx.password = (uint8_t*)password;
+	ctx.password_len = ft_strlen(password);
+	ctx.iterations = 4096;
+	ctx.out = (uint8_t*)key;
+	ctx.out_len = 8;
+	if (!pbkdf2(&ctx))
+		return (0);
+	return (1);
+}
+
+static int	generate_key64(uint64_t *key64, char *key)
+{
+	int	len;
+
+	ft_memset(key64, 0, 8);
+	len = ft_strlen(key);
+	if (len > 16)
+		len = 16;
+	if (!hex2bin((uint8_t*)key64, key, len))
+		return (0);
+	return (1);
+}
+
 int		command_des(int ac, char **av)
 {
-	t_pbkdf2_ctx	hctx;
-	t_sha512_ctx	hhctx;
-
-	hctx.h.h = &g_hash_sha512;
-	hctx.h.ctx = &hhctx;
-	hctx.salt = (uint8_t*)"salt";
-	hctx.salt_len = 4;
-	hctx.password = (uint8_t*)"password";
-	hctx.password_len = 8;
-	hctx.iterations = 1024;
-	uint8_t out[500];
-	char tmp[1001];
-	hctx.out = out;
-	hctx.out_len = 500;
-	pbkdf2(&hctx);
-	bin2hex(tmp, out, 500);
-	tmp[1000] = 0;
-	ft_putendl(tmp);
-	return (EXIT_SUCCESS);
 	t_des_ctx	ctx;
 	uint64_t	val;
 
@@ -58,6 +71,7 @@ int		command_des(int ac, char **av)
 	printf("%lx\n", val);
 	(void)ac;
 	(void)av;
+	uint64_t	key64;
 	char	*init_vector;
 	char	*password;
 	char	*salt;
@@ -151,9 +165,15 @@ int		command_des(int ac, char **av)
 			if (!random_bytes((uint8_t*)salt, 8))
 				return (EXIT_FAILURE);
 		}
-		//if (!(key = pbkdf2(password, salt, 4096, 8)))
-		//	return (EXIT_FAILURE);
+		if (!generate_key(&key64, salt, password))
+			return (EXIT_FAILURE);
 	}
+	else
+	{
+		if (!generate_key64(&key64, key))
+			return (EXIT_FAILURE);
+	}
+	//
 	(void)b64;
 	(void)mode;
 	(void)init_vector;

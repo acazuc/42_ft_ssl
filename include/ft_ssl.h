@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:41:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 15:00:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void		bin2hex(char *dst, const uint8_t *src, size_t len);
 int		hex2bin(uint8_t *dst, const char *src, size_t len);
 int		random_bytes(uint8_t *dst, int len);
 uint8_t		*hmac(t_hmac_ctx *ctx);
-char		*pbkdf2(t_pbkdf2_ctx *ctx);
+int		pbkdf2(t_pbkdf2_ctx *ctx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/25 18:48:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 18:39:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ static int	encode(int fdin, int fdout)
 	uint8_t		buffer[4096];
 	int		readed;
 
+	ctx.callback = encode_callback;
+	ctx.userptr = &data;
 	data.fd = fdout;
 	data.count = 0;
-	if (!b64e_init(&ctx, encode_callback, &data))
+	if (!b64e_init(&ctx))
 		return (EXIT_FAILURE);
 	while ((readed = read(fdin, buffer, 4096)) > 0)
 	{
@@ -77,8 +79,10 @@ static int	decode(int fdin, int fdout)
 	uint8_t		buffer[4096];
 	int		readed;
 
+	ctx.callback = decode_callback;
+	ctx.userptr = &data;
 	data.fd = fdout;
-	if (!b64d_init(&ctx, decode_callback, &data))
+	if (!b64d_init(&ctx))
 		return (EXIT_FAILURE);
 	while ((readed = read(fdin, buffer, 4096)) > 0)
 	{

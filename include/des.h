@@ -6,26 +6,23 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 22:53:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 19:08:55 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DES_H
 # define DES_H
 
-typedef enum	e_des_mode
-{
-	DES_MODE_ECB,
-	DES_MODE_CBC,
-	DES_MODE_PCBC,
-	DES_MODE_CFB,
-	DES_MODE_CTR
-}		t_des_mode;
+typedef struct s_des_ctx	t_des_ctx;
 
 typedef void (*t_des_callback)(uint8_t *data, size_t len, void *userptr);
+typedef void (*t_des_premod)(t_des_ctx *ctx, uint64_t *data);
+typedef void (*t_des_postmod)(t_des_ctx *ctx, uint64_t *data);
 
-typedef struct		s_des_ctx
+struct		s_des_ctx
 {
+	t_des_premod	pre_mod;
+	t_des_postmod	post_mod;
 	t_des_callback	callback;
 	void		*userptr;
 	uint8_t		*buff;
@@ -34,24 +31,36 @@ typedef struct		s_des_ctx
 	uint64_t	prev_val;
 	uint8_t		tmp[8];
 	uint8_t		tmp_len;
-	int		block_mode;
-	t_des_mode	mode;
-}			t_des_ctx;
+	uint64_t	iv;
+	uint64_t	tmp1;
+	uint64_t	tmp2;
+	int		mode;
+};
 
 void		des_generate_keys(t_des_ctx *ctx, uint64_t key);
 uint64_t	des_operate_block(t_des_ctx *ctx, uint64_t block);
 
-int		des_encode_init(t_des_ctx *ctx, t_des_mode mode, uint64_t key
-		, t_des_callback callback, void *userptr);
-int		des_encode_update(t_des_ctx *ctx, const uint8_t *data
+int		des_encrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_encrypt_update(t_des_ctx *ctx, const uint8_t *data
 		, size_t len);
-int		des_encode_final(t_des_ctx *ctx);
+int		des_encrypt_final(t_des_ctx *ctx);
 
-int		des_decode_init(t_des_ctx *ctx, t_des_mode mode, uint64_t key
-		, t_des_callback callback, void *userptr);
-int		des_decode_update(t_des_ctx *ctx, const uint8_t *data
+int		des_ecb_encrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_cbc_encrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_pcbc_encrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_cfb_encrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_ofb_encrypt_init(t_des_ctx *ctx, uint64_t key);
+
+int		des_decrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_decrypt_update(t_des_ctx *ctx, const uint8_t *data
 		, size_t len);
-int		des_decode_final(t_des_ctx *ctx);
+int		des_decrypt_final(t_des_ctx *ctx);
+
+int		des_ecb_decrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_cbc_decrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_pcbc_decrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_cfb_decrypt_init(t_des_ctx *ctx, uint64_t key);
+int		des_ofb_decrypt_init(t_des_ctx *ctx, uint64_t key);
 
 # define DES_BUFF_LEN 1024
 
