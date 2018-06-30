@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 15:00:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 21:15:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef int t_hash_init(void *ctx);
 typedef int t_hash_update(void *ctx, const uint8_t *data, size_t len);
 typedef int t_hash_final(uint8_t *md, void *ctx);
 
-typedef struct	s_hash
+typedef struct		s_hash
 {
 	t_hash_init	*init;
 	t_hash_update	*update;
@@ -40,24 +40,24 @@ typedef struct	s_hash
 	uint8_t		digest_len;
 	uint8_t		block_len;
 	char		*name;
-}		t_hash;
+}			t_hash;
 
-typedef struct	s_hash_ctx
+typedef struct		s_hash_ctx
 {
 	t_hash		*h;
 	void		*ctx;
-}		t_hash_ctx;
+}			t_hash_ctx;
 
-typedef struct	s_hmac_ctx
+typedef struct		s_hmac_ctx
 {
 	t_hash_ctx	h;
 	uint8_t		*key;
 	uint32_t	key_len;
 	uint8_t		*msg;
 	uint32_t	msg_len;
-}		t_hmac_ctx;
+}			t_hmac_ctx;
 
-typedef struct	s_pbkdf2_ctx
+typedef struct		s_pbkdf2_ctx
 {
 	t_hash_ctx	h;
 	uint8_t		*password;
@@ -67,14 +67,22 @@ typedef struct	s_pbkdf2_ctx
 	uint32_t	iterations;
 	uint8_t		*out;
 	uint32_t	out_len;
-}		t_pbkdf2_ctx;
+}			t_pbkdf2_ctx;
 
-typedef struct	s_hash_data
+typedef struct		s_hash_data
 {
 	t_hash_ctx	h;
 	int		reverse;
 	int		quiet;
-}		t_hash_data;
+}			t_hash_data;
+
+typedef int (*t_des_init)(void *ctx, int64_t key);
+
+typedef struct		s_des_data
+{
+	t_des_init	*init;
+	void		*ctx;
+}			t_des_data;
 
 void		print_usage();
 void		print_usage_commands();
@@ -89,6 +97,9 @@ int		command_base64(int ac, char **av);
 int		command_des(int ac, char **av);
 int		command_des_ecb(int ac, char **av);
 int		command_des_cbc(int ac, char **av);
+int		command_des_pcbc(int ac, char **av);
+int		command_des_cfb(int ac, char **av);
+int		command_des_ofb(int ac, char **av);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

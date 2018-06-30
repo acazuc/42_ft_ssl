@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 18:43:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/28 19:29:56 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 20:37:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,14 +198,14 @@ static uint32_t	des_f(uint32_t r, uint64_t key)
 	return (tmp);
 }
 
-uint64_t	des_operate_block(t_des_ctx *ctx, uint64_t block)
+void	des_operate_block(t_des_ctx *ctx, uint64_t *block)
 {
 	uint64_t	tmp;
 	uint32_t	l[16];
 	uint32_t	r[16];
 	int		i;
 
-	tmp = des_permute(block, ips, 64, 64);
+	tmp = des_permute(*block, ips, 64, 64);
 	l[0] = tmp & 0xffffffff;
 	r[0] = (tmp >> 32) ^ des_f(l[0], ctx->keys[ctx->mode ? 15 : 0]);
 	i = 1;
@@ -217,5 +217,5 @@ uint64_t	des_operate_block(t_des_ctx *ctx, uint64_t block)
 		++i;
 	}
 	tmp = ((uint64_t)r[15] << 32) | l[15];
-	return (des_permute(tmp, ip1, 64, 64));
+	*block = des_permute(tmp, ip1, 64, 64);
 }

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/30 19:09:19 by acazuc           ###   ########.fr        #
+#    Updated: 2018/06/30 21:14:15 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,9 @@ SRCS_NAME = main.c \
 	    command_des.c \
 	    command_des_ecb.c \
 	    command_des_cbc.c \
+	    command_des_pcbc.c \
+	    command_des_cfb.c \
+	    command_des_ofb.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \

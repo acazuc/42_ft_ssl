@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_genkey.c                                       :+:      :+:    :+:   */
+/*   command_des_pcbc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 16:41:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 18:17:06 by acazuc           ###   ########.fr       */
+/*   Created: 2018/06/30 21:12:55 by acazuc            #+#    #+#             */
+/*   Updated: 2018/06/30 21:13:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int	des_genkey(uint64_t *key)
+int		command_des_pcbc(int ac, char **av)
 {
-	//
+	(void)ac;
+	(void)av;
+	return (EXIT_SUCCESS);
 }

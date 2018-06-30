@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 23:01:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/06/30 21:11:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ int main(int ac, char **av)
 		return (command_des_ecb(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "des-cbc"))
 		return (command_des_cbc(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des-pcbc"))
+		return (command_des_pcbc(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des-cfb"))
+		return (command_des_cfb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des-ofb"))
+		return (command_des_ofb(ac - 2, av + 2));
 	else
 	{
 		ft_putstr("ft_ssl: invalid command: ");
