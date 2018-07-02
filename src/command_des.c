@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 13:48:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 14:06:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int		command_des(int ac, char **av, t_des_data *data)
 			}
 			salt = av[i];
 		}
-		else if (ft_strcmp(av[i], "-v"))
+		else if (!ft_strcmp(av[i], "-v"))
 		{
 			if (++i >= ac)
 			{
@@ -233,6 +233,12 @@ int		command_des(int ac, char **av, t_des_data *data)
 				return (EXIT_FAILURE);
 			}
 			iv = av[i];
+		}
+		else
+		{
+			ft_putstr_fd("ft_ssl: invalid parameter: ", 2);
+			ft_putendl_fd(av[i], 2);
+			return (EXIT_FAILURE);
 		}
 		++i;
 	}
