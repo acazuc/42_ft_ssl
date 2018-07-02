@@ -1,119 +1,128 @@
 #!/bin/bash
-test_hash_short()
+test_hash_do()
 {
-	echo "$1 ft_ssl short"
-	echo "plop" | ./ft_ssl $1 -r
-	echo "plop" | openssl $1 -r
-	echo "$1 openssl short"
-}
-
-test_hash_long()
-{
-	echo "$1 ft_ssl long"
-	./ft_ssl $1 -r Makefile
-	openssl $1 -r Makefile
-	echo "$1 openssl long"
+	echo -n "$1 $2: "
+	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1`
+	if [ "$ret_ftssl" == "$ret_opssl" ]
+	then
+		echo -ne "\e[1;32mPassed"
+	else
+		echo -ne "\e[1;31mNot passed"
+	fi
+	echo -e "\e[0;0m"
 }
 
 test_hash()
 {
-	test_hash_short $1
-	echo
-	test_hash_long $1
+	test_hash_do $1 author
+	test_hash_do $1 Makefile
+}
+
+test_base64_encode()
+{
+	echo -n "base64 encode $1: "
+	ret_ftssl=`echo "plop" | ./ft_ssl base64 | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`echo "plop" | openssl base64 | openssl sha512 -r | cut -d ' ' -f 1`
+	if [ "$ret_ftssl" == "$ret_opssl" ]
+	then
+		echo -ne "\e[1;32mPassed"
+	else
+		echo -ne "\e[1;31mNot passed"
+	fi
+	echo -e "\e[0;0m"
+}
+
+test_base64_decode()
+{
+	echo -n "base64 decode $1: "
+	file=`mktemp`
+	cat $1 | openssl base64 > $file
+	ret_ftssl=`./ft_ssl base64 -d -i $file | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl base64 -d -in $file | openssl sha512 -r | cut -d ' ' -f 1`
+	rm $file
+	if [ "$ret_ftssl" == "$ret_opssl" ]
+	then
+		echo -ne "\e[1;32mPassed"
+	else
+		echo -ne "\e[1;31mNot passed"
+	fi
+	echo -e "\e[0;0m"
+}
+
+test_base64()
+{
+	test_base64_encode author
+	test_base64_encode Makefile
+	test_base64_decode author
+	test_base64_decode Makefile
 }
 
 test_des_encrypt()
 {
-	echo "$1 encrypt ft_ssl"
+	echo -n "$1 encrypt $2: "
 	key="1122334455667788"
 	iv="8877665544332211"
-	./ft_ssl $1 -e -k $key -v $iv -i author | openssl sha512 -r
-	openssl $1 -e -K $key -iv $iv -in author 2>&- | openssl sha512 -r
-	echo "$1 encrypt openssl"
+	ret_ftssl=`./ft_ssl $1 -e -k $key -v $iv -i $2 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -e -K $key -iv $iv -in $2 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	if [ "$ret_ftssl" == "$ret_opssl" ]
+	then
+		echo -ne "\e[1;32mPassed"
+	else
+		echo -ne "\e[1;31mNot passed"
+	fi
+	echo -e "\e[0;0m"
 }
 
 test_des_decrypt()
 {
-	echo "$1 decrypt ft_ssl"
+	echo -n "$1 decrypt $2: "
 	key="1122334455667788"
 	iv="8877665544332211"
 	file=`mktemp`
-	cat author | openssl $1 -e -K $key -iv $iv > $file 2>&-
-	./ft_ssl $1 -d -k $key -v $iv -i $file | openssl sha512 -r
-	openssl $1 -d -K $key -iv $iv -in $file 2>&- | openssl sha512 -r
+	cat $2 | openssl $1 -e -K $key -iv $iv > $file 2>&-
+	ret_ftssl=`./ft_ssl $1 -d -k $key -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -d -K $key -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
-	echo "$1 decrypt openssl"
+	if [ "$ret_ftssl" == "$ret_opssl" ]
+	then
+		echo -ne "\e[1;32mPassed"
+	else
+		echo -ne "\e[1;31mNot passed"
+	fi
+	echo -e "\e[0;0m"
 }
 
 test_des()
 {
-	test_des_encrypt $1
-	echo
-	test_des_decrypt $1
+	test_des_encrypt $1 author
+	test_des_encrypt $1 Makefile
+	test_des_decrypt $1 author
+	test_des_decrypt $1 Makefile
 }
 
 test_hash "md5"
 echo
-echo
 test_hash "sha1"
-echo
 echo
 test_hash "sha224"
 echo
-echo
 test_hash "sha256"
-echo
 echo
 test_hash "sha384"
 echo
-echo
 test_hash "sha512"
 echo
+
+test_base64
 echo
 
-echo "base64_encode ft_ssl short"
-echo "plop" | ./ft_ssl base64 | openssl sha512 -r
-echo "plop" | openssl base64 | openssl sha512 -r
-echo "base64_encode openssl short"
-
-echo
-
-echo "base64_encode ft_ssl long"
-cat Makefile | ./ft_ssl base64 | openssl sha512 -r
-cat Makefile | openssl base64 | openssl sha512 -r
-echo "base64_encode openssl long"
-
-echo
-echo
-
-echo "base64_decode ft_ssl short"
-echo "plop" | openssl base64 > tmp
-./ft_ssl base64 -d -i tmp | openssl sha512 -r
-base64 -d tmp | openssl sha512 -r
-rm tmp
-echo "base64_decode openssl short"
-
-echo
-
-echo "base64_decode ft_ssl long"
-cat Makefile | openssl base64 > tmp
-./ft_ssl base64 -d -i tmp | openssl sha512 -r
-base64 -d tmp | openssl sha512 -r
-rm tmp
-echo "base64_decode openssl long"
-
-echo
-echo
 test_des "des-ecb"
-echo
 echo
 test_des "des-cbc"
 echo
-echo
 test_des "des-pcbc"
 echo
-echo
 test_des "des-cfb"
-echo
 echo
 test_des "des-ofb"
