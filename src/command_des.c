@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 16:30:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 21:35:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,17 @@ static int	do_final(t_des_data *data)
 	return (0);
 }
 
+static int	do_execute(t_des_data *data, uint64_t key)
+{
+	if (!do_init(data, key))
+		return (0);
+	if (!do_update(data))
+		return (0);
+	if (!do_final(data))
+		return (0);
+	return (1);
+}
+
 static void	callback(uint8_t *data, size_t len, void *userptr)
 {
 	t_des_data	*datas;
@@ -293,11 +304,7 @@ int		command_des(int ac, char **av, t_des_data *data)
 		return (EXIT_FAILURE);
 	if (!handle_iv(&data->ctx, iv))
 		return (EXIT_FAILURE);
-	if (!do_init(data, key64))
-		return (EXIT_FAILURE);
-	if (!do_update(data))
-		return (EXIT_FAILURE);
-	if (!do_final(data))
+	if (!do_execute(data, key64))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

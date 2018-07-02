@@ -74,8 +74,8 @@ test_des()
 {
 	test_des_encrypt $1 author
 	test_des_encrypt $1 Makefile
-	#test_des_decrypt $1 author
-	#test_des_decrypt $1 Makefile
+	test_des_decrypt $1 author
+	test_des_decrypt $1 Makefile
 }
 
 test_hash "md5"
