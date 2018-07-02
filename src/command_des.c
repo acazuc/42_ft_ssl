@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 14:06:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 15:38:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ static int	handle_iv(t_des_ctx *ctx, char *iv)
 		if (!transform_bin64(&ctx->iv, iv))
 			return (0);
 	}
+	ctx->iv = ft_swap_ulong(ctx->iv);
 	return (1);
 }
 
@@ -140,6 +141,59 @@ static int	handle_key(uint64_t *key64, char *key, char *salt, char *password)
 	return (1);
 }
 
+static int	do_init(t_des_data *data, uint64_t key)
+{
+	key = ft_swap_ulong(key);
+	if (data->mode)
+	{
+		if (data->decrypt_init(&data->ctx, key))
+			return (1);
+	}
+	else
+	{
+		if (data->encrypt_init(&data->ctx, key))
+			return (1);
+	}
+	ft_putendl_fd("ft_ssl: error while initializing des", 2);
+	return (0);
+}
+
+static int	do_update(t_des_data *data)
+{
+	char	buf[4096];
+	int	ret;
+
+	while ((ret = read(data->fdin, buf, 4096)) > 0)
+	{
+		if (data->mode)
+			des_decrypt_update(&data->ctx, (uint8_t*)buf, ret);
+		else
+			des_encrypt_update(&data->ctx, (uint8_t*)buf, ret);
+	}
+	if (ret == -1)
+	{
+		ft_putendl_fd("ft_ssl: error while reading input", 2);
+		return (0);
+	}
+	return (1);
+}
+
+static int	do_final(t_des_data *data)
+{
+	if (data->mode)
+	{
+		if (des_decrypt_final(&data->ctx))
+			return (1);
+	}
+	else
+	{
+		if (des_encrypt_final(&data->ctx))
+			return (1);
+	}
+	ft_putendl_fd("ft_ssl: error while finalizing des cipher", 2);
+	return (0);
+}
+
 static void	callback(uint8_t *data, size_t len, void *userptr)
 {
 	t_des_data	*datas;
@@ -152,19 +206,12 @@ static void	callback(uint8_t *data, size_t len, void *userptr)
 
 int		command_des(int ac, char **av, t_des_data *data)
 {
-	//uint64_t	val;
-
-	//des_generate_keys(&data->ctx, 0b0001001100110100010101110111100110011011101111001101111111110001);
-	//val = 0b0000000100100011010001010110011110001001101010111100110111101111;
-	//val = 0b1000010111101000000100110101010000001111000010101011010000000101;
-	//des_operate_block(&data->ctx, &val);
-	//printf("%lx\n", val);
 	uint64_t	key64;
-	char	*password;
-	char	*salt;
-	char	*key;
-	char	*iv;
-	int	i;
+	char		*password;
+	char		*salt;
+	char		*key;
+	char		*iv;
+	int		i;
 
 	data->ctx.callback = callback;
 	data->ctx.userptr = data;
@@ -246,39 +293,11 @@ int		command_des(int ac, char **av, t_des_data *data)
 		return (EXIT_FAILURE);
 	if (!handle_iv(&data->ctx, iv))
 		return (EXIT_FAILURE);
-	if (data->mode)
-	{
-		if (!data->decrypt_init(&data->ctx, key64))
-			return (EXIT_FAILURE);
-	}
-	else
-	{
-		if (!data->encrypt_init(&data->ctx, key64))
-			return (EXIT_FAILURE);
-	}
-	char buf[4096];
-	int ret;
-	while ((ret = read(data->fdin, buf, 4096)) > 0)
-	{
-		if (data->mode)
-			des_decrypt_update(&data->ctx, (uint8_t*)buf, ret);
-		else
-			des_encrypt_update(&data->ctx, (uint8_t*)buf, ret);
-	}
-	if (ret == -1)
-	{
-		ft_putendl_fd("Error while reading input", 2);
+	if (!do_init(data, key64))
 		return (EXIT_FAILURE);
-	}
-	if (data->mode)
-	{
-		if (!des_decrypt_final(&data->ctx))
-			return (EXIT_FAILURE);
-	}
-	else
-	{
-		if (!des_encrypt_final(&data->ctx))
-			return (EXIT_FAILURE);
-	}
+	if (!do_update(data))
+		return (EXIT_FAILURE);
+	if (!do_final(data))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
