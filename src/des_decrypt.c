@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 15:02:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 16:37:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,18 @@ int	des_decrypt_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 
 int	des_decrypt_final(t_des_ctx *ctx)
 {
+	free(ctx->buff);
 	if (!ctx->tmp_len)
-	{
-		free(ctx->buff);
 		return (1);
-	}
 	if (ctx->tmp_len != 8)
-	{
-		free(ctx->buff);
 		return (0);
-	}
+	*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
 	ctx->pre_mod(ctx, (uint64_t*)ctx->tmp);
 	des_operate_block(ctx, (uint64_t*)ctx->tmp);
 	ctx->post_mod(ctx, (uint64_t*)ctx->tmp);
+	*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
+	if (ctx->tmp[7] > 8)
+		return (0);
 	if (ctx->tmp[7] != 8)
 		ctx->callback(ctx->tmp, 8 - ctx->tmp[7], ctx->userptr);
 	return (1);

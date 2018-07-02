@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 15:38:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 16:30:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ static int	handle_iv(t_des_ctx *ctx, char *iv)
 	}
 	ctx->iv = ft_swap_ulong(ctx->iv);
 	return (1);
-}
 
+}
 static int	handle_key(uint64_t *key64, char *key, char *salt, char *password)
 {
 	if (!key)
@@ -226,9 +226,9 @@ int		command_des(int ac, char **av, t_des_data *data)
 	while (i < ac)
 	{
 		if (!ft_strcmp(av[i], "-e"))
-			data->ctx.mode = 0;
+			data->mode = 0;
 		else if (!ft_strcmp(av[i], "-d"))
-			data->ctx.mode = 1;
+			data->mode = 1;
 		else if (!ft_strcmp(av[i], "-a"))
 			data->base64 = 1;
 		else if (!ft_strcmp(av[i], "-i"))

@@ -27,8 +27,8 @@ test_des_encrypt()
 	echo "$1 encrypt ft_ssl"
 	key="1122334455667788"
 	iv="8877665544332211"
-	./ft_ssl $1 -e -k $key -v $iv -i Makefile | openssl sha512 -r
-	openssl $1 -e -K $key -iv $iv -in Makefile | openssl sha512 -r
+	./ft_ssl $1 -e -k $key -v $iv -i author | openssl sha512 -r
+	openssl $1 -e -K $key -iv $iv -in author 2>&- | openssl sha512 -r
 	echo "$1 encrypt openssl"
 }
 
@@ -38,9 +38,9 @@ test_des_decrypt()
 	key="1122334455667788"
 	iv="8877665544332211"
 	file=`mktemp`
-	cat Makefile | openssl $1 -a -e -K $key -iv $iv > $file
-	./ft_ssl $1 -a -d -k $key -v $iv -i $file | openssl sha512 -r
-	openssl $1 -a -d -K $key -iv $iv -in $file | openssl sha512 -r
+	cat author | openssl $1 -e -K $key -iv $iv > $file 2>&-
+	./ft_ssl $1 -d -k $key -v $iv -i $file | openssl sha512 -r
+	openssl $1 -d -K $key -iv $iv -in $file 2>&- | openssl sha512 -r
 	rm $file
 	echo "$1 decrypt openssl"
 }
