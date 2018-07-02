@@ -6,16 +6,16 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 18:43:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 17:42:43 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 21:07:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
 
-static uint8_t	rots[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
+static uint8_t	g_rots[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 
-static uint8_t	pc1[56] = {57, 49, 41, 33, 25, 17, 9
+static uint8_t	g_pc1[56] = {57, 49, 41, 33, 25, 17, 9
 			, 1, 58, 50, 42, 34, 26, 18
 			, 10, 2, 59, 51, 43, 35, 27
 			, 19, 11, 3, 60, 52, 44, 36
@@ -24,7 +24,7 @@ static uint8_t	pc1[56] = {57, 49, 41, 33, 25, 17, 9
 			, 14, 6, 61, 53, 45, 37, 29
 			, 21, 13, 5, 28, 20, 12, 4};
 
-static uint8_t	pc2[48] = {14, 17, 11, 24, 1, 5
+static uint8_t	g_pc2[48] = {14, 17, 11, 24, 1, 5
 			, 3, 28, 15, 6, 21, 10
 			, 23, 19, 12, 4, 26, 8
 			, 16, 7, 27, 20, 13, 2
@@ -33,7 +33,7 @@ static uint8_t	pc2[48] = {14, 17, 11, 24, 1, 5
 			, 44, 49, 39, 56, 34, 53
 			, 46, 42, 50, 36, 29, 32};
 
-static uint8_t	ips[64] = {58, 50, 42, 34, 26, 18, 10, 2
+static uint8_t	g_ip[64] = {58, 50, 42, 34, 26, 18, 10, 2
 			, 60, 52, 44, 36, 28, 20, 12, 4
 			, 62, 54, 46, 38, 30, 22, 14, 6
 			, 64, 56, 48, 40, 32, 24, 16, 8
@@ -42,7 +42,16 @@ static uint8_t	ips[64] = {58, 50, 42, 34, 26, 18, 10, 2
 			, 61, 53, 45, 37, 29, 21, 13, 5
 			, 63, 55, 47, 39, 31, 23, 15, 7};
 
-static uint8_t	ebit[48] = {32, 1, 2, 3, 4, 5
+static uint8_t	g_ip1[64] = {40, 8, 48, 16, 56, 24, 64, 32
+			, 39, 7, 47, 15, 55, 23, 63, 31
+			, 38, 6, 46, 14, 54, 22, 62, 30
+			, 37, 5, 45, 13, 53, 21, 61, 29
+			, 36, 4, 44, 12, 52, 20, 60, 28
+			, 35, 3, 43, 11, 51, 19, 59, 27
+			, 34, 2, 42, 10, 50, 18, 58, 26
+			, 33, 1, 41, 9, 49, 17, 57, 25};
+
+static uint8_t	g_e[48] = {32, 1, 2, 3, 4, 5
 			, 4, 5, 6, 7, 8, 9
 			, 8, 9, 10, 11, 12, 13
 			, 12, 13, 14, 15, 16, 17
@@ -51,7 +60,12 @@ static uint8_t	ebit[48] = {32, 1, 2, 3, 4, 5
 			, 24, 25, 26, 27, 28, 29
 			, 28, 29, 30, 31, 32, 1};
 
-static uint8_t ss[8][64] = {{14, 4, 13, 1, 2, 15, 11, 8
+static uint8_t	g_p[32] = {16, 7, 20, 21, 29, 12, 28, 17
+			, 1, 15, 23, 26, 5, 18, 31, 10
+			, 2, 8, 24, 14, 32, 27, 3, 9
+			, 19, 13, 30, 6, 22, 11, 4, 25};
+
+static uint8_t	g_ss[8][64] = {{14, 4, 13, 1, 2, 15, 11, 8
 				, 3, 10, 6, 12, 5, 9, 0, 7
 				, 0, 15, 7, 4, 14, 2, 13, 1
 				, 10, 6, 12, 11, 9, 5, 3, 8
@@ -66,7 +80,7 @@ static uint8_t ss[8][64] = {{14, 4, 13, 1, 2, 15, 11, 8
 				, 0, 14, 7, 11, 10, 4, 13, 1
 				, 5, 8, 12, 6, 9, 3, 2, 15
 				, 13, 8, 10, 1, 3, 15, 4, 2
-				, 11, 6, 7, 12, 0, 5, 1,  9}
+				, 11, 6, 7, 12, 0, 5, 14, 9}
 				, {10, 0, 9, 14, 6, 3, 15, 5
 				, 1, 13, 12, 7, 11, 4, 2, 8
 				, 13, 7, 0, 9, 3, 4, 6, 10
@@ -116,20 +130,7 @@ static uint8_t ss[8][64] = {{14, 4, 13, 1, 2, 15, 11, 8
 				, 2, 1, 14, 7, 4, 10, 8, 13
 				, 15, 12, 9, 0, 3, 5, 6, 11}};
 
-static uint8_t	p[32] = {16, 7, 20, 21, 29, 12, 28, 17
-			, 1, 15, 23, 26, 5, 18, 31, 10
-			, 2, 8, 24, 14, 32, 27, 3, 9
-			, 19, 13, 30, 6, 22, 11, 4, 25};
-
-static uint8_t	ip1[64] = {40, 8, 48, 16, 56, 24, 64, 32
-			, 39, 7, 47, 15, 55, 23, 63, 31
-			, 38, 6, 46, 14, 54, 22, 62, 30
-			, 37, 5, 45, 13, 53, 21, 61, 29
-			, 36, 4, 44, 12, 52, 20, 60, 28
-			, 35, 3, 43, 11, 51, 19, 59, 27
-			, 34, 2, 42, 10, 50, 18, 58, 26
-			, 33, 1, 41, 9, 49, 17, 57, 25};
-
+#include <stdio.h>
 
 static uint64_t	des_permute(uint64_t src, const uint8_t *table
 		, uint8_t out_len, uint8_t in_len)
@@ -151,28 +152,26 @@ static uint64_t	des_permute(uint64_t src, const uint8_t *table
 void		des_generate_keys(t_des_ctx *ctx, uint64_t key)
 {
 	uint64_t	dst;
-	uint64_t	cd0;
-	uint64_t	cd[16];
+	uint32_t	c[16];
+	uint32_t	d[16];
 	int		i;
 
-	dst = des_permute(key, pc1, 56, 64);
-	cd0 = (dst & 0xfffffff) | ((dst & 0xfffffff0000000) << 4);
-	cd[0] = (uint64_t)rotate_left28(cd0 & 0xfffffff, rots[0]);
-	cd[0] |= (uint64_t)rotate_left28((cd0 >> 32) & 0xfffffff, rots[0])
-		<< 32;
+	dst = des_permute(key, g_pc1, 56, 64);
+	c[0] = rotate_left28((dst & 0xfffffff0000000) >> 28, g_rots[0]) & 0xfffffff;
+	d[0] = rotate_left28(dst & 0xfffffff, g_rots[0]) & 0xfffffff;
 	i = 1;
 	while (i < 16)
 	{
-		cd[i] = (uint64_t)rotate_left28(cd[i - 1] & 0xfffffff, rots[i]);
-		cd[i] |= (uint64_t)rotate_left28((cd[i - 1] >> 32) & 0xfffffff
-				, rots[i]) << 32;
+		c[i] = rotate_left28(c[i - 1], g_rots[i]) & 0xfffffff;
+		d[i] = rotate_left28(d[i - 1], g_rots[i]) & 0xfffffff;
 		++i;
 	}
-	for (int i = 0; i < 16; ++i)
+	i = 0;
+	while (i < 16)
 	{
-		uint64_t tmp = (cd[i] & 0xfffffff) | ((cd[i] & 0xfffffff00000000)
-				>> 4);
-		ctx->keys[i] = des_permute(tmp, pc2, 48, 56);
+		uint64_t tmp = (uint64_t)d[i] | ((uint64_t)c[i] << 28);
+		ctx->keys[i] = des_permute(tmp, g_pc2, 48, 56);
+		++i;
 	}
 }
 
@@ -183,18 +182,18 @@ static uint32_t	des_f(uint32_t r, uint64_t key)
 	uint8_t		s;
 	int		i;
 
-	tmp = des_permute(r, ebit, 48, 32);
+	tmp = des_permute(r, g_e, 48, 32);
 	tmp ^= key;
 	res = 0;
 	i = 0;
 	while (i < 8)
 	{
 		s = (tmp >> (6 * (7 - i))) & 0x3f;
-		s = ss[i][((s & 0x20) | ((s & 1) << 4)) + ((s >> 1) & 0xf)];
+		s = g_ss[i][((s & 0x20) | ((s & 1) << 4)) + ((s >> 1) & 0xf)];
 		res |= s << ((7 - i) * 4);
 		++i;
 	}
-	tmp = des_permute(res, p, 32, 32);
+	tmp = des_permute(res, g_p, 32, 32);
 	return (tmp);
 }
 
@@ -205,7 +204,7 @@ void	des_operate_block(t_des_ctx *ctx, uint64_t *block)
 	uint32_t	r[16];
 	int		i;
 
-	tmp = des_permute(*block, ips, 64, 64);
+	tmp = des_permute(*block, g_ip, 64, 64);
 	l[0] = tmp & 0xffffffff;
 	r[0] = (tmp >> 32) ^ des_f(l[0], ctx->keys[ctx->mode ? 15 : 0]);
 	i = 1;
@@ -216,6 +215,6 @@ void	des_operate_block(t_des_ctx *ctx, uint64_t *block)
 				? 15 - i : i]);
 		++i;
 	}
-	tmp = ((uint64_t)r[15] << 32) | l[15];
-	*block = des_permute(tmp, ip1, 64, 64);
+	tmp = ((uint64_t)r[15] << 32) | (uint64_t)l[15];
+	*block = des_permute(tmp, g_ip1, 64, 64);
 }

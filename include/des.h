@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 20:35:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 21:03:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ struct		s_des_ctx
 	uint64_t	tmp1;
 	uint64_t	tmp2;
 	int		mode;
+	int		nopad;
 };
 
 void	des_generate_keys(t_des_ctx *ctx, uint64_t key);

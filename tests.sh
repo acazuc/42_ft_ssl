@@ -6,7 +6,7 @@ print_result()
 	then
 		echo -ne "\e[1;32mPassed"
 	else
-		echo -ne "\e[1;31mNot passed"
+		echo -ne "\e[1;31mFailed"
 	fi
 	echo -e "\e[0;0m"
 }
@@ -74,8 +74,8 @@ test_des()
 {
 	test_des_encrypt $1 author
 	test_des_encrypt $1 Makefile
-	test_des_decrypt $1 author
-	test_des_decrypt $1 Makefile
+	#test_des_decrypt $1 author
+	#test_des_decrypt $1 Makefile
 }
 
 test_hash "md5"

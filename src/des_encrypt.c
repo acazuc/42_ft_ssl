@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:03:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 17:43:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 21:07:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,25 @@ int	des_encrypt_final(t_des_ctx *ctx)
 	uint8_t	tmp[8];
 	int	i;
 
-	padding = 8 - ctx->tmp_len;
-	i = 0;
-	while (i < padding)
-		tmp[i++] = padding;
-	des_encrypt_update(ctx, tmp, padding);
 	free(ctx->buff);
+	if (ctx->nopad)
+	{
+		if (!ctx->tmp_len)
+			return (1);
+		*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
+		ctx->pre_mod(ctx, (uint64_t*)ctx->tmp);
+		des_operate_block(ctx, (uint64_t*)ctx->tmp);
+		ctx->post_mod(ctx, (uint64_t*)ctx->tmp);
+		*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
+		ctx->callback(ctx->tmp, ctx->tmp_len, ctx->userptr);
+	}
+	else
+	{
+		padding = 8 - ctx->tmp_len;
+		i = 0;
+		while (i < padding)
+			tmp[i++] = padding;
+		des_encrypt_update(ctx, tmp, padding);
+	}
 	return (1);
 }
