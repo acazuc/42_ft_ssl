@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 21:15:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 11:03:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_SSL_H
 
 # include "libft.h"
+# include "des.h"
 # include <stdint.h>
 # include <math.h>
 
@@ -76,12 +77,18 @@ typedef struct		s_hash_data
 	int		quiet;
 }			t_hash_data;
 
-typedef int (*t_des_init)(void *ctx, int64_t key);
+typedef int t_des_init(void *ctx, int64_t key);
 
 typedef struct		s_des_data
 {
-	t_des_init	*init;
-	void		*ctx;
+	t_des_init	*encrypt_init;
+	t_des_init	*decrypt_init;
+	t_des_ctx	ctx;
+	int		base64;
+	int		fdout;
+	int		fdin;
+	int		mode;
+	void		*b64_ctx;
 }			t_des_data;
 
 void		print_usage();
@@ -94,10 +101,10 @@ int		command_sha256(int ac, char **av);
 int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
 int		command_base64(int ac, char **av);
-int		command_des(int ac, char **av);
+int		command_des_pcbc(int ac, char **av);
+int		command_des(int ac, char **av, t_des_data *data);
 int		command_des_ecb(int ac, char **av);
 int		command_des_cbc(int ac, char **av);
-int		command_des_pcbc(int ac, char **av);
 int		command_des_cfb(int ac, char **av);
 int		command_des_ofb(int ac, char **av);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);

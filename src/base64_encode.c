@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 22:33:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/01 11:20:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,8 @@ static void	b64e_chunk(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 	ctx->buff[ctx->buff_len++] = alphabet[vals[2] & 0x3f];
 }
 
-int		b64e_init(t_b64e_ctx *ctx, t_b64_callback callback
-		, void *userptr)
+int		b64e_init(t_b64e_ctx *ctx)
 {
-	ctx->callback = callback;
-	ctx->userptr = userptr;
 	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
 	ctx->tmpin_len = 0;
@@ -107,7 +104,8 @@ int		b64e_final(t_b64e_ctx *ctx)
 	else
 	{
 		ctx->buff[ctx->buff_len++] = alphabet[ctx->tmpin[0] >> 2];
-		ctx->buff[ctx->buff_len++] = alphabet[((ctx->tmpin[0] & 0x3) << 4) | (ctx->tmpin[1] >> 4)];
+		ctx->buff[ctx->buff_len++] = alphabet[((ctx->tmpin[0] & 0x3) << 4)
+			| (ctx->tmpin[1] >> 4)];
 		ctx->buff[ctx->buff_len++] = alphabet[(ctx->tmpin[1] & 0xf) << 2];
 		ctx->buff[ctx->buff_len++] = '=';
 	}

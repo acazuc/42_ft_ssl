@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 12:35:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/01 16:46:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	print_usage()
 {
 	ft_putendl("usage: ft_ssl command [command options] [commands args]");
+	print_usage_commands();
 }
 
 void	print_usage_commands()
@@ -32,4 +33,7 @@ void	print_usage_commands()
 	ft_putendl("des");
 	ft_putendl("des-ecb");
 	ft_putendl("des-cbc");
+	ft_putendl("des-fcbc");
+	ft_putendl("des-cfb");
+	ft_putendl("des-ofb");
 }

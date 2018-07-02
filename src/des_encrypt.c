@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:03:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 20:37:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 12:54:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int	des_encrypt_init(t_des_ctx *ctx, uint64_t key)
 {
 	des_generate_keys(ctx, key);
+	ctx->buff_len = 0;
+	ctx->tmp_len = 0;
 	ctx->mode = 0;
 	if (!(ctx->buff = malloc(DES_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
@@ -57,7 +59,7 @@ int	des_encrypt_final(t_des_ctx *ctx)
 	padding = 8 - ctx->tmp_len;
 	i = 0;
 	while (i < padding)
-		tmp[i] = padding;
+		tmp[i++] = padding;
 	des_encrypt_update(ctx, tmp, padding);
 	free(ctx->buff);
 	return (1);

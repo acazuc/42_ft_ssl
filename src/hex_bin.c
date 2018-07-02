@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:05:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 20:58:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 13:09:40 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	hex2bin(uint8_t *dst, const char *src, size_t len)
 	{
 		if (!ishex(src[i * 2]) || !ishex(src[i * 2 + 1]))
 			return (0);
-		dst[i] = (char2bin(src[i * 2]) << 4) | char2bin(src[i * 2] + 1);
+		dst[i] = (char2bin(src[i * 2]) << 4) | char2bin(src[i * 2 + 1]);
 		++i;
 	}
 	return (1);

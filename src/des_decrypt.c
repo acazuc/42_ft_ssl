@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 20:38:00 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 12:28:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int	des_decrypt_init(t_des_ctx *ctx, uint64_t key)
 {
 	des_generate_keys(ctx, key);
+	ctx->buff_len = 0;
+	ctx->tmp_len = 0;
 	ctx->mode = 1;
 	if (!(ctx->buff = malloc(DES_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);

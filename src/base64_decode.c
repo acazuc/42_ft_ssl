@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:29:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/24 22:33:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/01 11:19:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "base64.h"
 #include <stdio.h>
 
-static char	invtab[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
+static char	g_invtab[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55
@@ -35,6 +35,16 @@ static char	invtab[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1};
 
+static void	assemble(t_b64d_ctx *ctx, uint8_t *tmp, uint8_t *tmplen)
+{
+	ctx->buff[ctx->buff_len++] = (g_invtab[tmp[0]] << 2) | (g_invtab[tmp[1]] >> 4);
+	if (tmp[2] != '=')
+		ctx->buff[ctx->buff_len++] = (g_invtab[tmp[1]] << 4) | (g_invtab[tmp[2]] >> 2);
+	if (tmp[2] != '=' && tmp[3] != '=')
+		ctx->buff[ctx->buff_len++] = (g_invtab[tmp[2]] << 6) | g_invtab[tmp[3]];
+	*tmplen = 0;
+}
+
 static int	b64d_chunk(t_b64d_ctx *ctx, uint8_t *tmp, uint8_t *tmplen
 		, const uint8_t **data, size_t *len)
 {
@@ -47,27 +57,18 @@ static int	b64d_chunk(t_b64d_ctx *ctx, uint8_t *tmp, uint8_t *tmplen
 		return (1);
 	}
 	tmpi = **data;
-	if (invtab[tmpi] == -1)
+	if (g_invtab[tmpi] == -1)
 		return (0);
 	--(*len);
 	++(*data);
 	tmp[(*tmplen)++] = tmpi;
 	if (*tmplen == 4)
-	{
-		ctx->buff[ctx->buff_len++] = (invtab[tmp[0]] << 2) | (invtab[tmp[1]] >> 4);
-		if (tmp[2] != '=')
-			ctx->buff[ctx->buff_len++] = (invtab[tmp[1]] << 4) | (invtab[tmp[2]] >> 2);
-		if (tmp[2] != '=' && tmp[3] != '=')
-			ctx->buff[ctx->buff_len++] = (invtab[tmp[2]] << 6) | invtab[tmp[3]];
-		*tmplen = 0;
-	}
+		assemble(ctx, tmp, tmplen);
 	return (1);
 }
 
-int		b64d_init(t_b64d_ctx *ctx, t_b64_callback callback, void *userptr)
+int		b64d_init(t_b64d_ctx *ctx)
 {
-	ctx->callback = callback;
-	ctx->userptr = userptr;
 	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
 	ctx->tmpin_len = 0;

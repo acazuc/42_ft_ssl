@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 21:11:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 11:00:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int ac, char **av)
 	else if (!ft_strcmp(av[1], "base64"))
 		return (command_base64(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "des"))
-		return (command_des(ac - 2, av + 2));
+		return (command_des_ecb(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "des-ecb"))
 		return (command_des_ecb(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "des-cbc"))

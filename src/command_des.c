@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 22:11:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/02 13:48:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static char	*ask_password()
 	}
 	if (strcmp(tmp, pass))
 	{
+		ft_putendl_fd("Password are not the same", 2);
 		free(pass);
 		return (NULL);
 	}
@@ -139,57 +140,62 @@ static int	handle_key(uint64_t *key64, char *key, char *salt, char *password)
 	return (1);
 }
 
-int		command_des(int ac, char **av)
+static void	callback(uint8_t *data, size_t len, void *userptr)
 {
-	t_des_ctx	ctx;
-	uint64_t	val;
+	t_des_data	*datas;
+	int osef;
 
-	ctx.mode = 1;
-	des_generate_keys(&ctx, 0b0001001100110100010101110111100110011011101111001101111111110001);
+	datas = (t_des_data*)userptr;
+	osef = write(datas->fdout, data, len);
+	(void)osef;
+}
+
+int		command_des(int ac, char **av, t_des_data *data)
+{
+	//uint64_t	val;
+
+	//des_generate_keys(&data->ctx, 0b0001001100110100010101110111100110011011101111001101111111110001);
 	//val = 0b0000000100100011010001010110011110001001101010111100110111101111;
-	val = 0b1000010111101000000100110101010000001111000010101011010000000101;
-	des_operate_block(&ctx, &val);
-	printf("%lx\n", val);
-	(void)ac;
-	(void)av;
+	//val = 0b1000010111101000000100110101010000001111000010101011010000000101;
+	//des_operate_block(&data->ctx, &val);
+	//printf("%lx\n", val);
 	uint64_t	key64;
 	char	*password;
 	char	*salt;
 	char	*key;
 	char	*iv;
-	int	fdout;
-	int	fdin;
-	int	b64;
 	int	i;
 
+	data->ctx.callback = callback;
+	data->ctx.userptr = data;
+	data->mode = 0;
 	password = NULL;
 	salt = NULL;
 	key = NULL;
 	iv = NULL;
-	fdout = 1;
-	fdin = 0;
-	b64 = 0;
 	i = 0;
+	data->fdin = 0;
+	data->fdout = 1;
 	while (i < ac)
 	{
 		if (!ft_strcmp(av[i], "-e"))
-			ctx.mode = 0;
+			data->ctx.mode = 0;
 		else if (!ft_strcmp(av[i], "-d"))
-			ctx.mode = 1;
+			data->ctx.mode = 1;
 		else if (!ft_strcmp(av[i], "-a"))
-			b64 = 1;
+			data->base64 = 1;
 		else if (!ft_strcmp(av[i], "-i"))
 		{
-			if (fdin != 0)
-				close(fdin);
-			if ((fdin = file_open(ac, av, &i, 0)) == -1)
+			if (data->fdin != 0)
+				close(data->fdin);
+			if ((data->fdin = file_open(ac, av, &i, 0)) == -1)
 				return (EXIT_FAILURE);
 		}
 		else if (!ft_strcmp(av[i], "-o"))
 		{
-			if (fdout != 1)
-				close(fdout);
-			if ((fdout = file_open(ac, av, &i, 1)) == -1)
+			if (data->fdout != 1)
+				close(data->fdout);
+			if ((data->fdout = file_open(ac, av, &i, 1)) == -1)
 				return (EXIT_FAILURE);
 		}
 		else if (!ft_strcmp(av[i], "-k"))
@@ -232,10 +238,41 @@ int		command_des(int ac, char **av)
 	}
 	if (!handle_key(&key64, key, salt, password))
 		return (EXIT_FAILURE);
-	if (!handle_iv(&ctx, iv))
+	if (!handle_iv(&data->ctx, iv))
 		return (EXIT_FAILURE);
-	des_ecb_encrypt_init(&ctx, key64);
-	(void)b64;
-	//start cipher
+	if (data->mode)
+	{
+		if (!data->decrypt_init(&data->ctx, key64))
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (!data->encrypt_init(&data->ctx, key64))
+			return (EXIT_FAILURE);
+	}
+	char buf[4096];
+	int ret;
+	while ((ret = read(data->fdin, buf, 4096)) > 0)
+	{
+		if (data->mode)
+			des_decrypt_update(&data->ctx, (uint8_t*)buf, ret);
+		else
+			des_encrypt_update(&data->ctx, (uint8_t*)buf, ret);
+	}
+	if (ret == -1)
+	{
+		ft_putendl_fd("Error while reading input", 2);
+		return (EXIT_FAILURE);
+	}
+	if (data->mode)
+	{
+		if (!des_decrypt_final(&data->ctx))
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (!des_encrypt_final(&data->ctx))
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
