@@ -1,16 +1,21 @@
 #!/bin/bash
-test_hash_do()
+print_result()
 {
-	echo -n "$1 $2: "
-	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1`
-	if [ "$ret_ftssl" == "$ret_opssl" ]
+	echo -n "$1: "
+	if [ "$2" == "$3" ]
 	then
 		echo -ne "\e[1;32mPassed"
 	else
 		echo -ne "\e[1;31mNot passed"
 	fi
 	echo -e "\e[0;0m"
+}
+
+test_hash_do()
+{
+	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1`
+	print_result "$1 $2" $ret_ftssl $ret_opssl
 }
 
 test_hash()
@@ -21,33 +26,19 @@ test_hash()
 
 test_base64_encode()
 {
-	echo -n "base64 encode $1: "
 	ret_ftssl=`echo "plop" | ./ft_ssl base64 | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`echo "plop" | openssl base64 | openssl sha512 -r | cut -d ' ' -f 1`
-	if [ "$ret_ftssl" == "$ret_opssl" ]
-	then
-		echo -ne "\e[1;32mPassed"
-	else
-		echo -ne "\e[1;31mNot passed"
-	fi
-	echo -e "\e[0;0m"
+	print_result "base64 encode $1" $ret_ftssl $ret_opssl
 }
 
 test_base64_decode()
 {
-	echo -n "base64 decode $1: "
 	file=`mktemp`
 	cat $1 | openssl base64 > $file
 	ret_ftssl=`./ft_ssl base64 -d -i $file | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl base64 -d -in $file | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
-	if [ "$ret_ftssl" == "$ret_opssl" ]
-	then
-		echo -ne "\e[1;32mPassed"
-	else
-		echo -ne "\e[1;31mNot passed"
-	fi
-	echo -e "\e[0;0m"
+	print_result "base64 decode $1" $ret_ftssl $ret_opssl
 }
 
 test_base64()
@@ -60,23 +51,15 @@ test_base64()
 
 test_des_encrypt()
 {
-	echo -n "$1 encrypt $2: "
 	key="1122334455667788"
 	iv="8877665544332211"
 	ret_ftssl=`./ft_ssl $1 -e -k $key -v $iv -i $2 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -e -K $key -iv $iv -in $2 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	if [ "$ret_ftssl" == "$ret_opssl" ]
-	then
-		echo -ne "\e[1;32mPassed"
-	else
-		echo -ne "\e[1;31mNot passed"
-	fi
-	echo -e "\e[0;0m"
+	print_result "$1 encrypt $2" $ret_ftssl $ret_opssl
 }
 
 test_des_decrypt()
 {
-	echo -n "$1 decrypt $2: "
 	key="1122334455667788"
 	iv="8877665544332211"
 	file=`mktemp`
@@ -84,13 +67,7 @@ test_des_decrypt()
 	ret_ftssl=`./ft_ssl $1 -d -k $key -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -d -K $key -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
-	if [ "$ret_ftssl" == "$ret_opssl" ]
-	then
-		echo -ne "\e[1;32mPassed"
-	else
-		echo -ne "\e[1;31mNot passed"
-	fi
-	echo -e "\e[0;0m"
+	print_result "$1 decrypt $2" $ret_ftssl $ret_opssl
 }
 
 test_des()
