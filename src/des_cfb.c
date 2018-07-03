@@ -6,12 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 18:53:09 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 22:00:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/03 22:04:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "des.h"
 
 static void	des_cfb_premod(t_des_ctx *ctx, uint64_t *data)
 {
