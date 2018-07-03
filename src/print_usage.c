@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/01 16:46:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/03 19:14:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,16 @@ void	print_usage_commands()
 	ft_putendl("des-fcbc");
 	ft_putendl("des-cfb");
 	ft_putendl("des-ofb");
+	ft_putendl("des2");
+	ft_putendl("des2-ecb");
+	ft_putendl("des2-cbc");
+	ft_putendl("des2-fcbc");
+	ft_putendl("des2-cfb");
+	ft_putendl("des2-ofb");
+	ft_putendl("des3");
+	ft_putendl("des3-ecb");
+	ft_putendl("des3-cbc");
+	ft_putendl("des3-fcbc");
+	ft_putendl("des3-cfb");
+	ft_putendl("des3-ofb");
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 11:03:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/03 20:45:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,17 @@ typedef struct		s_des_data
 	void		*b64_ctx;
 }			t_des_data;
 
+typedef struct		s_des_args
+{
+	char	*password;
+	char	*salt;
+	char	*key;
+	char	*iv;
+	char	**av;
+	int	ac;
+	int	i;
+}			t_des_args;
+
 void		print_usage();
 void		print_usage_commands();
 int		command_hash(int ac, char **av, t_hash_data *data);
@@ -101,12 +112,24 @@ int		command_sha256(int ac, char **av);
 int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
 int		command_base64(int ac, char **av);
-int		command_des_pcbc(int ac, char **av);
 int		command_des(int ac, char **av, t_des_data *data);
 int		command_des_ecb(int ac, char **av);
 int		command_des_cbc(int ac, char **av);
+int		command_des_pcbc(int ac, char **av);
 int		command_des_cfb(int ac, char **av);
 int		command_des_ofb(int ac, char **av);
+int		command_des2(int ac, char **av, t_des_data *data);
+int		command_des2_ecb(int ac, char **av);
+int		command_des2_cbc(int ac, char **av);
+int		command_des2_pcbc(int ac, char **av);
+int		command_des2_cfb(int ac, char **av);
+int		command_des2_ofb(int ac, char **av);
+int		command_des3(int ac, char **av, t_des_data *data);
+int		command_des3_ecb(int ac, char **av);
+int		command_des3_cbc(int ac, char **av);
+int		command_des3_pcbc(int ac, char **av);
+int		command_des3_cfb(int ac, char **av);
+int		command_des3_ofb(int ac, char **av);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

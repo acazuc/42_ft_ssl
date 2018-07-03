@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 11:00:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/03 19:12:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,30 @@ int main(int ac, char **av)
 		return (command_des_cfb(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "des-ofb"))
 		return (command_des_ofb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des2"))
+		return (command_des2_ecb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des2-ecb"))
+		return (command_des2_ecb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des2-cbc"))
+		return (command_des2_cbc(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des2-pcbc"))
+		return (command_des2_pcbc(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des2-cfb"))
+		return (command_des2_cfb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des2-ofb"))
+		return (command_des2_ofb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des3"))
+		return (command_des3_ecb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des3-ecb"))
+		return (command_des3_ecb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des3-cbc"))
+		return (command_des3_cbc(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des3-pcbc"))
+		return (command_des3_pcbc(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des3-cfb"))
+		return (command_des3_cfb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "des3-ofb"))
+		return (command_des3_ofb(ac - 2, av + 2));
 	else
 	{
 		ft_putstr("ft_ssl: invalid command: ");

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/06/30 21:14:15 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/03 19:11:55 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,12 @@ SRCS_NAME = main.c \
 	    command_sha384.c \
 	    command_sha512.c \
 	    command_base64.c \
-	    command_des.c \
-	    command_des_ecb.c \
-	    command_des_cbc.c \
-	    command_des_pcbc.c \
-	    command_des_cfb.c \
-	    command_des_ofb.c \
+	    command_des1.c \
+	    command_des1_ciphers.c \
+	    command_des2.c \
+	    command_des2_ciphers.c \
+	    command_des3.c \
+	    command_des3_ciphers.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \
