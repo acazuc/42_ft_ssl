@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 20:45:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/03 21:31:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,10 @@ int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
+int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
+int		cmd_des_do_execute(t_des_data *data, uint64_t key);
+int		cmd_des_handle_iv(t_des_ctx *ctx, char *iv);
+int		cmd_des_handle_key(uint64_t *key64, t_des_args *args);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

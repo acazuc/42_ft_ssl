@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/03 19:11:55 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/03 22:02:21 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ SRCS_NAME = main.c \
 	    command_des2_ciphers.c \
 	    command_des3.c \
 	    command_des3_ciphers.c \
+	    command_des_common1.c \
+	    command_des_execute.c \
+	    command_des_args.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \
@@ -51,16 +54,11 @@ SRCS_NAME = main.c \
 	    des.c \
 	    des_encrypt.c \
 	    des_decrypt.c \
-	    des_ecb_encrypt.c \
-	    des_ecb_decrypt.c \
-	    des_cbc_encrypt.c \
-	    des_cbc_decrypt.c \
-	    des_pcbc_encrypt.c \
-	    des_pcbc_decrypt.c \
-	    des_cfb_encrypt.c \
-	    des_cfb_decrypt.c \
-	    des_ofb_encrypt.c \
-	    des_ofb_decrypt.c \
+	    des_ecb.c \
+	    des_cbc.c \
+	    des_pcbc.c \
+	    des_cfb.c \
+	    des_ofb.c \
 	    hmac.c \
 	    pbkdf2.c \
 

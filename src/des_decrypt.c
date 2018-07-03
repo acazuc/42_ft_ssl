@@ -6,14 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 20:29:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/03 21:48:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
 
-int	des_decrypt_init(t_des_ctx *ctx, uint64_t key)
+int		des_decrypt_init(t_des_ctx *ctx, uint64_t key)
 {
 	des_generate_keys(ctx, key);
 	ctx->buff_len = 0;
@@ -24,9 +24,19 @@ int	des_decrypt_init(t_des_ctx *ctx, uint64_t key)
 	return (1);
 }
 
-int	des_decrypt_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
+static int	execute_callback(t_des_ctx *ctx)
 {
+	int	ret;
+
+	ret = ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
 	ctx->buff_len = 0;
+	if (!ret)
+		return (0);
+	return (1);
+}
+
+int		des_decrypt_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
+{
 	while (ctx->tmp_len + len >= 9)
 	{
 		ft_memcpy(ctx->tmp + ctx->tmp_len, data, 8 - ctx->tmp_len);
@@ -39,20 +49,17 @@ int	des_decrypt_update(t_des_ctx *ctx, const uint8_t *data, size_t len)
 		ctx->post_mod(ctx, (uint64_t*)ctx->tmp);
 		*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
 		ft_memcpy(ctx->buff + ctx->buff_len, ctx->tmp, 8);
-		if ((ctx->buff_len += 8) >= DES_BUFF_LEN - 8)
-		{
-			ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
-			ctx->buff_len = 0;
-		}
+		if ((ctx->buff_len += 8) >= DES_BUFF_LEN - 8 && !execute_callback(ctx))
+			return (0);
 	}
 	while (len--)
 		ctx->tmp[ctx->tmp_len++] = *(data++);
-	if (ctx->buff_len)
-		ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
+	if (ctx->buff_len && !execute_callback(ctx))
+		return (0);
 	return (1);
 }
 
-int	des_decrypt_final(t_des_ctx *ctx)
+int		des_decrypt_final(t_des_ctx *ctx)
 {
 	free(ctx->buff);
 	if (!ctx->tmp_len)
