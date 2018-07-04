@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:45:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 22:04:16 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 16:16:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	execute_callback(t_des_ctx *ctx)
 {
 	int	ret;
 
-	ret = ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
+	ret = ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
 	ctx->buff_len = 0;
 	if (!ret)
 		return (0);
@@ -70,8 +70,7 @@ int		des_decrypt_final(t_des_ctx *ctx)
 		des_operate_block(ctx, (uint64_t*)ctx->tmp);
 		ctx->post_mod(ctx, (uint64_t*)ctx->tmp);
 		*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
-		ctx->callback(ctx->tmp, ctx->tmp_len, ctx->userptr);
-		return (1);
+		return (ctx->callback(ctx->userptr, ctx->tmp, ctx->tmp_len));
 	}
 	if (ctx->tmp_len != 8)
 		return (0);
@@ -83,6 +82,6 @@ int		des_decrypt_final(t_des_ctx *ctx)
 	if (ctx->tmp[7] > 8)
 		return (0);
 	if (ctx->tmp[7] != 8)
-		ctx->callback(ctx->tmp, 8 - ctx->tmp[7], ctx->userptr);
+		return (ctx->callback(ctx->userptr, ctx->tmp, 8 - ctx->tmp[7]));
 	return (1);
 }

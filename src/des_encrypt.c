@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 22:03:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 22:04:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 16:16:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	execute_callback(t_des_ctx *ctx)
 {
 	int	ret;
 
-	ret = ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
+	ret = ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
 	ctx->buff_len = 0;
 	if (!ret)
 		return (0);
@@ -75,7 +75,7 @@ int		des_encrypt_final(t_des_ctx *ctx)
 		des_operate_block(ctx, (uint64_t*)ctx->tmp);
 		ctx->post_mod(ctx, (uint64_t*)ctx->tmp);
 		*(uint64_t*)ctx->tmp = ft_swap_ulong(*(uint64_t*)ctx->tmp);
-		ctx->callback(ctx->tmp, ctx->tmp_len, ctx->userptr);
+		return (ctx->callback(ctx->userptr, ctx->tmp, ctx->tmp_len));
 	}
 	else
 	{
@@ -83,7 +83,7 @@ int		des_encrypt_final(t_des_ctx *ctx)
 		i = 0;
 		while (i < padding)
 			tmp[i++] = padding;
-		des_encrypt_update(ctx, tmp, padding);
+		return (des_encrypt_update(ctx, tmp, padding));
 	}
 	return (1);
 }

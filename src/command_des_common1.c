@@ -6,17 +6,19 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 21:38:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 15:55:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha512.h"
+#include <stdio.h>
 
-static int	generate_key2(uint64_t *key, uint64_t salt, char *password)
+static int	generate_keys2(t_des_data *data, uint64_t salt, char *password)
 {
 	t_sha512_ctx	hash_ctx;
 	t_pbkdf2_ctx	ctx;
+	uint8_t		tmp[24];
 
 	ctx.h.h = &g_hash_sha512;
 	ctx.h.ctx = &hash_ctx;
@@ -25,10 +27,13 @@ static int	generate_key2(uint64_t *key, uint64_t salt, char *password)
 	ctx.password = (uint8_t*)password;
 	ctx.password_len = ft_strlen(password);
 	ctx.iterations = 4096;
-	ctx.out = (uint8_t*)key;
-	ctx.out_len = 8;
+	ctx.out = tmp;
+	ctx.out_len = 24;
 	if (!pbkdf2(&ctx))
 		return (0);
+	ft_memcpy(&data->key1, tmp, 8);
+	ft_memcpy(&data->key2, tmp + 8, 8);
+	ft_memcpy(&data->key3, tmp + 16, 8);
 	return (1);
 }
 
@@ -68,7 +73,7 @@ static char	*ask_password()
 	return (pass);
 }
 
-static int	generate_key(uint64_t *key, char *password, char *salt)
+static int	generate_keys(t_des_data *data, char *password, char *salt)
 {
 	uint64_t	tmp;
 
@@ -92,21 +97,34 @@ static int	generate_key(uint64_t *key, char *password, char *salt)
 		free(password);
 		return (0);
 	}
-	tmp = generate_key2(key, tmp, password);
+	tmp = generate_keys2(data, tmp, password);
 	free(password);
 	return (tmp);
 }
 
-int		cmd_des_handle_key(uint64_t *key64, t_des_args *args)
+int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
 {
+	int	len;
+
 	if (!args->key)
+		return (generate_keys(data, args->password, args->salt));
+	ft_memset(&data->key1, 0, 8);
+	ft_memset(&data->key2, 0, 8);
+	ft_memset(&data->key3, 0, 8);
+	len = ft_strlen(args->key);
+	if (len > 0)
 	{
-		if (!generate_key(key64, args->password, args->salt))
+		if (!transform_bin64(&data->key1, args->key))
 			return (0);
 	}
-	else
+	if (len > 16)
 	{
-		if (!transform_bin64(key64, args->key))
+		if (!transform_bin64(&data->key2, args->key + 16))
+			return (0);
+	}
+	if (len > 32)
+	{
+		if (!transform_bin64(&data->key3, args->key + 32))
 			return (0);
 	}
 	return (1);

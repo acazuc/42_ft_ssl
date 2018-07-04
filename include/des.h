@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 21:49:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 15:43:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_des_ctx	t_des_ctx;
 
-typedef int (*t_des_callback)(uint8_t *data, size_t len, void *userptr);
+typedef int (*t_des_callback)(void *userptr, uint8_t *data, size_t len);
 typedef void (*t_des_premod)(t_des_ctx *ctx, uint64_t *data);
 typedef void (*t_des_postmod)(t_des_ctx *ctx, uint64_t *data);
 
