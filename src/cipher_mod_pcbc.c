@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_pcbc.c                                         :+:      :+:    :+:   */
+/*   ciper_mod_pcbc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 18:53:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 11:38:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 15:18:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void	des_pcbc_premod(t_des_data *ctx, uint64_t *data)
+void	cipher_pcbc_premod(t_cipher_ctx *ctx, uint8_t *data)
 {
-	*data = ft_swap_ulong(*data);
 	if (ctx->mode)
 	{
-		ctx->tmp2 = *data;
+		ft_memcpy(ctx->mod2, data, ctx->block_size);
 	}
 	else
 	{
-		ctx->tmp2 = *data;
-		*data ^= ctx->tmp1;
+		ft_memcpy(ctx->mod2, data, ctx->block_size);
+		ft_memxor(data, data, ctx->mod1, ctx->block_size);
 	}
-	*data = ft_swap_ulong(*data);
 }
 
-void	des_pcbc_postmod(t_des_data *ctx, uint64_t *data)
+void	cipher_pcbc_postmod(t_cipher_ctx *ctx, uint8_t *data)
 {
-	*data = ft_swap_ulong(*data);
 	if (ctx->mode)
 	{
-		*data ^= ctx->tmp1;
-		ctx->tmp1 = ctx->tmp2 ^ *data;
+		ft_memxor(data, data, ctx->mod1, ctx->block_size);
+		ft_memxor(ctx->mod1, ctx->mod2, data, ctx->block_size);
 	}
 	else
 	{
-		ctx->tmp1 = ctx->tmp2 ^ *data;
+		ft_memxor(ctx->mod1, ctx->mod2, data, ctx->block_size);
 	}
-	*data = ft_swap_ulong(*data);
 }

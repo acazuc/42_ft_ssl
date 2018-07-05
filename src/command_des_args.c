@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:19:27 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/03 21:38:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 15:55:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ static int	parse_args2(t_des_args *args)
 static int	parse_args1(t_des_data *data, t_des_args *args)
 {
 	if (!ft_strcmp(args->av[args->i], "-e"))
-		data->mode = 0;
+		data->cipher.mode = 0;
 	else if (!ft_strcmp(args->av[args->i], "-d"))
-		data->mode = 1;
+		data->cipher.mode = 1;
 	else if (!ft_strcmp(args->av[args->i], "-a"))
 		data->base64 = 1;
 	else if (!ft_strcmp(args->av[args->i], "-i"))

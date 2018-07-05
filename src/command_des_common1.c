@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 12:29:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 16:05:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha512.h"
-#include <stdio.h>
 
 static int	generate_keys2(t_des_data *data, uint64_t salt, char *password)
 {
@@ -134,14 +133,13 @@ int		cmd_des_handle_iv(t_des_data *data, t_des_args *args)
 {
 	if (!args->iv)
 	{
-		if (!random_bytes((uint8_t*)&data->tmp1, 8))
+		if (!random_bytes(data->cipher.iv, 8))
 			return (0);
 	}
 	else
 	{
-		if (!transform_bin64(&data->tmp1, args->iv))
+		if (!transform_bin64((uint64_t*)data->cipher.iv, args->iv))
 			return (0);
 	}
-	data->tmp1 = ft_swap_ulong(data->tmp1);
 	return (1);
 }

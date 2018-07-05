@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/05 13:18:35 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/05 15:45:29 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,6 @@ SRCS_NAME = main.c \
 	    command_des_execute.c \
 	    command_des_args.c \
 	    command_des_callback.c \
-	    command_des_update.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \
@@ -56,11 +55,13 @@ SRCS_NAME = main.c \
 	    des.c \
 	    des_encrypt.c \
 	    des_decrypt.c \
-	    des_ecb.c \
-	    des_cbc.c \
-	    des_pcbc.c \
-	    des_cfb.c \
-	    des_ofb.c \
+	    cipher.c \
+	    cipher_update.c \
+	    cipher_mod_ecb.c \
+	    cipher_mod_cbc.c \
+	    cipher_mod_pcbc.c \
+	    cipher_mod_cfb.c \
+	    cipher_mod_ofb.c \
 	    hmac.c \
 	    pbkdf2.c \
 

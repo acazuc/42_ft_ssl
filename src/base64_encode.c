@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/01 11:20:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 16:06:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "base64.h"
-#include <stdio.h>
 
 static char	alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw"
 	"xyz0123456789+/";

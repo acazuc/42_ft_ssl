@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 18:43:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 11:17:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 16:05:58 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "des.h"
-#include <stdio.h>
 
 static uint8_t	g_rots[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 
@@ -131,8 +130,6 @@ static uint8_t	g_ss[8][64] = {{14, 4, 13, 1, 2, 15, 11, 8
 				, 2, 1, 14, 7, 4, 10, 8, 13
 				, 15, 12, 9, 0, 3, 5, 6, 11}};
 
-#include <stdio.h>
-
 static uint64_t	des_permute(uint64_t src, const uint8_t *table
 		, uint8_t out_len, uint8_t in_len)
 {
@@ -198,7 +195,7 @@ static uint32_t	des_f(uint32_t r, uint64_t key)
 	return (tmp);
 }
 
-void	des_operate_block(t_des_ctx *ctx, uint64_t *block)
+void	des_operate_block(t_des_ctx *ctx, uint64_t *block, int mode)
 {
 	uint64_t	tmp;
 	uint32_t	l[16];
@@ -207,13 +204,12 @@ void	des_operate_block(t_des_ctx *ctx, uint64_t *block)
 
 	tmp = des_permute(*block, g_ip, 64, 64);
 	l[0] = tmp & 0xffffffff;
-	r[0] = (tmp >> 32) ^ des_f(l[0], ctx->keys[ctx->mode ? 15 : 0]);
+	r[0] = (tmp >> 32) ^ des_f(l[0], ctx->keys[mode ? 15 : 0]);
 	i = 1;
 	while (i < 16)
 	{
 		l[i] = r[i - 1];
-		r[i] = l[i - 1] ^ des_f(r[i - 1], ctx->keys[ctx->mode
-				? 15 - i : i]);
+		r[i] = l[i - 1] ^ des_f(r[i - 1], ctx->keys[mode ? 15 - i : i]);
 		++i;
 	}
 	tmp = ((uint64_t)r[15] << 32) | (uint64_t)l[15];
