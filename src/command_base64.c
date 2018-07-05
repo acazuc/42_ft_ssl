@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 15:55:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 19:47:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "base64.h"
 #include <fcntl.h>
 
-static void	encode_callback(uint8_t *data, size_t len, void *userptr)
+static void	encode_callback(void *userptr, uint8_t *data, size_t len)
 {
 	t_b64e_data	*ptr;
 	int		osef;
@@ -37,7 +37,7 @@ static void	encode_callback(uint8_t *data, size_t len, void *userptr)
 	(void)osef;
 }
 
-static void	decode_callback(uint8_t *data, size_t len, void *userptr)
+static void	decode_callback(void *userptr, uint8_t *data, size_t len)
 {
 	int	osef;
 	

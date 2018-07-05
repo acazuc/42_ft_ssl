@@ -22,6 +22,8 @@ test_hash()
 {
 	test_hash_do $1 author
 	test_hash_do $1 Makefile
+	test_hash_do $1 ft_ssl
+	test_hash_do $1 /dev/null
 }
 
 test_base64_encode()
@@ -35,6 +37,8 @@ test_base64_decode()
 {
 	file=`mktemp`
 	cat $1 | openssl base64 > $file
+	./ft_ssl base64 -d -i $file | hexdump > a
+	openssl base64 -d -in $file | hexdump > b
 	ret_ftssl=`./ft_ssl base64 -d -i $file | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl base64 -d -in $file | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
@@ -45,17 +49,21 @@ test_base64()
 {
 	test_base64_encode author
 	test_base64_encode Makefile
+	test_base64_encode ft_ssl
+	test_base64_encode /dev/null
 	test_base64_decode author
 	test_base64_decode Makefile
+	test_base64_decode ft_ssl
+	test_base64_decode /dev/null
 }
 
 test_des_encrypt()
 {
 	iv="8877665544332211"
-	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump"
-	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump
-	ret_ftssl=`./ft_ssl $1 -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	#./ft_ssl $1 -a -e -k $2 -v $iv -i $3 | hexdump
+	#openssl $1 -a -e -K $2 -iv $iv -in $3 | hexdump
+	ret_ftssl=`./ft_ssl $1 -a -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -a -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	print_result "$1 encrypt $3" $ret_ftssl $ret_opssl
 }
 
@@ -64,8 +72,8 @@ test_des_decrypt()
 	iv="8877665544332211"
 	file=`mktemp`
 	cat $3 | openssl $1 -e -K $2 -iv $iv > $file 2>&-
-	#./ft_ssl $1 -d -k $2 -v $iv -i $file | hexdump > a
-	#openssl $1 -d -K $2 -iv $iv -in $file | hexdump > b
+	#./ft_ssl $1 -d -k $2 -v $iv -i $file | hexdump
+	#openssl $1 -d -K $2 -iv $iv -in $file | hexdump
 	ret_ftssl=`./ft_ssl $1 -d -k $2 -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -d -K $2 -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
@@ -76,8 +84,12 @@ test_des()
 {
 	test_des_encrypt $1 $2 author
 	test_des_encrypt $1 $2 Makefile
+	test_des_encrypt $1 $2 ft_ssl
+	test_des_encrypt $1 $2 /dev/null
 	test_des_decrypt $1 $2 author
 	test_des_decrypt $1 $2 Makefile
+	test_des_decrypt $1 $2 ft_ssl
+	test_des_decrypt $1 $2 /dev/null
 }
 
 test_hash "md5"

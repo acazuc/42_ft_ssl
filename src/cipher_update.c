@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:50:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 15:54:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 18:06:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
 int		cipher_final(t_cipher_ctx *ctx)
 {
 	do_pad(ctx);
-	if (!ctx->buff_pos)
-		return (1);
 	ctx->ended = 1;
 	return (do_update_part(ctx));
 }

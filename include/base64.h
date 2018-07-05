@@ -6,14 +6,17 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:25:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 18:38:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 19:47:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BASE64_H
 # define BASE64_H
 
-typedef void (*t_b64_callback)(uint8_t *data, size_t len, void *userptr);
+# include <stdint.h>
+# include <string.h>
+
+typedef void (*t_b64_callback)(void *userptr, uint8_t *data, size_t len);
 
 typedef struct		s_b64e_ctx
 {
@@ -21,8 +24,8 @@ typedef struct		s_b64e_ctx
 	void		*userptr;
 	uint8_t		*buff;
 	uint32_t	buff_len;
-	uint8_t		tmpin[2];
-	uint8_t		tmpin_len;
+	uint8_t		tmp[3];
+	uint8_t		tmp_len;
 }			t_b64e_ctx;
 
 typedef struct		s_b64d_ctx
@@ -31,8 +34,8 @@ typedef struct		s_b64d_ctx
 	void		*userptr;
 	uint8_t		*buff;
 	uint32_t	buff_len;
-	uint8_t		tmpin[3];
-	uint8_t		tmpin_len;
+	uint8_t		tmp[4];
+	uint8_t		tmp_len;
 }			t_b64d_ctx;
 
 int	b64e_init(t_b64e_ctx *ctx);

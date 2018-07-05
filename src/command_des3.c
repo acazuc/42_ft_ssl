@@ -6,26 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 14:15:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 16:05:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 17:20:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-
-static void	init(t_des_data *data, t_des_args *args, int ac, char **av)
-{
-	data->fdout = 1;
-	data->fdin = 0;
-	data->cipher.mode = 0;
-	args->password = NULL;
-	args->salt = NULL;
-	args->key = NULL;
-	args->iv = NULL;
-	args->av = av;
-	args->ac = ac;
-	args->i = 0;
-	cipher_init(&data->cipher, 8);
-}
 
 static int	update(t_des_data *ctx, uint64_t *data, size_t len)
 {
@@ -60,13 +45,14 @@ int		command_des3(int ac, char **av, t_des_data *data)
 	data->cipher.callback = (t_cipher_cb)&cmd_des_callback;
 	data->cipher.userptr = data;
 	data->des3 = 1;
-	init(data, &args, ac, av);
+	if (!cmd_des_init(data, &args, ac, av))
+		return (EXIT_FAILURE);
 	if (!cmd_des_parse_args(data, &args) || !cmd_des_handle_key(data, &args)
 			|| !cmd_des_handle_iv(data, &args) || !cmd_des_do_execute(data))
 	{
-		cipher_free(&data->cipher);
+		cmd_des_free(data);
 		return (EXIT_FAILURE);
 	}
-	cipher_free(&data->cipher);
+	cmd_des_free(data);
 	return (EXIT_SUCCESS);
 }

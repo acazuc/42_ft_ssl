@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 19:09:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 15:04:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 17:12:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cipher_ofb_premod(t_cipher_ctx *ctx, uint8_t *data)
 
 void	cipher_ofb_postmod(t_cipher_ctx *ctx, uint8_t *data)
 {
-	if (ctx->mod1)
+	if (ctx->mod3)
 	{
 		ctx->mode = 1;
 		ft_memcpy(ctx->mod1, data, ctx->block_size);

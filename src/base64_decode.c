@@ -6,12 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:29:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 16:05:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 19:48:59 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "base64.h"
+#include <stdio.h>
 
 static char	g_invtab[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
@@ -34,35 +35,31 @@ static char	g_invtab[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1};
 
-static void	assemble(t_b64d_ctx *ctx, uint8_t *tmp, uint8_t *tmplen)
+static void	assemble(t_b64d_ctx *ctx)
 {
-	ctx->buff[ctx->buff_len++] = (g_invtab[tmp[0]] << 2) | (g_invtab[tmp[1]] >> 4);
-	if (tmp[2] != '=')
-		ctx->buff[ctx->buff_len++] = (g_invtab[tmp[1]] << 4) | (g_invtab[tmp[2]] >> 2);
-	if (tmp[2] != '=' && tmp[3] != '=')
-		ctx->buff[ctx->buff_len++] = (g_invtab[tmp[2]] << 6) | g_invtab[tmp[3]];
-	*tmplen = 0;
+	ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[0]] << 2) | (g_invtab[ctx->tmp[1]] >> 4);
+	if (ctx->tmp[2] != '=')
+		ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[1]] << 4) | (g_invtab[ctx->tmp[2]] >> 2);
+	if (ctx->tmp[2] != '=' && ctx->tmp[3] != '=')
+		ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[2]] << 6) | g_invtab[ctx->tmp[3]];
+	ctx->tmp_len = 0;
 }
 
-static int	b64d_chunk(t_b64d_ctx *ctx, uint8_t *tmp, uint8_t *tmplen
-		, const uint8_t **data, size_t *len)
+static int	b64d_chunk(t_b64d_ctx *ctx, const uint8_t **data, size_t *len)
 {
-	uint8_t	tmpi;
-
 	if (ft_isspace(**data))
 	{
 		++(*data);
 		--(*len);
 		return (1);
 	}
-	tmpi = **data;
-	if (g_invtab[tmpi] == -1)
+	if (g_invtab[**data] == -1)
 		return (0);
+	ctx->tmp[ctx->tmp_len++] = **data;
 	--(*len);
 	++(*data);
-	tmp[(*tmplen)++] = tmpi;
-	if (*tmplen == 4)
-		assemble(ctx, tmp, tmplen);
+	if (ctx->tmp_len == 4)
+		assemble(ctx);
 	return (1);
 }
 
@@ -70,43 +67,34 @@ int		b64d_init(t_b64d_ctx *ctx)
 {
 	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
-	ctx->tmpin_len = 0;
+	ctx->tmp_len = 0;
 	return (1);
 }
 
 int		b64d_update(t_b64d_ctx *ctx, const uint8_t *data, size_t len)
 {
-	uint8_t	tmp[4];
-	uint8_t	tmplen;
-	int	i;
-
 	if (!len)
 		return (1);
 	ctx->buff_len = 0;
-	tmplen = 0;
-	i = -1;
-	while (++i < ctx->tmpin_len)
-		tmp[tmplen++] = ctx->tmpin[ctx->tmpin_len];
-	ctx->tmpin_len = 0;
-	while (tmplen < 4 && len)
-		if (!b64d_chunk(ctx, tmp, &tmplen, &data, &len))
-			return (0);
-	ctx->tmpin_len = -1;
-	while (++ctx->tmpin_len < tmplen)
+	while (len)
 	{
-		ctx->tmpin[ctx->tmpin_len] = tmp[ctx->tmpin_len];
-		len--;
-		data++;
+		if (!b64d_chunk(ctx, &data, &len))
+			return (0);
+		if (ctx->buff_len >= BASE64_BUFF_LEN - 3)
+		{
+			ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
+			ctx->buff_len = 0;
+		}
 	}
 	if (ctx->buff_len)
-		ctx->callback(ctx->buff, ctx->buff_len, ctx->userptr);
+		ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
 	return (1);
 }
 
 int		b64d_final(t_b64d_ctx *ctx)
 {
 	free(ctx->buff);
-	if (ctx->tmpin_len)
+	if (ctx->tmp_len)
 		return (0);
 	return (1);
 }

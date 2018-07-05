@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 16:05:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 16:28:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,20 +111,12 @@ int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
 	ft_memset(&data->keys[1], 0, 8);
 	ft_memset(&data->keys[2], 0, 8);
 	len = ft_strlen(args->key);
-	if (len > 0)
+	if ((len > 0 && !transform_bin64(&data->keys[0], args->key))
+			|| (len > 16 && !transform_bin64(&data->keys[1], args->key + 16))
+			|| (len > 32 && !transform_bin64(&data->keys[2], args->key + 32)))
 	{
-		if (!transform_bin64(&data->keys[0], args->key))
-			return (0);
-	}
-	if (len > 16)
-	{
-		if (!transform_bin64(&data->keys[1], args->key + 16))
-			return (0);
-	}
-	if (len > 32)
-	{
-		if (!transform_bin64(&data->keys[2], args->key + 32))
-			return (0);
+		ft_putendl_fd("ft_ssl: Invalid key", 2);
+		return (0);
 	}
 	return (1);
 }
@@ -134,12 +126,18 @@ int		cmd_des_handle_iv(t_des_data *data, t_des_args *args)
 	if (!args->iv)
 	{
 		if (!random_bytes(data->cipher.iv, 8))
+		{
+			ft_putendl_fd("ft_ssl: Failed to generate random iv", 2);
 			return (0);
+		}
 	}
 	else
 	{
 		if (!transform_bin64((uint64_t*)data->cipher.iv, args->iv))
+		{
+			ft_putendl_fd("ft_ssl: invalid iv", 2);
 			return (0);
+		}
 	}
 	return (1);
 }

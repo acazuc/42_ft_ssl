@@ -6,28 +6,29 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 15:42:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 17:20:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
+# include "base64.h"
 # include "libft.h"
 # include "des.h"
 # include <stdint.h>
 # include <math.h>
 
-typedef struct	s_b64e_data
+typedef struct		s_b64e_data
 {
-	int	fd;
-	int	count;
-}		t_b64e_data;
+	int		fd;
+	int		count;
+}			t_b64e_data;
 
-typedef struct	s_b64d_data
+typedef struct		s_b64d_data
 {
-	int	fd;
-}		t_b64d_data;
+	int		fd;
+}			t_b64d_data;
 
 typedef int (*t_hash_init)(void *ctx);
 typedef int (*t_hash_update)(void *ctx, const uint8_t *data, size_t len);
@@ -108,14 +109,20 @@ struct		s_des_data
 {
 	t_cipher_ctx	cipher;
 	t_des_ctx	ctx[3];
-	char		*buffer;
+	char		*buff;
 	uint32_t	buff_len;
+	uint32_t	buff_pos;
 	uint64_t	keys[3];
 	int		base64;
 	int		fdout;
 	int		fdin;
 	int		des3;
-	void		*b64_ctx;
+	union
+	{
+		t_b64e_ctx	b64e_ctx;
+		t_b64d_ctx	b64d_ctx;
+	};
+	uint64_t	b64_count;
 };
 
 typedef struct		s_des_args
@@ -157,6 +164,14 @@ int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
+int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
+int		cmd_des_do_execute(t_des_data *data);
+int		cmd_des_handle_iv(t_des_data *data, t_des_args *args);
+int		cmd_des_handle_key(t_des_data *data, t_des_args *args);
+int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len);
+int		cmd_des_do_update(t_des_data *data);
+int		cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av);
+void		cmd_des_free(t_des_data *data);
 void		cipher_ecb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ecb_postmod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_cbc_premod(t_cipher_ctx *ctx, uint8_t *data);
@@ -167,12 +182,6 @@ void		cipher_cfb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_cfb_postmod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ofb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ofb_postmod(t_cipher_ctx *ctx, uint8_t *data);
-int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
-int		cmd_des_do_execute(t_des_data *data);
-int		cmd_des_handle_iv(t_des_data *data, t_des_args *args);
-int		cmd_des_handle_key(t_des_data *data, t_des_args *args);
-int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len);
-int		cmd_des_do_update(t_des_data *data);
 int		cipher_init(t_cipher_ctx *ctx, uint32_t block_size);
 int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len);
 int		cipher_final(t_cipher_ctx *ctx);

@@ -6,21 +6,31 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:19:27 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 15:55:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 16:43:55 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "base64.h"
 #include <fcntl.h>
 
 static int	file_open(t_des_args *args, int type)
 {
+	int	ret;
+
 	args->i++;
 	if (args->i >= args->ac)
 		return (-1);
 	if (type)
-		return (open(args->av[args->i], O_WRONLY | O_CREAT | O_TRUNC, 0644));
-	return (open(args->av[args->i], O_RDONLY));
+		ret = open(args->av[args->i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		ret = open(args->av[args->i], O_RDONLY);
+	if (ret == -1)
+	{
+		ft_putstr_fd("ft_ssl: failed to open ", 2);
+		ft_putendl_fd(args->av[args->i], 2);
+	}
+	return (ret);
 }
 
 static int	parse_args3(t_des_args *args)
@@ -104,6 +114,30 @@ static int	parse_args1(t_des_data *data, t_des_args *args)
 	return (1);
 }
 
+static int	handle_b64(t_des_data *data)
+{
+	if (data->base64)
+	{
+		if (data->cipher.mode)
+		{
+			if (!b64d_init(&data->b64d_ctx))
+			{
+				ft_putendl_fd("ft_ssl: base 64 init failed", 2);
+				return (0);
+			}
+		}
+		else
+		{
+			if (!b64e_init(&data->b64e_ctx))
+			{
+				ft_putendl_fd("ft_ssl: malloc failed", 2);
+				return (0);
+			}
+		}
+	}
+	return (1);
+}
+
 int		cmd_des_parse_args(t_des_data *data, t_des_args *args)
 {
 	args->i = 0;
@@ -113,5 +147,7 @@ int		cmd_des_parse_args(t_des_data *data, t_des_args *args)
 			return (0);
 		++args->i;
 	}
+	if (!handle_b64(data))
+		return (0);
 	return (1);
 }
