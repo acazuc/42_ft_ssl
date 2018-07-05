@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/03 22:04:01 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/05 13:18:35 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SRCS_NAME = main.c \
 	    command_des_common1.c \
 	    command_des_execute.c \
 	    command_des_args.c \
+	    command_des_callback.c \
+	    command_des_update.c \
 	    md5.c \
 	    sha1.c \
 	    sha224.c \

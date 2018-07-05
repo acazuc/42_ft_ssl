@@ -6,15 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 20:57:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/27 15:26:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 22:07:32 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "sha256.h"
 
-t_hash		g_hash_sha256 = {(t_hash_init*)sha256_init
-		, (t_hash_update*)sha256_update, (t_hash_final*)sha256_final
+t_hash		g_hash_sha256 = {(t_hash_init)&sha256_init
+		, (t_hash_update)&sha256_update, (t_hash_final)&sha256_final
 		, 32, 64, "SHA256"};
 
 static uint32_t	g_sha256_k[64] = {0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5

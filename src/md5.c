@@ -6,15 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:56:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:22:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 22:08:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "md5.h"
 
-t_hash		g_hash_md5 = {(t_hash_init*)md5_init
-		, (t_hash_update*)md5_update, (t_hash_final*)md5_final
+t_hash		g_hash_md5 = {(t_hash_init)&md5_init
+		, (t_hash_update)&md5_update, (t_hash_final)&md5_final
 		, 16, 64, "MD5"};
 
 static uint32_t	g_md5_s[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7

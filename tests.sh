@@ -52,28 +52,32 @@ test_base64()
 test_des_encrypt()
 {
 	iv="8877665544332211"
-	ret_ftssl=`./ft_ssl $1 -e -k $3 -v $iv -i $4 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $2 -e -K $3 -iv $iv -in $4 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	print_result "$1 encrypt $4" $ret_ftssl $ret_opssl
+	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump
+	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump
+	ret_ftssl=`./ft_ssl $1 -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	print_result "$1 encrypt $3" $ret_ftssl $ret_opssl
 }
 
 test_des_decrypt()
 {
 	iv="8877665544332211"
 	file=`mktemp`
-	cat $4 | openssl $2 -e -K $3 -iv $iv > $file 2>&-
-	ret_ftssl=`./ft_ssl $1 -d -k $3 -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $2 -d -K $3 -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	cat $3 | openssl $1 -e -K $2 -iv $iv > $file 2>&-
+	#./ft_ssl $1 -d -k $2 -v $iv -i $file | hexdump
+	#openssl $1 -d -K $2 -iv $iv -in $file | hexdump
+	ret_ftssl=`./ft_ssl $1 -d -k $2 -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -d -K $2 -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
-	print_result "$1 decrypt $4" $ret_ftssl $ret_opssl
+	print_result "$1 decrypt $3" $ret_ftssl $ret_opssl
 }
 
 test_des()
 {
-	test_des_encrypt $1 $2 $3 author
-	test_des_encrypt $1 $2 $3 Makefile
-	test_des_decrypt $1 $2 $3 author
-	test_des_decrypt $1 $2 $3 Makefile
+	test_des_encrypt $1 $2 author
+	test_des_encrypt $1 $2 Makefile
+	test_des_decrypt $1 $2 author
+	test_des_decrypt $1 $2 Makefile
 }
 
 test_hash "md5"
@@ -94,35 +98,34 @@ echo
 
 des_key_1="0123456789abcdef"
 des_key_2="0123456789abcdef1122334455667788"
-des_key_3="0123456789abcdef11223344556677880123456789abcdef"
+des_key_3="0123456789abcdef1122334455667788fedcba9876543210"
 
-test_des "des-ecb" "des-ecb" $des_key_1
+test_des "des-ecb" $des_key_1
 echo
-test_des "des-cbc" "des-cbc" $des_key_1
+test_des "des-cbc" $des_key_1
 echo
-test_des "des-pcbc" "des-pcbc" $des_key_1
+test_des "des-pcbc" $des_key_1
 echo
-test_des "des-cfb" "des-cfb" $des_key_1
+test_des "des-cfb" $des_key_1
 echo
-test_des "des-ofb" "des-ofb" $des_key_1
+test_des "des-ofb" $des_key_1
 echo
-test_des "des2-ecb" "des-ede-ecb" $des_key_2
+test_des "des-ede-ecb" $des_key_2
 echo
-test_des "des2-cbc" "des-ede-cbc" $des_key_2
+test_des "des-ede-cbc" $des_key_2
 echo
-test_des "des2-pcbc" "des-ede-pcbc" $des_key_2
+test_des "des-ede-pcbc" $des_key_2
 echo
-test_des "des2-cfb" "des-ede-cfb" $des_key_2
+test_des "des-ede-cfb" $des_key_2
 echo
-test_des "des2-ofb" "des-ede-ofb" $des_key_2
+test_des "des-ede-ofb" $des_key_2
 echo
-test_des "des3-ecb" "des-ede3-ecb" $des_key_3
+test_des "des-ede3-ecb" $des_key_3
 echo
-test_des "des3-cbc" "des-ede3-cbc" $des_key_3
+test_des "des-ede3-cbc" $des_key_3
 echo
-test_des "des3-pcbc" "des-ede3-pcbc" $des_key_3
+test_des "des-ede3-pcbc" $des_key_3
 echo
-test_des "des3-cfb" "des-ede3-cfb" $des_key_3
+test_des "des-ede3-cfb" $des_key_3
 echo
-test_des "des3-ofb" "des-ede3-ofb" $des_key_3
-echo
+test_des "des-ede3-ofb" $des_key_3

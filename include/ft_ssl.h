@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/04 15:26:15 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 13:18:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ typedef struct	s_b64d_data
 	int	fd;
 }		t_b64d_data;
 
-typedef int t_hash_init(void *ctx);
-typedef int t_hash_update(void *ctx, const uint8_t *data, size_t len);
-typedef int t_hash_final(uint8_t *md, void *ctx);
+typedef int (*t_hash_init)(void *ctx);
+typedef int (*t_hash_update)(void *ctx, const uint8_t *data, size_t len);
+typedef int (*t_hash_final)(uint8_t *md, void *ctx);
 
 typedef struct		s_hash
 {
-	t_hash_init	*init;
-	t_hash_update	*update;
-	t_hash_final	*final;
+	t_hash_init	init;
+	t_hash_update	update;
+	t_hash_final	final;
 	uint8_t		digest_len;
 	uint8_t		block_len;
 	char		*name;
@@ -77,25 +77,30 @@ typedef struct		s_hash_data
 	int		quiet;
 }			t_hash_data;
 
-typedef int t_des_init(void *ctx, int64_t key);
 
-typedef struct		s_des_data
+typedef struct		s_des_data t_des_data;
+
+typedef void (*t_des_mod)(t_des_data *ctx, uint64_t *data);
+
+struct		s_des_data
 {
-	t_des_init	*encrypt_init;
-	t_des_init	*decrypt_init;
-	t_des_ctx	ctx1;
-	t_des_ctx	ctx2;
-	t_des_ctx	ctx3;
-	uint64_t	key1;
-	uint64_t	key2;
-	uint64_t	key3;
+	t_des_mod	premod;
+	t_des_mod	postmod;
+	t_des_ctx	ctx[3];
+	char		*buffer;
+	uint32_t	buff_len;
+	uint64_t	keys[3];
+	uint64_t	tmp1;
+	uint64_t	tmp2;
 	int		base64;
+	int		nopad;
+	int		ended;
 	int		fdout;
 	int		fdin;
 	int		mode;
 	int		des3;
 	void		*b64_ctx;
-}			t_des_data;
+};
 
 typedef struct		s_des_args
 {
@@ -136,10 +141,22 @@ int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
+void		des_ecb_premod(t_des_data *ctx, uint64_t *data);
+void		des_ecb_postmod(t_des_data *ctx, uint64_t *data);
+void		des_cbc_premod(t_des_data *ctx, uint64_t *data);
+void		des_cbc_postmod(t_des_data *ctx, uint64_t *data);
+void		des_pcbc_premod(t_des_data *ctx, uint64_t *data);
+void		des_pcbc_postmod(t_des_data *ctx, uint64_t *data);
+void		des_cfb_premod(t_des_data *ctx, uint64_t *data);
+void		des_cfb_postmod(t_des_data *ctx, uint64_t *data);
+void		des_ofb_premod(t_des_data *ctx, uint64_t *data);
+void		des_ofb_postmod(t_des_data *ctx, uint64_t *data);
 int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
 int		cmd_des_do_execute(t_des_data *data);
-int		cmd_des_handle_iv(t_des_ctx *ctx, char *iv);
+int		cmd_des_handle_iv(t_des_data *data, t_des_args *args);
 int		cmd_des_handle_key(t_des_data *data, t_des_args *args);
+int		cmd_des_callback(t_des_data *ctx, uint64_t *data, size_t len);
+int		cmd_des_do_update(t_des_data *data);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

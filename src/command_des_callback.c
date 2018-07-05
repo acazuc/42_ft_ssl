@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_ecb.c                                          :+:      :+:    :+:   */
+/*   command_des_callback.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/27 21:25:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/04 20:29:48 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/04 21:57:19 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/05 12:02:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void	des_ecb_premod(t_des_data *ctx, uint64_t *data)
+int	cmd_des_callback(t_des_data *ctx, uint64_t *data, size_t len)
 {
-	(void)ctx;
-	(void)data;
-}
-
-void	des_ecb_postmod(t_des_data *ctx, uint64_t *data)
-{
-	(void)ctx;
-	(void)data;
+	if (ctx->mode && ctx->ended && !ctx->nopad)
+	{
+		if (((char*)data)[7] > 8)
+			return (0);
+		len -= ((char*)data)[7];
+	}
+	len = write(ctx->fdout, data, len);
+	return (1);
 }

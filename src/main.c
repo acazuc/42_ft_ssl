@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/04 17:05:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/04 18:53:40 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 static int	handle_3(int ac, char **av)
 {
-	if (!ft_strcmp(av[1], "des3-ofb"))
+	if (!ft_strcmp(av[1], "des-ede3-ofb"))
 		return (command_des3_ofb(ac - 2, av + 2));
-	else
-	{
-		ft_putstr("ft_ssl: invalid command: ");
-		ft_putendl(av[1]);
-		print_usage_commands();
-		return (EXIT_FAILURE);
-	}
+	ft_putstr("ft_ssl: invalid command: ");
+	ft_putendl(av[1]);
+	print_usage_commands();
+	return (EXIT_FAILURE);
 }
 
 static int	handle_2(int ac, char **av)

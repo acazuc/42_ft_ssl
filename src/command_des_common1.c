@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/04 15:55:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/05 12:29:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	generate_keys2(t_des_data *data, uint64_t salt, char *password)
 	ctx.out_len = 24;
 	if (!pbkdf2(&ctx))
 		return (0);
-	ft_memcpy(&data->key1, tmp, 8);
-	ft_memcpy(&data->key2, tmp + 8, 8);
-	ft_memcpy(&data->key3, tmp + 16, 8);
+	ft_memcpy(&data->keys[0], tmp, 8);
+	ft_memcpy(&data->keys[1], tmp + 8, 8);
+	ft_memcpy(&data->keys[2], tmp + 16, 8);
 	return (1);
 }
 
@@ -108,40 +108,40 @@ int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
 
 	if (!args->key)
 		return (generate_keys(data, args->password, args->salt));
-	ft_memset(&data->key1, 0, 8);
-	ft_memset(&data->key2, 0, 8);
-	ft_memset(&data->key3, 0, 8);
+	ft_memset(&data->keys[0], 0, 8);
+	ft_memset(&data->keys[1], 0, 8);
+	ft_memset(&data->keys[2], 0, 8);
 	len = ft_strlen(args->key);
 	if (len > 0)
 	{
-		if (!transform_bin64(&data->key1, args->key))
+		if (!transform_bin64(&data->keys[0], args->key))
 			return (0);
 	}
 	if (len > 16)
 	{
-		if (!transform_bin64(&data->key2, args->key + 16))
+		if (!transform_bin64(&data->keys[1], args->key + 16))
 			return (0);
 	}
 	if (len > 32)
 	{
-		if (!transform_bin64(&data->key3, args->key + 32))
+		if (!transform_bin64(&data->keys[2], args->key + 32))
 			return (0);
 	}
 	return (1);
 }
 
-int		cmd_des_handle_iv(t_des_ctx *ctx, char *iv)
+int		cmd_des_handle_iv(t_des_data *data, t_des_args *args)
 {
-	if (!iv)
+	if (!args->iv)
 	{
-		if (!random_bytes((uint8_t*)&ctx->iv, 8))
+		if (!random_bytes((uint8_t*)&data->tmp1, 8))
 			return (0);
 	}
 	else
 	{
-		if (!transform_bin64(&ctx->iv, iv))
+		if (!transform_bin64(&data->tmp1, args->iv))
 			return (0);
 	}
-	ctx->iv = ft_swap_ulong(ctx->iv);
+	data->tmp1 = ft_swap_ulong(data->tmp1);
 	return (1);
 }
