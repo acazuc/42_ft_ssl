@@ -1,4 +1,4 @@
-# Message digest
+# Message digests
 md5
 sha1
 sha224

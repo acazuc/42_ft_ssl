@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/05 17:29:37 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/05 20:14:16 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRCS_NAME = main.c \
 	    rotate_right.c \
 	    hex_bin.c \
 	    random_bytes.c \
+	    hmac.c \
+	    pbkdf2.c \
 	    command_hash.c \
 	    command_md5.c \
 	    command_sha1.c \
@@ -45,26 +47,24 @@ SRCS_NAME = main.c \
 	    command_des_args.c \
 	    command_des_callback.c \
 	    command_des_initfree.c \
-	    md5.c \
-	    sha1.c \
-	    sha224.c \
-	    sha256.c \
-	    sha384.c \
-	    sha512.c \
-	    base64_encode.c \
-	    base64_decode.c \
-	    des.c \
-	    des_encrypt.c \
-	    des_decrypt.c \
-	    cipher.c \
-	    cipher_update.c \
-	    cipher_mod_ecb.c \
-	    cipher_mod_cbc.c \
-	    cipher_mod_pcbc.c \
-	    cipher_mod_cfb.c \
-	    cipher_mod_ofb.c \
-	    hmac.c \
-	    pbkdf2.c \
+	    hash/md5.c \
+	    hash/sha1.c \
+	    hash/sha224.c \
+	    hash/sha256.c \
+	    hash/sha384.c \
+	    hash/sha512.c \
+	    base64/base64_encode.c \
+	    base64/base64_decode.c \
+	    des/des.c \
+	    des/des_encrypt.c \
+	    des/des_decrypt.c \
+	    cipher/cipher.c \
+	    cipher/cipher_update.c \
+	    cipher/cipher_mod_ecb.c \
+	    cipher/cipher_mod_cbc.c \
+	    cipher/cipher_mod_pcbc.c \
+	    cipher/cipher_mod_cfb.c \
+	    cipher/cipher_mod_ofb.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
@@ -89,6 +89,10 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 
 odir:
 	@mkdir -p $(OBJS_PATH)
+	@mkdir -p $(OBJS_PATH)hash
+	@mkdir -p $(OBJS_PATH)base64
+	@mkdir -p $(OBJS_PATH)des
+	@mkdir -p $(OBJS_PATH)cipher
 
 clean:
 	@make -C libft clean
