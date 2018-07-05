@@ -37,8 +37,6 @@ test_base64_decode()
 {
 	file=`mktemp`
 	cat $1 | openssl base64 > $file
-	./ft_ssl base64 -d -i $file | hexdump > a
-	openssl base64 -d -in $file | hexdump > b
 	ret_ftssl=`./ft_ssl base64 -d -i $file | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl base64 -d -in $file | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
