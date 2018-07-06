@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate_right.c                                     :+:      :+:    :+:   */
+/*   bignum_rshift1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 19:53:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 23:06:53 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/06 17:38:26 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/06 22:58:56 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "bignum.h"
 
-uint32_t	rotate_right28(uint32_t v, uint32_t c)
+int	bignum_rshift1(t_bignum *r, t_bignum *a)
 {
-	return ((v >> c) | (v << (28 - c)));
-}
+	t_bignum	*tmp;
 
-uint32_t	rotate_right32(uint32_t v, uint32_t c)
-{
-	return ((v >> c) | (v << (32 - c)));
-}
-
-uint64_t	rotate_right64(uint64_t v, uint64_t c)
-{
-	return ((v >> c) | (v << (64 - c)));
+	if (!(tmp = bignum_new()))
+		return (0);
+	if (!(bignum_grow(tmp, 2)))
+	{
+		bignum_free(tmp);
+		return (0);
+	}
+	if (!(bignum_div(r, a, tmp)))
+	{
+		bignum_free(tmp);
+		return (0);
+	}
+	bignum_free(tmp);
+	return (1);
 }

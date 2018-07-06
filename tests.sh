@@ -13,8 +13,8 @@ print_result()
 
 test_hash_do()
 {
-	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1 | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1 | openssl sha512 -r | cut -d ' ' -f 1`
 	print_result "$1 $2" $ret_ftssl $ret_opssl
 }
 

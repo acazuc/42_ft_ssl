@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate_right.c                                     :+:      :+:    :+:   */
+/*   bignum_trunc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 19:53:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 23:06:53 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/06 11:32:49 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/06 22:16:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "bignum.h"
 
-uint32_t	rotate_right28(uint32_t v, uint32_t c)
+void	bignum_trunc(t_bignum *bignum)
 {
-	return ((v >> c) | (v << (28 - c)));
-}
+	uint64_t	i;
 
-uint32_t	rotate_right32(uint32_t v, uint32_t c)
-{
-	return ((v >> c) | (v << (32 - c)));
-}
-
-uint64_t	rotate_right64(uint64_t v, uint64_t c)
-{
-	return ((v >> c) | (v << (64 - c)));
+	if (!bignum->len)
+		return ;
+	i = bignum->len - 1;
+	while (i > 0 && !bignum->data[i])
+		--i;
+	if (i == bignum->len - 1)
+		return ;
+	if (!i && !bignum->data[i])
+	{
+		free(bignum->data);
+		bignum->data = NULL;
+		bignum->len = 0;
+		return ;
+	}
+	bignum->len = i + 1;
+	return ;
 }

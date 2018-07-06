@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/05 20:14:16 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/06 21:41:27 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,35 @@ SRCS_NAME = main.c \
 	    cipher/cipher_mod_pcbc.c \
 	    cipher/cipher_mod_cfb.c \
 	    cipher/cipher_mod_ofb.c \
+	    bignum/bignum_print.c \
+	    bignum/bignum_npot.c \
+	    bignum/bignum_new.c \
+	    bignum/bignum_free.c \
+	    bignum/bignum_reserve.c \
+	    bignum/bignum_resize.c \
+	    bignum/bignum_copy.c \
+	    bignum/bignum_dup.c \
+	    bignum/bignum_grow.c \
+	    bignum/bignum_grow_front.c \
+	    bignum/bignum_trunc.c \
+	    bignum/bignum_zero.c \
+	    bignum/bignum_one.c \
+	    bignum/bignum_is_zero.c \
+	    bignum/bignum_is_one.c \
+	    bignum/bignum_is_word.c \
+	    bignum/bignum_is_odd.c \
+	    bignum/bignum_lshift.c \
+	    bignum/bignum_rshift.c \
+	    bignum/bignum_lshift1.c \
+	    bignum/bignum_rshift1.c \
+	    bignum/bignum_div_mod.c \
+	    bignum/bignum_cmp.c \
+	    bignum/bignum_add.c \
+	    bignum/bignum_sub.c \
+	    bignum/bignum_mul.c \
+	    bignum/bignum_div.c \
+	    bignum/bignum_mod.c \
+	    bignum/bignum_exp.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
@@ -93,6 +122,8 @@ odir:
 	@mkdir -p $(OBJS_PATH)base64
 	@mkdir -p $(OBJS_PATH)des
 	@mkdir -p $(OBJS_PATH)cipher
+	@mkdir -p $(OBJS_PATH)rsa
+	@mkdir -p $(OBJS_PATH)bignum
 
 clean:
 	@make -C libft clean

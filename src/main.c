@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/04 18:53:40 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/06 23:02:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "bignum.h"
 
 static int	handle_3(int ac, char **av)
 {
@@ -87,5 +88,19 @@ int		main(int ac, char **av)
 		print_usage();
 		return (EXIT_FAILURE);
 	}
+	/*t_bignum *a = bignum_new();
+	bignum_grow(a, 123456789);
+	bignum_grow(a, 123456789);
+	t_bignum *b = bignum_new();
+	bignum_grow(b, 64645645);
+	//bignum_grow(b, 500);
+	t_bignum *c = bignum_new();
+	bignum_mod(c, a, b);
+	bignum_print(a);
+	ft_putchar('/');
+	bignum_print(b);
+	ft_putchar('=');
+	bignum_print(c);
+	ft_putchar('\n');*/
 	return (handle_1(ac, av));
 }
