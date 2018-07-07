@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_new.c                                       :+:      :+:    :+:   */
+/*   bignum_rand_range.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 11:23:39 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 16:07:15 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/07 13:46:21 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/07 16:15:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-t_bignum	*bignum_new()
+int	bignum_rand_range(t_bignum *bignum, t_bignum *range)
 {
-	t_bignum	*result;
-
-	if (!(result = malloc(sizeof(*result))))
-		return (NULL);
-	result->len = 0;
-	result->cap = 0;
-	result->data = NULL;
-	return (result);
+	bignum_trunc(range);
+	if (!(bignum_rand(bignum, range->len * 8 * sizeof(*bignum->data))))
+		return (0);
+	if (!(bignum_mod(bignum, bignum, range)))
+		return (0);
+	bignum_trunc(bignum);
+	return (1);
 }

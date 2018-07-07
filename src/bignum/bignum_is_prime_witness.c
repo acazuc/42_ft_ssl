@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_copy.c                                      :+:      :+:    :+:   */
+/*   bignum_is_prime_witness.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 16:55:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 14:46:25 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/07 14:22:26 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/07 16:48:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_copy(t_bignum *dst, t_bignum *src)
+int	bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum)
 {
-	if (dst == src)
-		return (1);
-	if (!bignum_resize(dst, src->len))
+	if (!bignum_mod_exp(ctx->a, ctx->a, ctx->d, bignum))
+		return (-1);
+	if (bignum_is_one(ctx->a) || !bignum_cmp(ctx->a, ctx->n1))
 		return (0);
-	ft_memcpy(dst->data, src->data, src->len * sizeof(*src->data));
+	while (ctx->s > 1)
+	{
+		if (!bignum_mul(ctx->a, ctx->a, ctx->a))
+			return (-1);
+		if (!bignum_mod(ctx->a, ctx->a, bignum))
+			return (-1);
+		if (bignum_is_one(ctx->a))
+			return (1);
+		if (!bignum_cmp(ctx->a, ctx->n1))
+			return (0);
+		--ctx->s;
+	}
 	return (1);
 }
