@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/06 21:40:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 10:18:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		bignum_lshift(t_bignum *r, t_bignum *a, uint64_t n);
 int		bignum_rshift(t_bignum *r, t_bignum *a, uint64_t n);
 int		bignum_lshift1(t_bignum *r, t_bignum *a);
 int		bignum_rshift1(t_bignum *r, t_bignum *a);
+int		bignum_rand(t_bignum *bignum, uint64_t bits);
 int		bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
 int		bignum_add(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b);
@@ -53,6 +54,7 @@ int		bignum_mul(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_div(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mod(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_exp(t_bignum *r, t_bignum *a, t_bignum *b);
+int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b);
 
 #define BIGNUM_BASE (1000000000U)
 

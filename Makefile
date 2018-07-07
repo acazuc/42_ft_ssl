@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/06 21:41:27 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/07 10:18:41 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_rshift.c \
 	    bignum/bignum_lshift1.c \
 	    bignum/bignum_rshift1.c \
+	    bignum/bignum_rand.c \
 	    bignum/bignum_div_mod.c \
 	    bignum/bignum_cmp.c \
 	    bignum/bignum_add.c \
@@ -94,6 +95,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_div.c \
 	    bignum/bignum_mod.c \
 	    bignum/bignum_exp.c \
+	    bignum/bignum_gcd.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
