@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 14:10:22 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 16:06:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 17:18:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ static int	do_part2(t_bignum *tmp[2], t_bignum *r)
 {
 	if (!(bignum_copy(r, tmp[0])))
 		return (do_clear(tmp));
+	bignum_free(tmp[0]);
+	bignum_free(tmp[1]);
+	bignum_trunc(r);
 	return (1);
 }
 
@@ -51,6 +54,7 @@ static int	do_part3(t_bignum *tmp[2], t_bignum *a, t_bignum *r)
 		return (do_clear(tmp));
 	bignum_free(tmp[0]);
 	bignum_free(tmp[1]);
+	bignum_trunc(r);
 	return (1);
 }
 

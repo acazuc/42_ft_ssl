@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/07 10:18:41 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/07 17:41:10 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS_NAME = main.c \
 	    cipher/cipher_mod_cfb.c \
 	    cipher/cipher_mod_ofb.c \
 	    bignum/bignum_print.c \
+	    bignum/bignum_dec2bignum.c \
 	    bignum/bignum_npot.c \
 	    bignum/bignum_new.c \
 	    bignum/bignum_free.c \
@@ -87,15 +88,21 @@ SRCS_NAME = main.c \
 	    bignum/bignum_lshift1.c \
 	    bignum/bignum_rshift1.c \
 	    bignum/bignum_rand.c \
-	    bignum/bignum_div_mod.c \
+	    bignum/bignum_rand_range.c \
 	    bignum/bignum_cmp.c \
 	    bignum/bignum_add.c \
 	    bignum/bignum_sub.c \
 	    bignum/bignum_mul.c \
+	    bignum/bignum_div_mod.c \
 	    bignum/bignum_div.c \
 	    bignum/bignum_mod.c \
 	    bignum/bignum_exp.c \
+	    bignum/bignum_mod_exp.c \
 	    bignum/bignum_gcd.c \
+	    bignum/bignum_is_prime.c \
+	    bignum/bignum_is_prime_fasttest.c \
+	    bignum/bignum_is_prime_witness.c \
+	    bignum/bignum_prime_checks_count.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:25:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 16:43:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 19:19:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	calc_n1_d_a_one(t_miller_ctx *ctx, t_bignum *bignum, t_bignum **one)
 	if (!(ctx->d = bignum_dup(ctx->n1)))
 		return (-1);
 	ctx->s = 0;
-	while (bignum_is_odd(ctx->d))
+	while (!bignum_is_odd(ctx->d))
 	{
 		if (!bignum_rshift1(ctx->d, ctx->d))
 			return (0);
