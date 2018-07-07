@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 22:07:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 23:13:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ typedef struct		s_miller_ctx
 
 int		bignum_print_fd(t_bignum *bignum, int fd);
 int		bignum_print(t_bignum *bignum);
+int		bignum_printhex_fd(t_bignum *bignum, int fd);
+int		bignum_printhex(t_bignum *bignum);
 int		bignum_dec2bignum(t_bignum *bignum, char *s);
+int		bignum_hex2bignum(t_bignum *bignum, char *s);
 uint64_t	bignum_npot(uint64_t val);
 t_bignum	*bignum_new();
 void		bignum_free(t_bignum *bignum);
@@ -71,7 +74,7 @@ int		bignum_is_prime_fasttest(t_bignum *bignum, int n);
 int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum);
 int		bignum_prime_checks_count(t_bignum *bignum);
 
-# define BIGNUM_BASE 1000000000U
+# define BIGNUM_BASE 1000000ULL
 # define BIGNUM_PRIME_CHECKS_AUTO 0
 
 #endif
