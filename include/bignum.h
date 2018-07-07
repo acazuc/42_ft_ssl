@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 15:50:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 22:07:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct		s_miller_ctx
 	int		s;
 }			t_miller_ctx;
 
-void		bignum_print_fd(t_bignum *bignum, int fd);
-void		bignum_print(t_bignum *bignum);
+int		bignum_print_fd(t_bignum *bignum, int fd);
+int		bignum_print(t_bignum *bignum);
 int		bignum_dec2bignum(t_bignum *bignum, char *s);
 uint64_t	bignum_npot(uint64_t val);
 t_bignum	*bignum_new();

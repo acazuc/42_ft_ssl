@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 17:20:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 22:18:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
+int		command_bignum(int ac, char **av);
+int		command_genrsa(int ac, char **av);
 int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
 int		cmd_des_do_execute(t_des_data *data);
 int		cmd_des_handle_iv(t_des_data *data, t_des_args *args);

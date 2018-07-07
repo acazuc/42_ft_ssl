@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/07 17:41:10 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/07 22:18:46 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = ft_ssl
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -mtune=native -g -rdynamic
+#CFLAGS+= -fsanitize=address
 
 INCLUDES = -I include/ -I libft/include
 
@@ -47,6 +48,8 @@ SRCS_NAME = main.c \
 	    command_des_args.c \
 	    command_des_callback.c \
 	    command_des_initfree.c \
+	    command_bignum.c \
+	    command_genrsa.c \
 	    hash/md5.c \
 	    hash/sha1.c \
 	    hash/sha224.c \

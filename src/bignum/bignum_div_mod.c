@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 21:34:44 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 19:20:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 22:49:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,17 @@ int	bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 	{
 		if (dv)
 			bignum_zero(dv);
+		if (rm)
+			bignum_zero(rm);
+		return (1);
+	}
+	if (bignum_is_one(b))
+	{
+		if (dv)
+		{
+			if (!(bignum_copy(dv, a)))
+				return (0);
+		}
 		if (rm)
 			bignum_zero(rm);
 		return (1);

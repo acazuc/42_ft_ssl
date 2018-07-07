@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/06 23:02:22 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 22:19:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ static int	handle_3(int ac, char **av)
 {
 	if (!ft_strcmp(av[1], "des-ede3-ofb"))
 		return (command_des3_ofb(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "bignum"))
+		return (command_bignum(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "genrsa"))
+		return (command_genrsa(ac - 2, av + 2));
 	ft_putstr("ft_ssl: invalid command: ");
 	ft_putendl(av[1]);
 	print_usage_commands();
@@ -88,19 +92,5 @@ int		main(int ac, char **av)
 		print_usage();
 		return (EXIT_FAILURE);
 	}
-	/*t_bignum *a = bignum_new();
-	bignum_grow(a, 123456789);
-	bignum_grow(a, 123456789);
-	t_bignum *b = bignum_new();
-	bignum_grow(b, 64645645);
-	//bignum_grow(b, 500);
-	t_bignum *c = bignum_new();
-	bignum_mod(c, a, b);
-	bignum_print(a);
-	ft_putchar('/');
-	bignum_print(b);
-	ft_putchar('=');
-	bignum_print(c);
-	ft_putchar('\n');*/
 	return (handle_1(ac, av));
 }
