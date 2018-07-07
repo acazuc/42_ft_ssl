@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:27:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/06 22:48:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/07 09:59:43 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b)
 	i = 0;
 	while (i < a->len)
 	{
-		carry += a->data[i] - (i < b->len ? b->data[i] : 0);
+		carry += (int64_t)a->data[i] - (int64_t)(i < b->len ? b->data[i] : 0);
 		if (!do_loop(&carry, result))
 			return (0);
 		++i;
