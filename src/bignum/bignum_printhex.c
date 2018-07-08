@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:15:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 14:35:00 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 19:54:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		bignum_printhex_fd(t_bignum *bignum, int fd)
 {
 	uint64_t	i;
 
+	if (bignum->sign)
+		ft_putchar_fd('-', fd);
 	if (!bignum->len)
 	{
 		ft_putchar_fd('0', fd);

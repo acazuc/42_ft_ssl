@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 11:32:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 17:54:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_bignum
 	uint32_t	*data;
 	uint64_t	cap;
 	uint64_t	len;
+	int		sign;
 }			t_bignum;
 
 typedef struct		s_miller_ctx
@@ -30,6 +31,23 @@ typedef struct		s_miller_ctx
 	t_bignum	*d;
 	int		s;
 }			t_miller_ctx;
+
+typedef struct		s_ext_gcd_ctx
+{
+	t_bignum	*x;
+	t_bignum	*y;
+	t_bignum	*a;
+	t_bignum	*b;
+	t_bignum	*s;
+	t_bignum	*t;
+	t_bignum	*r;
+	t_bignum	*old_s;
+	t_bignum	*old_t;
+	t_bignum	*old_r;
+	t_bignum	*q;
+	t_bignum	*tmp1;
+	t_bignum	*tmp2;
+}			t_ext_gcd_ctx;
 
 int		bignum_print_fd(t_bignum *bignum, int fd);
 int		bignum_print(t_bignum *bignum);
@@ -55,20 +73,31 @@ int		bignum_resize(t_bignum *bignum, uint64_t len);
 int		bignum_copy(t_bignum *dst, t_bignum *src);
 t_bignum	*bignum_dup(t_bignum *bignum);
 int		bignum_lshift(t_bignum *r, t_bignum *a, uint64_t n);
+int		bignum_lshift_op(t_bignum *r, t_bignum *a, uint64_t n);
 int		bignum_rshift(t_bignum *r, t_bignum *a, uint64_t n);
+int		bignum_rshift_op(t_bignum *r, t_bignum *a, uint64_t n);
 int		bignum_lshift1(t_bignum *r, t_bignum *a);
+int		bignum_lshift1_op(t_bignum *r, t_bignum *a);
 int		bignum_rshift1(t_bignum *r, t_bignum *a);
+int		bignum_rshift1_op(t_bignum *r, t_bignum *a);
 int		bignum_rand(t_bignum *bignum, uint64_t bits);
 int		bignum_rand_range(t_bignum *bignum, t_bignum *range);
 int		bignum_add(t_bignum *r, t_bignum *a, t_bignum *b);
+int		bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b);
+int		bignum_sub_op(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mul(t_bignum *r, t_bignum *a, t_bignum *b);
+int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
+int		bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
 int		bignum_div(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mod(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_exp(t_bignum *r, t_bignum *a, t_bignum *p);
+int		bignum_exp_op(t_bignum *r, t_bignum *a, t_bignum *p);
 int		bignum_mod_exp(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
+int		bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
 int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b);
+int		bignum_ext_gcd(t_bignum *x, t_bignum *y, t_bignum *a, t_bignum *b);
 int		bignum_is_prime(t_bignum *bignum, int n);
 int		bignum_is_prime_fasttest(t_bignum *bignum, int n);
 int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum);

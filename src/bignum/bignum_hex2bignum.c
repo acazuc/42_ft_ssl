@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:13:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 12:56:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 17:14:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int	bignum_hex2bignum(t_bignum *bignum, char *s)
 	int	i;
 
 	bignum_zero(bignum);
+	bignum->sign = s[0] == '-';
+	if (s[0] == '-')
+		++s;
 	len = ft_strlen(s);
 	i = len - 1;
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 14:01:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 17:31:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ static int	do_execute1(char *v1, char *v2, int (*fn)(t_bignum *r, t_bignum *a, t
 		return (EXIT_FAILURE);
 	if (!bignum_dec2bignum(b, v2))
 		return (EXIT_FAILURE);
+	/*ft_putstr("a: ");
+	bignum_print(a);
+	ft_putchar('\n');
+	ft_putstr("b: ");
+	bignum_print(b);
+	ft_putchar('\n');*/
 	if (!fn(r, a, b))
 		return (EXIT_FAILURE);
 	if (!bignum_print(r))

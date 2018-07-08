@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/08 11:31:23 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/08 17:56:24 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,21 +89,32 @@ SRCS_NAME = main.c \
 	    bignum/bignum_is_word.c \
 	    bignum/bignum_is_odd.c \
 	    bignum/bignum_lshift.c \
+	    bignum/bignum_lshift_op.c \
 	    bignum/bignum_rshift.c \
+	    bignum/bignum_rshift_op.c \
 	    bignum/bignum_lshift1.c \
+	    bignum/bignum_lshift1_op.c \
 	    bignum/bignum_rshift1.c \
+	    bignum/bignum_rshift1_op.c \
 	    bignum/bignum_rand.c \
 	    bignum/bignum_rand_range.c \
 	    bignum/bignum_cmp.c \
 	    bignum/bignum_add.c \
+	    bignum/bignum_add_op.c \
 	    bignum/bignum_sub.c \
+	    bignum/bignum_sub_op.c \
 	    bignum/bignum_mul.c \
+	    bignum/bignum_mul_op.c \
 	    bignum/bignum_div_mod.c \
+	    bignum/bignum_div_mod_op.c \
 	    bignum/bignum_div.c \
 	    bignum/bignum_mod.c \
 	    bignum/bignum_exp.c \
+	    bignum/bignum_exp_op.c \
 	    bignum/bignum_mod_exp.c \
+	    bignum/bignum_mod_exp_op.c \
 	    bignum/bignum_gcd.c \
+	    bignum/bignum_ext_gcd.c \
 	    bignum/bignum_is_prime.c \
 	    bignum/bignum_is_prime_fasttest.c \
 	    bignum/bignum_is_prime_witness.c \

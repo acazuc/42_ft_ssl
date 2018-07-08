@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_zero.c                                      :+:      :+:    :+:   */
+/*   rsa.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 12:09:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:55:18 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/08 15:27:10 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/08 15:47:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bignum.h"
+#ifndef RSA_H
+# define RSA_H
 
-void	bignum_zero(t_bignum *bignum)
+# include "bignum.h"
+
+typedef struct	s_rsa_ctx
 {
-	bignum_resize(bignum, 0);
-	bignum->sign = 0;
-}
+	t_bignum	*p;
+	t_bignum	*q;
+	t_bignum	*n;
+	t_bignum	*e;
+	t_bignum	*d;
+}		t_rsa_ctx;
+
+#endif

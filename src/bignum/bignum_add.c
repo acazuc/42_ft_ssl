@@ -6,66 +6,39 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:27:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 22:58:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 18:55:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-static int	do_clear(t_bignum *result)
-{
-	bignum_free(result);
-	return (0);
-}
-
-static int	do_init(t_bignum **result, t_bignum *a, t_bignum *b, uint64_t *to)
-{
-	bignum_trunc(a);
-	bignum_trunc(b);
-	if (!(*result = bignum_new()))
-		return (0);
-	bignum_zero(*result);
-	*to = a->len > b->len ? a->len : b->len;
-	if (!(bignum_reserve(*result, *to)))
-		return (do_clear(*result));
-	return (1);
-}
-
-static int	do_end(t_bignum *result, t_bignum *r, uint64_t carry)
-{
-	if (carry)
-	{
-		if (!(bignum_grow(result, carry)))
-			return (do_clear(result));
-	}
-	bignum_trunc(result);
-	if (!(bignum_copy(r, result)))
-		return (do_clear(result));
-	bignum_free(result);
-	return (1);
-}
-
 int		bignum_add(t_bignum *r, t_bignum *a, t_bignum *b)
 {
-	t_bignum	*result;
-	uint64_t	carry;
-	uint64_t	to;
-	uint64_t	i;
+	int	ret;
 
-	if (!do_init(&result, a, b, &to))
-		return (0);
-	carry = 0;
-	i = 0;
-	while (i < to)
+	if (!a->sign && !b->sign)
 	{
-		if (i < a->len)
-			carry += a->data[i];
-		if (i < b->len)
-			carry += b->data[i];
-		if (!(bignum_grow(result, carry % BIGNUM_BASE)))
-			return (do_clear(result));
-		carry /= BIGNUM_BASE;
-		++i;
+		ret = bignum_add_op(r, a, b);
+		r->sign = 0;
 	}
-	return (do_end(result, r, carry));
+	else if (a->sign && b->sign)
+	{
+		ret = bignum_add_op(r, a, b);
+		r->sign = 1;
+	}
+	else if (!a->sign && b->sign)
+	{
+		b->sign = 0;
+		ret = bignum_sub(r, a, b);
+		if (b != r)
+			b->sign = 1;
+	}
+	else
+	{
+		a->sign = 0;
+		ret = bignum_sub(r, b, a);
+		if (a != r)
+			a->sign = 1;
+	}
+	return (ret);
 }

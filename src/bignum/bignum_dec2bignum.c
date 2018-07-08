@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 15:39:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 12:49:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 17:18:05 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int		bignum_dec2bignum(t_bignum *bignum, char *s)
 	if (!do_init(&tmp, &mul))
 		return (do_clear(tmp, mul));
 	bignum_zero(bignum);
-	len = ft_strlen(s);
 	i = 0;
+	if (s[0] == '-')
+		++i;
+	len = ft_strlen(s);
 	while (i < len)
 	{
 		if (!bignum_mul(bignum, bignum, mul))
@@ -57,6 +59,7 @@ int		bignum_dec2bignum(t_bignum *bignum, char *s)
 			return (do_clear(tmp, mul));
 		++i;
 	}
+	bignum->sign = s[0] == '-';
 	bignum_trunc(bignum);
 	return (1);
 }
