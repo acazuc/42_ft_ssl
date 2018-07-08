@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 13:32:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 14:01:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,25 @@ static int	do_execute3(char *v1, int (*fn)(t_bignum *r, t_bignum *a))
 	return (EXIT_SUCCESS);
 }
 
+static int	do_execute_prime(char *v)
+{
+	t_bignum	*a;
+	int		is_prime;
+
+	if (!(a = bignum_new()))
+		return (EXIT_FAILURE);
+	if (!bignum_dec2bignum(a, v))
+		return (EXIT_FAILURE);
+	is_prime = bignum_is_prime(a, BIGNUM_PRIME_CHECKS_AUTO);
+	if (is_prime == -1)
+		return (EXIT_FAILURE);
+	if (is_prime)
+		ft_putchar('1');
+	else
+		ft_putchar('0');
+	return (EXIT_SUCCESS);
+}
+
 int	command_bignum(int ac, char **av)
 {
 	if (ac != 3)
@@ -98,5 +117,7 @@ int	command_bignum(int ac, char **av)
 		return (do_execute3(av[0], &bignum_rshift1));
 	if (!ft_strcmp(av[1], "<<1"))
 		return (do_execute3(av[0], &bignum_lshift1));
+	if (!ft_strcmp(av[1], "is_prime"))
+		return (do_execute_prime(av[0]));
 	return (EXIT_FAILURE);
 }
