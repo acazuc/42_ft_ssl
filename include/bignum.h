@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 23:13:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 11:32:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		bignum_is_prime_fasttest(t_bignum *bignum, int n);
 int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum);
 int		bignum_prime_checks_count(t_bignum *bignum);
 
-# define BIGNUM_BASE 1000000ULL
+# define BIGNUM_BASE 0x100000000ULL
 # define BIGNUM_PRIME_CHECKS_AUTO 0
 
 #endif
