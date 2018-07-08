@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:25:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 19:19:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 14:41:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,38 @@ static int	do_clear(t_miller_ctx *ctx, t_bignum *one, int ret)
 	return (ret);
 }
 
-int	bignum_is_prime(t_bignum *bignum, int n)
+static int	do_pretests(t_bignum *bignum, int *n, int *ret)
+{
+	bignum_trunc(bignum);
+	if (bignum_is_zero(bignum) || bignum_is_one(bignum))
+	{
+		*ret = 0;
+		return (1);
+	}
+	if (!bignum_is_odd(bignum))
+	{
+		*ret = bignum_is_word(bignum, 2);
+		return (1);
+	}
+	if (bignum_is_word(bignum, 3))
+	{
+		*ret = 1;
+		return (1);
+	}
+	if (*n == BIGNUM_PRIME_CHECKS_AUTO)
+		*n = bignum_prime_checks_count(bignum);
+	return (0);
+}
+
+int		bignum_is_prime(t_bignum *bignum, int n)
 {
 	t_miller_ctx	ctx;
 	t_bignum	*one;
 	int		ret;
 	int		i;
 
-	if (bignum_is_zero(bignum) || bignum_is_one(bignum))
-		return (0);
-	if (!bignum_is_odd(bignum))
-		return (bignum_is_word(bignum, 2));
-	if (bignum_is_word(bignum, 3))
-		return (1);
-	if (n == BIGNUM_PRIME_CHECKS_AUTO)
-		n = bignum_prime_checks_count(bignum);
+	if (do_pretests(bignum, &n, &i))
+		return (i);
 	ret = calc_n1_d_a_one(&ctx, bignum, &one);
 	if (ret <= 0)
 		return (do_clear(&ctx, one, ret));
