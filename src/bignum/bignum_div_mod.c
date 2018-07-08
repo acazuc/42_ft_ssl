@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 21:34:44 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 14:46:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 14:55:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,41 @@ static int	do_init2(t_bignum **tmp1, t_bignum **tmp2, t_bignum **tmp3, t_bignum 
 	return (1);
 }
 
+static int	do_loop(t_bignum *tmp1, t_bignum *tmp2, t_bignum *tmp3, t_bignum *b)
+{
+	uint64_t	tmp;
+	uint64_t	x;
+	uint64_t	l;
+	uint64_t	s;
+
+	x = 0;
+	l = 0;
+	s = BIGNUM_BASE;
+	while (l <= s)
+	{
+		tmp = (l + s) >> 1;
+		tmp2->data[0] = tmp;
+		if (!bignum_mul(tmp3, b, tmp2))
+			return (0);
+		if (bignum_cmp(tmp3, tmp1) > 0)
+		{
+			x = tmp;
+			s = tmp - 1;
+		}
+		else
+			l = tmp + 1;
+	}
+	tmp2->data[0] = x - 1;
+	return (1);
+}
+
 int	bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 {
 	t_bignum	*tmp1;
 	t_bignum	*tmp2;
 	t_bignum	*tmp3;
 	t_bignum	*tmp4;
-	uint64_t	tmp;
 	uint64_t	i;
-	uint64_t	x;
-	uint64_t	l;
-	uint64_t	s;
 
 	if (!do_init1(a, b))
 		return (0);
@@ -89,29 +113,13 @@ int	bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 	{
 		if (!bignum_grow_front(tmp1, a->data[i]))
 			return (do_clear(tmp1, tmp2, tmp3, tmp4));
-		x = 0;
-		l = 0;
-		s = BIGNUM_BASE;
-		while (l <= s)
-		{
-			tmp = (l + s) >> 1;
-			tmp2->data[0] = tmp;
-			if (!bignum_mul(tmp3, b, tmp2))
-				return (do_clear(tmp1, tmp2, tmp3, tmp4));
-			if (bignum_cmp(tmp3, tmp1) > 0)
-			{
-				x = tmp;
-				s = tmp - 1;
-			}
-			else
-				l = tmp + 1;
-		}
-		tmp2->data[0] = x - 1;
+		if (!do_loop(tmp1, tmp2, tmp3, b))
+			return (do_clear(tmp1, tmp2, tmp3, tmp4));
 		if (!bignum_mul(tmp3, tmp2, b))
 			return (do_clear(tmp1, tmp2, tmp3, tmp4));
 		if (!bignum_sub(tmp1, tmp1, tmp3))
 			return (do_clear(tmp1, tmp2, tmp3, tmp4));
-		if (tmp4 && !(bignum_grow_front(tmp4, x - 1)))
+		if (tmp4 && !(bignum_grow_front(tmp4, tmp2->data[0]/*x - 1*/)))
 			return (do_clear(tmp1, tmp2, tmp3, tmp4));
 		if (!i)
 			break;
