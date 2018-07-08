@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:27:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 18:57:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 20:16:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	int	ret;
 
-	r->sign = 0;
 	if (!a->sign && !b->sign && bignum_cmp(a, b) >= 0)
-		return (bignum_sub_op(r, a, b));
+	{
+		ret = bignum_sub_op(r, a, b);
+		r->sign = 0;
+		return (ret);
+	}
 	if (!a->sign && !b->sign)
 	{
 		ret = bignum_sub_op(r, b, a);
@@ -42,6 +45,7 @@ int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b)
 	}
 	b->sign = 0;
 	ret = bignum_add_op(r, a, b);
-	b->sign = 1;
+	if (r != b)
+		b->sign = 1;
 	return (ret);
 }

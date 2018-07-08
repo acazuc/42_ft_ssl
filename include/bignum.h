@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:54:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 20:40:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,14 @@ typedef struct		s_miller_ctx
 
 typedef struct		s_ext_gcd_ctx
 {
-	t_bignum	*x;
-	t_bignum	*y;
 	t_bignum	*a;
 	t_bignum	*b;
-	t_bignum	*s;
-	t_bignum	*t;
-	t_bignum	*r;
-	t_bignum	*old_s;
-	t_bignum	*old_t;
-	t_bignum	*old_r;
 	t_bignum	*q;
-	t_bignum	*tmp1;
-	t_bignum	*tmp2;
+	t_bignum	*r;
+	t_bignum	*s;
+	t_bignum	*old_r;
+	t_bignum	*old_s;
+	t_bignum	*tmp;
 }			t_ext_gcd_ctx;
 
 int		bignum_print_fd(t_bignum *bignum, int fd);
@@ -97,7 +92,7 @@ int		bignum_exp_op(t_bignum *r, t_bignum *a, t_bignum *p);
 int		bignum_mod_exp(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
 int		bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
 int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b);
-int		bignum_ext_gcd(t_bignum *x, t_bignum *y, t_bignum *a, t_bignum *b);
+int		bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_is_prime(t_bignum *bignum, int n);
 int		bignum_is_prime_fasttest(t_bignum *bignum, int n);
 int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum);

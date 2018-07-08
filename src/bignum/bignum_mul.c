@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:36:11 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 18:57:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 20:21:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ int		bignum_mul(t_bignum *r, t_bignum *a, t_bignum *b)
 	}
 	if (a->sign)
 	{
-		b->sign = 0;
+		a->sign = 0;
 		ret = bignum_mul_op(r, a, b);
-		b->sign = 1;
+		a->sign = 1;
 		r->sign = 1;
 		return (ret);
 	}
-	a->sign = 0;
+	b->sign = 0;
 	ret = bignum_mul_op(r, a, b);
-	a->sign = 1;
+	b->sign = 1;
 	r->sign = 1;
 	return (ret);
 }
