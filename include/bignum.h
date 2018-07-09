@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 20:40:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 14:47:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct		s_miller_ctx
 	int		s;
 }			t_miller_ctx;
 
-typedef struct		s_ext_gcd_ctx
+typedef struct		s_mod_inv_ctx
 {
 	t_bignum	*a;
 	t_bignum	*b;
@@ -42,7 +42,7 @@ typedef struct		s_ext_gcd_ctx
 	t_bignum	*old_r;
 	t_bignum	*old_s;
 	t_bignum	*tmp;
-}			t_ext_gcd_ctx;
+}			t_mod_inv_ctx;
 
 int		bignum_print_fd(t_bignum *bignum, int fd);
 int		bignum_print(t_bignum *bignum);
@@ -87,15 +87,16 @@ int		bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
 int		bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
 int		bignum_div(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mod(t_bignum *r, t_bignum *a, t_bignum *b);
+int		bignum_mod_word(uint32_t *r, t_bignum *a, uint32_t b);
 int		bignum_exp(t_bignum *r, t_bignum *a, t_bignum *p);
 int		bignum_exp_op(t_bignum *r, t_bignum *a, t_bignum *p);
 int		bignum_mod_exp(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
 int		bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
 int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b);
-int		bignum_is_prime(t_bignum *bignum, int n);
-int		bignum_is_prime_fasttest(t_bignum *bignum, int n);
+int		bignum_is_prime(t_bignum *bignum, uint64_t n, uint64_t *passed);
 int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum);
+int		bignum_is_prime_fasttest(t_bignum *bignun);
 int		bignum_prime_checks_count(t_bignum *bignum);
 
 # define BIGNUM_BASE 0x100000000ULL

@@ -6,13 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:48:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 20:40:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 13:39:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-static int	do_clear(t_ext_gcd_ctx *ctx, int ret)
+static int	do_clear(t_mod_inv_ctx *ctx, int ret)
 {
 	bignum_free(ctx->q);
 	bignum_free(ctx->r);
@@ -23,7 +23,7 @@ static int	do_clear(t_ext_gcd_ctx *ctx, int ret)
 	return (ret);
 }
 
-static int	do_init(t_ext_gcd_ctx *ctx)
+static int	do_init(t_mod_inv_ctx *ctx)
 {
 	if (!(ctx->q = bignum_new()))
 		return (0);
@@ -42,7 +42,7 @@ static int	do_init(t_ext_gcd_ctx *ctx)
 	return (1);
 }
 
-static int	do_part(t_ext_gcd_ctx *ctx, t_bignum *v, t_bignum *old_v)
+static int	do_part(t_mod_inv_ctx *ctx, t_bignum *v, t_bignum *old_v)
 {
 	if (!bignum_mul(ctx->tmp, ctx->q, v))
 		return (0);
@@ -57,7 +57,7 @@ static int	do_part(t_ext_gcd_ctx *ctx, t_bignum *v, t_bignum *old_v)
 
 int	bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b)
 {
-	t_ext_gcd_ctx	ctx;
+	t_mod_inv_ctx	ctx;
 
 	bignum_trunc(a);
 	bignum_trunc(b);

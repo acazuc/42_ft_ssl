@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 19:50:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/08 23:14:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int		b64e_final(t_b64e_ctx *ctx)
 		ctx->buff[ctx->buff_len++] = '=';
 	}
 	ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
+	free(ctx->buff);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:15:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 19:54:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 15:54:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@ static void	print_char(uint8_t c, int fd)
 		ft_putchar_fd('0' + c, fd);
 }
 
-static void	print_hex(uint32_t data, int fd)
+static void	print_hex(uint32_t data, int fd, int first)
 {
 	int	i;
+	uint8_t	v;
 
 	i = 0;
 	while (i < 32)
 	{
-		print_char((data >> (28 - i)) & 0xf, fd);
+		v = (data >> (28 - i)) & 0xf;
+		if (v || !first)
+		{
+			first = 0;
+			print_char(v, fd);
+		}
 		i += 4;
 	}
 }
@@ -46,7 +52,7 @@ int		bignum_printhex_fd(t_bignum *bignum, int fd)
 	i = bignum->len - 1;
 	while (1)
 	{
-		print_hex(bignum->data[i], fd);
+		print_hex(bignum->data[i], fd, i == bignum->len - 1);
 		if (!i)
 			break;
 		--i;

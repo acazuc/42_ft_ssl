@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:02:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:05:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 13:40:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,22 @@ static int	do_init(t_bignum *r, t_bignum *a, t_bignum *b, uint64_t *ret)
 static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
 {
 	uint64_t	carry;
+	uint64_t	ai;
 	uint64_t	t;
 	uint64_t	j;
 
 	carry = 0;
 	j = 0;
-	while (j < b->len || carry)
+	ai = a->data[i];
+	while (j < b->len)
 	{
-		t = (uint64_t)tmp->data[i + j] + carry
-			+ (uint64_t)a->data[i]
-			* (j < b->len ? (uint64_t)b->data[j] : 0);
+		t = (uint64_t)tmp->data[i + j] + carry + ai * b->data[j];
 		tmp->data[i + j] = t % BIGNUM_BASE;
 		carry = t / BIGNUM_BASE;
 		++j;
 	}
+	if (carry)
+		tmp->data[i + j] += carry;
 }
 
 int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
@@ -63,7 +65,7 @@ int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 		return (i);
 	if (!(tmp = bignum_new()))
 		return (0);
-	if (!(bignum_resize(tmp, a->len + b->len)))
+	if (!bignum_resize(tmp, a->len + b->len))
 	{
 		bignum_free(tmp);
 		return (0);
@@ -76,7 +78,7 @@ int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 		++i;
 	}
 	bignum_trunc(tmp);
-	bignum_copy(r, tmp);
+	i = bignum_copy(r, tmp);
 	bignum_free(tmp);
-	return (1);
+	return (i);
 }

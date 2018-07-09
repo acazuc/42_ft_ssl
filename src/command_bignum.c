@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:31:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 14:49:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	do_execute_prime(char *v)
 		return (EXIT_FAILURE);
 	if (!bignum_dec2bignum(a, v))
 		return (EXIT_FAILURE);
-	is_prime = bignum_is_prime(a, BIGNUM_PRIME_CHECKS_AUTO);
+	is_prime = bignum_is_prime(a, BIGNUM_PRIME_CHECKS_AUTO, NULL);
 	if (is_prime == -1)
 		return (EXIT_FAILURE);
 	if (is_prime)

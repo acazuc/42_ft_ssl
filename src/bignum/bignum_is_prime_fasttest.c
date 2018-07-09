@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:28:32 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 14:38:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 14:04:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,46 +270,21 @@ static const uint32_t	g_primes[2048] = {2, 3, 5, 7, 11, 13, 17, 19
 	, 17789, 17791, 17807, 17827, 17837, 17839, 17851, 17863
 };
 
-static int	do_init(t_bignum **tmp1, t_bignum **tmp2)
+int	bignum_is_prime_fasttest(t_bignum *bignum)
 {
-	if (!(*tmp1 = bignum_new()))
-		return (0);
-	if (!bignum_resize(*tmp1, 1))
-	{
-		bignum_free(*tmp1);
-		return (0);
-	}
-	if (!(*tmp2 = bignum_new()))
-	{
-		bignum_free(*tmp1);
-		return (0);
-	}
-	return (1);
-}
-
-int	bignum_is_prime_fasttest(t_bignum *bignum, int n)
-{
-	t_bignum	*tmp1;
-	t_bignum	*tmp2;
+	uint32_t	res;
 	int		i;
 
 	if (!bignum_is_odd(bignum))
 		return (bignum_is_word(bignum, 2));
-	if (!do_init(&tmp1, &tmp2))
-		return (-1);
 	i = 1;
 	while (i < 2048)
 	{
-		tmp1->data[0] = g_primes[i];
-		if (!bignum_mod(tmp2, bignum, tmp1))
-		{
-			bignum_free(tmp1);
-			bignum_free(tmp2);
+		if (bignum_is_word(bignum, g_primes[i]))
+			return (1);
+		if (!bignum_mod_word(&res, bignum, g_primes[i]))
 			return (-1);
-		}
-		if (bignum_is_zero(tmp2))
-			return (0);
 		++i;
 	}
-	return (bignum_is_prime(bignum, n));
+	return (1);
 }

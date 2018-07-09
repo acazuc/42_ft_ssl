@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:25:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 14:41:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 14:52:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	do_clear(t_miller_ctx *ctx, t_bignum *one, int ret)
 	return (ret);
 }
 
-static int	do_pretests(t_bignum *bignum, int *n, int *ret)
+static int	do_pretests(t_bignum *bignum, uint64_t *n, int *ret)
 {
 	bignum_trunc(bignum);
 	if (bignum_is_zero(bignum) || bignum_is_one(bignum))
@@ -81,19 +81,21 @@ static int	do_pretests(t_bignum *bignum, int *n, int *ret)
 	return (0);
 }
 
-int		bignum_is_prime(t_bignum *bignum, int n)
+int		bignum_is_prime(t_bignum *bignum, uint64_t n, uint64_t *passed)
 {
 	t_miller_ctx	ctx;
 	t_bignum	*one;
+	uint64_t	i;
 	int		ret;
-	int		i;
 
-	if (do_pretests(bignum, &n, &i))
-		return (i);
+	if (do_pretests(bignum, &n, &ret))
+		return (ret);
 	ret = calc_n1_d_a_one(&ctx, bignum, &one);
 	if (ret <= 0)
 		return (do_clear(&ctx, one, ret));
 	i = 0;
+	if (passed)
+		*passed = 0;
 	while (i < n)
 	{
 		ret = calc_a(&ctx, one);
@@ -105,6 +107,8 @@ int		bignum_is_prime(t_bignum *bignum, int n)
 		if (ret)
 			return (do_clear(&ctx, one, 0));
 		++i;
+		if (passed)
+			*passed = i;
 	}
 	return (do_clear(&ctx, one, 1));
 }

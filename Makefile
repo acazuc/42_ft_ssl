@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/08 20:23:06 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/09 15:49:38 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,9 @@ SRCS_NAME = main.c \
 	    cipher/cipher_mod_pcbc.c \
 	    cipher/cipher_mod_cfb.c \
 	    cipher/cipher_mod_ofb.c \
+	    rsa/rsa_genkey.c \
+	    rsa/rsa_genkey_pq.c \
+	    rsa/rsa_genkey_phi.c \
 	    bignum/bignum_print.c \
 	    bignum/bignum_printhex.c \
 	    bignum/bignum_dec2bignum.c \
@@ -109,6 +112,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_div_mod_op.c \
 	    bignum/bignum_div.c \
 	    bignum/bignum_mod.c \
+	    bignum/bignum_mod_word.c \
 	    bignum/bignum_exp.c \
 	    bignum/bignum_exp_op.c \
 	    bignum/bignum_mod_exp.c \

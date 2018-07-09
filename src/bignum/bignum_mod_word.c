@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_genrsa.c                                   :+:      :+:    :+:   */
+/*   bignum_mod_word.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 15:55:31 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/09 13:25:28 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/09 13:41:05 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
-#include "rsa.h"
+#include "bignum.h"
 
-int	command_genrsa(int ac, char **av)
+int	bignum_mod_word(uint32_t *r, t_bignum *a, uint32_t b)
 {
-	t_rsa_ctx	ctx;
-	uint64_t	len;
+	uint64_t	ret;
+	uint64_t	i;
 
-	len = 512;
-	if (ac)
-		len = ft_atol(av[0]);
-	if (!rsa_genkey(&ctx, len, 1))
-		return (EXIT_FAILURE);
-	ft_putstr("e is ");
-	bignum_print(ctx.e);
-	ft_putstr(" (0x");
-	bignum_printhex(ctx.e);
-	ft_putendl(")");
+	if (!b)
+		return (0);
+	bignum_trunc(a);
+	if (bignum_is_zero(a))
+	{
+		*r = 0;
+		return (1);
+	}
+	ret = 0;
+	i = a->len - 1;
+	while (1)
+	{
+		ret = (ret * (BIGNUM_BASE % b) + a->data[i] % b) % b;
+		if (!i)
+			break;
+		--i;
+	}
+	*r = ret;
 	return (1);
 }
