@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/09 21:31:11 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/09 22:25:34 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,8 @@ SRCS_NAME = main.c \
 	    bignum/bignum_npot.c \
 	    bignum/bignum_new.c \
 	    bignum/bignum_free.c \
+	    bignum/bignum_init.c \
+	    bignum/bignum_clear.c \
 	    bignum/bignum_reserve.c \
 	    bignum/bignum_resize.c \
 	    bignum/bignum_copy.c \

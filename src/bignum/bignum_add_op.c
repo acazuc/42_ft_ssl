@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 16:47:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 16:51:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:29:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 static int	do_clear(t_bignum *result)
 {
-	bignum_free(result);
+	bignum_clear(result);
 	return (0);
 }
 
-static int	do_init(t_bignum **result, t_bignum *a, t_bignum *b, uint64_t *to)
+static int	do_init(t_bignum *result, t_bignum *a, t_bignum *b, uint64_t *to)
 {
 	bignum_trunc(a);
 	bignum_trunc(b);
-	if (!(*result = bignum_new()))
-		return (0);
-	bignum_zero(*result);
+	bignum_init(result);
+	bignum_zero(result);
 	*to = a->len > b->len ? a->len : b->len;
-	if (!(bignum_reserve(*result, *to)))
-		return (do_clear(*result));
+	if (!(bignum_reserve(result, *to)))
+		return (do_clear(result));
 	return (1);
 }
 
@@ -41,13 +40,13 @@ static int	do_end(t_bignum *result, t_bignum *r, uint64_t carry)
 	bignum_trunc(result);
 	if (!(bignum_copy(r, result)))
 		return (do_clear(result));
-	bignum_free(result);
+	bignum_clear(result);
 	return (1);
 }
 
 int		bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
-	t_bignum	*result;
+	t_bignum	result;
 	uint64_t	carry;
 	uint64_t	to;
 	uint64_t	i;
@@ -62,10 +61,10 @@ int		bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b)
 			carry += a->data[i];
 		if (i < b->len)
 			carry += b->data[i];
-		if (!(bignum_grow(result, carry % BIGNUM_BASE)))
-			return (do_clear(result));
+		if (!(bignum_grow(&result, carry % BIGNUM_BASE)))
+			return (do_clear(&result));
 		carry /= BIGNUM_BASE;
 		++i;
 	}
-	return (do_end(result, r, carry));
+	return (do_end(&result, r, carry));
 }

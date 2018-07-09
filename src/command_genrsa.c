@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:49:40 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:15:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,6 @@
 
 int	command_genrsa(int ac, char **av)
 {
-	/*t_bignum *a = bignum_new();
-	bignum_dec2bignum(a, "1269343521640258108984378929387367856567447047363750913089043745155208");
-	bignum_rshift1(a, a);
-	ft_putstr("a: ");
-	bignum_print(a);
-	ft_putstr("\nah: ");
-	bignum_printhex(a);
-	ft_putchar('\n');
-	t_bignum *b = bignum_new();
-	bignum_dec2bignum(b, "10");
-	t_bignum *c = bignum_new();
-	bignum_div(c, a, b);
-	ft_putstr("c: ");
-	bignum_print(c);
-	ft_putstr("\nch: ");
-	bignum_printhex(c);
-	ft_putchar('\n');
-	return (0);
-	(void)ac;
-	(void)av;*/
-	/*t_bignum *b = bignum_new();
-	bignum_dec2bignum(b, "4722366482869645213696");
-	ft_putul(b->data[0]);
-	ft_putchar('\n');
-	ft_putstr("a: ");
-	bignum_printhex(a);
-	ft_putchar('\n');
-	ft_putstr("b: ");
-	bignum_printhex(b);
-	ft_putchar('\n');
-	t_bignum *c = bignum_new();
-	t_bignum *d = bignum_new();
-	bignum_div_mod(c, d, a, b);
-	ft_putstr("a: ");
-	bignum_printhex(a);
-	ft_putchar('\n');
-	ft_putstr("b: ");
-	bignum_printhex(b);
-	ft_putchar('\n');
-	ft_putstr("c: ");
-	bignum_printhex(c);
-	ft_putchar('\n');
-	ft_putstr("d: ");
-	bignum_printhex(d);
-	ft_putchar('\n');
-	(void)ac;
-	(void)av;
-	return (0);*/
 	t_rsa_ctx	ctx;
 	uint64_t	len;
 

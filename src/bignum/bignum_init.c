@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_lshift1.c                                   :+:      :+:    :+:   */
+/*   bignum_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 17:48:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:16:26 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/09 22:20:38 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/09 22:21:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_lshift1(t_bignum *r, t_bignum *a)
+void	bignum_init(t_bignum *bignum)
 {
-	int	sign;
-	int	ret;
-
-	sign = a->sign;
-	ret = bignum_lshift1_op(r, a);
-	r->sign = sign;
-	return (ret);
+	bignum->data = NULL;
+	bignum->len = 0;
+	bignum->sign = 0;
+	bignum->cap = 0;
 }

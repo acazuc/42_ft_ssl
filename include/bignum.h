@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 21:06:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:25:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		bignum_hex2bignum(t_bignum *bignum, char *s);
 uint64_t	bignum_npot(uint64_t val);
 t_bignum	*bignum_new();
 void		bignum_free(t_bignum *bignum);
+void		bignum_init(t_bignum *bignum);
+void		bignum_clear(t_bignum *bignum);
 void		bignum_trunc(t_bignum *bignum);
 int		bignum_grow(t_bignum *bignum, uint32_t a);
 int		bignum_grow_front(t_bignum *bignum, uint32_t a);

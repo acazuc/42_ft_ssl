@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:02:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:38:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:42:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,25 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
 
 int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
-	t_bignum	*tmp;
+	t_bignum	tmp;
 	uint64_t	i;
 
 	if (do_init(r, a, b, &i))
 		return (i);
-	if (!(tmp = bignum_new()))
-		return (0);
-	if (!bignum_resize(tmp, a->len + b->len))
+	bignum_init(&tmp);
+	if (!bignum_resize(&tmp, a->len + b->len))
 	{
-		bignum_free(tmp);
+		bignum_clear(&tmp);
 		return (0);
 	}
-	ft_memset(tmp->data, 0, (a->len + b->len) * sizeof(*tmp->data));
+	ft_memset(tmp.data, 0, (a->len + b->len) * sizeof(*tmp.data));
 	i = 0;
 	while (i < a->len)
 	{
-		do_loop(tmp, a, b, i);
+		do_loop(&tmp, a, b, i);
 		++i;
 	}
-	bignum_trunc(tmp);
-	bignum_move(r, tmp);
-	bignum_free(tmp);
+	bignum_trunc(&tmp);
+	bignum_move(r, &tmp);
 	return (1);
 }

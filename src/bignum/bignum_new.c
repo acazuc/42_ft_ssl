@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:23:39 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:15:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:22:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ t_bignum	*bignum_new()
 
 	if (!(result = malloc(sizeof(*result))))
 		return (NULL);
-	result->len = 0;
-	result->cap = 0;
-	result->data = NULL;
-	result->sign = 0;
+	bignum_init(result);
 	return (result);
 }
