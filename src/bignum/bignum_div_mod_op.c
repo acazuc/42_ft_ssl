@@ -6,11 +6,24 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:08:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:44:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:49:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+
+static int	do_check_a_zero(t_bignum *dv, t_bignum *rm, t_bignum *a)
+{
+	if (bignum_is_zero(a))
+	{
+		if (dv)
+			bignum_zero(dv);
+		if (rm)
+			bignum_zero(rm);
+		return (1);
+	}
+	return (0);
+}
 
 int	bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 {
@@ -22,19 +35,13 @@ int	bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 	bignum_trunc(b);
 	if (bignum_is_zero(b))
 		return (0);
-	if (bignum_is_zero(a))
-	{
-		if (dv)
-			bignum_zero(dv);
-		if (rm)
-			bignum_zero(rm);
+	if (do_check_a_zero(dv, rm, a))
 		return (1);
-	}
 	if (bignum_is_one(b))
 	{
 		if (dv)
 		{
-			if (!(bignum_copy(dv, a)))
+			if (!bignum_copy(dv, a))
 				return (0);
 		}
 		if (rm)

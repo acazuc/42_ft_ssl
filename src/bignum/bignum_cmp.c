@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 16:42:27 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:55:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 22:51:56 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,15 @@
 
 int	bignum_cmp(t_bignum *a, t_bignum *b)
 {
-	uint64_t	i;
-
+	if (!a->sign && !b->sign)
+		return (bignum_ucmp(a, b));
+	if (a->sign && b->sign)
+		return (-bignum_ucmp(a, b));
+	if (bignum_is_zero(a) && bignum_is_zero(b))
+		return (0);
 	if (a->sign && !b->sign)
 		return (-1);
 	if (!a->sign && b->sign)
 		return (1);
-	if (a->len > b->len)
-		return (a->sign ? -1 : 1);
-	if (b->len > a->len)
-		return (a->sign ? 1 : -1);
-	if (!a->len)
-		return (0);
-	i = a->len - 1;
-	while (1)
-	{
-		if (a->data[i] > b->data[i])
-			return (a->sign ? -1 : 1);
-		if (b->data[i] > a->data[i])
-			return (a->sign ? 1 : -1);
-		if (!i)
-			break;
-		--i;
-	}
 	return (0);
 }

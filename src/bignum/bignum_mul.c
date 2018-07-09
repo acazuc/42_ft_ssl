@@ -6,11 +6,22 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:36:11 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:38:56 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 23:40:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+
+static int	do_part(t_bignum *r, t_bignum *a, t_bignum *b)
+{
+	int	ret;
+
+	a->sign = 0;
+	ret = bignum_mul_op(r, a, b);
+	a->sign = 1;
+	r->sign = 1;
+	return (ret);
+}
 
 int		bignum_mul(t_bignum *r, t_bignum *a, t_bignum *b)
 {
@@ -29,13 +40,7 @@ int		bignum_mul(t_bignum *r, t_bignum *a, t_bignum *b)
 		return (ret);
 	}
 	if (a->sign)
-	{
-		a->sign = 0;
-		ret = bignum_mul_op(r, a, b);
-		a->sign = 1;
-		r->sign = 1;
-		return (ret);
-	}
+		return (do_part(r, a, b));
 	b->sign = 0;
 	ret = bignum_mul_op(r, a, b);
 	b->sign = 1;

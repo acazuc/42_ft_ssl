@@ -6,11 +6,28 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:53:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:34:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 23:39:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+
+static int	do_init(t_bignum *r, t_bignum *a, uint64_t *ret)
+{
+	bignum_trunc(a);
+	if (bignum_is_zero(a))
+	{
+		bignum_zero(r);
+		*ret = 1;
+		return (1);
+	}
+	if (!bignum_resize(r, a->len))
+	{
+		*ret = 0;
+		return (1);
+	}
+	return (0);
+}
 
 int	bignum_lshift1_op(t_bignum *r, t_bignum *a)
 {
@@ -18,14 +35,8 @@ int	bignum_lshift1_op(t_bignum *r, t_bignum *a)
 	uint32_t	tmp;
 	uint64_t	i;
 
-	bignum_trunc(a);
-	if (bignum_is_zero(a))
-	{
-		bignum_zero(r);
-		return (1);
-	}
-	if (!bignum_resize(r, a->len))
-		return (0);
+	if (do_init(r, a, &i))
+		return (i);
 	carry = 0;
 	i = 0;
 	while (i < a->len)

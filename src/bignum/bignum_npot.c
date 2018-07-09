@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:13:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/06 22:59:55 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 23:41:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ uint64_t	bignum_npot(uint64_t val)
 	val |= val >> 8;
 	val |= val >> 16;
 	val |= val >> 32;
-	return (val + 1);
+	return (++val);
 }

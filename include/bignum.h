@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:25:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 23:37:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
 int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_is_prime(t_bignum *bignum, uint64_t n, uint64_t *passed);
-int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum);
+int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum, uint64_t *passed);
 int		bignum_is_prime_fasttest(t_bignum *bignun);
 int		bignum_prime_checks_count(t_bignum *bignum);
 
