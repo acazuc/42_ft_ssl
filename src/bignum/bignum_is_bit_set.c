@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_copy.c                                      :+:      :+:    :+:   */
+/*   bignum_is_bit_set.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 16:55:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:38:02 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/09 19:29:28 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/09 20:53:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_copy(t_bignum *dst, t_bignum *src)
+int	bignum_is_bit_set(t_bignum *bignum, uint64_t n)
 {
-	if (dst == src)
-		return (1);
-	if (!bignum_resize(dst, src->len))
+	uint64_t	tmp;
+
+	tmp = n / 8 / sizeof(*bignum->data);
+	if (bignum->len <= tmp)
 		return (0);
-	ft_memcpy(dst->data, src->data, src->len * sizeof(*src->data));
-	dst->sign = src->sign;
-	return (1);
+	return (bignum->data[tmp] >> (n % (8 * sizeof(*bignum->data))) & 1);
 }

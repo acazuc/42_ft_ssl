@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/09 15:49:38 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/09 21:31:11 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,11 @@ NAME = ft_ssl
 
 CC = gcc
 
+LDFLAGS = -flto=4
+
 CFLAGS = -Wall -Wextra -Werror -Ofast -mtune=native -g -rdynamic
 #CFLAGS+= -fsanitize=address
+CFLAGS+= -flto
 
 INCLUDES = -I include/ -I libft/include
 
@@ -82,6 +85,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_resize.c \
 	    bignum/bignum_copy.c \
 	    bignum/bignum_dup.c \
+	    bignum/bignum_move.c \
 	    bignum/bignum_grow.c \
 	    bignum/bignum_grow_front.c \
 	    bignum/bignum_trunc.c \
@@ -91,6 +95,9 @@ SRCS_NAME = main.c \
 	    bignum/bignum_is_one.c \
 	    bignum/bignum_is_word.c \
 	    bignum/bignum_is_odd.c \
+	    bignum/bignum_is_bit_set.c \
+	    bignum/bignum_set_bit.c \
+	    bignum/bignum_clear_bit.c \
 	    bignum/bignum_lshift.c \
 	    bignum/bignum_lshift_op.c \
 	    bignum/bignum_rshift.c \
@@ -102,6 +109,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_rand.c \
 	    bignum/bignum_rand_range.c \
 	    bignum/bignum_cmp.c \
+	    bignum/bignum_ucmp.c \
 	    bignum/bignum_add.c \
 	    bignum/bignum_add_op.c \
 	    bignum/bignum_sub.c \
@@ -139,7 +147,7 @@ all: odir $(NAME)
 $(NAME): $(OBJS)
 	@make -C libft
 	@echo " - Making $(NAME)"
-	@$(CC) $(CFLAGS) -o $(NAME) $^ $(LIBRARY)
+	@$(CC) $(LDFLAGS) $(CFLAGS) -o $(NAME) $^ $(LIBRARY)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@echo " - Compiling $<"

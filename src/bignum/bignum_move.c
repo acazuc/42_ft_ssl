@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_copy.c                                      :+:      :+:    :+:   */
+/*   bignum_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 16:55:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:38:02 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/09 19:26:25 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/09 19:28:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_copy(t_bignum *dst, t_bignum *src)
+void	bignum_move(t_bignum *a, t_bignum *b)
 {
-	if (dst == src)
-		return (1);
-	if (!bignum_resize(dst, src->len))
-		return (0);
-	ft_memcpy(dst->data, src->data, src->len * sizeof(*src->data));
-	dst->sign = src->sign;
-	return (1);
+	if (a == b)
+		return;
+	free(a->data);
+	a->data = b->data;
+	a->len = b->len;
+	a->cap = b->cap;
+	a->sign = b->sign;
+	b->data = NULL;
+	b->len = 0;
+	b->cap = 0;
+	b->sign = 0;
 }

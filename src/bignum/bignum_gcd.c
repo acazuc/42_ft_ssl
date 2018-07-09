@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 23:10:24 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 14:41:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 20:40:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b)
 			return (do_clear(tmp1, tmp2, tmp3));
 	}
 	bignum_trunc(tmp1);
-	if (!bignum_copy(r, tmp1))
-		return (do_clear(tmp1, tmp2, tmp3));
+	bignum_move(r, tmp1);
+	do_clear(tmp1, tmp2, tmp3);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:05:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 13:39:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 20:40:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	bignum_exp_op(t_bignum *r, t_bignum *a, t_bignum *p)
 	while (!bignum_is_zero(ex))
 		if (!do_loop(res, base, ex))
 			return (do_clear(base, res, ex));
-	if (!bignum_copy(r, res))
-		return (do_clear(base, res, ex));
-	do_clear(base, res, ex);
+	bignum_move(r, res);
 	return (1);
 }

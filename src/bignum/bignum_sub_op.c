@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 16:50:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:06:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 21:04:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ static int	do_clear(t_bignum *result)
 
 static int	do_init(t_bignum **result, t_bignum *a, t_bignum *b)
 {
-	if (bignum_cmp(a, b) < 0)
+	if (bignum_ucmp(a, b) < 0)
 		return (0);
 	if (!(*result = bignum_new()))
 		return (0);
+	//if (!bignum_resize(*result, b->len - a->len + 1))
+	//	return (0);
 	bignum_trunc(a);
 	bignum_trunc(b);
 	bignum_zero(*result);
@@ -65,8 +67,7 @@ int		bignum_sub_op(t_bignum *r, t_bignum *a, t_bignum *b)
 		++i;
 	}
 	bignum_trunc(result);
-	if (!(bignum_copy(r, result)))
-		return (do_clear(result));
+	bignum_move(r, result);
 	bignum_free(result);
 	return (1);
 }

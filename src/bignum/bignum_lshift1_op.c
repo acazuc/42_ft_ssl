@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:53:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:53:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 21:20:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	bignum_lshift1_op(t_bignum *r, t_bignum *a)
 		r->data[i] = (a->data[i] << 1) | carry;
 		carry = tmp;
 		++i;
+	}
+	if (carry)
+	{
+		if (!bignum_resize(r, r->len + 1))
+			return (0);
+		r->data[i] = carry;
 	}
 	return (1);
 }

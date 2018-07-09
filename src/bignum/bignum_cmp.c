@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 16:42:27 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 16:54:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 20:55:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ int	bignum_cmp(t_bignum *a, t_bignum *b)
 		return (-1);
 	if (!a->sign && b->sign)
 		return (1);
-	bignum_trunc(a);
-	bignum_trunc(b);
 	if (a->len > b->len)
 		return (a->sign ? -1 : 1);
 	if (b->len > a->len)
 		return (a->sign ? 1 : -1);
-	if (bignum_is_zero(a))
+	if (!a->len)
 		return (0);
 	i = a->len - 1;
 	while (1)

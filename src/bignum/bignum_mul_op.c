@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:02:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 13:40:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 20:38:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
 {
 	uint64_t	carry;
 	uint64_t	ai;
-	uint64_t	t;
 	uint64_t	j;
 
 	carry = 0;
@@ -47,9 +46,9 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
 	ai = a->data[i];
 	while (j < b->len)
 	{
-		t = (uint64_t)tmp->data[i + j] + carry + ai * b->data[j];
-		tmp->data[i + j] = t % BIGNUM_BASE;
-		carry = t / BIGNUM_BASE;
+		carry += tmp->data[i + j] + ai * b->data[j];
+		tmp->data[i + j] = carry % BIGNUM_BASE;
+		carry /= BIGNUM_BASE;
 		++j;
 	}
 	if (carry)
@@ -78,7 +77,7 @@ int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 		++i;
 	}
 	bignum_trunc(tmp);
-	i = bignum_copy(r, tmp);
+	bignum_move(r, tmp);
 	bignum_free(tmp);
-	return (i);
+	return (1);
 }

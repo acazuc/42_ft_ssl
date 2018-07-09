@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 14:47:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 21:06:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,19 @@ int		bignum_grow_front(t_bignum *bignum, uint32_t a);
 void		bignum_zero(t_bignum *bignum);
 int		bignum_one(t_bignum *bignum);
 int		bignum_cmp(t_bignum *a, t_bignum *b);
+int		bignum_ucmp(t_bignum *a, t_bignum *b);
 int		bignum_is_zero(t_bignum *bignum);
 int		bignum_is_one(t_bignum *bignum);
 int		bignum_is_word(t_bignum *bignum, uint32_t word);
 int		bignum_is_odd(t_bignum *bignum);
+int		bignum_is_bit_set(t_bignum *a, uint64_t b);
+int		bignum_set_bit(t_bignum *bignum, uint64_t n);
+int		bignum_clear_bit(t_bignum *bignum, uint64_t n);
 int		bignum_reserve(t_bignum *bignum, uint64_t len);
 int		bignum_resize(t_bignum *bignum, uint64_t len);
 int		bignum_copy(t_bignum *dst, t_bignum *src);
 t_bignum	*bignum_dup(t_bignum *bignum);
+void		bignum_move(t_bignum *a, t_bignum *b);
 int		bignum_lshift(t_bignum *r, t_bignum *a, uint64_t n);
 int		bignum_lshift_op(t_bignum *r, t_bignum *a, uint64_t n);
 int		bignum_rshift(t_bignum *r, t_bignum *a, uint64_t n);

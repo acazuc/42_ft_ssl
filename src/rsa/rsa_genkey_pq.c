@@ -6,12 +6,19 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 16:38:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 18:20:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "rsa.h"
+
+static int	do_clear(t_rsa_ctx *ctx)
+{
+	bignum_free(ctx->p);
+	bignum_free(ctx->q);
+	return (0);
+}
 
 static void	do_print_plus(int print, uint64_t n)
 {
@@ -56,23 +63,20 @@ static int	genprime(t_bignum *r, uint64_t bits, int print)
 
 int		rsa_genkey_pq(t_rsa_ctx *ctx, uint64_t bits, int print)
 {
+	ctx->p = NULL;
+	ctx->q = NULL;
 	if (!(ctx->p = bignum_new()))
-		return (0);
+		return (do_clear(ctx));
 	if (!genprime(ctx->p, (bits + 1) / 2, print))
-	{
-		bignum_free(ctx->p);
-		return (0);
-	}
+		return (do_clear(ctx));
 	if (!(ctx->q = bignum_new()))
+		return (do_clear(ctx));
+	while (1)
 	{
-		bignum_free(ctx->p);
-		return (0);
-	}
-	if (!genprime(ctx->q, (bits + 1) / 2, print))
-	{
-		bignum_free(ctx->q);
-		bignum_free(ctx->p);
-		return (0);
+		if (!genprime(ctx->q, bits - (bits + 1) / 2, print))
+			return (do_clear(ctx));
+		if (bignum_cmp(ctx->p, ctx->q))
+			break;
 	}
 	return (1);
 }

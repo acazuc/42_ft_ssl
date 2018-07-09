@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 17:58:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 23:08:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 20:48:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	print(t_bignum *tmp1, t_bignum *tmp2, t_bignum *div, int fd)
 		return (1);
 	if (!bignum_mod(tmp2, tmp1, div))
 		return (0);
-	if (!tmp2->len)
-		return (1);
+	//if (!tmp2->len)
+	//	return (1);
 	c = tmp2->data[0];
 	if (tmp1->len > 1 || tmp1->data[0] > 9)
 	{
