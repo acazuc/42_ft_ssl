@@ -6,12 +6,26 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 15:49:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 16:38:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "rsa.h"
+
+static void	do_print_plus(int print, uint64_t n)
+{
+	uint64_t	i;
+
+	if (!print)
+		return;
+	i = 0;
+	while (i < n)
+	{
+		ft_putchar('+');
+		++i;
+	}
+}
 
 static int	genprime(t_bignum *r, uint64_t bits, int print)
 {
@@ -22,18 +36,18 @@ static int	genprime(t_bignum *r, uint64_t bits, int print)
 		if (!bignum_rand(r, bits))
 			return (0);
 		r->data[0] |= 1;
-		r->data[bits / sizeof(*r->data) / 8] |= 1 << (bits % (8 * sizeof(*r->data)));
+		r->data[bits / sizeof(*r->data) / 8] |= 1
+			<< (1 - (bits % (8 * sizeof(*r->data))));
 		if (!bignum_is_prime_fasttest(r))
 			continue;
 		if (print)
 			ft_putchar('.');
 		if (bignum_is_prime(r, BIGNUM_PRIME_CHECKS_AUTO, &passed) == 1)
 		{
-			if (print)
-				for (uint64_t i = 0; i < passed; ++i)
-					ft_putchar('+');
+			do_print_plus(print, passed);
 			break;
 		}
+		do_print_plus(print, passed);
 	}
 	if (print)
 		ft_putchar('\n');

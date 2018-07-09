@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:25:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 14:52:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/09 16:44:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ int		bignum_is_prime(t_bignum *bignum, uint64_t n, uint64_t *passed)
 	uint64_t	i;
 	int		ret;
 
+	if (passed)
+		*passed = 0;
 	if (do_pretests(bignum, &n, &ret))
 		return (ret);
 	ret = calc_n1_d_a_one(&ctx, bignum, &one);
 	if (ret <= 0)
 		return (do_clear(&ctx, one, ret));
 	i = 0;
-	if (passed)
-		*passed = 0;
 	while (i < n)
 	{
 		ret = calc_a(&ctx, one);
