@@ -1,1 +1,4 @@
-Implement base64 decrypt on des decrypt
+base64 -d -a
+genrsa [-rand] [-o] [-i?]
+rsa [-inform PEM] [-outform PEM] [-in file] [-passin arg] [-out file] [-passout arg] [-des] [-text] [-noout] [-modulus] [-check] [-pubin] [-pubout]
+rsautl [-in file] [-out file] [-inkey file] [-pubin] [-encrypt] [-decrypt] [-hexdump]
