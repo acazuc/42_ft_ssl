@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/09 22:25:34 by acazuc           ###   ########.fr        #
+#    Updated: 2018/07/22 17:41:24 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS_NAME = main.c \
 	    command_des_initfree.c \
 	    command_bignum.c \
 	    command_genrsa.c \
+	    command_genrsa2.c \
 	    hash/md5.c \
 	    hash/sha1.c \
 	    hash/sha224.c \
@@ -74,6 +75,7 @@ SRCS_NAME = main.c \
 	    rsa/rsa_genkey.c \
 	    rsa/rsa_genkey_pq.c \
 	    rsa/rsa_genkey_phi.c \
+	    rsa/rsa_genkey_crt.c \
 	    bignum/bignum_print.c \
 	    bignum/bignum_printhex.c \
 	    bignum/bignum_dec2bignum.c \
@@ -108,6 +110,11 @@ SRCS_NAME = main.c \
 	    bignum/bignum_lshift1_op.c \
 	    bignum/bignum_rshift1.c \
 	    bignum/bignum_rshift1_op.c \
+	    bignum/bignum_rand_init.c \
+	    bignum/bignum_rand_add.c \
+	    bignum/bignum_rand_add_file.c \
+	    bignum/bignum_rand_add_urandom.c \
+	    bignum/bignum_rand_get.c \
 	    bignum/bignum_rand.c \
 	    bignum/bignum_rand_range.c \
 	    bignum/bignum_cmp.c \

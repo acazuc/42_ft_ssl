@@ -1,26 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_rand_range.c                                :+:      :+:    :+:   */
+/*   bignum_rand_add_file.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/07 13:46:21 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 17:18:04 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/22 16:53:17 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/22 17:28:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include <fcntl.h>
 
-int	bignum_rand_range(t_bignum *bignum, t_bignum *range, int top
-		, int bottom)
+int	bignum_rand_add_file(char *file)
 {
-	bignum_trunc(range);
-	if (!(bignum_rand(bignum, range->len * 8 * sizeof(*bignum->data), top
-					, bottom)))
+	ssize_t	readed;
+	ssize_t	tmp;
+	char	buf[2048];
+	int	fd;
+
+	if ((fd = open(file, O_RDONLY)) == -1)
 		return (0);
-	if (!(bignum_mod(bignum, bignum, range)))
+	if ((readed = read(fd, buf, 2048)) < 0)
+	{
+		close(fd);
 		return (0);
-	bignum_trunc(bignum);
+	}
+	tmp = 0;
+	while (readed - tmp > 8)
+	{
+		bignum_rand_add(*(uint64_t*)&(buf[tmp]));
+		tmp += 8;
+	}
+	while (tmp < readed)
+	{
+		bignum_rand_add(buf[tmp]);
+		++tmp;
+	}
+	close(fd);
 	return (1);
 }

@@ -89,11 +89,11 @@ test_des_decrypt()
 {
 	iv="8877665544332211"
 	file=`mktemp`
-	cat $3 | openssl $1 -e -K $2 -iv $iv > $file 2>&-
+	cat $3 | openssl $1 -a -e -K $2 -iv $iv > $file 2>&-
 	#./ft_ssl $1 -d -k $2 -v $iv -i $file | hexdump
 	#openssl $1 -d -K $2 -iv $iv -in $file | hexdump
-	ret_ftssl=`./ft_ssl $1 -d -k $2 -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -d -K $2 -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl $1 -a -d -k $2 -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_opssl=`openssl $1 -a -d -K $2 -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	rm $file
 	print_result "$1 decrypt $3" $ret_ftssl $ret_opssl
 }

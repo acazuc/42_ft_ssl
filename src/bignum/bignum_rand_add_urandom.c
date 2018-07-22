@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_rand_range.c                                :+:      :+:    :+:   */
+/*   bignum_rand_add_urandom.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/07 13:46:21 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 17:18:04 by acazuc           ###   ########.fr       */
+/*   Created: 2018/07/22 16:57:27 by acazuc            #+#    #+#             */
+/*   Updated: 2018/07/22 17:22:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_rand_range(t_bignum *bignum, t_bignum *range, int top
-		, int bottom)
+int	bignum_rand_add_urandom()
 {
-	bignum_trunc(range);
-	if (!(bignum_rand(bignum, range->len * 8 * sizeof(*bignum->data), top
-					, bottom)))
-		return (0);
-	if (!(bignum_mod(bignum, bignum, range)))
-		return (0);
-	bignum_trunc(bignum);
-	return (1);
+	return (bignum_rand_add_file("/dev/urandom"));
 }

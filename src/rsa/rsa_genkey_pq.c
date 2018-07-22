@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 18:20:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 17:30:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ static int	genprime(t_bignum *r, uint64_t bits, int print)
 
 	while (1)
 	{
-		if (!bignum_rand(r, bits))
+		if (!bignum_rand(r, bits, BIGNUM_RAND_TOP_TWO
+					, BIGNUM_RAND_BOT_ODD))
 			return (0);
-		r->data[0] |= 1;
-		r->data[bits / sizeof(*r->data) / 8] |= 1
-			<< (1 - (bits % (8 * sizeof(*r->data))));
 		if (!bignum_is_prime_fasttest(r))
 			continue;
 		if (print)
@@ -63,8 +61,6 @@ static int	genprime(t_bignum *r, uint64_t bits, int print)
 
 int		rsa_genkey_pq(t_rsa_ctx *ctx, uint64_t bits, int print)
 {
-	ctx->p = NULL;
-	ctx->q = NULL;
 	if (!(ctx->p = bignum_new()))
 		return (do_clear(ctx));
 	if (!genprime(ctx->p, (bits + 1) / 2, print))

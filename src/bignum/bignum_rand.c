@@ -6,38 +6,49 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 10:07:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 16:35:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 17:38:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 #include <fcntl.h>
 
-int	bignum_rand(t_bignum *bignum, uint64_t bits)
+static void	do_top_bottom(t_bignum *bignum, uint64_t bits, int top
+		, int bottom)
 {
-	uint64_t	i;
-	int		fd;
+	if (bottom == BIGNUM_RAND_BOT_ODD)
+		bignum->data[0] |= 1;
+	if (top == BIGNUM_RAND_TOP_TWO || top == BIGNUM_RAND_TOP_ONE)
+		bignum->data[bits / 8 / sizeof(*bignum->data)] |=
+			1 << (bits % (8 * sizeof(*bignum->data)));
+	if (top == BIGNUM_RAND_TOP_TWO && bits > 1)
+		bignum->data[(bits - 1) / 8 / sizeof(*bignum->data)] |=
+			1 << ((bits - 1) % (8 * sizeof(*bignum->data)));
+}
+
+int	bignum_rand(t_bignum *bignum, uint64_t bits, int top, int bottom)
+{
+	uint64_t	pos;
 
 	if (!bits)
 	{
 		bignum_zero(bignum);
 		return (1);
 	}
-	if (!bignum_resize(bignum, bits + (8 * sizeof(*bignum->data) - 1)
+	if (!bignum_resize(bignum, (bits + (8 * sizeof(*bignum->data) - 1))
 				/ 8 / sizeof(*bignum->data)))
 		return (0);
-	if ((fd = open("/dev/urandom", O_RDONLY)) == -1)
-		return (0);
-	if (read(fd, bignum->data, bits / 8) != (int64_t)bits / 8)
+	pos = 0;
+	while (pos < bits / 8 / sizeof(*bignum->data))
 	{
-		close(fd);
-		return (0);
+		bignum->data[pos] = bignum_rand_get();
+		++pos;
 	}
-	ft_memset((char*)bignum->data + bits / 8, 0
-			, bignum->len * sizeof(*bignum->data) - bits / 8);
-	close(fd);
-	i = 0;
-	while (i < bignum->len)
-		bignum->data[i++] %= BIGNUM_BASE;
+	if (pos < bignum->len)
+	{
+		bignum->data[pos] = bignum_rand_get()
+			& ((1 << (bits - pos * 8 * sizeof(*bignum->data))) - 1);
+	}
+	do_top_bottom(bignum, bits, top, bottom);
 	return (1);
 }

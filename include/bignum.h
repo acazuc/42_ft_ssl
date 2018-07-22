@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:37:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 17:18:26 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,12 @@ int		bignum_lshift1(t_bignum *r, t_bignum *a);
 int		bignum_lshift1_op(t_bignum *r, t_bignum *a);
 int		bignum_rshift1(t_bignum *r, t_bignum *a);
 int		bignum_rshift1_op(t_bignum *r, t_bignum *a);
-int		bignum_rand(t_bignum *bignum, uint64_t bits);
-int		bignum_rand_range(t_bignum *bignum, t_bignum *range);
+void		bignum_rand_add(uint64_t init);
+int		bignum_rand_add_file(char *file);
+int		bignum_rand_add_urandom();
+uint64_t	bignum_rand_get();
+int		bignum_rand(t_bignum *bignum, uint64_t bits, int top, int bottom);
+int		bignum_rand_range(t_bignum *bignum, t_bignum *range, int top, int bottom);
 int		bignum_add(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b);
@@ -106,6 +110,11 @@ int		bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum, uint64_t *pass
 int		bignum_is_prime_fasttest(t_bignum *bignun);
 int		bignum_prime_checks_count(t_bignum *bignum);
 
+# define BIGNUM_RAND_BOT_ANY 0
+# define BIGNUM_RAND_BOT_ODD 1
+# define BIGNUM_RAND_TOP_ANY 0
+# define BIGNUM_RAND_TOP_ONE 1
+# define BIGNUM_RAND_TOP_TWO 2
 # define BIGNUM_BASE 0x100000000ULL
 # define BIGNUM_PRIME_CHECKS_AUTO 0
 

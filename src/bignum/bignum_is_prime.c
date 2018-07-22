@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:25:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:36:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 17:39:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	calc_n1_d_a_one(t_miller_ctx *ctx, t_bignum *bignum, t_bignum **one)
 
 static int	calc_a(t_miller_ctx *ctx, t_bignum *one)
 {
-	if (!bignum_rand_range(ctx->a, ctx->n1))
+	if (!bignum_rand_range(ctx->a, ctx->n1, BIGNUM_RAND_TOP_TWO
+				, BIGNUM_RAND_BOT_ODD))
 		return (-1);
 	if (!(bignum_add(ctx->a, ctx->a, one)))
 		return (-1);

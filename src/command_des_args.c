@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:19:27 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 16:43:55 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 17:54:05 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,30 +114,6 @@ static int	parse_args1(t_des_data *data, t_des_args *args)
 	return (1);
 }
 
-static int	handle_b64(t_des_data *data)
-{
-	if (data->base64)
-	{
-		if (data->cipher.mode)
-		{
-			if (!b64d_init(&data->b64d_ctx))
-			{
-				ft_putendl_fd("ft_ssl: base 64 init failed", 2);
-				return (0);
-			}
-		}
-		else
-		{
-			if (!b64e_init(&data->b64e_ctx))
-			{
-				ft_putendl_fd("ft_ssl: malloc failed", 2);
-				return (0);
-			}
-		}
-	}
-	return (1);
-}
-
 int		cmd_des_parse_args(t_des_data *data, t_des_args *args)
 {
 	args->i = 0;
@@ -147,7 +123,5 @@ int		cmd_des_parse_args(t_des_data *data, t_des_args *args)
 			return (0);
 		++args->i;
 	}
-	if (!handle_b64(data))
-		return (0);
 	return (1);
 }

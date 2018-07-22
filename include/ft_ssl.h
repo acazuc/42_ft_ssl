@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 22:18:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 16:01:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "base64.h"
 # include "libft.h"
+# include "rsa.h"
 # include "des.h"
 # include <stdint.h>
 # include <math.h>
@@ -86,7 +87,7 @@ typedef void (*t_cipher_mod)(t_cipher_ctx *ctx, uint8_t *data);
 typedef int (*t_cipher_update)(void *userptr, uint8_t *data, size_t len);
 typedef int (*t_cipher_cb)(void *userptr, uint8_t *data, size_t len);
 
-struct		s_cipher_ctx
+struct			s_cipher_ctx
 {
 	t_cipher_mod	premod;
 	t_cipher_mod	postmod;
@@ -105,7 +106,7 @@ struct		s_cipher_ctx
 	int		mod3;
 };
 
-struct		s_des_data
+struct			s_des_data
 {
 	t_cipher_ctx	cipher;
 	t_des_ctx	ctx[3];
@@ -136,6 +137,18 @@ typedef struct		s_des_args
 	int		i;
 }			t_des_args;
 
+typedef struct		s_genrsa_data
+{
+	t_b64e_ctx	b64_ctx;
+	t_rsa_ctx	rsa_ctx;
+	char		*buff;
+	uint64_t	b64_count;
+	uint32_t	buff_len;
+	uint32_t	buff_pos;
+	uint64_t	key_len;
+	int		fdout;
+}			t_genrsa_data;
+
 void		print_usage();
 void		print_usage_commands();
 int		command_hash(int ac, char **av, t_hash_data *data);
@@ -164,8 +177,6 @@ int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
-int		command_bignum(int ac, char **av);
-int		command_genrsa(int ac, char **av);
 int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
 int		cmd_des_do_execute(t_des_data *data);
 int		cmd_des_handle_iv(t_des_data *data, t_des_args *args);
@@ -174,6 +185,10 @@ int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len);
 int		cmd_des_do_update(t_des_data *data);
 int		cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av);
 void		cmd_des_free(t_des_data *data);
+int		command_bignum(int ac, char **av);
+int		command_genrsa(int ac, char **av);
+void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data, size_t len);
+int		cmd_genrsa_write(t_genrsa_data *data);
 void		cipher_ecb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ecb_postmod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_cbc_premod(t_cipher_ctx *ctx, uint8_t *data);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:14:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 15:50:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 14:59:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		rsa_genkey_phi(t_rsa_ctx *ctx)
 	t_bignum	*tmp;
 	t_bignum	*one;
 
-	ctx->phi = NULL;
 	tmp = NULL;
 	one = NULL;
 	if (!(one = bignum_new()))
