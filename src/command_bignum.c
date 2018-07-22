@@ -6,28 +6,30 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:49:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 18:08:43 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "bignum.h"
 
-static int	do_execute1(char *v1, char *v2, int (*fn)(t_bignum *r, t_bignum *a, t_bignum *b))
+static int	do_execute1(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a, t_bignum *b))
 {
 	t_bignum	*a;
 	t_bignum	*b;
 	t_bignum	*r;
 
+	if (ac < 3)
+		return (EXIT_FAILURE);
 	if (!(a = bignum_new()))
 		return (EXIT_FAILURE);
 	if (!(b = bignum_new()))
 		return (EXIT_FAILURE);
 	if (!(r = bignum_new()))
 		return (EXIT_FAILURE);
-	if (!bignum_dec2bignum(a, v1))
+	if (!bignum_dec2bignum(a, av[0]))
 		return (EXIT_FAILURE);
-	if (!bignum_dec2bignum(b, v2))
+	if (!bignum_dec2bignum(b, av[2]))
 		return (EXIT_FAILURE);
 	if (!fn(r, a, b))
 		return (EXIT_FAILURE);
@@ -36,18 +38,20 @@ static int	do_execute1(char *v1, char *v2, int (*fn)(t_bignum *r, t_bignum *a, t
 	return (EXIT_SUCCESS);
 }
 
-static int	do_execute2(char *v1, char *v2, int (*fn)(t_bignum *r, t_bignum *a, uint64_t b))
+static int	do_execute2(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a, uint64_t b))
 {
 	t_bignum	*a;
 	t_bignum	*r;
 	uint64_t	b;
 
+	if (ac < 3)
+		return (EXIT_FAILURE);
 	if (!(a = bignum_new()))
 		return (EXIT_FAILURE);
-	b = ft_atol(v2);
+	b = ft_atol(av[2]);
 	if (!(r = bignum_new()))
 		return (EXIT_FAILURE);
-	if (!bignum_dec2bignum(a, v1))
+	if (!bignum_dec2bignum(a, av[0]))
 		return (EXIT_FAILURE);
 	if (!fn(r, a, b))
 		return (EXIT_FAILURE);
@@ -56,16 +60,18 @@ static int	do_execute2(char *v1, char *v2, int (*fn)(t_bignum *r, t_bignum *a, u
 	return (EXIT_SUCCESS);
 }
 
-static int	do_execute3(char *v1, int (*fn)(t_bignum *r, t_bignum *a))
+static int	do_execute3(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a))
 {
 	t_bignum	*a;
 	t_bignum	*r;
 
+	if (ac < 2)
+		return (EXIT_FAILURE);
 	if (!(a = bignum_new()))
 		return (EXIT_FAILURE);
 	if (!(r = bignum_new()))
 		return (EXIT_FAILURE);
-	if (!bignum_dec2bignum(a, v1))
+	if (!bignum_dec2bignum(a, av[0]))
 		return (EXIT_FAILURE);
 	if (!fn(r, a))
 		return (EXIT_FAILURE);
@@ -95,28 +101,28 @@ static int	do_execute_prime(char *v)
 
 int	command_bignum(int ac, char **av)
 {
-	if (ac != 3)
+	if (ac < 2)
 		return (EXIT_FAILURE);
 	if (!ft_strcmp(av[1], "+"))
-		return (do_execute1(av[0], av[2], &bignum_add));
+		return (do_execute1(ac, av, &bignum_add));
 	if (!ft_strcmp(av[1], "-"))
-		return (do_execute1(av[0], av[2], &bignum_sub));
+		return (do_execute1(ac, av, &bignum_sub));
 	if (!ft_strcmp(av[1], "*"))
-		return (do_execute1(av[0], av[2], &bignum_mul));
+		return (do_execute1(ac, av, &bignum_mul));
 	if (!ft_strcmp(av[1], "/"))
-		return (do_execute1(av[0], av[2], &bignum_div));
+		return (do_execute1(ac, av, &bignum_div));
 	if (!ft_strcmp(av[1], "%"))
-		return (do_execute1(av[0], av[2], &bignum_mod));
+		return (do_execute1(ac, av, &bignum_mod));
 	if (!ft_strcmp(av[1], "^"))
-		return (do_execute1(av[0], av[2], &bignum_exp));
+		return (do_execute1(ac, av, &bignum_exp));
 	if (!ft_strcmp(av[1], ">>"))
-		return (do_execute2(av[0], av[2], &bignum_rshift));
+		return (do_execute2(ac, av, &bignum_rshift));
 	if (!ft_strcmp(av[1], "<<"))
-		return (do_execute2(av[0], av[2], &bignum_lshift));
+		return (do_execute2(ac, av, &bignum_lshift));
 	if (!ft_strcmp(av[1], ">>1"))
-		return (do_execute3(av[0], &bignum_rshift1));
+		return (do_execute3(ac, av, &bignum_rshift1));
 	if (!ft_strcmp(av[1], "<<1"))
-		return (do_execute3(av[0], &bignum_lshift1));
+		return (do_execute3(ac, av, &bignum_lshift1));
 	if (!ft_strcmp(av[1], "is_prime"))
 		return (do_execute_prime(av[0]));
 	return (EXIT_FAILURE);
