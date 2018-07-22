@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:28:32 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 14:04:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 18:58:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,8 @@ int	bignum_is_prime_fasttest(t_bignum *bignum)
 			return (1);
 		if (!bignum_mod_word(&res, bignum, g_primes[i]))
 			return (-1);
+		if (!res)
+			return (0);
 		++i;
 	}
 	return (1);

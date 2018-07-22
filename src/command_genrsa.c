@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 18:03:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 18:20:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static int	do_init(t_genrsa_data *data)
 	data->b64_ctx.callback = (t_b64_callback)&cmd_genrsa_b64_callback;
 	data->b64_ctx.userptr = data;
 	data->key_len = 512;
+	if (!bignum_rand_add_urandom())
+	{
+		ft_putendl_fd("ft_ssl: failed to init rng", 2);
+		return (0);
+	}
 	return (1);
 }
 
@@ -41,11 +46,6 @@ int	command_genrsa(int ac, char **av)
 	if (data.key_len < 16)
 	{
 		ft_putendl_fd("ft_ssl: invalid key len, minimum is 16", 2);
-		return (EXIT_FAILURE);
-	}
-	if (!bignum_rand_add_urandom())
-	{
-		ft_putendl_fd("ft_ssl: failed to init rng", 2);
 		return (EXIT_FAILURE);
 	}
 	if (!rsa_genkey(&data.rsa_ctx, data.key_len, 1))

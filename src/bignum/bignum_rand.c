@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 10:07:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 17:38:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/07/22 18:41:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static void	do_top_bottom(t_bignum *bignum, uint64_t bits, int top
 	if (bottom == BIGNUM_RAND_BOT_ODD)
 		bignum->data[0] |= 1;
 	if (top == BIGNUM_RAND_TOP_TWO || top == BIGNUM_RAND_TOP_ONE)
-		bignum->data[bits / 8 / sizeof(*bignum->data)] |=
-			1 << (bits % (8 * sizeof(*bignum->data)));
-	if (top == BIGNUM_RAND_TOP_TWO && bits > 1)
 		bignum->data[(bits - 1) / 8 / sizeof(*bignum->data)] |=
 			1 << ((bits - 1) % (8 * sizeof(*bignum->data)));
+	if (top == BIGNUM_RAND_TOP_TWO && bits > 1)
+		bignum->data[(bits - 2) / 8 / sizeof(*bignum->data)] |=
+			1 << ((bits - 2) % (8 * sizeof(*bignum->data)));
 }
 
 int	bignum_rand(t_bignum *bignum, uint64_t bits, int top, int bottom)
