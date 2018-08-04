@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:10:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:31:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 14:58:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m)
 	base = NULL;
 	ex = NULL;
 	bignum_init(&res);
-	if (!(ex = bignum_dup(p)) || !(base = bignum_dup(a))
+	if (!(ex = bignum_dup(p))
+			|| !(base = bignum_dup(a))
 			|| !(bignum_mod(base, base, m)) || !bignum_grow(&res, 1))
 		return (do_clear(base, &res, ex));
 	while (!bignum_is_zero(ex))

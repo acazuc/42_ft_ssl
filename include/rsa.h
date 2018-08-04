@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:27:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 15:05:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 14:52:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,9 @@ int		rsa_genkey(t_rsa_ctx *ctx, uint64_t bits, int print);
 int		rsa_genkey_pq(t_rsa_ctx *ctx, uint64_t bits, int print);
 int		rsa_genkey_phi(t_rsa_ctx *ctx);
 int		rsa_genkey_crt(t_rsa_ctx *ctx);
+int		rsa_encrypt(t_rsa_ctx *ctx, t_bignum *c, t_bignum *m);
+int		rsa_decrypt(t_rsa_ctx *ctx, t_bignum *m, t_bignum *c);
+int		rsa_sign(t_rsa_ctx *ctx, t_bignum *s, t_bignum *m);
+int		rsa_verify(t_rsa_ctx *ctx, t_bignum *m, t_bignum *s);
 
 #endif

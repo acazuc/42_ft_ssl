@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/07/22 18:54:02 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/04 16:36:12 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ CC = gcc
 
 LDFLAGS = -flto=4
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -mtune=native -g -rdynamic
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -rdynamic
 #CFLAGS+= -fsanitize=address
-CFLAGS+= -flto
+#CFLAGS+= -flto
 
 INCLUDES = -I include/ -I libft/include
 
@@ -32,6 +32,8 @@ SRCS_NAME = main.c \
 	    random_bytes.c \
 	    hmac.c \
 	    pbkdf2.c \
+	    vecu8.c \
+	    base64_write.c \
 	    command_hash.c \
 	    command_md5.c \
 	    command_sha1.c \
@@ -53,7 +55,6 @@ SRCS_NAME = main.c \
 	    command_des_initfree.c \
 	    command_bignum.c \
 	    command_genrsa.c \
-	    command_genrsa2.c \
 	    hash/md5.c \
 	    hash/sha1.c \
 	    hash/sha224.c \
@@ -76,6 +77,7 @@ SRCS_NAME = main.c \
 	    rsa/rsa_genkey_pq.c \
 	    rsa/rsa_genkey_phi.c \
 	    rsa/rsa_genkey_crt.c \
+	    rsa/rsa.c \
 	    bignum/bignum_print.c \
 	    bignum/bignum_printhex.c \
 	    bignum/bignum_dec2bignum.c \
@@ -140,6 +142,9 @@ SRCS_NAME = main.c \
 	    bignum/bignum_is_prime_fasttest.c \
 	    bignum/bignum_is_prime_witness.c \
 	    bignum/bignum_prime_checks_count.c \
+	    pem/pem_write_bignum.c \
+	    pem/pem_write_len.c \
+	    pem/pem_write_rsa_priv.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
@@ -170,6 +175,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)cipher
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum
+	@mkdir -p $(OBJS_PATH)pem
 
 clean:
 	@make -C libft clean

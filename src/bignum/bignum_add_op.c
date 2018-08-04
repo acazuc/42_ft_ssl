@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 16:47:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:29:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 14:54:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	do_init(t_bignum *result, t_bignum *a, t_bignum *b, uint64_t *to)
 	bignum_init(result);
 	bignum_zero(result);
 	*to = a->len > b->len ? a->len : b->len;
-	if (!(bignum_reserve(result, *to)))
+	if (!bignum_reserve(result, *to))
 		return (do_clear(result));
 	return (1);
 }
@@ -34,11 +34,11 @@ static int	do_end(t_bignum *result, t_bignum *r, uint64_t carry)
 {
 	if (carry)
 	{
-		if (!(bignum_grow(result, carry)))
+		if (!bignum_grow(result, carry))
 			return (do_clear(result));
 	}
 	bignum_trunc(result);
-	if (!(bignum_copy(r, result)))
+	if (!bignum_copy(r, result))
 		return (do_clear(result));
 	bignum_clear(result);
 	return (1);
@@ -61,7 +61,7 @@ int		bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b)
 			carry += a->data[i];
 		if (i < b->len)
 			carry += b->data[i];
-		if (!(bignum_grow(&result, carry % BIGNUM_BASE)))
+		if (!bignum_grow(&result, carry % BIGNUM_BASE))
 			return (do_clear(&result));
 		carry /= BIGNUM_BASE;
 		++i;

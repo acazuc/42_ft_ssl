@@ -6,26 +6,23 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 18:20:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 17:40:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "rsa.h"
+#include "pem.h"
 
 static int	do_init(t_genrsa_data *data)
 {
 	data->fdout = 1;
-	data->b64_count = 0;
-	if (!(data->buff = malloc(1024)))
+	data->b64_ctx.fdout = 1;
+	if (!base64_write_init(&data->b64_ctx))
 	{
-		ft_putendl_fd("ft_ssl: malloc failed", 2);
+		ft_putendl_fd("ft_ssl: failed to init b64_write", 2);
 		return (0);
 	}
-	data->buff_len = 1024;
-	data->buff_pos = 0;
-	data->b64_ctx.callback = (t_b64_callback)&cmd_genrsa_b64_callback;
-	data->b64_ctx.userptr = data;
 	data->key_len = 512;
 	if (!bignum_rand_add_urandom())
 	{
@@ -58,13 +55,33 @@ int	command_genrsa(int ac, char **av)
 	ft_putstr(" (0x");
 	bignum_printhex(data.rsa_ctx.e);
 	ft_putendl(")");
-	cmd_genrsa_write(&data);
-	/*ft_putstr("p: ");
+	char *dataa;
+	int len;
+	if ((len = pem_write_rsa_priv(&dataa, &data.rsa_ctx)) == -1)
+	{
+		ft_putendl_fd("ft_ssl: failed to generate pem file", 2);
+		return (EXIT_FAILURE);
+	}
+	ft_putendl_fd("====BEGIN RSA PRIVATE KEY=====", data.fdout);
+	base64_write_update(&data.b64_ctx, (uint8_t*)dataa, len);
+	base64_write_final(&data.b64_ctx);
+	ft_putendl_fd("====END RSA PRIVATE KEY=====", data.fdout);
+	//cmd_genrsa_write(&data);
+	ft_putstr("n: ");
+	bignum_print(data.rsa_ctx.n);
+	ft_putstr(" (");
+	ft_putul(data.rsa_ctx.n->len * 4);
+	ft_putstr(")\n");
+	ft_putstr("p: ");
 	bignum_print(data.rsa_ctx.p);
-	ft_putchar('\n');
+	ft_putstr(" (");
+	ft_putul(data.rsa_ctx.p->len * 4);
+	ft_putstr(")\n");
 	ft_putstr("q: ");
 	bignum_print(data.rsa_ctx.q);
-	ft_putchar('\n');
+	ft_putstr(" (");
+	ft_putul(data.rsa_ctx.q->len * 4);
+	ft_putstr(")\n");
 	t_bignum *a = bignum_new();
 	bignum_dec2bignum(a, "112233445566778899112233445566778899887766554433211");
 	bignum_mod_exp(a, a, data.rsa_ctx.e, data.rsa_ctx.n);
@@ -87,6 +104,6 @@ int	command_genrsa(int ac, char **av)
 	bignum_mod_exp(a, a, data.rsa_ctx.d, data.rsa_ctx.n);
 	ft_putstr("Decrypted2: ");
 	bignum_print(a);
-	ft_putchar('\n');*/
+	ft_putchar('\n');
 	return (1);
 }

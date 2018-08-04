@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_dup.c                                       :+:      :+:    :+:   */
+/*   vecu8.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 16:56:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 14:55:31 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/04 16:07:45 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/04 16:08:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bignum.h"
+#ifndef VECU8_H
+# define VECU8_H
 
-t_bignum	*bignum_dup(t_bignum *bignum)
+# include <stddef.h>
+# include "bignum.h"
+
+typedef struct		s_vecu8
 {
-	t_bignum	*tmp;
+	void		*data;
+	size_t		size;
+}			t_vecu8;
 
-	if (!(tmp = bignum_new()))
-		return (NULL);
-	if (!bignum_copy(tmp, bignum))
-	{
-		free(tmp);
-		return (NULL);
-	}
-	return (tmp);
-}
+void		vecu8_init(t_vecu8 *vec);
+int		vecu8_push(t_vecu8 *vec, uint8_t *data, size_t len);
+int		vecu8_pushu8(t_vecu8 *vec, uint8_t u8);
+void		vecu8_free(t_vecu8 *vec);
+
+#endif
