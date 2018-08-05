@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 17:41:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 20:18:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ static void	encode_callback(void *userptr, uint8_t *data, size_t len)
 	}
 	ptr->count += len;
 	osef = write(ptr->fd, data, len);
-	(void)osef;
-}
-
-static void	decode_callback(void *userptr, uint8_t *data, size_t len)
-{
-	int	osef;
-	
-	osef = write(((t_b64d_data*)userptr)->fd, data, len);
 	(void)osef;
 }
 
@@ -74,14 +66,12 @@ static int	encode(int fdin, int fdout)
 
 static int	decode(int fdin, int fdout)
 {
-	t_b64d_data	data;
 	t_b64d_ctx	ctx;
 	uint8_t		buffer[4096];
 	int		readed;
 
-	ctx.callback = decode_callback;
-	ctx.userptr = &data;
-	data.fd = fdout;
+	ctx.callback = (t_b64_callback)write;
+	ctx.userptr = (void*)(uint64_t)fdout;
 	if (!b64d_init(&ctx))
 		return (EXIT_FAILURE);
 	while ((readed = read(fdin, buffer, 4096)) > 0)
@@ -139,7 +129,5 @@ int		command_base64(int ac, char **av)
 		}
 		++i;
 	}
-	if (mode)
-		return (decode(fdin, fdout));
-	return (encode(fdin, fdout));
+	return (mode ? decode(fdin, fdout) : encode(fdin, fdout));
 }

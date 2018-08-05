@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_resize.c                                    :+:      :+:    :+:   */
+/*   rsa_ext.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 12:38:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:02:01 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/04 20:31:17 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/04 20:57:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bignum.h"
+#include "ft_ssl.h"
 
-int	bignum_resize(t_bignum *bignum, uint32_t len)
+int	rsa_ext_encrypt(t_rsa_ctx *ctx, uint8_t *data, size_t len)
 {
-	if (bignum->len == len)
-		return (1);
-	if (!bignum_reserve(bignum, len))
-		return (0);
-	bignum->len = len;
-	return (1);
+	//
 }

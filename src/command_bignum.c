@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 18:09:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:28:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	do_execute1(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a, t_
 	return (EXIT_SUCCESS);
 }
 
-static int	do_execute2(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a, uint64_t b))
+static int	do_execute2(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a, uint32_t b))
 {
 	t_bignum	*a;
 	t_bignum	*r;

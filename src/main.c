@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/07 22:19:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:47:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ static int	handle_3(int ac, char **av)
 		return (command_bignum(ac - 2, av + 2));
 	else if (!ft_strcmp(av[1], "genrsa"))
 		return (command_genrsa(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "rsa"))
+		return (command_rsa(ac - 2, av + 2));
+	else if (!ft_strcmp(av[1], "rsautl"))
+		return (command_rsautl(ac - 2, av + 2));
 	ft_putstr("ft_ssl: invalid command: ");
 	ft_putendl(av[1]);
 	print_usage_commands();

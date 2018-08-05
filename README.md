@@ -1,3 +1,8 @@
+# Standard commands
+rsa
+rsautl
+genrsa
+
 # Message digests
 md5
 sha1
@@ -21,3 +26,10 @@ ofb
 # Other
 pbkdf2
 hmac
+bignum
+
+
+
+bignum interface from openssl
+bignum\_is\_prime\_fasttest array from openssl
+openssl license in license_openssl.txt

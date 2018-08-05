@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 17:40:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 22:08:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,45 @@ static int	do_init(t_genrsa_data *data)
 	{
 		ft_putendl_fd("ft_ssl: failed to init rng", 2);
 		return (0);
+	}
+	return (1);
+}
+
+static int	parge_args(t_genrsa_data *data, int ac, char **av)
+{
+	int	i;
+
+	while (i < ac)
+	{
+		if (!ft_strcmp(av[i], "-out"))
+		{
+			//
+		}
+		else if (!ft_strcmp(av[i], "-f4"))
+		{
+		}
+		else if (!ft_strcmp(av[i], "-3"))
+		{
+		}
+		else if (!ft_strcmp(av[i], "-des"))
+		{
+		}
+		else if (!ft_strcmp(av[i], "-des2"))
+		{
+		}
+		else if (!ft_strcmp(av[i], "-des3"))
+		{
+		}
+		else if (ft_strisnum(av[i]))
+		{
+		}
+		else
+		{
+			ft_putstr_fd("ft_ssl: invalid argument: ", 2);
+			ft_putendl_fd(av[i], 2);
+			return (0);
+		}
+		++i;
 	}
 	return (1);
 }

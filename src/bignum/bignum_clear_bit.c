@@ -6,16 +6,16 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 21:03:39 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 21:07:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:03:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_clear_bit(t_bignum *bignum, uint64_t n)
+int	bignum_clear_bit(t_bignum *bignum, uint32_t n)
 {
-	uint64_t	len;
-	uint64_t	old;
+	uint32_t	len;
+	uint32_t	old;
 
 	old = bignum->len;
 	len = 1 + n / 8 / sizeof(*bignum->data);

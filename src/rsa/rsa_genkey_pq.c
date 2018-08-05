@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 18:53:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:02:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static int	do_clear(t_rsa_ctx *ctx)
 	return (0);
 }
 
-static void	do_print_plus(int print, uint64_t n)
+static void	do_print_plus(int print, uint32_t n)
 {
-	uint64_t	i;
+	uint32_t	i;
 
 	if (!print)
 		return;
@@ -34,9 +34,9 @@ static void	do_print_plus(int print, uint64_t n)
 	}
 }
 
-static int	genprime(t_bignum *r, uint64_t bits, int print)
+static int	genprime(t_bignum *r, uint32_t bits, int print)
 {
-	uint64_t	passed;
+	uint32_t	passed;
 
 	while (1)
 	{
@@ -59,7 +59,7 @@ static int	genprime(t_bignum *r, uint64_t bits, int print)
 	return (1);
 }
 
-int		rsa_genkey_pq(t_rsa_ctx *ctx, uint64_t bits, int print)
+int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print)
 {
 	if (!(ctx->p = bignum_new()))
 		return (do_clear(ctx));

@@ -6,13 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:13:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:41:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:03:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-uint64_t	bignum_npot(uint64_t val)
+uint32_t	bignum_npot(uint32_t val)
 {
 	val--;
 	val |= val >> 1;
@@ -20,6 +20,5 @@ uint64_t	bignum_npot(uint64_t val)
 	val |= val >> 4;
 	val |= val >> 8;
 	val |= val >> 16;
-	val |= val >> 32;
 	return (++val);
 }

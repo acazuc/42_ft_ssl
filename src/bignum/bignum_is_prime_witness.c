@@ -6,13 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 14:22:26 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 17:39:51 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:28:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum, uint64_t *passed)
+int	bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum
+		, uint32_t *passed)
 {
 	if (!bignum_mod_exp(ctx->a, ctx->a, ctx->d, bignum))
 		return (-1);

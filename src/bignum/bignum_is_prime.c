@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:25:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 14:56:56 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:06:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	do_clear(t_miller_ctx *ctx, t_bignum *one, int ret)
 	return (ret);
 }
 
-static int	do_pretests(t_bignum *bignum, uint64_t *n, int *ret)
+static int	do_pretests(t_bignum *bignum, uint32_t *n, int *ret)
 {
 	bignum_trunc(bignum);
 	if (bignum_is_zero(bignum) || bignum_is_one(bignum))
@@ -82,11 +82,11 @@ static int	do_pretests(t_bignum *bignum, uint64_t *n, int *ret)
 	return (0);
 }
 
-int		bignum_is_prime(t_bignum *bignum, uint64_t n, uint64_t *passed)
+int		bignum_is_prime(t_bignum *bignum, uint32_t n, uint32_t *passed)
 {
 	t_miller_ctx	ctx;
 	t_bignum	*one;
-	uint64_t	i;
+	uint32_t	i;
 	int		ret;
 
 	if (passed)

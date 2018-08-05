@@ -6,15 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 19:29:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 20:53:15 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:03:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_is_bit_set(t_bignum *bignum, uint64_t n)
+int	bignum_is_bit_set(t_bignum *bignum, uint32_t n)
 {
-	uint64_t	tmp;
+	uint32_t	tmp;
 
 	tmp = n / 8 / sizeof(*bignum->data);
 	if (bignum->len <= tmp)

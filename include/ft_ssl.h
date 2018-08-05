@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 17:42:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 20:03:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct		s_hash_data
 {
 	t_hash_ctx	h;
 	int		reverse;
+	int		written;
 	int		quiet;
 }			t_hash_data;
 

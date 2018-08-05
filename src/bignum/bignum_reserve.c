@@ -6,16 +6,16 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:11:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:36:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:02:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_reserve(t_bignum *bignum, uint64_t len)
+int	bignum_reserve(t_bignum *bignum, uint32_t len)
 {
 	uint32_t	*tmp;
-	uint64_t	npot;
+	uint32_t	npot;
 
 	if (len <= bignum->cap)
 		return (1);

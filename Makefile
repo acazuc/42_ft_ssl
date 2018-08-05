@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/04 16:36:12 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/04 21:29:56 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,8 @@ SRCS_NAME = main.c \
 	    command_des_initfree.c \
 	    command_bignum.c \
 	    command_genrsa.c \
+	    command_rsa.c \
+	    command_rsautl.c \
 	    hash/md5.c \
 	    hash/sha1.c \
 	    hash/sha224.c \
@@ -142,6 +144,8 @@ SRCS_NAME = main.c \
 	    bignum/bignum_is_prime_fasttest.c \
 	    bignum/bignum_is_prime_witness.c \
 	    bignum/bignum_prime_checks_count.c \
+	    bignum/bignum_num_bits.c \
+	    bignum/bignum_num_bytes.c \
 	    pem/pem_write_bignum.c \
 	    pem/pem_write_len.c \
 	    pem/pem_write_rsa_priv.c \

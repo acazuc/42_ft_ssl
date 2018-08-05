@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_resize.c                                    :+:      :+:    :+:   */
+/*   bignum_num_bytes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/06 12:38:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:02:01 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/04 21:14:37 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/04 21:16:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_resize(t_bignum *bignum, uint32_t len)
+int	bignum_num_bytes(t_bignum *bignum)
 {
-	if (bignum->len == len)
-		return (1);
-	if (!bignum_reserve(bignum, len))
-		return (0);
-	bignum->len = len;
-	return (1);
+	int	bits;
+
+	bits = bignum_num_bits(bignum);
+	return (bits / 8 + (bits % 8 ? 1 : 0));
 }

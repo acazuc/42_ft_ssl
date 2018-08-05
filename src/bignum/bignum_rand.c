@@ -6,14 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 10:07:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 18:41:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/04 21:05:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 #include <fcntl.h>
 
-static void	do_top_bottom(t_bignum *bignum, uint64_t bits, int top
+static void	do_top_bottom(t_bignum *bignum, uint32_t bits, int top
 		, int bottom)
 {
 	if (bottom == BIGNUM_RAND_BOT_ODD)
@@ -26,9 +26,9 @@ static void	do_top_bottom(t_bignum *bignum, uint64_t bits, int top
 			1 << ((bits - 2) % (8 * sizeof(*bignum->data)));
 }
 
-int	bignum_rand(t_bignum *bignum, uint64_t bits, int top, int bottom)
+int	bignum_rand(t_bignum *bignum, uint32_t bits, int top, int bottom)
 {
-	uint64_t	pos;
+	uint32_t	pos;
 
 	if (!bits)
 	{
