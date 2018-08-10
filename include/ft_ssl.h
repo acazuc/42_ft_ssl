@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:41:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 22:58:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,15 @@
 # include "hash.h"
 # include "rsa.h"
 # include "des.h"
+# include "aes.h"
 # include <stdint.h>
 # include <math.h>
+
+typedef struct		s_program
+{
+	char		*name;
+	int		(*fn)(int ac, char **av);
+}			t_program;
 
 typedef struct		s_b64e_data
 {
@@ -99,6 +106,26 @@ typedef struct		s_des_args
 	int		i;
 }			t_des_args;
 
+typedef struct		s_aes_data
+{
+	t_cipher_ctx	cipher;
+	t_aes_ctx	ctx;
+	char		*buff;
+	uint32_t	buff_len;
+	uint32_t	buff_pos;
+	uint8_t		key[32];
+	int		base64;
+	int		fdout;
+	int		fdin;
+	union
+	{
+		t_b64e_ctx	b64e_ctx;
+		t_b64d_ctx	b64d_ctx;
+	};
+	uint64_t	b64_count;
+}			t_aes_data;
+
+
 typedef struct		s_b64_write_ctx
 {
 	int		fdout;
@@ -121,6 +148,7 @@ typedef struct		s_genrsa_data
 
 void		print_usage();
 void		print_usage_commands();
+int		command_help(int ac, char **av);
 int		command_hash(int ac, char **av, t_hash_data *data);
 int		command_md5(int ac, char **av);
 int		command_sha1(int ac, char **av);
@@ -155,6 +183,24 @@ int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len);
 int		cmd_des_do_update(t_des_data *data);
 int		cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av);
 void		cmd_des_free(t_des_data *data);
+int		command_aes_128(int ac, char **av, t_aes_data *data);
+int		command_aes_128_ecb(int ac, char **av);
+int		command_aes_128_cbc(int ac, char **av);
+int		command_aes_128_pcbc(int ac, char **av);
+int		command_aes_128_cfb(int ac, char **av);
+int		command_aes_128_ofb(int ac, char **av);
+int		command_aes_192(int ac, char **av, t_aes_data *data);
+int		command_aes_192_ecb(int ac, char **av);
+int		command_aes_192_cbc(int ac, char **av);
+int		command_aes_192_pcbc(int ac, char **av);
+int		command_aes_192_cfb(int ac, char **av);
+int		command_aes_192_ofb(int ac, char **av);
+int		command_aes_256(int ac, char **av, t_aes_data *data);
+int		command_aes_256_ecb(int ac, char **av);
+int		command_aes_256_cbc(int ac, char **av);
+int		command_aes_256_pcbc(int ac, char **av);
+int		command_aes_256_cfb(int ac, char **av);
+int		command_aes_256_ofb(int ac, char **av);
 int		command_bignum(int ac, char **av);
 int		command_genrsa(int ac, char **av);
 void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data, size_t len);

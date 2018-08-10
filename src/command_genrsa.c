@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:36:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 21:41:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,22 +134,22 @@ int	command_genrsa(int ac, char **av)
 	ft_putstr("n: ");
 	bignum_print(data.rsa_ctx.n);
 	ft_putstr(" (");
-	ft_putul(data.rsa_ctx.n->len * 4);
+	ft_putul(bignum_num_bits(data.rsa_ctx.n));
 	ft_putstr(")\n");
 	ft_putstr("p: ");
 	bignum_print(data.rsa_ctx.p);
 	ft_putstr(" (");
-	ft_putul(data.rsa_ctx.p->len * 4);
+	ft_putul(bignum_num_bits(data.rsa_ctx.p));
 	ft_putstr(")\n");
 	ft_putstr("q: ");
 	bignum_print(data.rsa_ctx.q);
 	ft_putstr(" (");
-	ft_putul(data.rsa_ctx.q->len * 4);
+	ft_putul(bignum_num_bits(data.rsa_ctx.q));
 	ft_putstr(")\n");
 	ft_putstr("d: ");
 	bignum_print(data.rsa_ctx.d);
 	ft_putstr(" (");
-	ft_putul(data.rsa_ctx.d->len * 4);
+	ft_putul(bignum_num_bits(data.rsa_ctx.d));
 	ft_putstr(")\n");
 	t_bignum *a = bignum_new();
 	bignum_dec2bignum(a, "112233445566778899112233445566778899887766554433211");

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/10 20:44:25 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/10 22:59:11 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS_NAME = main.c \
 	    pbkdf2.c \
 	    vecu8.c \
 	    base64_write.c \
+	    command_help.c \
 	    command_hash.c \
 	    command_md5.c \
 	    command_sha1.c \
@@ -53,6 +54,12 @@ SRCS_NAME = main.c \
 	    command_des_args.c \
 	    command_des_callback.c \
 	    command_des_initfree.c \
+	    command_aes_128.c \
+	    command_aes_128_ciphers.c \
+	    command_aes_192.c \
+	    command_aes_192_ciphers.c \
+	    command_aes_256.c \
+	    command_aes_256_ciphers.c \
 	    command_bignum.c \
 	    command_genrsa.c \
 	    command_rsa.c \
@@ -176,6 +183,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)hash
 	@mkdir -p $(OBJS_PATH)base64
 	@mkdir -p $(OBJS_PATH)des
+	@mkdir -p $(OBJS_PATH)aes
 	@mkdir -p $(OBJS_PATH)cipher
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum
