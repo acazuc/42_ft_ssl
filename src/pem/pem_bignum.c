@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 17:58:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 21:24:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	do_read_datas(t_vecu8 *data, uint32_t len, t_bignum *bignum)
 	i = 1;
 	while (i < len)
 	{
-		bignum->data[i / sizeof(*bignum->data)] |= ((uint32_t)data->data[i])
+		bignum->data[i / sizeof(*bignum->data)]
+			|= ((t_bignum_word)data->data[i])
 			<< (8 * (i % sizeof(*bignum->data)));
 		++i;
 	}
@@ -73,7 +74,8 @@ static int	do_write_datas(t_vecu8 *data, t_bignum *bignum)
 	i = bignum_num_bytes(bignum) - 1;
 	while (1)
 	{
-		tmp = bignum->data[i / sizeof(*bignum->data)] >> (8 * (i % 4));
+		tmp = bignum->data[i / sizeof(*bignum->data)]
+			>> (8 * (i % sizeof(*bignum->data)));
 		if (!vecu8_push(data, (uint8_t*)&tmp, 1))
 			return (0);
 		if (!i)

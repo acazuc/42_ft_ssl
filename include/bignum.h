@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:03:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 21:25:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		bignum_rshift1_op(t_bignum *r, t_bignum *a);
 void		bignum_rand_add(uint64_t init);
 int		bignum_rand_add_file(char *file);
 int		bignum_rand_add_urandom();
-uint32_t	bignum_rand_get();
+uint64_t	bignum_rand_get();
 int		bignum_rand(t_bignum *bignum, uint32_t bits, int top, int bottom);
 int		bignum_rand_range(t_bignum *bignum, t_bignum *range, int top, int bottom);
 int		bignum_add(t_bignum *r, t_bignum *a, t_bignum *b);
