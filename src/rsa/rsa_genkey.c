@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:16:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 15:14:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/08 20:19:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	do_clear(t_rsa_ctx *ctx)
 	return (0);
 }
 
-int		rsa_genkey(t_rsa_ctx *ctx, uint64_t bits, int print)
+int		rsa_genkey(t_rsa_ctx *ctx, uint32_t bits, uint32_t e, int print)
 {
 	if (bits < 16)
 		return (0);
@@ -38,7 +38,7 @@ int		rsa_genkey(t_rsa_ctx *ctx, uint64_t bits, int print)
 		return (do_clear(ctx));
 	if (!(ctx->e = bignum_new()))
 		return (do_clear(ctx));
-	if (!bignum_grow(ctx->e, 65537))
+	if (!bignum_grow(ctx->e, e))
 		return (do_clear(ctx));
 	if (!(ctx->n = bignum_new()))
 		return (do_clear(ctx));

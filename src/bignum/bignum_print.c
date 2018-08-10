@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 17:58:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:42:05 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 17:03:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,49 +34,45 @@ static int	print(t_bignum *tmp1, t_bignum *tmp2, t_bignum *div, int fd)
 
 static int	do_clear(t_bignum *tmp1, t_bignum *tmp2, t_bignum *div)
 {
-	bignum_free(tmp1);
-	bignum_free(tmp2);
-	bignum_free(div);
+	bignum_clear(tmp1);
+	bignum_clear(tmp2);
+	bignum_clear(div);
 	return (0);
 }
 
-static int	do_init(t_bignum **div, t_bignum **tmp2)
+static int	do_init(t_bignum *div, t_bignum *tmp1, t_bignum *tmp2)
 {
-	if (!(*div = bignum_new()))
-		return (0);
-	if (!bignum_grow(*div, 10))
-		return (0);
-	if (!(*tmp2 = bignum_new()))
+	bignum_init(div);
+	bignum_init(tmp1);
+	bignum_init(tmp2);
+	if (!bignum_grow(div, 10))
 		return (0);
 	return (1);
 }
 
 int		bignum_print_fd(t_bignum *bignum, int fd)
 {
-	t_bignum	*tmp1;
-	t_bignum	*tmp2;
-	t_bignum	*div;
+	t_bignum	tmp1;
+	t_bignum	tmp2;
+	t_bignum	div;
 	int		ret;
 
 	bignum_trunc(bignum);
 	if (bignum->sign)
 		ft_putchar_fd('-', fd);
-	tmp1 = NULL;
-	tmp2 = NULL;
-	div = NULL;
 	if (!bignum->len || (bignum->len == 1 && !bignum->data[0]))
 	{
 		ft_putchar_fd('0', fd);
 		return (1);
 	}
-	if (!do_init(&div, &tmp2))
-		return (do_clear(tmp1, tmp2, div));
-	if (!(tmp1 = bignum_dup(bignum)))
-		return (do_clear(tmp1, tmp2, div));
-	ret = print(tmp1, tmp2, div, fd);
-	bignum_free(div);
-	bignum_free(tmp1);
-	bignum_free(tmp2);
+	if (!do_init(&div, &tmp1, &tmp2))
+		return (do_clear(&tmp1, &tmp2, &div));
+	if (!bignum_copy(&tmp1, bignum))
+		return (do_clear(&tmp1, &tmp2, &div));
+	ret = print(&tmp1, &tmp2, &div, fd);
+	bignum_clear(&div);
+	bignum_clear(&tmp1);
+	bignum_clear(&tmp2);
 	return (ret);
 }
 

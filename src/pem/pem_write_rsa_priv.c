@@ -6,12 +6,19 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 19:40:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 17:35:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 16:59:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "pem.h"
+#include <stdio.h>
+
+static int	do_clear(t_vecu8 *vec)
+{
+	vecu8_free(vec);
+	return (-1);
+}
 
 static int	write_bignums(t_vecu8 *vec, t_rsa_ctx *ctx)
 {
@@ -40,22 +47,22 @@ static int	get_len(t_rsa_ctx *ctx)
 	uint8_t	osef[90];
 
 	total = 3;
-	total += pem_write_len(osef, ctx->n->len * sizeof(*ctx->n->data));
-	total += ctx->n->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->e->len * sizeof(*ctx->n->data));
-	total += ctx->e->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->d->len * sizeof(*ctx->n->data));
-	total += ctx->d->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->p->len * sizeof(*ctx->n->data));
-	total += ctx->p->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->q->len * sizeof(*ctx->n->data));
-	total += ctx->q->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->dmp->len * sizeof(*ctx->n->data));
-	total += ctx->dmp->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->dmq->len * sizeof(*ctx->n->data));
-	total += ctx->dmq->len * sizeof(*ctx->n->data) + 2;
-	total += pem_write_len(osef, ctx->coef->len * sizeof(*ctx->n->data));
-	total += ctx->coef->len * sizeof(*ctx->n->data) + 2;
+	total += pem_write_len(osef, pem_bignum_len(ctx->n));
+	total += pem_bignum_len(ctx->n) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->e));
+	total += pem_bignum_len(ctx->e) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->d));
+	total += pem_bignum_len(ctx->d) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->p));
+	total += pem_bignum_len(ctx->p) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->q));
+	total += pem_bignum_len(ctx->q) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->dmp));
+	total += pem_bignum_len(ctx->dmp) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->dmq));
+	total += pem_bignum_len(ctx->dmq) + 1;
+	total += pem_write_len(osef, pem_bignum_len(ctx->coef));
+	total += pem_bignum_len(ctx->coef) + 1;
 	return (total);
 }
 
@@ -66,17 +73,17 @@ int	pem_write_rsa_priv(char **dst, t_rsa_ctx *ctx)
 
 	vecu8_init(&vec);
 	if (!vecu8_pushu8(&vec, 0x30))
-		return (-1);
+		return (do_clear(&vec));
 	if (!vecu8_push(&vec, tmp, pem_write_len(tmp, get_len(ctx))))
-		return (-1);
+		return (do_clear(&vec));
 	if (!vecu8_pushu8(&vec, 0x2))
-		return (-1);
+		return (do_clear(&vec));
 	if (!vecu8_pushu8(&vec, 0x1))
-		return (-1);
+		return (do_clear(&vec));
 	if (!vecu8_pushu8(&vec, 0))
-		return (-1);
+		return (do_clear(&vec));
 	if (!write_bignums(&vec, ctx))
-		return (-1);
+		return (do_clear(&vec));
 	*dst = vec.data;
 	vec.data = NULL;
 	return (vec.size);

@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_is_bit_set.c                                :+:      :+:    :+:   */
+/*   pem_read_rsa.priv.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/09 19:29:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 16:24:03 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/09 15:45:56 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/10 13:37:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bignum.h"
+#include "pem.h"
 
-int	bignum_is_bit_set(t_bignum *bignum, uint32_t n)
+int	pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len)
 {
-	uint32_t	tmp;
-
-	tmp = n / 8 / sizeof(*bignum->data);
-	if (bignum->len <= tmp)
-		return (0);
-	return (bignum->data[tmp] >> (n % (8 * sizeof(*bignum->data))) & 1);
+	//
 }

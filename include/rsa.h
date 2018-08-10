@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:27:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:03:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/08 20:12:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct	s_rsa_ctx
 	t_bignum	*coef;
 }		t_rsa_ctx;
 
-int		rsa_genkey(t_rsa_ctx *ctx, uint32_t bits, int print);
+int		rsa_genkey(t_rsa_ctx *ctx, uint32_t bits, uint32_t e, int print);
 int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print);
 int		rsa_genkey_phi(t_rsa_ctx *ctx);
 int		rsa_genkey_crt(t_rsa_ctx *ctx);

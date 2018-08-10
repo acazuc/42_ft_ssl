@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 20:03:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/08 20:14:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ typedef struct		s_genrsa_data
 	t_rsa_ctx	rsa_ctx;
 	uint64_t	key_len;
 	int		fdout;
+	uint32_t	crypt_method;
+	uint32_t	exp;
 	t_b64_write_ctx	b64_ctx;
 }			t_genrsa_data;
 
@@ -196,6 +198,8 @@ int		command_bignum(int ac, char **av);
 int		command_genrsa(int ac, char **av);
 void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data, size_t len);
 int		cmd_genrsa_write(t_genrsa_data *data);
+int		command_rsa(int ac, char **av);
+int		command_rsautl(int ac, char **av);
 void		cipher_ecb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ecb_postmod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_cbc_premod(t_cipher_ctx *ctx, uint8_t *data);
