@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/10 13:44:49 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/10 18:13:00 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRCS_NAME = main.c \
 	    rsa/rsa_genkey_phi.c \
 	    rsa/rsa_genkey_crt.c \
 	    rsa/rsa.c \
+	    rsa/rsa_free.c \
 	    bignum/bignum_print.c \
 	    bignum/bignum_printhex.c \
 	    bignum/bignum_dec2bignum.c \

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:27:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/08 20:12:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:12:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int		rsa_encrypt(t_rsa_ctx *ctx, t_bignum *c, t_bignum *m);
 int		rsa_decrypt(t_rsa_ctx *ctx, t_bignum *m, t_bignum *c);
 int		rsa_sign(t_rsa_ctx *ctx, t_bignum *s, t_bignum *m);
 int		rsa_verify(t_rsa_ctx *ctx, t_bignum *m, t_bignum *s);
+void		rsa_free(t_rsa_ctx *ctx);
 
 #endif

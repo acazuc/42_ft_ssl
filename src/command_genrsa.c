@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:09:23 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:26:07 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 static int	do_init(t_genrsa_data *data)
 {
+	ft_memset(data, 0, sizeof(data));
 	data->exp = 0x10001;
 	data->crypt_method = 0;
 	data->fdout = 1;
@@ -126,6 +127,7 @@ int	command_genrsa(int ac, char **av)
 	base64_write_update(&data.b64_ctx, (uint8_t*)dataa, len);
 	base64_write_final(&data.b64_ctx);
 	ft_putendl_fd("-----END RSA PRIVATE KEY-----", data.fdout);
+	free(dataa);
 
 
 	ft_putstr("n: ");
@@ -150,26 +152,14 @@ int	command_genrsa(int ac, char **av)
 	ft_putstr(")\n");
 	t_bignum *a = bignum_new();
 	bignum_dec2bignum(a, "112233445566778899112233445566778899887766554433211");
-	bignum_mod_exp(a, a, data.rsa_ctx.e, data.rsa_ctx.n);
+	rsa_encrypt(&data.rsa_ctx, a, a);
 	ft_putstr("Crypted: ");
 	bignum_print(a);
 	ft_putchar('\n');
-	t_bignum *m1 = bignum_new();
-	t_bignum *m2 = bignum_new();
-	bignum_mod_exp(m1, a, data.rsa_ctx.dmp, data.rsa_ctx.p);
-	bignum_mod_exp(m2, a, data.rsa_ctx.dmq, data.rsa_ctx.q);
-	bignum_sub(m1, m1, m2);
-	bignum_mul(m1, m1, data.rsa_ctx.coef);
-	bignum_mod(m1, m1, data.rsa_ctx.p);
-	bignum_mul(m1, m1, data.rsa_ctx.q);
-	bignum_add(m1, m1, m2);
-	bignum_free(m2);
-	ft_putstr("Decrypted1: ");
-	bignum_print(m1);
-	ft_putchar('\n');
-	bignum_mod_exp(a, a, data.rsa_ctx.d, data.rsa_ctx.n);
-	ft_putstr("Decrypted2: ");
+	rsa_decrypt(&data.rsa_ctx, a, a);
+	ft_putstr("Decrypted: ");
 	bignum_print(a);
 	ft_putchar('\n');
+	rsa_free(&data.rsa_ctx);
 	return (1);
 }
