@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 19:40:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 16:59:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:03:05 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,23 @@ static int	write_bignums(t_vecu8 *vec, t_rsa_ctx *ctx)
 static int	get_len(t_rsa_ctx *ctx)
 {
 	int	total;
-	uint8_t	osef[90];
 
 	total = 3;
-	total += pem_write_len(osef, pem_bignum_len(ctx->n));
+	total += pem_len_len(pem_bignum_len(ctx->n));
 	total += pem_bignum_len(ctx->n) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->e));
+	total += pem_len_len(pem_bignum_len(ctx->e));
 	total += pem_bignum_len(ctx->e) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->d));
+	total += pem_len_len(pem_bignum_len(ctx->d));
 	total += pem_bignum_len(ctx->d) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->p));
+	total += pem_len_len(pem_bignum_len(ctx->p));
 	total += pem_bignum_len(ctx->p) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->q));
+	total += pem_len_len(pem_bignum_len(ctx->q));
 	total += pem_bignum_len(ctx->q) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->dmp));
+	total += pem_len_len(pem_bignum_len(ctx->dmp));
 	total += pem_bignum_len(ctx->dmp) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->dmq));
+	total += pem_len_len(pem_bignum_len(ctx->dmq));
 	total += pem_bignum_len(ctx->dmq) + 1;
-	total += pem_write_len(osef, pem_bignum_len(ctx->coef));
+	total += pem_len_len(pem_bignum_len(ctx->coef));
 	total += pem_bignum_len(ctx->coef) + 1;
 	return (total);
 }
@@ -84,7 +83,7 @@ int	pem_write_rsa_priv(char **dst, t_rsa_ctx *ctx)
 		return (do_clear(&vec));
 	if (!write_bignums(&vec, ctx))
 		return (do_clear(&vec));
-	*dst = vec.data;
+	*dst = (char*)vec.data;
 	vec.data = NULL;
 	return (vec.size);
 }

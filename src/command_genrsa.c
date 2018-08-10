@@ -6,20 +6,20 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 17:14:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:09:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "rsa.h"
 #include "pem.h"
+#include <fcntl.h>
 
 static int	do_init(t_genrsa_data *data)
 {
 	data->exp = 0x10001;
 	data->crypt_method = 0;
 	data->fdout = 1;
-	data->b64_ctx.fdout = 1;
 	if (!base64_write_init(&data->b64_ctx))
 	{
 		ft_putendl_fd("ft_ssl: failed to init b64_write", 2);
@@ -34,6 +34,25 @@ static int	do_init(t_genrsa_data *data)
 	return (1);
 }
 
+static int	handle_out(t_genrsa_data *data, int ac, char **av, int *i)
+{
+	++(*i);
+	if (*i >= ac)
+	{
+		ft_putendl_fd("ft_ssl: expected file after -out", 2);
+		return (0);
+	}
+	if (data->fdout != 1)
+		close(data->fdout);
+	if ((data->fdout = open(av[*i], O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1)
+	{
+		ft_putstr_fd("ft_ssl: failed to open file: ", 2);
+		ft_putendl_fd(av[*i], 2);
+		return (0);
+	}
+	return (1);
+}
+
 static int	parse_args(t_genrsa_data *data, int ac, char **av)
 {
 	int	i;
@@ -43,6 +62,8 @@ static int	parse_args(t_genrsa_data *data, int ac, char **av)
 	{
 		if (!ft_strcmp(av[i], "-out"))
 		{
+			if (!handle_out(data, ac, av, &i))
+				return (0);
 		}
 		else if (!ft_strcmp(av[i], "-f4") || !ft_strcmp(av[i], "-F4"))
 			data->exp = 0x10001;
@@ -78,6 +99,7 @@ int	command_genrsa(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (!parse_args(&data, ac, av))
 		return (EXIT_FAILURE);
+	data.b64_ctx.fdout = data.fdout;
 	if (data.key_len < 16)
 	{
 		ft_putendl_fd("ft_ssl: invalid key len, minimum is 16", 2);

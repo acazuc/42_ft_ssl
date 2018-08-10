@@ -6,27 +6,49 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 16:57:58 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 17:58:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "pem.h"
 
-/*int		pem_read_bignum(t_vecu8 *data, t_bignum *bignum)
+static int	do_read_datas(t_vecu8 *data, uint32_t len, t_bignum *bignum)
+{
+	uint32_t	i;
+
+	if (data->data[0] & 0x80)
+		bignum->sign = 1;
+	bignum->data[0] = data->data[0] & (~0x80);
+	i = 1;
+	while (i < len)
+	{
+		bignum->data[i / sizeof(*bignum->data)] |= ((uint32_t)data->data[i])
+			<< (8 * (i % sizeof(*bignum->data)));
+		++i;
+	}
+	return (1);
+}
+
+int		pem_read_bignum(t_vecu8 *data, t_bignum *bignum)
 {
 	uint32_t	len;
 	int32_t		ret;
 
-	ret = pem_read_len(data->data + data->pos, data->len - data->pos, &len);
-	if (ret < 0 || data->pos + len + ret > data->len)
+	ret = pem_read_len(data->data, data->size, &len);
+	if (ret < 0 || len + ret > data->size)
 		return (0);
-	data->pos += ret;
-	if (!bignum_resize(bignum, ret))
+	data->data += ret;
+	data->size -= ret;
+	bignum_zero(bignum);
+	if (!len)
+		return (1);
+	if (!bignum_resize(bignum, (len + sizeof(*bignum->data) - 1)
+				/ sizeof(*bignum->data)))
 		return (0);
-	do_read_datas(data, bignum);
+	do_read_datas(data, len, bignum);
 	return (1);
-}*/
+}
 
 uint32_t	pem_bignum_len(t_bignum *bignum)
 {
