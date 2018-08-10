@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:02:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 21:38:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static int	genprime(t_bignum *r, uint32_t bits, int print)
 		}
 		do_print_plus(print, passed);
 	}
-	if (print)
-		ft_putchar('\n');
 	return (1);
 }
 
@@ -65,6 +63,8 @@ int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print)
 		return (do_clear(ctx));
 	if (!genprime(ctx->p, (bits + 1) / 2, print))
 		return (do_clear(ctx));
+	if (print)
+		ft_putchar('\n');
 	if (!(ctx->q = bignum_new()))
 		return (do_clear(ctx));
 	while (1)
@@ -74,5 +74,7 @@ int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print)
 		if (bignum_cmp(ctx->p, ctx->q))
 			break;
 	}
+	if (print)
+		ft_putchar('\n');
 	return (1);
 }
