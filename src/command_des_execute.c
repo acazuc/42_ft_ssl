@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:27:09 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 17:59:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 23:55:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	handle_b64(t_des_data *data)
 	}
 	else
 	{
-		if (!b64e_init(&data->b64e_ctx))
+		if (!base64_write_init(&data->b64e_ctx))
 		{
 			ft_putendl_fd("ft_ssl: base64 encrypt init failed", 2);
 			return (0);

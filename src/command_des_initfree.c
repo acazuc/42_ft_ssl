@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 16:29:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:30:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 23:55:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av)
 	data->fdout = 1;
 	data->fdin = 0;
 	data->cipher.mode = 0;
-	data->b64_count = 0;
 	args->password = NULL;
 	args->salt = NULL;
 	args->key = NULL;

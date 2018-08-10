@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 22:58:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 23:25:05 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ typedef struct		s_b64d_data
 {
 	int		fd;
 }			t_b64d_data;
+
+typedef struct		s_b64_write_ctx
+{
+	t_b64e_ctx	b64e_ctx;
+	int		fdout;
+	char		*buff;
+	uint64_t	count;
+	uint64_t	buff_pos;
+	uint64_t	buff_len;
+}			t_b64_write_ctx;
 
 typedef struct		s_hash_ctx
 {
@@ -87,12 +97,8 @@ typedef struct		s_des_data
 	int		fdout;
 	int		fdin;
 	int		des3;
-	union
-	{
-		t_b64e_ctx	b64e_ctx;
-		t_b64d_ctx	b64d_ctx;
-	};
-	uint64_t	b64_count;
+	t_b64_write_ctx	b64e_ctx;
+	t_b64d_ctx	b64d_ctx;
 }			t_des_data;
 
 typedef struct		s_des_args
@@ -124,17 +130,6 @@ typedef struct		s_aes_data
 	};
 	uint64_t	b64_count;
 }			t_aes_data;
-
-
-typedef struct		s_b64_write_ctx
-{
-	int		fdout;
-	t_b64e_ctx	b64e_ctx;
-	char		*buff;
-	uint64_t	count;
-	uint64_t	buff_pos;
-	uint64_t	buff_len;
-}			t_b64_write_ctx;
 
 typedef struct		s_genrsa_data
 {
