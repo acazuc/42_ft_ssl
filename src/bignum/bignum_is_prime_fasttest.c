@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 12:28:32 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 17:37:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 19:46:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ static const uint32_t	g_primes[2048] = {2, 3, 5, 7, 11, 13, 17, 19
 
 int	bignum_is_prime_fasttest(t_bignum *bignum)
 {
-	uint32_t	res;
+	t_bignum_word	res;
 	int		i;
 
 	if (!bignum_is_odd(bignum))

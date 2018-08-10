@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:27:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:12:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:40:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 # include "bignum.h"
 
-typedef struct	s_rsa_prv
+typedef struct		s_rsa_prv
 {
 	t_bignum	*n;
 	t_bignum	*d;
-}		t_rsa_prv;
+	}		t_rsa_prv;
 
-typedef struct	s_rsa_pub
+typedef struct		s_rsa_pub
 {
 	t_bignum	*n;
 	t_bignum	*e;
-}		t_rsa_pub;
+}			t_rsa_pub;
 
-typedef struct	s_rsa_ctx
+typedef struct		s_rsa_ctx
 {
 	t_bignum	*p;
 	t_bignum	*q;
@@ -38,7 +38,7 @@ typedef struct	s_rsa_ctx
 	t_bignum	*dmq;
 	t_bignum	*dmp;
 	t_bignum	*coef;
-}		t_rsa_ctx;
+}			t_rsa_ctx;
 
 int		rsa_genkey(t_rsa_ctx *ctx, uint32_t bits, uint32_t e, int print);
 int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print);

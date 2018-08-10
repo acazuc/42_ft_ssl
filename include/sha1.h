@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:19:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 21:52:16 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:07 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHA1_H
 # define SHA1_H
+
+# include "hash.h"
 
 typedef struct		s_sha1_ctx
 {

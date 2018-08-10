@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:47:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:07:43 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHA384_H
 # define SHA384_H
+
+# include "hash.h"
 
 typedef struct		s_sha384_ctx
 {

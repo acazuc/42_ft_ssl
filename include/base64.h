@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:25:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 19:47:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:36:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define BASE64_H
 
 # include <stdint.h>
-# include <string.h>
+# include <stddef.h>
 
 typedef void (*t_b64_callback)(void *userptr, uint8_t *data, size_t len);
 

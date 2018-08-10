@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:53:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:07:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHA224_H
 # define SHA224_H
+
+# include "hash.h"
 
 typedef struct		s_sha224_ctx
 {

@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 19:26:25 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:45:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:45:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include <stdlib.h>
 
 void	bignum_move(t_bignum *a, t_bignum *b)
 {

@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:05:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 14:55:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 19:01:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include <stddef.h>
 
 static int	do_clear(t_bignum *base, t_bignum *res, t_bignum *ex)
 {

@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 15:39:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:34:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:33:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 static int	do_clear(t_bignum *tmp, t_bignum *mul)
 {

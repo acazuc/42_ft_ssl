@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 14:22:26 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:28:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 19:13:05 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum
 		, uint32_t *passed)
 {
-	if (!bignum_mod_exp(ctx->a, ctx->a, ctx->d, bignum))
+	if (!bignum_mod_exp(&ctx->a, &ctx->a, &ctx->d, bignum))
 		return (-1);
-	if (bignum_is_one(ctx->a) || !bignum_ucmp(ctx->a, ctx->n1))
+	if (bignum_is_one(&ctx->a) || !bignum_ucmp(&ctx->a, &ctx->n1))
 	{
 		if (passed)
 			(*passed)++;
@@ -25,13 +25,13 @@ int	bignum_is_prime_witness(t_miller_ctx *ctx, t_bignum *bignum
 	}
 	while (ctx->s > 1)
 	{
-		if (!bignum_mul(ctx->a, ctx->a, ctx->a))
+		if (!bignum_mul(&ctx->a, &ctx->a, &ctx->a))
 			return (-1);
-		if (!bignum_mod(ctx->a, ctx->a, bignum))
+		if (!bignum_mod(&ctx->a, &ctx->a, bignum))
 			return (-1);
-		if (bignum_is_one(ctx->a))
+		if (bignum_is_one(&ctx->a))
 			return (1);
-		if (!bignum_ucmp(ctx->a, ctx->n1))
+		if (!bignum_ucmp(&ctx->a, &ctx->n1))
 		{
 			if (passed)
 				(*passed)++;

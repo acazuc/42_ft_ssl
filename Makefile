@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/10 18:13:00 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/10 20:44:25 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,6 @@ SRCS_NAME = main.c \
 	    des/des_encrypt.c \
 	    des/des_decrypt.c \
 	    cipher/cipher.c \
-	    cipher/cipher_update.c \
 	    cipher/cipher_mod_ecb.c \
 	    cipher/cipher_mod_cbc.c \
 	    cipher/cipher_mod_pcbc.c \

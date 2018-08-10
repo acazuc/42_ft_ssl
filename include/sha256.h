@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 20:57:43 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:07:36 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHA256_H
 # define SHA256_H
+
+# include "hash.h"
 
 typedef struct		s_sha256_ctx
 {

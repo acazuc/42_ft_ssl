@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 16:53:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:05:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:07:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include <unistd.h>
 #include <fcntl.h>
 
 int	bignum_rand_add_file(char *file)
@@ -30,7 +31,7 @@ int	bignum_rand_add_file(char *file)
 	tmp = 0;
 	while (readed - tmp > 8)
 	{
-		bignum_rand_add(*(uint32_t*)&(buf[tmp]));
+		bignum_rand_add(*(uint64_t*)&(buf[tmp]));
 		tmp += 8;
 	}
 	while (tmp < readed)

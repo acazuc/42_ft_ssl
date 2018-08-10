@@ -6,15 +6,16 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:11:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:02:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 19:32:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 int	bignum_reserve(t_bignum *bignum, uint32_t len)
 {
-	uint32_t	*tmp;
+	t_bignum_word	*tmp;
 	uint32_t	npot;
 
 	if (len <= bignum->cap)

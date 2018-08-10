@@ -6,15 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 16:07:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 17:56:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:40 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECU8_H
 # define VECU8_H
 
+# include <stdint.h>
 # include <stddef.h>
-# include "bignum.h"
 
 typedef struct		s_vecu8
 {

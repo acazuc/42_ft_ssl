@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:26:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:27:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	command_genrsa(int ac, char **av)
 		ft_putendl_fd("ft_ssl: failed to generate pem file", 2);
 		return (EXIT_FAILURE);
 	}
+	//Encrypt there
 	ft_putendl_fd("-----BEGIN RSA PRIVATE KEY-----", data.fdout);
 	base64_write_update(&data.b64_ctx, (uint8_t*)dataa, len);
 	base64_write_final(&data.b64_ctx);

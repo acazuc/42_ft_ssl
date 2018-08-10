@@ -6,13 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:02:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:42:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:55:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
-static int	do_init(t_bignum *r, t_bignum *a, t_bignum *b, uint64_t *ret)
+static int	do_init(t_bignum *r, t_bignum *a, t_bignum *b, uint32_t *ret)
 {
 	bignum_trunc(a);
 	bignum_trunc(b);
@@ -35,11 +36,11 @@ static int	do_init(t_bignum *r, t_bignum *a, t_bignum *b, uint64_t *ret)
 	return (0);
 }
 
-static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
+static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint32_t i)
 {
-	uint64_t	carry;
-	uint64_t	ai;
-	uint64_t	j;
+	t_bignum_dword	carry;
+	t_bignum_dword	ai;
+	uint32_t	j;
 
 	carry = 0;
 	j = 0;
@@ -47,8 +48,8 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
 	while (j < b->len)
 	{
 		carry += tmp->data[i + j] + ai * b->data[j];
-		tmp->data[i + j] = carry % BIGNUM_BASE;
-		carry /= BIGNUM_BASE;
+		tmp->data[i + j] = carry;
+		carry >>= sizeof(*a->data) * 8;
 		++j;
 	}
 	if (carry)
@@ -58,7 +59,7 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint64_t i)
 int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	t_bignum	tmp;
-	uint64_t	i;
+	uint32_t	i;
 
 	if (do_init(r, a, b, &i))
 		return (i);

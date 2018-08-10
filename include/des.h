@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 14:03:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:34:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DES_H
 # define DES_H
+
+# include <stdint.h>
 
 typedef struct s_des_ctx	t_des_ctx;
 

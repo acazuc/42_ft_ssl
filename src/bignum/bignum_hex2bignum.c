@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:13:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/08 17:14:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:43:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 static int	get_val(char c)
 {

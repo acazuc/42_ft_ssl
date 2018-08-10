@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 22:20:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:21:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:44:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include <stddef.h>
 
 void	bignum_init(t_bignum *bignum)
 {

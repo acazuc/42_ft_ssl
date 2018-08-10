@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 21:25:44 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 15:55:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:42:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "cipher.h"
+#include "libft.h"
 
 void	cipher_cbc_premod(t_cipher_ctx *ctx, uint8_t *data)
 {

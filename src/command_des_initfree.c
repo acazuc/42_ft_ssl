@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 16:29:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/05 17:37:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:30:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ int	cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av)
 void	cmd_des_free(t_des_data *data)
 {
 	free(data->buff);
-	cipher_free(&data->cipher);
 }

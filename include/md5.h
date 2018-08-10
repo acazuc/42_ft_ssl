@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:54:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 21:51:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MD5_H
 # define MD5_H
+
+# include "hash.h"
 
 typedef struct		s_md5_ctx
 {

@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 09:32:59 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:07:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:39:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHA512_H
 # define SHA512_H
+
+# include "hash.h"
 
 typedef struct		s_sha512_ctx
 {

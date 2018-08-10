@@ -6,17 +6,17 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 13:25:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 18:30:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:56:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-int	bignum_mod_word(uint32_t *r, t_bignum *a, uint32_t b)
+int	bignum_mod_word(t_bignum_word *r, t_bignum *a, t_bignum_word b)
 {
-	uint64_t	ret;
-	uint64_t	tmp;
-	uint64_t	i;
+	t_bignum_dword	ret;
+	t_bignum_dword	tmp;
+	uint32_t	i;
 
 	if (!b)
 		return (0);
@@ -28,7 +28,7 @@ int	bignum_mod_word(uint32_t *r, t_bignum *a, uint32_t b)
 	}
 	ret = 0;
 	i = a->len - 1;
-	tmp = BIGNUM_BASE % b;
+	tmp = ((t_bignum_dword)1 << (sizeof(a->data) * 8)) % b;
 	while (1)
 	{
 		ret = (ret * tmp + a->data[i] % b) % b;

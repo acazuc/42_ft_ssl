@@ -6,15 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 16:51:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:04:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 19:32:40 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-uint32_t	g_bignum_rand;
+uint64_t	g_bignum_rand;
 
-void	bignum_rand_add(uint32_t i)
+void	bignum_rand_add(uint64_t i)
 {
 	g_bignum_rand += i;
 }

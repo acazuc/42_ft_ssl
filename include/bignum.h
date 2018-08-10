@@ -6,19 +6,32 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:03:23 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 21:03:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BIGNUM_H
 # define BIGNUM_H
 
-# include "libft.h"
 # include <stdint.h>
+
+# define BIGNUM_128
+
+# ifdef BIGNUM_128
+typedef uint64_t	t_bignum_word;
+typedef int64_t		t_bignum_sword;
+typedef __uint128_t	t_bignum_dword;
+typedef __int128_t	t_bignum_sdword;
+# else
+typedef uint32_t	t_bignum_word;
+typedef int32_t		t_bignum_sword;
+typedef __uint64_t	t_bignum_dword;
+typedef __int64_t	t_bignum_sdword;
+#endif
 
 typedef struct		s_bignum
 {
-	uint32_t	*data;
+	t_bignum_word	*data;
 	uint32_t	cap;
 	uint32_t	len;
 	int		sign;
@@ -26,9 +39,9 @@ typedef struct		s_bignum
 
 typedef struct		s_miller_ctx
 {
-	t_bignum	*a;
-	t_bignum	*n1;
-	t_bignum	*d;
+	t_bignum	a;
+	t_bignum	n1;
+	t_bignum	d;
 	int		s;
 }			t_miller_ctx;
 
@@ -36,12 +49,12 @@ typedef struct		s_mod_inv_ctx
 {
 	t_bignum	*a;
 	t_bignum	*b;
-	t_bignum	*q;
-	t_bignum	*r;
-	t_bignum	*s;
-	t_bignum	*old_r;
-	t_bignum	*old_s;
-	t_bignum	*tmp;
+	t_bignum	q;
+	t_bignum	r;
+	t_bignum	s;
+	t_bignum	old_r;
+	t_bignum	old_s;
+	t_bignum	tmp;
 }			t_mod_inv_ctx;
 
 int		bignum_print_fd(t_bignum *bignum, int fd);
@@ -56,15 +69,15 @@ void		bignum_free(t_bignum *bignum);
 void		bignum_init(t_bignum *bignum);
 void		bignum_clear(t_bignum *bignum);
 void		bignum_trunc(t_bignum *bignum);
-int		bignum_grow(t_bignum *bignum, uint32_t a);
-int		bignum_grow_front(t_bignum *bignum, uint32_t a);
+int		bignum_grow(t_bignum *bignum, t_bignum_word a);
+int		bignum_grow_front(t_bignum *bignum, t_bignum_word a);
 void		bignum_zero(t_bignum *bignum);
 int		bignum_one(t_bignum *bignum);
 int		bignum_cmp(t_bignum *a, t_bignum *b);
 int		bignum_ucmp(t_bignum *a, t_bignum *b);
 int		bignum_is_zero(t_bignum *bignum);
 int		bignum_is_one(t_bignum *bignum);
-int		bignum_is_word(t_bignum *bignum, uint32_t word);
+int		bignum_is_word(t_bignum *bignum, t_bignum_word word);
 int		bignum_is_odd(t_bignum *bignum);
 int		bignum_is_bit_set(t_bignum *a, uint32_t b);
 int		bignum_set_bit(t_bignum *bignum, uint32_t n);
@@ -84,7 +97,7 @@ int		bignum_lshift1(t_bignum *r, t_bignum *a);
 int		bignum_lshift1_op(t_bignum *r, t_bignum *a);
 int		bignum_rshift1(t_bignum *r, t_bignum *a);
 int		bignum_rshift1_op(t_bignum *r, t_bignum *a);
-void		bignum_rand_add(uint32_t init);
+void		bignum_rand_add(uint64_t init);
 int		bignum_rand_add_file(char *file);
 int		bignum_rand_add_urandom();
 uint32_t	bignum_rand_get();
@@ -100,7 +113,7 @@ int		bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
 int		bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b);
 int		bignum_div(t_bignum *r, t_bignum *a, t_bignum *b);
 int		bignum_mod(t_bignum *r, t_bignum *a, t_bignum *b);
-int		bignum_mod_word(uint32_t *r, t_bignum *a, uint32_t b);
+int		bignum_mod_word(t_bignum_word *r, t_bignum *a, t_bignum_word b);
 int		bignum_exp(t_bignum *r, t_bignum *a, t_bignum *p);
 int		bignum_exp_op(t_bignum *r, t_bignum *a, t_bignum *p);
 int		bignum_mod_exp(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m);
@@ -117,7 +130,6 @@ int		bignum_prime_checks_count(t_bignum *bignum);
 # define BIGNUM_RAND_TOP_ANY 0
 # define BIGNUM_RAND_TOP_ONE 1
 # define BIGNUM_RAND_TOP_TWO 2
-# define BIGNUM_BASE 0x100000000ULL
 # define BIGNUM_PRIME_CHECKS_AUTO 0
 
 #endif

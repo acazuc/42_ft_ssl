@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 16:59:14 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 21:05:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:06:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "bignum.h"
 #include "sha1.h"
 
-uint32_t	g_bignum_rand;
+uint64_t	g_bignum_rand;
 
 uint32_t	bignum_rand_get()
 {

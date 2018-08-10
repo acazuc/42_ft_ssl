@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 17:58:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 17:03:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:25:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 static int	print(t_bignum *tmp1, t_bignum *tmp2, t_bignum *div, int fd)
 {
@@ -24,7 +25,7 @@ static int	print(t_bignum *tmp1, t_bignum *tmp2, t_bignum *div, int fd)
 	c = tmp2->data[0];
 	if (tmp1->len > 1 || tmp1->data[0] > 9)
 	{
-		if (!(bignum_div(tmp1, tmp1, div)))
+		if (!bignum_div(tmp1, tmp1, div))
 			return (0);
 		print(tmp1, tmp2, div, fd);
 	}

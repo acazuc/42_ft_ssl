@@ -6,13 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:53:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:39:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:44:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
 
-static int	do_init(t_bignum *r, t_bignum *a, uint64_t *ret)
+static int	do_init(t_bignum *r, t_bignum *a, uint32_t *ret)
 {
 	bignum_trunc(a);
 	if (bignum_is_zero(a))
@@ -31,9 +31,9 @@ static int	do_init(t_bignum *r, t_bignum *a, uint64_t *ret)
 
 int	bignum_lshift1_op(t_bignum *r, t_bignum *a)
 {
-	uint32_t	carry;
-	uint32_t	tmp;
-	uint64_t	i;
+	t_bignum_word	carry;
+	t_bignum_word	tmp;
+	uint32_t	i;
 
 	if (do_init(r, a, &i))
 		return (i);
@@ -41,7 +41,8 @@ int	bignum_lshift1_op(t_bignum *r, t_bignum *a)
 	i = 0;
 	while (i < a->len)
 	{
-		tmp = (a->data[i] & 0x80000000) >> 31;
+		tmp = a->data[i] & ((t_bignum_word)1 << (sizeof(*a->data) * 8 - 1));
+		tmp >>= sizeof(*a->data) * 8 - 1;
 		r->data[i] = (a->data[i] << 1) | carry;
 		carry = tmp;
 		++i;

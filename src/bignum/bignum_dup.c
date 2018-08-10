@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 16:56:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 14:55:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 18:45:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include <stdlib.h>
 
 t_bignum	*bignum_dup(t_bignum *bignum)
 {

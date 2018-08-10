@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 16:50:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 22:37:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:55:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ static int	do_init(t_bignum *result, t_bignum *a, t_bignum *b)
 	return (1);
 }
 
-static int	do_loop(int64_t *carry, t_bignum *result)
+static int	do_loop(t_bignum_sdword *carry, t_bignum *result)
 {
 	if (*carry < 0)
 	{
-		if (!(bignum_grow(result, *carry + BIGNUM_BASE)))
+		if (!bignum_grow(result, *carry))
 			return (do_clear(result));
 		*carry = -1;
 	}
 	else
 	{
-		if (!(bignum_grow(result, *carry)))
+		if (!bignum_grow(result, *carry))
 			return (do_clear(result));
 		*carry = 0;
 	}
@@ -50,8 +50,8 @@ static int	do_loop(int64_t *carry, t_bignum *result)
 int		bignum_sub_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	t_bignum	result;
-	int64_t		carry;
-	uint64_t	i;
+	t_bignum_sdword	carry;
+	uint32_t	i;
 
 	if (!do_init(&result, a, b))
 		return (0);

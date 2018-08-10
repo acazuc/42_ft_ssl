@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:38:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 17:49:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:24:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 int	bignum_resize(t_bignum *bignum, uint32_t len)
 {
@@ -19,7 +20,8 @@ int	bignum_resize(t_bignum *bignum, uint32_t len)
 	if (!bignum_reserve(bignum, len))
 		return (0);
 	if (len > bignum->len)
-		ft_memset(bignum->data + bignum->len, 0, len - bignum->len);
+		ft_memset(bignum->data + bignum->len, 0
+				, (len - bignum->len) * sizeof(*bignum->data));
 	bignum->len = len;
 	return (1);
 }

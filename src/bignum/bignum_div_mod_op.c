@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:08:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/10 14:14:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:24:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 static int	do_part1(t_bignum *r, t_bignum *a, uint64_t i)
 {
@@ -68,7 +69,7 @@ static int	do_exec(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 	bignum_init(&q);
 	if (!bignum_reserve(&r, a->len + 1))
 		return (0);
-	ft_memset(r.data, 0, r.len * sizeof(*r.data));
+	ft_memset(r.data, 0, (a->len + 1) * sizeof(*r.data));
 	i = a->len * 8 * sizeof(*a->data) - 1;
 	while (1)
 	{

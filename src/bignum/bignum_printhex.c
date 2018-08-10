@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:15:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 15:54:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/10 20:30:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
+#include "libft.h"
 
 static void	print_char(uint8_t c, int fd)
 {
@@ -20,15 +21,15 @@ static void	print_char(uint8_t c, int fd)
 		ft_putchar_fd('0' + c, fd);
 }
 
-static void	print_hex(uint32_t data, int fd, int first)
+static void	print_hex(t_bignum_word data, int fd, int first)
 {
-	int	i;
-	uint8_t	v;
+	uint32_t	i;
+	uint8_t		v;
 
 	i = 0;
-	while (i < 32)
+	while (i < 8 * sizeof(t_bignum_word))
 	{
-		v = (data >> (28 - i)) & 0xf;
+		v = (data >> (sizeof(t_bignum_word) * 8 - 4 - i)) & 0xf;
 		if (v || !first)
 		{
 			first = 0;
@@ -38,10 +39,22 @@ static void	print_hex(uint32_t data, int fd, int first)
 	}
 }
 
+static int	do_test_0(t_bignum *bignum, int fd)
+{
+	if (!bignum->len || (bignum->len == 1 && !bignum->data[0]))
+	{
+		ft_putchar_fd('0', fd);
+		return (1);
+	}
+	return (0);
+}
+
 int		bignum_printhex_fd(t_bignum *bignum, int fd)
 {
-	uint64_t	i;
+	uint32_t	i;
 
+	if (do_test_0(bignum, fd))
+		return (1);
 	if (bignum->sign)
 		ft_putchar_fd('-', fd);
 	if (!bignum->len)
