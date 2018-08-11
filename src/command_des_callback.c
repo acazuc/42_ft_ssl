@@ -6,29 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 21:57:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:40:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 23:07:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-
-static int	do_check_end(t_des_data *ctx, uint8_t *data, size_t *len)
-{
-	if (ctx->cipher.mode && ctx->cipher.ended && !ctx->cipher.mod->nopad)
-	{
-		if (*len < 8)
-			return (1);
-		if (data[7] > 8)
-		{
-			ft_putstr_fd("ft_ssl: invalid stream end: ", 2);
-			ft_putnbr_fd(data[7], 2);
-			ft_putchar_fd('\n', 2);
-			return (0);
-		}
-		*len -= data[7];
-	}
-	return (1);
-}
 
 static void	do_update_buff(t_des_data *ctx, uint8_t *data, size_t len)
 {
@@ -65,8 +47,6 @@ static int	do_update(t_des_data *ctx, uint8_t *data, size_t len)
 
 int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len)
 {
-	if (!do_check_end(ctx, data, &len))
-		return (0);
 	if (!do_update(ctx, data, len))
 		return (0);
 	if (!ctx->cipher.mode && ctx->cipher.ended)

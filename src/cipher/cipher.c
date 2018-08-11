@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:50:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:35:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 23:07:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	do_update_part(t_cipher_ctx *ctx)
 	if (!ctx->cipher->update(ctx->ctx, ctx->buff, ctx->mode))
 		return (0);
 	ctx->mod->postmod(ctx, ctx->buff);
-	return (ctx->callback(ctx->userptr, ctx->buff, ctx->buff_pos));
+	return (1);
 }
 
 int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
@@ -67,6 +67,8 @@ int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
 		ft_memcpy(ctx->buff + ctx->buff_pos, data, tmp);
 		ctx->buff_pos = ctx->cipher->block_size;
 		if (!do_update_part(ctx))
+			return (0);
+		if (!ctx->callback(ctx->userptr, ctx->buff, ctx->buff_pos))
 			return (0);
 		data += tmp;
 		len -= tmp;
@@ -89,6 +91,14 @@ int		cipher_final(t_cipher_ctx *ctx)
 	}
 	ctx->ended = 1;
 	ret = do_update_part(ctx);
+	if (ctx->mode && !ctx->mod->nopad)
+	{
+		if (ctx->buff[ctx->buff_pos - 1] > ctx->cipher->block_size)
+			ret = 0;
+		ctx->buff_pos -= ctx->buff[ctx->buff_pos - 1];
+	}
+	if (ret && !ctx->callback(ctx->userptr, ctx->buff, ctx->buff_pos))
+		ret = 0;
 	free(ctx->buff);
 	free(ctx->mod1);
 	free(ctx->mod2);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:53:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:57:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		cmd_aes_handle_iv(t_aes_data *data, t_aes_args *args)
 {
 	if (!args->iv)
 	{
-		if (!random_bytes(data->cipher.iv, 16))
+		if (!random_bytes(data->cipher.iv, data->cipher.cipher->block_size))
 		{
 			ft_putendl_fd("ft_ssl: Failed to generate random iv", 2);
 			return (0);
@@ -122,7 +122,7 @@ int		cmd_aes_handle_iv(t_aes_data *data, t_aes_args *args)
 	}
 	else
 	{
-		if (!transform_bin(data->cipher.iv, args->iv, 16))
+		if (!transform_bin(data->cipher.iv, args->iv, data->cipher.cipher->block_size))
 		{
 			ft_putendl_fd("ft_ssl: invalid iv", 2);
 			return (0);
