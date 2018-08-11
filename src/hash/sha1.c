@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:49:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:06:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha1.h"
 #include "ft_ssl.h"
-#include "sha1.h"
 
 t_hash		g_hash_sha1 = {(t_hash_init)&sha1_init
 		, (t_hash_update)&sha1_update, (t_hash_final)&sha1_final

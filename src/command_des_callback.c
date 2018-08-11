@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 21:57:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:37:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:21:55 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	do_check_end(t_des_data *ctx, uint8_t *data, size_t *len)
 			return (1);
 		if (data[7] > 8)
 		{
-			ft_putendl_fd("ft_ssl: invalid stream end", 2);
+			ft_putstr_fd("ft_ssl: invalid stream end: ", 2);
+			ft_putnbr_fd(data[7], 2);
+			ft_putchar_fd('\n', 2);
 			return (0);
 		}
 		*len -= data[7];

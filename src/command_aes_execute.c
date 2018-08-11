@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:22:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:21:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:04:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	handle_b64(t_aes_data *data)
 
 int		cmd_aes_do_execute(t_aes_data *data)
 {
-	ft_memcpy(data->cipher.mod1, data->cipher.iv, data->cipher.block_size);
+	ft_memcpy(data->cipher.mod1, data->cipher.iv, data->cipher.cipher->block_size);
 	if (!handle_b64(data))
 		return (0);
 	if (!do_init(&data->ctx, data->key, data->key_size, data->cipher.mode))

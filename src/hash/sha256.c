@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 20:57:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:49:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:06:58 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha256.h"
 #include "ft_ssl.h"
-#include "sha256.h"
 
 t_hash		g_hash_sha256 = {(t_hash_init)&sha256_init
 		, (t_hash_update)&sha256_update, (t_hash_final)&sha256_final

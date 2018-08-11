@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:23:22 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 17:54:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:04:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	cmd_aes_init(t_aes_data *data, t_aes_args *args, int ac, char **av)
 	args->av = av;
 	args->ac = ac;
 	args->i = 0;
-	cipher_init(&data->cipher, 16);
 	return (1);
 }
 

@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aes_decrypt.c                                      :+:      :+:    :+:   */
+/*   aes192.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/10 22:36:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:09:38 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/11 21:14:33 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/11 21:31:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/aes.h"
-#include "libft.h"
 
-int	aes_decrypt_init(t_aes_ctx *ctx, uint8_t *key, uint8_t key_len)
+t_cipher	g_cipher_aes192 = {(t_cipher_init)&aes192_init
+		, (t_cipher_update)&aes192_update, (t_cipher_final)&aes192_final
+		, 16, 24, sizeof(t_aes192_ctx)};
+
+int	aes192_init(t_aes192_ctx *ctx, uint8_t *key)
 {
-	if (key_len == 16)
-		aes_keyexpand(ctx, key, 16);
-	else if (key_len == 24)
-		aes_keyexpand(ctx, key, 24);
-	else if (key_len == 32)
-		aes_keyexpand(ctx, key, 32);
+	aes_keyexpand(&ctx->ctx, key, 24);
+	ctx->ctx.key_len = 24;
+	return (1);
+}
+
+int	aes192_update(t_aes192_ctx *ctx, uint8_t *block, int mode)
+{
+	if (mode)
+		aes_decrypt(&ctx->ctx, block);
 	else
-		return (0);
-	ctx->key_len = key_len;
+		aes_encrypt(&ctx->ctx, block);
 	return (1);
 }
 
-int	aes_decrypt_update(t_aes_ctx *ctx, uint8_t *data, size_t len)
-{
-	(void)len;
-	aes_decrypt(ctx, data);
-	return (1);
-}
-
-int	aes_decrypt_final(t_aes_ctx *ctx)
+int	aes192_final(t_aes192_ctx *ctx)
 {
 	(void)ctx;
 	return (1);

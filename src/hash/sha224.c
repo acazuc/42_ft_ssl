@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:55:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:49:43 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:06:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha224.h"
 #include "ft_ssl.h"
-#include "sha224.h"
 
 t_hash		g_hash_sha224 = {(t_hash_init)&sha224_init
 		, (t_hash_update)&sha224_update, (t_hash_final)&sha224_final

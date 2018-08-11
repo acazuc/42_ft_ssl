@@ -6,20 +6,20 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:58:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:58:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha512.h"
 #include "ft_ssl.h"
-#include "sha512.h"
 
-static int	generate_keys2(t_des_data *data, uint64_t salt, char *password)
+static int	generate_keys2(t_des_data *data, uint8_t *salt, char *password)
 {
 	t_pbkdf2_ctx	ctx;
 	uint8_t		tmp[24];
 
 	ctx.h.h = &g_hash_sha512;
-	ctx.salt = (uint8_t*)&salt;
+	ctx.salt = salt;
 	ctx.salt_len = 8;
 	ctx.password = (uint8_t*)password;
 	ctx.password_len = ft_strlen(password);
@@ -28,21 +28,19 @@ static int	generate_keys2(t_des_data *data, uint64_t salt, char *password)
 	ctx.out_len = 24;
 	if (!pbkdf2(&ctx))
 		return (0);
-	ft_memcpy(&data->keys[0], tmp, 8);
-	ft_memcpy(&data->keys[1], tmp + 8, 8);
-	ft_memcpy(&data->keys[2], tmp + 16, 8);
+	ft_memcpy(&data->key, tmp, 24);
 	return (1);
 }
 
-static int	transform_bin64(uint64_t *bin64, char *str)
+static int	transform_bin(uint8_t *bin, char *str, int max)
 {
 	int	len;
 
-	ft_memset(bin64, 0, 8);
+	ft_memset(bin, 0, max);
 	len = ft_strlen(str);
-	if (len > 16)
-		len = 16;
-	if (!hex2bin((uint8_t*)bin64, str, len))
+	if (len > max * 2)
+		len = max * 2;
+	if (!hex2bin(bin, str, len))
 		return (0);
 	return (1);
 }
@@ -72,14 +70,15 @@ static char	*ask_password()
 
 static int	generate_keys(t_des_data *data, char *password, char *salt)
 {
-	uint64_t	tmp;
+	uint8_t	tmp[8];
+	int	ret;
 
 	if (!salt)
 	{
-		if (!random_bytes((uint8_t*)&tmp, 8))
+		if (!random_bytes(tmp, 8))
 			return (0);
 	}
-	else if (!transform_bin64(&tmp, salt))
+	else if (!transform_bin(tmp, salt, 8))
 		return (0);
 	if (!password)
 	{
@@ -88,24 +87,22 @@ static int	generate_keys(t_des_data *data, char *password, char *salt)
 	}
 	else if (!(password = ft_strdup(password)))
 		return (0);
-	tmp = generate_keys2(data, tmp, password);
+	ret = generate_keys2(data, tmp, password);
 	free(password);
-	return (tmp);
+	return (ret);
 }
 
 int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
 {
-	int	len;
-
 	if (!args->key)
-		return (generate_keys(data, args->password, args->salt));
-	ft_memset(&data->keys[0], 0, 8);
-	ft_memset(&data->keys[1], 0, 8);
-	ft_memset(&data->keys[2], 0, 8);
-	len = ft_strlen(args->key);
-	if ((len > 0 && !transform_bin64(&data->keys[0], args->key))
-			|| (len > 16 && !transform_bin64(&data->keys[1], args->key + 16))
-			|| (len > 32 && !transform_bin64(&data->keys[2], args->key + 32)))
+	{
+		if (!generate_keys(data, args->password, args->salt))
+		{
+			ft_putendl_fd("ft_ssl: Failed to generate password", 2);
+			return (0);
+		}
+	}
+	if (!transform_bin(data->key, args->key, 24))
 	{
 		ft_putendl_fd("ft_ssl: Invalid key", 2);
 		return (0);
@@ -125,7 +122,7 @@ int		cmd_des_handle_iv(t_des_data *data, t_des_args *args)
 	}
 	else
 	{
-		if (!transform_bin64((uint64_t*)data->cipher.iv, args->iv))
+		if (!transform_bin(data->cipher.iv, args->iv, 8))
 		{
 			ft_putendl_fd("ft_ssl: invalid iv", 2);
 			return (0);

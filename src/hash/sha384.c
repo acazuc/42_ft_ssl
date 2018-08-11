@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:49:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:50:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:07:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha384.h"
 #include "ft_ssl.h"
-#include "sha384.h"
 
 t_hash		g_hash_sha384 = {(t_hash_init)&sha384_init
 		, (t_hash_update)&sha384_update, (t_hash_final)&sha384_final

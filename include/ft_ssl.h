@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 19:56:56 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:18:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define FT_SSL_H
 
 # include "base64.h"
-# include "cipher.h"
+# include "cipher/cipher.h"
+# include "cipher/des.h"
+# include "cipher/aes.h"
+# include "hash/hash.h"
 # include "libft.h"
-# include "hash.h"
 # include "rsa.h"
-# include "des.h"
-# include "aes.h"
 # include <stdint.h>
 # include <math.h>
 
@@ -92,11 +92,10 @@ typedef struct		s_des_data
 	char		*buff;
 	uint32_t	buff_len;
 	uint32_t	buff_pos;
-	uint64_t	keys[3];
+	uint8_t		key[24];
 	int		base64;
 	int		fdout;
 	int		fdin;
-	int		des3;
 	t_b64_write_ctx	b64e_ctx;
 	t_b64d_ctx	b64d_ctx;
 }			t_des_data;
@@ -160,12 +159,12 @@ int		command_sha256(int ac, char **av);
 int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
 int		command_base64(int ac, char **av);
-int		command_des(int ac, char **av, t_des_data *data);
-int		command_des_ecb(int ac, char **av);
-int		command_des_cbc(int ac, char **av);
-int		command_des_pcbc(int ac, char **av);
-int		command_des_cfb(int ac, char **av);
-int		command_des_ofb(int ac, char **av);
+int		command_des1(int ac, char **av, t_des_data *data);
+int		command_des1_ecb(int ac, char **av);
+int		command_des1_cbc(int ac, char **av);
+int		command_des1_pcbc(int ac, char **av);
+int		command_des1_cfb(int ac, char **av);
+int		command_des1_ofb(int ac, char **av);
 int		command_des2(int ac, char **av, t_des_data *data);
 int		command_des2_ecb(int ac, char **av);
 int		command_des2_cbc(int ac, char **av);

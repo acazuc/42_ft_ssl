@@ -6,11 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:04:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 15:54:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:10:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "aes.h"
+#include "cipher/aes.h"
 
 static uint8_t	g_s[256] = {
 	0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5,

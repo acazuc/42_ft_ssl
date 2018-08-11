@@ -6,26 +6,26 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 19:09:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:42:16 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:12:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cipher.h"
+#include "cipher/cipher.h"
 #include "libft.h"
 
 void	cipher_ofb_premod(t_cipher_ctx *ctx, uint8_t *data)
 {
 	if (ctx->mode)
 	{
-		ft_memcpy(ctx->mod2, data, ctx->block_size);
-		ft_memcpy(data, ctx->mod1, ctx->block_size);
+		ft_memcpy(ctx->mod2, data, ctx->cipher->block_size);
+		ft_memcpy(data, ctx->mod1, ctx->cipher->block_size);
 		ctx->mode = 0;
 		ctx->mod3 = 1;
 	}
 	else
 	{
-		ft_memcpy(ctx->mod2, data, ctx->block_size);
-		ft_memcpy(data, ctx->mod1, ctx->block_size);
+		ft_memcpy(ctx->mod2, data, ctx->cipher->block_size);
+		ft_memcpy(data, ctx->mod1, ctx->cipher->block_size);
 		ctx->mod3 = 0;
 	}
 }
@@ -35,12 +35,12 @@ void	cipher_ofb_postmod(t_cipher_ctx *ctx, uint8_t *data)
 	if (ctx->mod3)
 	{
 		ctx->mode = 1;
-		ft_memcpy(ctx->mod1, data, ctx->block_size);
-		ft_memxor(data, data, ctx->mod2, ctx->block_size);
+		ft_memcpy(ctx->mod1, data, ctx->cipher->block_size);
+		ft_memxor(data, data, ctx->mod2, ctx->cipher->block_size);
 	}
 	else
 	{
-		ft_memcpy(ctx->mod1, data, ctx->block_size);
-		ft_memxor(data, data, ctx->mod2, ctx->block_size);
+		ft_memcpy(ctx->mod1, data, ctx->cipher->block_size);
+		ft_memxor(data, data, ctx->mod2, ctx->cipher->block_size);
 	}
 }

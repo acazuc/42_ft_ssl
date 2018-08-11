@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/11 19:40:18 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/11 21:15:56 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LDFLAGS = -flto=4 -fwhole-program
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -rdynamic
 #CFLAGS+= -fsanitize=address
-CFLAGS+= -flto
+#CFLAGS+= -flto
 
 INCLUDES = -I include/ -I libft/include
 
@@ -78,11 +78,16 @@ SRCS_NAME = main.c \
 	    base64/base64_encode.c \
 	    base64/base64_decode.c \
 	    des/des.c \
-	    des/des_ext.c \
+	    des/des1.c \
+	    des/des2.c \
+	    des/des3.c \
 	    des/des_encrypt.c \
 	    des/des_decrypt.c \
 	    aes/aes_encrypt.c \
 	    aes/aes.c \
+	    aes/aes128.c \
+	    aes/aes192.c \
+	    aes/aes256.c \
 	    aes/aes_decrypt.c \
 	    aes/aes_mixcolumns.c \
 	    aes/aes_shiftrows.c \

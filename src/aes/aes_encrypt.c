@@ -6,11 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:36:49 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 16:17:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:09:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "aes.h"
+#include "cipher/aes.h"
 #include "libft.h"
 
 int	aes_encrypt_init(t_aes_ctx *ctx, uint8_t *key, uint8_t key_len)

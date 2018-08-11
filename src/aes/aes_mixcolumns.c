@@ -6,11 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:18:59 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:01:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:09:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "aes.h"
+#include "cipher/aes.h"
 #include "libft.h"
 
 static uint8_t	g_lookup2[256] = {

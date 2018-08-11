@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:54:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/02 21:16:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:02:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha224.h"
 #include "ft_ssl.h"
-#include "sha224.h"
 
 int	command_sha224(int ac, char **av)
 {

@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:59:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:02:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha512.h"
 #include "ft_ssl.h"
-#include "sha512.h"
 
 static int	generate_keys2(t_aes_data *data, uint64_t salt, char *password)
 {

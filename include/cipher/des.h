@@ -6,13 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 19:54:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:08:07 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DES_H
 # define DES_H
 
+# include "cipher.h"
 # include <stddef.h>
 # include <stdint.h>
 
@@ -23,7 +24,7 @@ typedef struct		s_des_ctx
 
 typedef struct		s_des1_ctx
 {
-	t_des_ctx	ctx;
+	t_des_ctx	ctx1;
 }			t_des1_ctx;
 
 typedef struct		s_des2_ctx
@@ -42,19 +43,28 @@ typedef struct		s_des3_ctx
 void	des_generate_keys(t_des_ctx *ctx, uint64_t key);
 void	des_operate_block(t_des_ctx *ctx, uint64_t *block, int mode);
 
-int	des_encrypt_init(t_des_ctx *ctx, uint64_t key);
+int	des_encrypt_init(t_des_ctx *ctx, uint8_t *key);
 int	des_encrypt_update(t_des_ctx *ctx, uint8_t *data, size_t len);
 int	des_encrypt_final(t_des_ctx *ctx);
 
-int	des_decrypt_init(t_des_ctx *ctx, uint64_t key);
+int	des_decrypt_init(t_des_ctx *ctx, uint8_t *key);
 int	des_decrypt_update(t_des_ctx *ctx, uint8_t *data, size_t len);
 int	des_decrypt_final(t_des_ctx *ctx);
 
-int	des_ext_encrypt_update(t_des_ctx *ctx, uint8_t *data, size_t len);
-int	des_ext_decrypt_update(t_des_ctx *ctx, uint8_t *data, size_t len);
-int	des3_ext_encrypt_update(t_des_ctx *ctx, uint8_t *data, size_t len);
-int	des3_ext_decrypt_update(t_des_ctx *ctx, uint8_t *data, size_t len);
+int	des1_init(t_des1_ctx *ctx, uint8_t *key);
+int	des1_update(t_des1_ctx *ctx, uint8_t *block, int mode);
+int	des1_final(t_des1_ctx *ctx);
+int	des2_init(t_des2_ctx *ctx, uint8_t *key);
+int	des2_update(t_des2_ctx *ctx, uint8_t *block, int mode);
+int	des2_final(t_des2_ctx *ctx);
+int	des3_init(t_des3_ctx *ctx, uint8_t *key);
+int	des3_update(t_des3_ctx *ctx, uint8_t *block, int mode);
+int	des3_final(t_des3_ctx *ctx);
 
 # define DES_BUFF_LEN 1024
+
+extern t_cipher		g_cipher_des1;
+extern t_cipher		g_cipher_des2;
+extern t_cipher		g_cipher_des3;
 
 #endif

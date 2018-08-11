@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aes_decrypt.c                                      :+:      :+:    :+:   */
+/*   aes256.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/10 22:36:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:09:38 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/11 21:15:04 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/11 21:31:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/aes.h"
-#include "libft.h"
 
-int	aes_decrypt_init(t_aes_ctx *ctx, uint8_t *key, uint8_t key_len)
+t_cipher	g_cipher_aes256 = {(t_cipher_init)&aes256_init
+		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
+		, 16, 32, sizeof(t_aes256_ctx)};
+
+int	aes256_init(t_aes256_ctx *ctx, uint8_t *key)
 {
-	if (key_len == 16)
-		aes_keyexpand(ctx, key, 16);
-	else if (key_len == 24)
-		aes_keyexpand(ctx, key, 24);
-	else if (key_len == 32)
-		aes_keyexpand(ctx, key, 32);
+	aes_keyexpand(&ctx->ctx, key, 32);
+	ctx->ctx.key_len = 32;
+	return (1);
+}
+
+int	aes256_update(t_aes256_ctx *ctx, uint8_t *block, int mode)
+{
+	if (mode)
+		aes_decrypt(&ctx->ctx, block);
 	else
-		return (0);
-	ctx->key_len = key_len;
+		aes_encrypt(&ctx->ctx, block);
 	return (1);
 }
 
-int	aes_decrypt_update(t_aes_ctx *ctx, uint8_t *data, size_t len)
-{
-	(void)len;
-	aes_decrypt(ctx, data);
-	return (1);
-}
-
-int	aes_decrypt_final(t_aes_ctx *ctx)
+int	aes256_final(t_aes256_ctx *ctx)
 {
 	(void)ctx;
 	return (1);

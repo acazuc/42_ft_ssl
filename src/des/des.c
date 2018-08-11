@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 18:43:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 19:19:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:07:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cipher/des.h"
 #include "ft_ssl.h"
-#include "des.h"
 
 static uint8_t	g_rots[16] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 

@@ -6,12 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:27:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 22:19:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 21:02:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "hash/sha256.h"
 #include "ft_ssl.h"
-#include "sha256.h"
 
 int	command_sha256(int ac, char **av)
 {
