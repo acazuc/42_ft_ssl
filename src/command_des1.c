@@ -6,15 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:25:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 17:36:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 19:43:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static int	update(t_des_data *ctx, uint64_t *data, size_t len)
+static int	update(t_des_data *ctx, uint8_t *data, size_t len)
 {
-	*data = ft_swap_ulong(*data);
 	if (ctx->cipher.mode)
 	{
 		if (!des_decrypt_update(&ctx->ctx[0], data, len))
@@ -25,7 +24,6 @@ static int	update(t_des_data *ctx, uint64_t *data, size_t len)
 		if (!des_encrypt_update(&ctx->ctx[0], data, len))
 			return (0);
 	}
-	*data = ft_swap_ulong(*data);
 	return (1);
 }
 
@@ -40,7 +38,12 @@ int		command_des(int ac, char **av, t_des_data *data)
 	if (!cmd_des_init(data, &args, ac, av))
 		return (EXIT_FAILURE);
 	if (!cmd_des_parse_args(data, &args) || !cmd_des_handle_key(data, &args)
-			|| !cmd_des_handle_iv(data, &args) || !cmd_des_do_execute(data))
+			|| !cmd_des_handle_iv(data, &args))
+	{
+		cmd_des_free(data);
+		return (EXIT_FAILURE);
+	}
+	if (!cmd_des_do_execute(data))
 	{
 		cmd_des_free(data);
 		return (EXIT_FAILURE);

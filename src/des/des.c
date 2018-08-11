@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 18:43:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 14:40:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 19:19:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void	des_operate_block(t_des_ctx *ctx, uint64_t *block, int mode)
 	uint32_t	r[16];
 	int		i;
 
-	tmp = des_permute(*block, g_ip, 64, 64);
+	tmp = des_permute(ft_swap_ulong(*block), g_ip, 64, 64);
 	l[0] = tmp & 0xffffffff;
 	r[0] = (tmp >> 32) ^ des_f(l[0], ctx->keys[mode ? 15 : 0]);
 	i = 1;
@@ -213,5 +213,5 @@ void	des_operate_block(t_des_ctx *ctx, uint64_t *block, int mode)
 		++i;
 	}
 	tmp = ((uint64_t)r[15] << 32) | (uint64_t)l[15];
-	*block = des_permute(tmp, g_ip1, 64, 64);
+	*block = ft_swap_ulong(des_permute(tmp, g_ip1, 64, 64));
 }

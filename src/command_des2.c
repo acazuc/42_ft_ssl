@@ -6,15 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 19:10:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 22:01:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 19:46:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static int	update(t_des_data *ctx, uint64_t *data, size_t len)
+static int	update(t_des_data *ctx, uint8_t *data, size_t len)
 {
-	*data = ft_swap_ulong(*data);
 	if (ctx->cipher.mode)
 	{
 		if (!des_decrypt_update(&ctx->ctx[0], data, len))
@@ -33,7 +32,6 @@ static int	update(t_des_data *ctx, uint64_t *data, size_t len)
 		if (!des_encrypt_update(&ctx->ctx[2], data, len))
 			return (0);
 	}
-	*data = ft_swap_ulong(*data);
 	return (1);
 }
 
