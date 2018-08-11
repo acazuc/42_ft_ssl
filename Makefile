@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/11 13:32:21 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/11 17:56:44 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME = ft_ssl
 
 CC = gcc
 
-LDFLAGS = -flto=4
+LDFLAGS = -flto=4 -fwhole-program
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -rdynamic
 #CFLAGS+= -fsanitize=address
-#CFLAGS+= -flto
+CFLAGS+= -flto
 
 INCLUDES = -I include/ -I libft/include
 
@@ -60,6 +60,11 @@ SRCS_NAME = main.c \
 	    command_aes_192_ciphers.c \
 	    command_aes_256.c \
 	    command_aes_256_ciphers.c \
+	    command_aes_common1.c \
+	    command_aes_execute.c \
+	    command_aes_args.c \
+	    command_aes_callback.c \
+	    command_aes_initfree.c \
 	    command_bignum.c \
 	    command_genrsa.c \
 	    command_rsa.c \

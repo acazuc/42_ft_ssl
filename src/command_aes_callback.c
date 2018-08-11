@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_des_callback.c                             :+:      :+:    :+:   */
+/*   command_aes_callback.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/04 21:57:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:37:09 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/11 17:18:16 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/11 18:30:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static int	do_check_end(t_des_data *ctx, uint8_t *data, size_t *len)
+static int	do_check_end(t_aes_data *ctx, uint8_t *data, size_t *len)
 {
 	if (ctx->cipher.mode && ctx->cipher.ended && !ctx->cipher.nopad)
 	{
-		if (*len < 8)
+		if (*len < 16)
 			return (1);
-		if (data[7] > 8)
+		if (data[15] > 16)
 		{
-			ft_putendl_fd("ft_ssl: invalid stream end", 2);
+			ft_putstr_fd("ft_ssl: invalid stream end: ", 2);
+			ft_putnbr_fd(data[15], 2);
+			ft_putchar_fd('\n', 2);
 			return (0);
 		}
-		*len -= data[7];
+		*len -= data[15];
 	}
 	return (1);
 }
 
-static void	do_update_buff(t_des_data *ctx, uint8_t *data, size_t len)
+static void	do_update_buff(t_aes_data *ctx, uint8_t *data, size_t len)
 {
 	int	osef;
 
@@ -45,7 +47,7 @@ static void	do_update_buff(t_des_data *ctx, uint8_t *data, size_t len)
 	(void)osef;
 }
 
-static int	do_update(t_des_data *ctx, uint8_t *data, size_t len)
+static int	do_update(t_aes_data *ctx, uint8_t *data, size_t len)
 {
 	if (!ctx->cipher.mode && ctx->base64)
 	{
@@ -61,7 +63,7 @@ static int	do_update(t_des_data *ctx, uint8_t *data, size_t len)
 	return (1);
 }
 
-int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len)
+int		cmd_aes_callback(t_aes_data *ctx, uint8_t *data, size_t len)
 {
 	if (!do_check_end(ctx, data, &len))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/30 14:59:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 19:03:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ static int	pbkdf2_init(t_pbkdf2_ctx *ctx, uint8_t **sum, uint8_t **ret
 	return (1);
 }
 
-static int	pbkdf2_free(int val, uint8_t *sum, uint8_t *tmp, uint8_t *ret)
+static int	pbkdf2_free(uint8_t *sum, uint8_t *tmp, uint8_t *ret)
 {
 	free(sum);
 	free(tmp);
 	free(ret);
-	return (val);
+	return (0);
 }
 
 int		pbkdf2(t_pbkdf2_ctx *ctx)
@@ -94,10 +94,11 @@ int		pbkdf2(t_pbkdf2_ctx *ctx)
 	while (++i < blocks)
 	{
 		if (!loop(ctx, ft_swap_uint(i + 1), tmp, sum))
-			return (pbkdf2_free(0, sum, tmp, ret));
+			return (pbkdf2_free(sum, tmp, ret));
 		ft_memcpy(ret + i * ctx->h.h->digest_len, sum
 				, ctx->h.h->digest_len);
 	}
 	ft_memcpy(ctx->out, ret, ctx->out_len);
-	return (pbkdf2_free(1, sum, tmp, ret));
+	pbkdf2_free(sum, tmp, ret);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 19:04:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 18:49:32 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_hash		g_hash_sha1 = {(t_hash_init)&sha1_init
 		, (t_hash_update)&sha1_update, (t_hash_final)&sha1_final
-		, 20, 64, "SHA1"};
+		, 20, 64, sizeof(t_sha1_ctx), "SHA1"};
 
 static uint32_t		g_sha1_k[4] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC
 	, 0xCA62C1D6};

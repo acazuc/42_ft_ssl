@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 23:57:15 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 19:05:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,25 @@ typedef struct		s_aes_data
 	char		*buff;
 	uint32_t	buff_len;
 	uint32_t	buff_pos;
+	int		key_size;
 	uint8_t		key[32];
 	int		base64;
 	int		fdout;
 	int		fdin;
-	union
-	{
-		t_b64e_ctx	b64e_ctx;
-		t_b64d_ctx	b64d_ctx;
-	};
-	uint64_t	b64_count;
+	t_b64_write_ctx	b64e_ctx;
+	t_b64d_ctx	b64d_ctx;
 }			t_aes_data;
+
+typedef struct		s_aes_args
+{
+	char		*password;
+	char		*salt;
+	char		*key;
+	char		*iv;
+	char		**av;
+	int		ac;
+	int		i;
+}			t_aes_args;
 
 typedef struct		s_genrsa_data
 {
@@ -196,6 +204,14 @@ int		command_aes_256_cbc(int ac, char **av);
 int		command_aes_256_pcbc(int ac, char **av);
 int		command_aes_256_cfb(int ac, char **av);
 int		command_aes_256_ofb(int ac, char **av);
+int		cmd_aes_parse_args(t_aes_data *data, t_aes_args *args);
+int		cmd_aes_do_execute(t_aes_data *data);
+int		cmd_aes_handle_iv(t_aes_data *data, t_aes_args *args);
+int		cmd_aes_handle_key(t_aes_data *data, t_aes_args *args);
+int		cmd_aes_callback(t_aes_data *ctx, uint8_t *data, size_t len);
+int		cmd_aes_do_update(t_aes_data *data);
+int		cmd_aes_init(t_aes_data *data, t_aes_args *args, int ac, char **av);
+void		cmd_aes_free(t_aes_data *data);
 int		command_bignum(int ac, char **av);
 int		command_genrsa(int ac, char **av);
 void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data, size_t len);

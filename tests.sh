@@ -80,8 +80,8 @@ test_base64_all()
 test_cipher_encrypt()
 {
 	iv="8877665544332211"
-	#./ft_ssl $1 -a -e -k $2 -v $iv -i $3 | hexdump -C
-	#openssl $1 -a -e -K $2 -iv $iv -in $3 | hexdump -C
+	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump -C
+	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump -C
 	ret_ftssl=`./ft_ssl $1 -a -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -a -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	print_result "$1 encrypt $3" $ret_ftssl $ret_opssl

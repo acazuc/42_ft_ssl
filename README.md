@@ -15,6 +15,9 @@ sha512
 des
 des-ede
 des-ede3
+aes-128
+aes-192
+aes-256
 
 # Ciphers block modes
 ecb
@@ -32,4 +35,4 @@ bignum
 
 bignum interface from openssl
 bignum\_is\_prime\_fasttest array from openssl
-openssl license in license_openssl.txt
+openssl license in license\_openssl.txt

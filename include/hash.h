@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:38:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:38:55 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 18:50:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_hash
 	t_hash_final	final;
 	uint8_t		digest_len;
 	uint8_t		block_len;
+	uint8_t		ctx_len;
 	char		*name;
 }			t_hash;
 

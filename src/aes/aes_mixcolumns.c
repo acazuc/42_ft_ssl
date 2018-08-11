@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:18:59 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 16:49:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 18:01:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ void	aes_invmixcolumns(uint8_t *block)
 	i = 0;
 	while (i < 4)
 	{
-		ft_memcpy(a, block + 4 * i, i);
+		ft_memcpy(a, block + 4 * i, 4);
 		block[4 * i + 0] = g_lookup14[a[0]] ^ g_lookup9[a[3]] ^ g_lookup13[a[2]] ^ g_lookup11[a[1]];
 		block[4 * i + 1] = g_lookup14[a[1]] ^ g_lookup9[a[0]] ^ g_lookup13[a[3]] ^ g_lookup11[a[2]];
 		block[4 * i + 2] = g_lookup14[a[2]] ^ g_lookup9[a[1]] ^ g_lookup13[a[0]] ^ g_lookup11[a[3]];

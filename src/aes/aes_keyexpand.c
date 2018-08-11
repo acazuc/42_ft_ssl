@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 13:24:26 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 16:15:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 18:10:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ void	aes_keyexpand(t_aes_ctx *ctx, uint8_t *key, uint8_t len)
 		{
 			expand_core(tmp, i);
 			i++;
+		}
+		if (len == 32 && c % 32 == 16)
+		{
+			j = 0;
+			while (j < 4)
+			{
+				tmp[j] = aes_subbyte(tmp[j]);
+				++j;
+			}
 		}
 		j = 0;
 		while (j < 4)

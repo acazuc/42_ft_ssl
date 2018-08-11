@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:29:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 14:39:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 18:24:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		b64d_init(t_b64d_ctx *ctx)
 {
 	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
+	ctx->buff_len = 0;
 	ctx->tmp_len = 0;
 	return (1);
 }
