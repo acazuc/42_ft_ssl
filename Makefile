@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/10 22:59:11 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/11 13:32:21 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,14 @@ SRCS_NAME = main.c \
 	    des/des.c \
 	    des/des_encrypt.c \
 	    des/des_decrypt.c \
+	    aes/aes_encrypt.c \
+	    aes/aes.c \
+	    aes/aes_decrypt.c \
+	    aes/aes_mixcolumns.c \
+	    aes/aes_shiftrows.c \
+	    aes/aes_subbytes.c \
+	    aes/aes_keyexpand.c \
+	    aes/aes_rcon.c \
 	    cipher/cipher.c \
 	    cipher/cipher_mod_ecb.c \
 	    cipher/cipher_mod_cbc.c \

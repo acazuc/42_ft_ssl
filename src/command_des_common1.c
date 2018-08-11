@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 23:55:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 14:50:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ static int	generate_keys(t_des_data *data, char *password, char *salt)
 {
 	uint64_t	tmp;
 
+	if (!salt)
+	{
+		if (!random_bytes((uint8_t*)&tmp, 8))
+			return (0);
+	}
+	else if (!transform_bin64(&tmp, salt))
+		return (0);
 	if (!password)
 	{
 		if (!(password = ask_password()))
@@ -83,19 +90,6 @@ static int	generate_keys(t_des_data *data, char *password, char *salt)
 	}
 	else if (!(password = ft_strdup(password)))
 		return (0);
-	if (!salt)
-	{
-		if (!random_bytes((uint8_t*)&tmp, 8))
-		{
-			free(password);
-			return (EXIT_FAILURE);
-		}
-	}
-	else if (!transform_bin64(&tmp, salt))
-	{
-		free(password);
-		return (0);
-	}
 	tmp = generate_keys2(data, tmp, password);
 	free(password);
 	return (tmp);

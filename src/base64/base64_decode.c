@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:29:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 23:52:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 14:39:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
 #include "base64.h"
-#include <stdio.h>
+#include "libft.h"
 
 static char	g_invtab[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
 			, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
@@ -94,9 +93,6 @@ int		b64d_update(t_b64d_ctx *ctx, const uint8_t *data, size_t len)
 int		b64d_final(t_b64d_ctx *ctx)
 {
 	free(ctx->buff);
-	ft_putstr("tmp_len: ");
-	ft_putul(ctx->tmp_len);
-	ft_putchar('\n');
 	if (ctx->tmp_len)
 		return (0);
 	return (1);
