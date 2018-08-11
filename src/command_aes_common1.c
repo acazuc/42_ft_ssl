@@ -6,20 +6,20 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:02:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:53:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/sha512.h"
 #include "ft_ssl.h"
 
-static int	generate_keys2(t_aes_data *data, uint64_t salt, char *password)
+static int	generate_keys2(t_aes_data *data, uint8_t *salt, char *password)
 {
 	t_pbkdf2_ctx	ctx;
 	uint8_t		tmp[32];
 
 	ctx.h.h = &g_hash_sha512;
-	ctx.salt = (uint8_t*)&salt;
+	ctx.salt = salt;
 	ctx.salt_len = 8;
 	ctx.password = (uint8_t*)password;
 	ctx.password_len = ft_strlen(password);
@@ -70,14 +70,15 @@ static char	*ask_password()
 
 static int	generate_keys(t_aes_data *data, char *password, char *salt)
 {
-	uint64_t	tmp;
+	uint8_t	tmp[8];
+	int	ret;
 
 	if (!salt)
 	{
-		if (!random_bytes((uint8_t*)&tmp, 8))
+		if (!random_bytes(tmp, 8))
 			return (0);
 	}
-	else if (!transform_bin((uint8_t*)&tmp, salt, 8))
+	else if (!transform_bin(tmp, salt, 8))
 		return (0);
 	if (!password)
 	{
@@ -86,20 +87,22 @@ static int	generate_keys(t_aes_data *data, char *password, char *salt)
 	}
 	else if (!(password = ft_strdup(password)))
 		return (0);
-	tmp = generate_keys2(data, tmp, password);
+	ret = generate_keys2(data, tmp, password);
 	free(password);
-	return (tmp);
+	return (ret);
 }
 
 int		cmd_aes_handle_key(t_aes_data *data, t_aes_args *args)
 {
-	int	len;
-
 	if (!args->key)
-		return (generate_keys(data, args->password, args->salt));
-	ft_memset(&data->key, 0, sizeof(data->key));
-	len = ft_strlen(args->key);
-	if (len > 0 && !transform_bin(data->key, args->key, data->key_size))
+	{
+		if (!generate_keys(data, args->password, args->salt))
+		{
+			ft_putendl_fd("ft_ssl: Failed to generate password", 2);
+			return (0);
+		}
+	}
+	if (!transform_bin(data->key, args->key, data->key_size))
 	{
 		ft_putendl_fd("ft_ssl: Invalid key", 2);
 		return (0);

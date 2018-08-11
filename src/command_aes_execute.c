@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:22:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:46:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:50:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ static	int	do_update(t_aes_data *data)
 		}
 	}
 	if (ret == -1)
+	{
+		ft_putendl_fd("ft_ssl: error while reading file", 2);
 		return (0);
-	if (!cipher_final(&data->cipher))
-		return (0);
+	}
 	return (1);
 }
 
