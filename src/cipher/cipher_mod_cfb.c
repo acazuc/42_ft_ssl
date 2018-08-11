@@ -6,12 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 18:53:09 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:12:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:34:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/cipher.h"
 #include "libft.h"
+
+t_cipher_mod	g_cipher_mod_cfb = {cipher_cfb_premod, cipher_cfb_postmod, 1};
 
 void	cipher_cfb_premod(t_cipher_ctx *ctx, uint8_t *data)
 {

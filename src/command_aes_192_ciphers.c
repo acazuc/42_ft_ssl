@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:43:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 19:20:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:36:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	command_aes_192_ecb(int ac, char **av)
 {
 	t_aes_data	data;
 
-	data.cipher.premod = (t_cipher_mod)&cipher_ecb_premod;
-	data.cipher.postmod = (t_cipher_mod)&cipher_ecb_postmod;
-	data.cipher.nopad = 0;
+	data.cipher.mod = &g_cipher_mod_ecb;
 	return (command_aes_192(ac, av, &data));
 }
 
@@ -26,9 +24,7 @@ int	command_aes_192_cbc(int ac, char **av)
 {
 	t_aes_data	data;
 
-	data.cipher.premod = (t_cipher_mod)&cipher_cbc_premod;
-	data.cipher.postmod = (t_cipher_mod)&cipher_cbc_postmod;
-	data.cipher.nopad = 0;
+	data.cipher.mod = &g_cipher_mod_cbc;
 	return (command_aes_192(ac, av, &data));
 }
 
@@ -36,9 +32,7 @@ int	command_aes_192_pcbc(int ac, char **av)
 {
 	t_aes_data	data;
 
-	data.cipher.premod = (t_cipher_mod)&cipher_pcbc_premod;
-	data.cipher.postmod = (t_cipher_mod)&cipher_pcbc_postmod;
-	data.cipher.nopad = 0;
+	data.cipher.mod = &g_cipher_mod_pcbc;
 	return (command_aes_192(ac, av, &data));
 }
 
@@ -46,9 +40,7 @@ int	command_aes_192_cfb(int ac, char **av)
 {
 	t_aes_data	data;
 
-	data.cipher.premod = (t_cipher_mod)&cipher_cfb_premod;
-	data.cipher.postmod = (t_cipher_mod)&cipher_cfb_postmod;
-	data.cipher.nopad = 1;
+	data.cipher.mod = &g_cipher_mod_cfb;
 	return (command_aes_192(ac, av, &data));
 }
 
@@ -56,8 +48,6 @@ int	command_aes_192_ofb(int ac, char **av)
 {
 	t_aes_data	data;
 
-	data.cipher.premod = (t_cipher_mod)&cipher_ofb_premod;
-	data.cipher.postmod = (t_cipher_mod)&cipher_ofb_postmod;
-	data.cipher.nopad = 1;
+	data.cipher.mod = &g_cipher_mod_ofb;
 	return (command_aes_192(ac, av, &data));
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:16 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:30:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:41:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	do_check_end(t_aes_data *ctx, uint8_t *data, size_t *len)
 {
-	if (ctx->cipher.mode && ctx->cipher.ended && !ctx->cipher.nopad)
+	if (ctx->cipher.mode && ctx->cipher.ended && !ctx->cipher.mod->nopad)
 	{
 		if (*len < 16)
 			return (1);

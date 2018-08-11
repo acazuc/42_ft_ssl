@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 21:57:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:21:55 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/11 22:40:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	do_check_end(t_des_data *ctx, uint8_t *data, size_t *len)
 {
-	if (ctx->cipher.mode && ctx->cipher.ended && !ctx->cipher.nopad)
+	if (ctx->cipher.mode && ctx->cipher.ended && !ctx->cipher.mod->nopad)
 	{
 		if (*len < 8)
 			return (1);
