@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:16:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 11:39:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static t_program	g_programs[] = {{"help", command_help}
 	, {"aes-256-pcbc", command_aes_256_pcbc}
 	, {"aes-256-cfb", command_aes_256_cfb}
 	, {"aes-256-ofb", command_aes_256_ofb}
+	, {"chacha20", command_chacha20}
 	, {"bignum", command_bignum}
 	, {"genrsa", command_genrsa}
 	, {"rsa", command_rsa}

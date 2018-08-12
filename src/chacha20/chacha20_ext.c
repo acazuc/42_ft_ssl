@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des1.c                                             :+:      :+:    :+:   */
+/*   chacha20_ext.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/11 20:43:59 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 11:59:42 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/12 10:59:32 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/12 12:38:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cipher/des.h"
-#include "libft.h"
+#include "cipher/chacha20.h"
 
-t_cipher	g_cipher_des1 = {(t_cipher_init)&des1_init
-		, (t_cipher_update)&des1_update, (t_cipher_final)&des1_final
-		, 8, 8, sizeof(t_des1_ctx)};
+t_cipher	g_cipher_chacha20 = {(t_cipher_init)&chacha20_init
+		, (t_cipher_update)&chacha20_update, (t_cipher_final)&chacha20_final
+		, 64, 32, sizeof(t_chacha20_ctx)};
 
-int	des1_init(t_des1_ctx *ctx, uint8_t *key, uint8_t *iv)
+int	chacha20_init(t_chacha20_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
-	(void)iv;
-	des_generate_keys(&ctx->ctx1, ft_swap_ulong(*(uint64_t*)key));
+	chacha20_init_state(ctx, key, iv);
 	return (1);
 }
 
-int	des1_update(t_des1_ctx *ctx, uint8_t *block, int mode)
+int	chacha20_update(t_chacha20_ctx *ctx, uint8_t *block, int mode)
 {
-	des_operate_block(&ctx->ctx1, (uint64_t*)block, mode);
+	(void)mode;
+	chacha20_operate_block(ctx, block);
 	return (1);
 }
 
-int	des1_final(t_des1_ctx *ctx)
+int	chacha20_final(t_chacha20_ctx *ctx)
 {
 	(void)ctx;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:18:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 12:40:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "base64.h"
 # include "cipher/cipher.h"
-# include "cipher/des.h"
-# include "cipher/aes.h"
 # include "hash/hash.h"
 # include "libft.h"
 # include "rsa.h"
@@ -85,22 +83,22 @@ typedef struct		s_hash_data
 	int		quiet;
 }			t_hash_data;
 
-typedef struct		s_des_data
+typedef struct		s_cipher_data
 {
 	t_cipher_ctx	cipher;
-	t_des_ctx	ctx[3];
 	char		*buff;
 	uint32_t	buff_len;
 	uint32_t	buff_pos;
-	uint8_t		key[24];
+	uint8_t		*key;
+	uint8_t		*iv;
 	int		base64;
 	int		fdout;
 	int		fdin;
 	t_b64_write_ctx	b64e_ctx;
 	t_b64d_ctx	b64d_ctx;
-}			t_des_data;
+}			t_cipher_data;
 
-typedef struct		s_des_args
+typedef struct		s_cipher_args
 {
 	char		*password;
 	char		*salt;
@@ -109,34 +107,28 @@ typedef struct		s_des_args
 	char		**av;
 	int		ac;
 	int		i;
-}			t_des_args;
+}			t_cipher_args;
+
+typedef struct		s_des_data
+{
+	t_cipher_data	cipher;
+	uint8_t		key[24];
+	uint8_t		iv[8];
+}			t_des_data;
 
 typedef struct		s_aes_data
 {
-	t_cipher_ctx	cipher;
-	t_aes_ctx	ctx;
-	char		*buff;
-	uint32_t	buff_len;
-	uint32_t	buff_pos;
-	int		key_size;
+	t_cipher_data	cipher;
 	uint8_t		key[32];
-	int		base64;
-	int		fdout;
-	int		fdin;
-	t_b64_write_ctx	b64e_ctx;
-	t_b64d_ctx	b64d_ctx;
+	uint8_t		iv[16];
 }			t_aes_data;
 
-typedef struct		s_aes_args
+typedef struct		s_chacha20_data
 {
-	char		*password;
-	char		*salt;
-	char		*key;
-	char		*iv;
-	char		**av;
-	int		ac;
-	int		i;
-}			t_aes_args;
+	t_cipher_data	cipher;
+	uint8_t		key[32];
+	uint8_t		iv[64];
+}			t_chacha20_data;
 
 typedef struct		s_genrsa_data
 {
@@ -177,14 +169,6 @@ int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
-int		cmd_des_parse_args(t_des_data *data, t_des_args *args);
-int		cmd_des_do_execute(t_des_data *data);
-int		cmd_des_handle_iv(t_des_data *data, t_des_args *args);
-int		cmd_des_handle_key(t_des_data *data, t_des_args *args);
-int		cmd_des_callback(t_des_data *ctx, uint8_t *data, size_t len);
-int		cmd_des_do_update(t_des_data *data);
-int		cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av);
-void		cmd_des_free(t_des_data *data);
 int		command_aes_128(int ac, char **av, t_aes_data *data);
 int		command_aes_128_ecb(int ac, char **av);
 int		command_aes_128_cbc(int ac, char **av);
@@ -203,14 +187,16 @@ int		command_aes_256_cbc(int ac, char **av);
 int		command_aes_256_pcbc(int ac, char **av);
 int		command_aes_256_cfb(int ac, char **av);
 int		command_aes_256_ofb(int ac, char **av);
-int		cmd_aes_parse_args(t_aes_data *data, t_aes_args *args);
-int		cmd_aes_do_execute(t_aes_data *data);
-int		cmd_aes_handle_iv(t_aes_data *data, t_aes_args *args);
-int		cmd_aes_handle_key(t_aes_data *data, t_aes_args *args);
-int		cmd_aes_callback(t_aes_data *ctx, uint8_t *data, size_t len);
-int		cmd_aes_do_update(t_aes_data *data);
-int		cmd_aes_init(t_aes_data *data, t_aes_args *args, int ac, char **av);
-void		cmd_aes_free(t_aes_data *data);
+int		command_chacha20(int ac, char **av);
+int		command_cipher(int ac, char **av, t_cipher_data *data);
+int		cmd_cipher_parse_args(t_cipher_data *data, t_cipher_args *args);
+int		cmd_cipher_do_execute(t_cipher_data *data);
+int		cmd_cipher_handle_iv(t_cipher_data *data, t_cipher_args *args);
+int		cmd_cipher_handle_key(t_cipher_data *data, t_cipher_args *args);
+int		cmd_cipher_callback(t_cipher_data *ctx, uint8_t *data, size_t len);
+int		cmd_cipher_do_update(t_cipher_data *data);
+int		cmd_cipher_init(t_cipher_data *data, t_cipher_args *args, int ac, char **av);
+void		cmd_cipher_free(t_cipher_data *data);
 int		command_bignum(int ac, char **av);
 int		command_genrsa(int ac, char **av);
 void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data, size_t len);

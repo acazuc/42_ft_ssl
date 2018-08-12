@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:50:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 23:07:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 12:07:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,19 @@ static int	init_free(t_cipher_ctx *ctx)
 {
 	free(ctx->mod1);
 	free(ctx->mod2);
-	free(ctx->iv);
 	free(ctx->buff);
 	free(ctx->ctx);
 	return (0);
 }
 
-int		cipher_init(t_cipher_ctx *ctx, t_cipher *cipher, uint8_t *key)
+int		cipher_init(t_cipher_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
-	ctx->cipher = cipher;
 	ctx->buff_pos = 0;
 	ctx->ended = 0;
-	ctx->iv = NULL;
 	ctx->mod1 = NULL;
 	ctx->mod2 = NULL;
 	ctx->buff = NULL;
 	ctx->ctx = NULL;
-	if (!(ctx->iv = malloc(ctx->cipher->block_size)))
-		return (init_free(ctx));
 	if (!(ctx->mod1 = malloc(ctx->cipher->block_size)))
 		return (init_free(ctx));
 	if (!(ctx->mod2 = malloc(ctx->cipher->block_size)))
@@ -43,7 +38,7 @@ int		cipher_init(t_cipher_ctx *ctx, t_cipher *cipher, uint8_t *key)
 		return (init_free(ctx));
 	if (!(ctx->ctx = malloc(ctx->cipher->ctx_size)))
 		return (init_free(ctx));
-	if (!cipher->init(ctx->ctx, key))
+	if (!ctx->cipher->init(ctx->ctx, key, iv))
 		return (init_free(ctx));
 	return (1);
 }
@@ -102,7 +97,6 @@ int		cipher_final(t_cipher_ctx *ctx)
 	free(ctx->buff);
 	free(ctx->mod1);
 	free(ctx->mod2);
-	free(ctx->iv);
 	free(ctx->ctx);
 	return (ret);
 }

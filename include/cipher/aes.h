@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:11:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:46:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 11:53:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define AES_H
 
 # include "cipher.h"
-# include <stdint.h>
-# include <stddef.h>
 
 typedef struct	s_aes_ctx
 {
@@ -50,13 +48,13 @@ void		aes_invmixcolumns(uint8_t *block);
 void		aes_keyexpand(t_aes_ctx *ctx, uint8_t *key, uint8_t len);
 uint8_t		aes_rcon(uint8_t val);
 
-int		aes128_init(t_aes128_ctx *ctx, uint8_t *key);
+int		aes128_init(t_aes128_ctx *ctx, uint8_t *key, uint8_t *iv);
 int		aes128_update(t_aes128_ctx *ctx, uint8_t *block, int mode);
 int		aes128_final(t_aes128_ctx *ctx);
-int		aes192_init(t_aes192_ctx *ctx, uint8_t *key);
+int		aes192_init(t_aes192_ctx *ctx, uint8_t *key, uint8_t *iv);
 int		aes192_update(t_aes192_ctx *ctx, uint8_t *block, int mode);
 int		aes192_final(t_aes192_ctx *ctx);
-int		aes256_init(t_aes256_ctx *ctx, uint8_t *key);
+int		aes256_init(t_aes256_ctx *ctx, uint8_t *key, uint8_t *iv);
 int		aes256_update(t_aes256_ctx *ctx, uint8_t *block, int mode);
 int		aes256_final(t_aes256_ctx *ctx);
 

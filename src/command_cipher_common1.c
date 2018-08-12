@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_des_common1.c                              :+:      :+:    :+:   */
+/*   command_cipher_common1.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/03 21:17:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:53:29 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/12 13:45:58 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/sha512.h"
 #include "ft_ssl.h"
 
-static int	generate_keys2(t_des_data *data, uint8_t *salt, char *password)
+static int	generate_keys2(t_cipher_data *data, uint8_t *salt, char *password)
 {
 	t_pbkdf2_ctx	ctx;
-	uint8_t		tmp[24];
+	uint8_t		tmp[32];
 
 	ctx.h.h = &g_hash_sha512;
 	ctx.salt = salt;
@@ -25,10 +25,10 @@ static int	generate_keys2(t_des_data *data, uint8_t *salt, char *password)
 	ctx.password_len = ft_strlen(password);
 	ctx.iterations = 4096;
 	ctx.out = tmp;
-	ctx.out_len = 24;
+	ctx.out_len = data->cipher.cipher->key_size;
 	if (!pbkdf2(&ctx))
 		return (0);
-	ft_memcpy(&data->key, tmp, 24);
+	ft_memcpy(&data->key, tmp, 8);
 	return (1);
 }
 
@@ -50,11 +50,11 @@ static char	*ask_password()
 	char	*pass;
 	char	*tmp;
 
-	if (!(tmp = getpass("Enter des password: ")))
+	if (!(tmp = getpass("Enter cipher password: ")))
 		return (NULL);
 	if (!(pass = ft_strdup(tmp)))
 		return (NULL);
-	if (!(tmp = getpass("Verifying - Enter des password: ")))
+	if (!(tmp = getpass("Verifying - Enter cipher password: ")))
 	{
 		free(pass);
 		return (NULL);
@@ -68,7 +68,7 @@ static char	*ask_password()
 	return (pass);
 }
 
-static int	generate_keys(t_des_data *data, char *password, char *salt)
+static int	generate_keys(t_cipher_data *data, char *password, char *salt)
 {
 	uint8_t	tmp[8];
 	int	ret;
@@ -92,7 +92,7 @@ static int	generate_keys(t_des_data *data, char *password, char *salt)
 	return (ret);
 }
 
-int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
+int		cmd_cipher_handle_key(t_cipher_data *data, t_cipher_args *args)
 {
 	if (!args->key)
 	{
@@ -102,7 +102,7 @@ int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
 			return (0);
 		}
 	}
-	if (!transform_bin(data->key, args->key, 24))
+	if (!transform_bin(data->key, args->key, data->cipher.cipher->key_size))
 	{
 		ft_putendl_fd("ft_ssl: Invalid key", 2);
 		return (0);
@@ -110,11 +110,11 @@ int		cmd_des_handle_key(t_des_data *data, t_des_args *args)
 	return (1);
 }
 
-int		cmd_des_handle_iv(t_des_data *data, t_des_args *args)
+int		cmd_cipher_handle_iv(t_cipher_data *data, t_cipher_args *args)
 {
 	if (!args->iv)
 	{
-		if (!random_bytes(data->cipher.iv, 8))
+		if (!random_bytes(data->iv, data->cipher.cipher->block_size))
 		{
 			ft_putendl_fd("ft_ssl: Failed to generate random iv", 2);
 			return (0);
@@ -122,7 +122,7 @@ int		cmd_des_handle_iv(t_des_data *data, t_des_args *args)
 	}
 	else
 	{
-		if (!transform_bin(data->cipher.iv, args->iv, 8))
+		if (!transform_bin(data->iv, args->iv, data->cipher.cipher->block_size))
 		{
 			ft_putendl_fd("ft_ssl: invalid iv", 2);
 			return (0);

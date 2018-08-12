@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 20:47:48 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:25:22 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 11:59:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ t_cipher	g_cipher_des2 = {(t_cipher_init)&des2_init
 		, (t_cipher_update)&des2_update, (t_cipher_final)&des2_final
 		, 8, 16, sizeof(t_des2_ctx)};
 
-int	des2_init(t_des2_ctx *ctx, uint8_t *key)
+int	des2_init(t_des2_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
+	(void)iv;
 	des_generate_keys(&ctx->ctx1, ft_swap_ulong(*(uint64_t*)key));
 	des_generate_keys(&ctx->ctx2, ft_swap_ulong(*(uint64_t*)(key + 8)));
 	return (1);

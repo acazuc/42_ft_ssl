@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/11 22:46:36 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/12 11:46:44 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,22 +49,19 @@ SRCS_NAME = main.c \
 	    command_des2_ciphers.c \
 	    command_des3.c \
 	    command_des3_ciphers.c \
-	    command_des_common1.c \
-	    command_des_execute.c \
-	    command_des_args.c \
-	    command_des_callback.c \
-	    command_des_initfree.c \
 	    command_aes_128.c \
 	    command_aes_128_ciphers.c \
 	    command_aes_192.c \
 	    command_aes_192_ciphers.c \
 	    command_aes_256.c \
 	    command_aes_256_ciphers.c \
-	    command_aes_common1.c \
-	    command_aes_execute.c \
-	    command_aes_args.c \
-	    command_aes_callback.c \
-	    command_aes_initfree.c \
+	    command_chacha20.c \
+	    command_cipher.c \
+	    command_cipher_common1.c \
+	    command_cipher_execute.c \
+	    command_cipher_args.c \
+	    command_cipher_callback.c \
+	    command_cipher_initfree.c \
 	    command_bignum.c \
 	    command_genrsa.c \
 	    command_rsa.c \
@@ -90,6 +87,8 @@ SRCS_NAME = main.c \
 	    aes/aes_subbytes.c \
 	    aes/aes_keyexpand.c \
 	    aes/aes_rcon.c \
+	    chacha20/chacha20.c \
+	    chacha20/chacha20_ext.c \
 	    cipher/cipher.c \
 	    cipher/cipher_mod_ecb.c \
 	    cipher/cipher_mod_cbc.c \
@@ -199,6 +198,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)base64
 	@mkdir -p $(OBJS_PATH)des
 	@mkdir -p $(OBJS_PATH)aes
+	@mkdir -p $(OBJS_PATH)chacha20
 	@mkdir -p $(OBJS_PATH)cipher
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum

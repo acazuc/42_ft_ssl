@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_aes_256.c                                  :+:      :+:    :+:   */
+/*   command_chacha20.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/10 22:39:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 12:01:55 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/12 11:37:31 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/12 12:14:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cipher/aes.h"
+#include "cipher/chacha20.h"
 #include "ft_ssl.h"
 
-int		command_aes_256(int ac, char **av, t_aes_data *data)
+int		command_chacha20(int ac, char **av)
 {
-	data->cipher.cipher.cipher = &g_cipher_aes256;
-	data->cipher.key = data->key;
-	data->cipher.iv = data->iv;
-	return (command_cipher(ac, av, &data->cipher));
+	t_chacha20_data	data;
+
+	data.cipher.cipher.cipher = &g_cipher_chacha20;
+	data.cipher.cipher.mod = &g_cipher_mod_ecb_nopad;
+	data.cipher.key = data.key;
+	data.cipher.iv = data.iv;
+	return (command_cipher(ac, av, &data.cipher));
 }

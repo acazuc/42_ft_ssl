@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_des_initfree.c                             :+:      :+:    :+:   */
+/*   command_cipher_initfree.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/05 16:29:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:01:11 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/11 17:23:22 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/12 10:17:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int	cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av)
+int	cmd_cipher_init(t_cipher_data *data, t_cipher_args *args, int ac, char **av)
 {
 	data->buff_len = 1024 * 16;
 	if (!(data->buff = malloc(data->buff_len)))
@@ -35,7 +35,7 @@ int	cmd_des_init(t_des_data *data, t_des_args *args, int ac, char **av)
 	return (1);
 }
 
-void	cmd_des_free(t_des_data *data)
+void	cmd_cipher_free(t_cipher_data *data)
 {
 	free(data->buff);
 }

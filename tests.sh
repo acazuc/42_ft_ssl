@@ -192,6 +192,12 @@ test_aes()
 	test_aes256
 }
 
+test_chacha20()
+{
+	key="0123456789abcdef1122334455667788fedcba98765432108877665544332211"
+	test_cipher chacha20 $key
+}
+
 test_bignum()
 {
 	ret_ftssl=`./ft_ssl bignum $2 $3 $4`
@@ -365,6 +371,10 @@ do
 			;;
 		"aes-256")
 			test_aes256
+			echo
+			;;
+		"chacha20")
+			test_chacha20
 			echo
 			;;
 		"bignum")

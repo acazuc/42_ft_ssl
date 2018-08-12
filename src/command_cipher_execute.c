@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_aes_execute.c                              :+:      :+:    :+:   */
+/*   command_cipher_execute.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:22:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:50:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 12:07:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static	int	do_update(t_aes_data *data)
+static	int	do_update(t_cipher_data *data)
 {
 	uint8_t	buff[4096];
 	int	ret;
@@ -42,7 +42,7 @@ static	int	do_update(t_aes_data *data)
 	return (1);
 }
 
-static int	handle_b64(t_aes_data *data)
+static int	handle_b64(t_cipher_data *data)
 {
 	if (!data->base64)
 		return (1);
@@ -67,9 +67,9 @@ static int	handle_b64(t_aes_data *data)
 	return (1);
 }
 
-int		cmd_aes_do_execute(t_aes_data *data)
+int		cmd_cipher_do_execute(t_cipher_data *data)
 {
-	ft_memcpy(data->cipher.mod1, data->cipher.iv, data->cipher.cipher->block_size);
+	ft_memcpy(data->cipher.mod1, data->iv, data->cipher.cipher->block_size);
 	if (!handle_b64(data))
 		return (0);
 	if (!do_update(data))

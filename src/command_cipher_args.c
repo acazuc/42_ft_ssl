@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_aes_args.c                                 :+:      :+:    :+:   */
+/*   command_cipher_args.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:14:46 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:13:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 10:14:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "base64.h"
 #include <fcntl.h>
 
-static int	file_open(t_aes_args *args, int type)
+static int	file_open(t_cipher_args *args, int type)
 {
 	int	ret;
 
@@ -33,7 +33,7 @@ static int	file_open(t_aes_args *args, int type)
 	return (ret);
 }
 
-static int	parse_args3(t_aes_args *args)
+static int	parse_args3(t_cipher_args *args)
 {
 	if (!ft_strcmp(args->av[args->i], "-s"))
 	{
@@ -62,7 +62,7 @@ static int	parse_args3(t_aes_args *args)
 	return (1);
 }
 
-static int	parse_args2(t_aes_args *args)
+static int	parse_args2(t_cipher_args *args)
 {
 	if (!ft_strcmp(args->av[args->i], "-k"))
 	{
@@ -87,7 +87,7 @@ static int	parse_args2(t_aes_args *args)
 	return (1);
 }
 
-static int	parse_args1(t_aes_data *data, t_aes_args *args)
+static int	parse_args1(t_cipher_data *data, t_cipher_args *args)
 {
 	if (!ft_strcmp(args->av[args->i], "-e"))
 		data->cipher.mode = 0;
@@ -114,7 +114,7 @@ static int	parse_args1(t_aes_data *data, t_aes_args *args)
 	return (1);
 }
 
-int		cmd_aes_parse_args(t_aes_data *data, t_aes_args *args)
+int		cmd_cipher_parse_args(t_cipher_data *data, t_cipher_args *args)
 {
 	args->i = 0;
 	while (args->i < args->ac)
