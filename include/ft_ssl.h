@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 12:40:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 14:29:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,13 @@ typedef struct		s_chacha20_data
 	uint8_t		iv[64];
 }			t_chacha20_data;
 
+typedef struct		s_rc4_data
+{
+	t_cipher_data	cipher;
+	uint8_t		key[16];
+	uint8_t		iv[1];
+}			t_rc4_data;
+
 typedef struct		s_genrsa_data
 {
 	t_rsa_ctx	rsa_ctx;
@@ -188,6 +195,7 @@ int		command_aes_256_pcbc(int ac, char **av);
 int		command_aes_256_cfb(int ac, char **av);
 int		command_aes_256_ofb(int ac, char **av);
 int		command_chacha20(int ac, char **av);
+int		command_rc4(int ac, char **av);
 int		command_cipher(int ac, char **av, t_cipher_data *data);
 int		cmd_cipher_parse_args(t_cipher_data *data, t_cipher_args *args);
 int		cmd_cipher_do_execute(t_cipher_data *data);

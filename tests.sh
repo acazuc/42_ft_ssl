@@ -80,8 +80,8 @@ test_base64_all()
 test_cipher_encrypt()
 {
 	iv="8877665544332211"
-	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump -C
-	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump -C
+	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump -C > a
+	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump -C > b
 	ret_ftssl=`./ft_ssl $1 -a -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -a -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	print_result "$1 encrypt $3" $ret_ftssl $ret_opssl
@@ -196,6 +196,12 @@ test_chacha20()
 {
 	key="0123456789abcdef1122334455667788fedcba98765432108877665544332211"
 	test_cipher chacha20 $key
+}
+
+test_rc4()
+{
+	key="0123456789abcdef1122334455667788"
+	test_cipher rc4 $key
 }
 
 test_bignum()
@@ -328,7 +334,7 @@ test_bignum_all()
 	test_bignum is_prime_huge_no 173595967255825177671338937551019479316666998993775123240829393474377123659353963373337070902624048512825454641905090447123113341790233547359778733674889927077625565221007272383568497900935065546549429354535026002846488966213929642837090828644809149794625119581137692313935281347548744981442897801650653080519 is_prime osef 0
 }
 
-ops=${@:-"hash base64 des aes bignum"}
+ops=${@:-"hash base64 des aes chacha20 rc4 bignum"}
 
 for var in $ops
 do
@@ -375,6 +381,10 @@ do
 			;;
 		"chacha20")
 			test_chacha20
+			echo
+			;;
+		"rc4")
+			test_rc4
 			echo
 			;;
 		"bignum")

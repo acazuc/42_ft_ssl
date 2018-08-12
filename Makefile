@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/12 11:46:44 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/12 14:30:36 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS_NAME = main.c \
 	    command_aes_256.c \
 	    command_aes_256_ciphers.c \
 	    command_chacha20.c \
+	    command_rc4.c \
 	    command_cipher.c \
 	    command_cipher_common1.c \
 	    command_cipher_execute.c \
@@ -89,6 +90,8 @@ SRCS_NAME = main.c \
 	    aes/aes_rcon.c \
 	    chacha20/chacha20.c \
 	    chacha20/chacha20_ext.c \
+	    rc4/rc4.c \
+	    rc4/rc4_ext.c \
 	    cipher/cipher.c \
 	    cipher/cipher_mod_ecb.c \
 	    cipher/cipher_mod_cbc.c \
@@ -199,6 +202,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)des
 	@mkdir -p $(OBJS_PATH)aes
 	@mkdir -p $(OBJS_PATH)chacha20
+	@mkdir -p $(OBJS_PATH)rc4
 	@mkdir -p $(OBJS_PATH)cipher
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum

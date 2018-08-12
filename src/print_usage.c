@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 23:09:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 14:09:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	print_commands_ciphers()
 	ft_putendl("aes-192-fcbc\taes-192-cfb\taes-192-ofb");
 	ft_putendl("aes-256\t\taes-256-ecb\taes-256-cbc");
 	ft_putendl("aes-256-fcbc\taes-256-cfb\taes-256-ofb");
+	ft_putendl("chacha20\trc4");
 }
 
 void		print_usage_commands()
