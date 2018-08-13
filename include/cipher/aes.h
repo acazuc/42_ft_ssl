@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:11:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 19:14:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:13:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,20 @@ int		aes256_init(t_aes_ctx *ctx, uint8_t *key, uint8_t *iv);
 int		aes256_update(t_aes_ctx *ctx, uint8_t *block, int mode);
 int		aes256_final(t_aes_ctx *ctx);
 
-extern t_cipher		g_cipher_aes128;
-extern t_cipher		g_cipher_aes192;
-extern t_cipher		g_cipher_aes256;
+extern t_cipher		g_cipher_aes128_ecb;
+extern t_cipher		g_cipher_aes128_cbc;
+extern t_cipher		g_cipher_aes128_pcbc;
+extern t_cipher		g_cipher_aes128_cfb;
+extern t_cipher		g_cipher_aes128_ofb;
+extern t_cipher		g_cipher_aes192_ecb;
+extern t_cipher		g_cipher_aes192_cbc;
+extern t_cipher		g_cipher_aes192_pcbc;
+extern t_cipher		g_cipher_aes192_cfb;
+extern t_cipher		g_cipher_aes192_ofb;
+extern t_cipher		g_cipher_aes256_ecb;
+extern t_cipher		g_cipher_aes256_cbc;
+extern t_cipher		g_cipher_aes256_pcbc;
+extern t_cipher		g_cipher_aes256_cfb;
+extern t_cipher		g_cipher_aes256_ofb;
 
 #endif

@@ -6,21 +6,21 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 14:37:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:24:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 17:51:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "rsa.h"
 
-int	rsa_encrypt(t_rsa_ctx *ctx, t_bignum *c, t_bignum *m)
+int	rsa_enc(t_rsa_ctx *ctx, t_bignum *c, t_bignum *m)
 {
 	if (m->sign || bignum_cmp(m, ctx->n) >= 0)
 		return (0);
 	return (bignum_mod_exp(c, m, ctx->e, ctx->n));
 }
 
-int	rsa_decrypt(t_rsa_ctx *ctx, t_bignum *m, t_bignum *c)
+int	rsa_dec(t_rsa_ctx *ctx, t_bignum *m, t_bignum *c)
 {
 	t_bignum	m1;
 	t_bignum	m2;
@@ -44,19 +44,14 @@ int	rsa_decrypt(t_rsa_ctx *ctx, t_bignum *m, t_bignum *c)
 	bignum_clear(&m2);
 	bignum_move(m, &m1);
 	return (1);
-	//return (bignum_mod_exp(m, c, ctx->d, ctx->n));
 }
 
 int	rsa_sign(t_rsa_ctx *ctx, t_bignum *s, t_bignum *m)
 {
-	if (m->sign || bignum_cmp(m, ctx->n) >= 0)
-		return (0);
-	return (bignum_mod_exp(s, m, ctx->d, ctx->n));
+	return (rsa_dec(ctx, s, m));
 }
 
 int	rsa_verify(t_rsa_ctx *ctx, t_bignum *m, t_bignum *s)
 {
-	if (s->sign || bignum_cmp(s, ctx->n) >= 0)
-		return (0);
-	return (bignum_mod_exp(m, s, ctx->e, ctx->n));
+	return (rsa_enc(ctx, m, s));
 }

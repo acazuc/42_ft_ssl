@@ -6,16 +6,28 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 20:47:48 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 11:59:51 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:26:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/des.h"
 #include "libft.h"
 
-t_cipher	g_cipher_des2 = {(t_cipher_init)&des2_init
+t_cipher	g_cipher_des2_ecb = {(t_cipher_init)&des2_init
 		, (t_cipher_update)&des2_update, (t_cipher_final)&des2_final
-		, 8, 16, sizeof(t_des2_ctx)};
+		, &g_cipher_mod_ecb, 8, 16, sizeof(t_des2_ctx)};
+t_cipher	g_cipher_des2_cbc = {(t_cipher_init)&des2_init
+		, (t_cipher_update)&des2_update, (t_cipher_final)&des2_final
+		, &g_cipher_mod_cbc, 8, 16, sizeof(t_des2_ctx)};
+t_cipher	g_cipher_des2_pcbc = {(t_cipher_init)&des2_init
+		, (t_cipher_update)&des2_update, (t_cipher_final)&des2_final
+		, &g_cipher_mod_pcbc, 8, 16, sizeof(t_des2_ctx)};
+t_cipher	g_cipher_des2_cfb = {(t_cipher_init)&des2_init
+		, (t_cipher_update)&des2_update, (t_cipher_final)&des2_final
+		, &g_cipher_mod_cfb, 8, 16, sizeof(t_des2_ctx)};
+t_cipher	g_cipher_des2_ofb = {(t_cipher_init)&des2_init
+		, (t_cipher_update)&des2_update, (t_cipher_final)&des2_final
+		, &g_cipher_mod_ofb, 8, 16, sizeof(t_des2_ctx)};
 
 int	des2_init(t_des2_ctx *ctx, uint8_t *key, uint8_t *iv)
 {

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 14:13:16 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 14:16:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:40:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_cipher	g_cipher_rc4 = {(t_cipher_init)&rc4_init
 		, (t_cipher_update)&rc4_update, (t_cipher_final)&rc4_final
-		, 1, 16, sizeof(t_rc4_ctx)};
+		, &g_cipher_mod_ecb_nopad, 1, 16, sizeof(t_rc4_ctx)};
 
 int	rc4_init(t_rc4_ctx *ctx, uint8_t *key, uint8_t *iv)
 {

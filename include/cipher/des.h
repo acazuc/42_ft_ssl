@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 11:55:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:17:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,20 @@ int	des3_init(t_des3_ctx *ctx, uint8_t *key, uint8_t *iv);
 int	des3_update(t_des3_ctx *ctx, uint8_t *block, int mode);
 int	des3_final(t_des3_ctx *ctx);
 
-# define DES_BUFF_LEN 1024
-
-extern t_cipher		g_cipher_des1;
-extern t_cipher		g_cipher_des2;
-extern t_cipher		g_cipher_des3;
+extern t_cipher		g_cipher_des1_ecb;
+extern t_cipher		g_cipher_des1_cbc;
+extern t_cipher		g_cipher_des1_pcbc;
+extern t_cipher		g_cipher_des1_cfb;
+extern t_cipher		g_cipher_des1_ofb;
+extern t_cipher		g_cipher_des2_ecb;
+extern t_cipher		g_cipher_des2_cbc;
+extern t_cipher		g_cipher_des2_pcbc;
+extern t_cipher		g_cipher_des2_cfb;
+extern t_cipher		g_cipher_des2_ofb;
+extern t_cipher		g_cipher_des3_ecb;
+extern t_cipher		g_cipher_des3_cbc;
+extern t_cipher		g_cipher_des3_pcbc;
+extern t_cipher		g_cipher_des3_cfb;
+extern t_cipher		g_cipher_des3_ofb;
 
 #endif

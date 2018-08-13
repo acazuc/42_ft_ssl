@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:50:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 12:07:51 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:32:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int		cipher_init(t_cipher_ctx *ctx, uint8_t *key, uint8_t *iv)
 
 static int	do_update_part(t_cipher_ctx *ctx)
 {
-	ctx->mod->premod(ctx, ctx->buff);
+	ctx->cipher->mod->premod(ctx, ctx->buff);
 	if (!ctx->cipher->update(ctx->ctx, ctx->buff, ctx->mode))
 		return (0);
-	ctx->mod->postmod(ctx, ctx->buff);
+	ctx->cipher->mod->postmod(ctx, ctx->buff);
 	return (1);
 }
 
@@ -78,7 +78,7 @@ int		cipher_final(t_cipher_ctx *ctx)
 {
 	int	ret;
 
-	if (!ctx->mode && !ctx->mod->nopad)
+	if (!ctx->mode && !ctx->cipher->mod->nopad)
 	{
 		ft_memset(ctx->buff + ctx->buff_pos, ctx->cipher->block_size
 			- ctx->buff_pos, ctx->cipher->block_size - ctx->buff_pos);
@@ -86,7 +86,7 @@ int		cipher_final(t_cipher_ctx *ctx)
 	}
 	ctx->ended = 1;
 	ret = do_update_part(ctx);
-	if (ctx->mode && !ctx->mod->nopad)
+	if (ctx->mode && !ctx->cipher->mod->nopad)
 	{
 		if (ctx->buff[ctx->buff_pos - 1] > ctx->cipher->block_size)
 			ret = 0;

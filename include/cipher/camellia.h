@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 16:46:48 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 23:20:58 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:16:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,20 @@ int		camellia256_init(t_camellia_ctx *ctx, uint8_t *key, uint8_t *iv);
 int		camellia256_update(t_camellia_ctx *ctx, uint8_t *block, int mode);
 int		camellia256_final(t_camellia_ctx *ctx);
 
-extern t_cipher		g_cipher_camellia128;
-extern t_cipher		g_cipher_camellia192;
-extern t_cipher		g_cipher_camellia256;
+extern t_cipher		g_cipher_camellia128_ecb;
+extern t_cipher		g_cipher_camellia128_cbc;
+extern t_cipher		g_cipher_camellia128_pcbc;
+extern t_cipher		g_cipher_camellia128_cfb;
+extern t_cipher		g_cipher_camellia128_ofb;
+extern t_cipher		g_cipher_camellia192_ecb;
+extern t_cipher		g_cipher_camellia192_cbc;
+extern t_cipher		g_cipher_camellia192_pcbc;
+extern t_cipher		g_cipher_camellia192_cfb;
+extern t_cipher		g_cipher_camellia192_ofb;
+extern t_cipher		g_cipher_camellia256_ecb;
+extern t_cipher		g_cipher_camellia256_cbc;
+extern t_cipher		g_cipher_camellia256_pcbc;
+extern t_cipher		g_cipher_camellia256_cfb;
+extern t_cipher		g_cipher_camellia256_ofb;
 
 #endif

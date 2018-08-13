@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/13 17:11:26 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/13 18:33:45 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,23 +45,14 @@ SRCS_NAME = main.c \
 	    command_sha512.c \
 	    command_base64.c \
 	    command_des1.c \
-	    command_des1_ciphers.c \
 	    command_des2.c \
-	    command_des2_ciphers.c \
 	    command_des3.c \
-	    command_des3_ciphers.c \
 	    command_aes_128.c \
-	    command_aes_128_ciphers.c \
 	    command_aes_192.c \
-	    command_aes_192_ciphers.c \
 	    command_aes_256.c \
-	    command_aes_256_ciphers.c \
 	    command_camellia_128.c \
-	    command_camellia_128_ciphers.c \
 	    command_camellia_192.c \
-	    command_camellia_192_ciphers.c \
 	    command_camellia_256.c \
-	    command_camellia_256_ciphers.c \
 	    command_chacha20.c \
 	    command_rc4.c \
 	    command_cipher.c \

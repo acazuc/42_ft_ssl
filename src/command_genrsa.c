@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:41:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:06:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,14 @@ int	command_genrsa(int ac, char **av)
 	ft_putstr(")\n");
 	t_bignum *a = bignum_new();
 	bignum_dec2bignum(a, "112233445566778899112233445566778899887766554433211");
-	if (!rsa_encrypt(&data.rsa_ctx, a, a))
+	if (!rsa_enc(&data.rsa_ctx, a, a))
 		ft_putendl("rsa_encrypt() failed");
 	else
 	{
 		ft_putstr("Crypted: ");
 		bignum_print(a);
 		ft_putchar('\n');
-		if (!rsa_decrypt(&data.rsa_ctx, a, a))
+		if (!rsa_dec(&data.rsa_ctx, a, a))
 			ft_putendl("rsa_decrypt() failed");
 		else
 		{

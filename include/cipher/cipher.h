@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 15:18:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:15:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ typedef int (*t_cipher_final)(void *ctx);
 typedef void (*t_cipher_mod_fn)(t_cipher_ctx *ctx, uint8_t *data);
 typedef int (*t_cipher_cb)(void *userptr, uint8_t *data, size_t len);
 
-typedef struct		s_cipher
-{
-	t_cipher_init	init;
-	t_cipher_update	update;
-	t_cipher_final	final;
-	uint32_t	block_size;
-	uint32_t	key_size;
-	uint32_t	ctx_size;
-}			t_cipher;
-
 typedef struct		s_cipher_mod
 {
 	t_cipher_mod_fn	premod;
@@ -41,10 +31,20 @@ typedef struct		s_cipher_mod
 	int		nopad;
 }			t_cipher_mod;
 
+typedef struct		s_cipher
+{
+	t_cipher_init	init;
+	t_cipher_update	update;
+	t_cipher_final	final;
+	t_cipher_mod	*mod;
+	uint32_t	block_size;
+	uint32_t	key_size;
+	uint32_t	ctx_size;
+}			t_cipher;
+
 struct			s_cipher_ctx
 {
 	t_cipher	*cipher;
-	t_cipher_mod	*mod;
 	t_cipher_cb	callback;
 	void		*ctx;
 	void		*userptr;

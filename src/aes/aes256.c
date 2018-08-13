@@ -6,15 +6,27 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:15:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 19:14:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 18:08:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/aes.h"
 
-t_cipher	g_cipher_aes256 = {(t_cipher_init)&aes256_init
+t_cipher	g_cipher_aes256_ecb = {(t_cipher_init)&aes256_init
 		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
-		, 16, 32, sizeof(t_aes_ctx)};
+		, &g_cipher_mod_ecb, 16, 32, sizeof(t_aes_ctx)};
+t_cipher	g_cipher_aes256_cbc = {(t_cipher_init)&aes256_init
+		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
+		, &g_cipher_mod_cbc, 16, 32, sizeof(t_aes_ctx)};
+t_cipher	g_cipher_aes256_pcbc = {(t_cipher_init)&aes256_init
+		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
+		, &g_cipher_mod_pcbc, 16, 32, sizeof(t_aes_ctx)};
+t_cipher	g_cipher_aes256_cfb = {(t_cipher_init)&aes256_init
+		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
+		, &g_cipher_mod_cfb, 16, 32, sizeof(t_aes_ctx)};
+t_cipher	g_cipher_aes256_ofb = {(t_cipher_init)&aes256_init
+		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
+		, &g_cipher_mod_ofb, 16, 32, sizeof(t_aes_ctx)};
 
 int	aes256_init(t_aes_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
