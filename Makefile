@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/13 21:15:26 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/13 22:00:47 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,14 +45,23 @@ SRCS_NAME = main.c \
 	    command/command_sha512.c \
 	    command/command_base64.c \
 	    command/command_des1.c \
+	    command/command_des1_2.c \
 	    command/command_des2.c \
+	    command/command_des2_2.c \
 	    command/command_des3.c \
+	    command/command_des3_2.c \
 	    command/command_aes_128.c \
+	    command/command_aes_128_2.c \
 	    command/command_aes_192.c \
+	    command/command_aes_192_2.c \
 	    command/command_aes_256.c \
+	    command/command_aes_256_2.c \
 	    command/command_camellia_128.c \
+	    command/command_camellia_128_2.c \
 	    command/command_camellia_192.c \
+	    command/command_camellia_192_2.c \
 	    command/command_camellia_256.c \
+	    command/command_camellia_256_2.c \
 	    command/command_chacha20.c \
 	    command/command_rc4.c \
 	    command/command_cipher.c \
@@ -106,6 +115,8 @@ SRCS_NAME = main.c \
 	    cipher/cipher_mod_pcbc.c \
 	    cipher/cipher_mod_cfb.c \
 	    cipher/cipher_mod_ofb.c \
+	    cipher/cipher_mod_ctr64.c \
+	    cipher/cipher_mod_ctr128.c \
 	    rsa/rsa_genkey.c \
 	    rsa/rsa_genkey_pq.c \
 	    rsa/rsa_genkey_phi.c \

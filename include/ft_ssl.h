@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 17:05:16 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 22:26:59 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef struct		s_genrsa_data
 	t_rsa_ctx	rsa_ctx;
 	uint64_t	key_len;
 	int		fdout;
-	uint32_t	crypt_method;
+	char		*crypt_method;
 	uint32_t	exp;
 	t_b64_write_ctx	b64_ctx;
 }			t_genrsa_data;
@@ -165,7 +165,6 @@ int		command_sha224(int ac, char **av);
 int		command_sha256(int ac, char **av);
 int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
-int		command_crc32(int ac, char **av);
 int		command_base64(int ac, char **av);
 int		command_des1(int ac, char **av, t_des_data *data);
 int		command_des1_ecb(int ac, char **av);
@@ -173,54 +172,63 @@ int		command_des1_cbc(int ac, char **av);
 int		command_des1_pcbc(int ac, char **av);
 int		command_des1_cfb(int ac, char **av);
 int		command_des1_ofb(int ac, char **av);
+int		command_des1_ctr(int ac, char **av);
 int		command_des2(int ac, char **av, t_des_data *data);
 int		command_des2_ecb(int ac, char **av);
 int		command_des2_cbc(int ac, char **av);
 int		command_des2_pcbc(int ac, char **av);
 int		command_des2_cfb(int ac, char **av);
 int		command_des2_ofb(int ac, char **av);
+int		command_des2_ctr(int ac, char **av);
 int		command_des3(int ac, char **av, t_des_data *data);
 int		command_des3_ecb(int ac, char **av);
 int		command_des3_cbc(int ac, char **av);
 int		command_des3_pcbc(int ac, char **av);
 int		command_des3_cfb(int ac, char **av);
 int		command_des3_ofb(int ac, char **av);
+int		command_des3_ctr(int ac, char **av);
 int		command_aes_128(int ac, char **av, t_aes_data *data);
 int		command_aes_128_ecb(int ac, char **av);
 int		command_aes_128_cbc(int ac, char **av);
 int		command_aes_128_pcbc(int ac, char **av);
 int		command_aes_128_cfb(int ac, char **av);
 int		command_aes_128_ofb(int ac, char **av);
+int		command_aes_128_ctr(int ac, char **av);
 int		command_aes_192(int ac, char **av, t_aes_data *data);
 int		command_aes_192_ecb(int ac, char **av);
 int		command_aes_192_cbc(int ac, char **av);
 int		command_aes_192_pcbc(int ac, char **av);
 int		command_aes_192_cfb(int ac, char **av);
 int		command_aes_192_ofb(int ac, char **av);
+int		command_aes_192_ctr(int ac, char **av);
 int		command_aes_256(int ac, char **av, t_aes_data *data);
 int		command_aes_256_ecb(int ac, char **av);
 int		command_aes_256_cbc(int ac, char **av);
 int		command_aes_256_pcbc(int ac, char **av);
 int		command_aes_256_cfb(int ac, char **av);
 int		command_aes_256_ofb(int ac, char **av);
+int		command_aes_256_ctr(int ac, char **av);
 int		command_camellia_128(int ac, char **av, t_camellia_data *data);
 int		command_camellia_128_ecb(int ac, char **av);
 int		command_camellia_128_cbc(int ac, char **av);
 int		command_camellia_128_pcbc(int ac, char **av);
 int		command_camellia_128_cfb(int ac, char **av);
 int		command_camellia_128_ofb(int ac, char **av);
+int		command_camellia_128_ctr(int ac, char **av);
 int		command_camellia_192(int ac, char **av, t_camellia_data *data);
 int		command_camellia_192_ecb(int ac, char **av);
 int		command_camellia_192_cbc(int ac, char **av);
 int		command_camellia_192_pcbc(int ac, char **av);
 int		command_camellia_192_cfb(int ac, char **av);
 int		command_camellia_192_ofb(int ac, char **av);
+int		command_camellia_192_ctr(int ac, char **av);
 int		command_camellia_256(int ac, char **av, t_camellia_data *data);
 int		command_camellia_256_ecb(int ac, char **av);
 int		command_camellia_256_cbc(int ac, char **av);
 int		command_camellia_256_pcbc(int ac, char **av);
 int		command_camellia_256_cfb(int ac, char **av);
 int		command_camellia_256_ofb(int ac, char **av);
+int		command_camellia_256_ctr(int ac, char **av);
 int		command_chacha20(int ac, char **av);
 int		command_rc4(int ac, char **av);
 int		command_cipher(int ac, char **av, t_cipher_data *data);

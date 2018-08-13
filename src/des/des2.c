@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 20:47:48 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 19:17:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:48:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ t_cipher	g_cipher_des2_ofb = {"DES-EDE-OFB"
 		, (t_cipher_update)&des2_update
 		, (t_cipher_final)&des2_final
 		, &g_cipher_mod_ofb, 8, 16, sizeof(t_des2_ctx)};
+t_cipher	g_cipher_des2_ctr = {"DES-EDE-CTR"
+		, (t_cipher_init)&des2_init
+		, (t_cipher_update)&des2_update
+		, (t_cipher_final)&des2_final
+		, &g_cipher_mod_ctr64, 8, 16, sizeof(t_des2_ctx)};
 
 int	des2_init(t_des2_ctx *ctx, uint8_t *key, uint8_t *iv)
 {

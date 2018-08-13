@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 20:26:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:27:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ static void	print_commands_standard()
 static void	print_commands_md()
 {
 	ft_putendl("Message digest commands:");
-	ft_putendl("md5\tsha1\tsha224");
-	ft_putendl("sha256\tsha384\tsha512");
+	ft_putendl("md4\tmd5\tsha1");
+	ft_putendl("sha224\tsha256\tsha384");
+	ft_putendl("\tsha512");
 }
 
 static void	print_commands_ciphers()

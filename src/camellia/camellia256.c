@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 19:07:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 19:11:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:40:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ t_cipher	g_cipher_camellia256_ofb = {"CAMELLIA-256-OFB"
 		, (t_cipher_update)&camellia256_update
 		, (t_cipher_final)&camellia256_final
 		, &g_cipher_mod_ofb, 16, 32, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia256_ctr = {"CAMELLIA-256-CTR"
+		, (t_cipher_init)&camellia256_init
+		, (t_cipher_update)&camellia256_update
+		, (t_cipher_final)&camellia256_final
+		, &g_cipher_mod_ctr128, 16, 32, sizeof(t_camellia_ctx)};
 
 int	camellia256_init(t_camellia_ctx *ctx, uint8_t *key, uint8_t *iv)
 {

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 16:46:48 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 18:16:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:46:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,18 @@ extern t_cipher		g_cipher_camellia128_cbc;
 extern t_cipher		g_cipher_camellia128_pcbc;
 extern t_cipher		g_cipher_camellia128_cfb;
 extern t_cipher		g_cipher_camellia128_ofb;
+extern t_cipher		g_cipher_camellia128_ctr;
 extern t_cipher		g_cipher_camellia192_ecb;
 extern t_cipher		g_cipher_camellia192_cbc;
 extern t_cipher		g_cipher_camellia192_pcbc;
 extern t_cipher		g_cipher_camellia192_cfb;
 extern t_cipher		g_cipher_camellia192_ofb;
+extern t_cipher		g_cipher_camellia192_ctr;
 extern t_cipher		g_cipher_camellia256_ecb;
 extern t_cipher		g_cipher_camellia256_cbc;
 extern t_cipher		g_cipher_camellia256_pcbc;
 extern t_cipher		g_cipher_camellia256_cfb;
 extern t_cipher		g_cipher_camellia256_ofb;
+extern t_cipher		g_cipher_camellia256_ctr;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:26:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 18:17:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:48:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,18 @@ extern t_cipher		g_cipher_des1_cbc;
 extern t_cipher		g_cipher_des1_pcbc;
 extern t_cipher		g_cipher_des1_cfb;
 extern t_cipher		g_cipher_des1_ofb;
+extern t_cipher		g_cipher_des1_ctr;
 extern t_cipher		g_cipher_des2_ecb;
 extern t_cipher		g_cipher_des2_cbc;
 extern t_cipher		g_cipher_des2_pcbc;
 extern t_cipher		g_cipher_des2_cfb;
 extern t_cipher		g_cipher_des2_ofb;
+extern t_cipher		g_cipher_des2_ctr;
 extern t_cipher		g_cipher_des3_ecb;
 extern t_cipher		g_cipher_des3_cbc;
 extern t_cipher		g_cipher_des3_pcbc;
 extern t_cipher		g_cipher_des3_cfb;
 extern t_cipher		g_cipher_des3_ofb;
+extern t_cipher		g_cipher_des3_ctr;
 
 #endif

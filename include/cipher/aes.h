@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:11:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 18:13:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:46:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,18 @@ extern t_cipher		g_cipher_aes128_cbc;
 extern t_cipher		g_cipher_aes128_pcbc;
 extern t_cipher		g_cipher_aes128_cfb;
 extern t_cipher		g_cipher_aes128_ofb;
+extern t_cipher		g_cipher_aes128_ctr;
 extern t_cipher		g_cipher_aes192_ecb;
 extern t_cipher		g_cipher_aes192_cbc;
 extern t_cipher		g_cipher_aes192_pcbc;
 extern t_cipher		g_cipher_aes192_cfb;
 extern t_cipher		g_cipher_aes192_ofb;
+extern t_cipher		g_cipher_aes192_ctr;
 extern t_cipher		g_cipher_aes256_ecb;
 extern t_cipher		g_cipher_aes256_cbc;
 extern t_cipher		g_cipher_aes256_pcbc;
 extern t_cipher		g_cipher_aes256_cfb;
 extern t_cipher		g_cipher_aes256_ofb;
+extern t_cipher		g_cipher_aes256_ctr;
 
 #endif

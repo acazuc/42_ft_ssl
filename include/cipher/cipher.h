@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 20:39:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 22:35:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,14 @@ void		cipher_cfb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_cfb_postmod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ofb_premod(t_cipher_ctx *ctx, uint8_t *data);
 void		cipher_ofb_postmod(t_cipher_ctx *ctx, uint8_t *data);
+void		cipher_ctr64_premod(t_cipher_ctx *ctx, uint8_t *data);
+void		cipher_ctr64_postmod(t_cipher_ctx *ctx, uint8_t *data);
+void		cipher_ctr128_premod(t_cipher_ctx *ctx, uint8_t *data);
+void		cipher_ctr128_postmod(t_cipher_ctx *ctx, uint8_t *data);
 int		cipher_init(t_cipher_ctx *ctx, uint8_t *key, uint8_t *iv);
 int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len);
 int		cipher_final(t_cipher_ctx *ctx);
+t_cipher	*cipher_get(char *name);
 
 extern t_cipher_mod	g_cipher_mod_ecb;
 extern t_cipher_mod	g_cipher_mod_ecb_nopad;
@@ -78,6 +83,8 @@ extern t_cipher_mod	g_cipher_mod_cbc;
 extern t_cipher_mod	g_cipher_mod_pcbc;
 extern t_cipher_mod	g_cipher_mod_cfb;
 extern t_cipher_mod	g_cipher_mod_ofb;
+extern t_cipher_mod	g_cipher_mod_ctr64;
+extern t_cipher_mod	g_cipher_mod_ctr128;
 
 # define CIPHER_GET_TEST(cipher, cipher_name) {if (!ft_strcmp(cipher.name, cipher_name)){return (&cipher);}}
 

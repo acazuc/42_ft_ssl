@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:14:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 19:06:36 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 21:39:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ t_cipher	g_cipher_aes192_ofb = {"AES-192-OFB"
 		, (t_cipher_update)&aes192_update
 		, (t_cipher_final)&aes192_final
 		, &g_cipher_mod_ofb, 16, 24, sizeof(t_aes_ctx)};
+t_cipher	g_cipher_aes192_ctr = {"AES-192-CTR"
+		, (t_cipher_init)&aes192_init
+		, (t_cipher_update)&aes192_update
+		, (t_cipher_final)&aes192_final
+		, &g_cipher_mod_ctr128, 16, 24, sizeof(t_aes_ctx)};
 
 int	aes192_init(t_aes_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
