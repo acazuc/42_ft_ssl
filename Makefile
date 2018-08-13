@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/12 14:30:36 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/12 20:22:32 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,12 @@ SRCS_NAME = main.c \
 	    command_aes_192_ciphers.c \
 	    command_aes_256.c \
 	    command_aes_256_ciphers.c \
+	    command_camellia_128.c \
+	    command_camellia_128_ciphers.c \
+	    command_camellia_192.c \
+	    command_camellia_192_ciphers.c \
+	    command_camellia_256.c \
+	    command_camellia_256_ciphers.c \
 	    command_chacha20.c \
 	    command_rc4.c \
 	    command_cipher.c \
@@ -86,12 +92,20 @@ SRCS_NAME = main.c \
 	    aes/aes_mixcolumns.c \
 	    aes/aes_shiftrows.c \
 	    aes/aes_subbytes.c \
-	    aes/aes_keyexpand.c \
+	    aes/aes_keyschedule.c \
 	    aes/aes_rcon.c \
 	    chacha20/chacha20.c \
 	    chacha20/chacha20_ext.c \
 	    rc4/rc4.c \
 	    rc4/rc4_ext.c \
+	    camellia/camellia_keyschedule.c \
+	    camellia/camellia_f.c \
+	    camellia/camellia_fl.c \
+	    camellia/camellia_encrypt.c \
+	    camellia/camellia_decrypt.c \
+	    camellia/camellia128.c \
+	    camellia/camellia192.c \
+	    camellia/camellia256.c \
 	    cipher/cipher.c \
 	    cipher/cipher_mod_ecb.c \
 	    cipher/cipher_mod_cbc.c \
@@ -203,6 +217,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)aes
 	@mkdir -p $(OBJS_PATH)chacha20
 	@mkdir -p $(OBJS_PATH)rc4
+	@mkdir -p $(OBJS_PATH)camellia
 	@mkdir -p $(OBJS_PATH)cipher
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum

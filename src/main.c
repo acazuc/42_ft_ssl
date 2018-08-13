@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 14:29:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 20:24:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_program	g_programs[] = {{"help", command_help}
 	, {"des-ede-pcbc", command_des2_pcbc}
 	, {"des-ede-cfb", command_des2_cfb}
 	, {"des-ede-ofb", command_des2_ofb}
+	, {"des3", command_des3_cbc}
 	, {"des-ede3", command_des3_cbc}
 	, {"des-ede3-ecb", command_des3_ecb}
 	, {"des-ede3-cbc", command_des3_cbc}
@@ -57,6 +58,24 @@ static t_program	g_programs[] = {{"help", command_help}
 	, {"aes-256-pcbc", command_aes_256_pcbc}
 	, {"aes-256-cfb", command_aes_256_cfb}
 	, {"aes-256-ofb", command_aes_256_ofb}
+	, {"camellia-128", command_camellia_128_cbc}
+	, {"camellia-128-ecb", command_camellia_128_ecb}
+	, {"camellia-128-cbc", command_camellia_128_cbc}
+	, {"camellia-128-pcbc", command_camellia_128_pcbc}
+	, {"camellia-128-cfb", command_camellia_128_cfb}
+	, {"camellia-128-ofb", command_camellia_128_ofb}
+	, {"camellia-192", command_camellia_192_cbc}
+	, {"camellia-192-ecb", command_camellia_192_ecb}
+	, {"camellia-192-cbc", command_camellia_192_cbc}
+	, {"camellia-192-pcbc", command_camellia_192_pcbc}
+	, {"camellia-192-cfb", command_camellia_192_cfb}
+	, {"camellia-192-ofb", command_camellia_192_ofb}
+	, {"camellia-256", command_camellia_256_cbc}
+	, {"camellia-256-ecb", command_camellia_256_ecb}
+	, {"camellia-256-cbc", command_camellia_256_cbc}
+	, {"camellia-256-pcbc", command_camellia_256_pcbc}
+	, {"camellia-256-cfb", command_camellia_256_cfb}
+	, {"camellia-256-ofb", command_camellia_256_ofb}
 	, {"chacha20", command_chacha20}
 	, {"rc4", command_rc4}
 	, {"bignum", command_bignum}

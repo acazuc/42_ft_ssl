@@ -80,8 +80,8 @@ test_base64_all()
 test_cipher_encrypt()
 {
 	iv="8877665544332211"
-	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump -C > a
-	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump -C > b
+	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump -C
+	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump -C
 	ret_ftssl=`./ft_ssl $1 -a -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -a -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
 	print_result "$1 encrypt $3" $ret_ftssl $ret_opssl
@@ -190,6 +190,46 @@ test_aes()
 	test_aes192
 	echo
 	test_aes256
+}
+
+test_camellia_part()
+{
+	test_cipher $1-ecb $2
+	echo
+	test_cipher $1-cbc $2
+	echo
+	test_cipher $1-pcbc $2
+	echo
+	test_cipher $1-cfb $2
+	echo
+	test_cipher $1-ofb $2
+}
+
+test_camellia128()
+{
+	key="0123456789abcdef1122334455667788"
+	test_camellia_part camellia-128 $key
+}
+
+test_camellia192()
+{
+	key="0123456789abcdef1122334455667788fedcba9876543210"
+	test_camellia_part camellia-192 $key
+}
+
+test_camellia256()
+{
+	key="0123456789abcdef1122334455667788fedcba98765432108877665544332211"
+	test_camellia_part camellia-256 $key
+}
+
+test_camellia()
+{
+	test_camellia128
+	echo
+	test_camellia192
+	echo
+	test_camellia256
 }
 
 test_chacha20()
@@ -334,7 +374,7 @@ test_bignum_all()
 	test_bignum is_prime_huge_no 173595967255825177671338937551019479316666998993775123240829393474377123659353963373337070902624048512825454641905090447123113341790233547359778733674889927077625565221007272383568497900935065546549429354535026002846488966213929642837090828644809149794625119581137692313935281347548744981442897801650653080519 is_prime osef 0
 }
 
-ops=${@:-"hash base64 des aes chacha20 rc4 bignum"}
+ops=${@:-"hash base64 des aes camellia chacha20 rc4 bignum"}
 
 for var in $ops
 do
@@ -377,6 +417,22 @@ do
 			;;
 		"aes-256")
 			test_aes256
+			echo
+			;;
+		"camellia")
+			test_camellia
+			echo
+			;;
+		"camellia-128")
+			test_camellia128
+			echo
+			;;
+		"camellia-192")
+			test_camellia192
+			echo
+			;;
+		"camellia-256")
+			test_camellia256
 			echo
 			;;
 		"chacha20")

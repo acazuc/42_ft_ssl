@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aes_keyexpand.c                                    :+:      :+:    :+:   */
+/*   aes_keyschedule.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 13:24:26 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:09:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 19:29:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,33 @@ static void	expand_core(uint8_t *data, uint8_t i)
         data[0] ^= aes_rcon(i);
 }
 
-void	aes_keyexpand(t_aes_ctx *ctx, uint8_t *key, uint8_t len)
+static void	update_subbytes(uint8_t *tmp)
+{
+	uint8_t	j;
+
+	j = 0;
+	while (j < 4)
+	{
+		tmp[j] = aes_subbyte(tmp[j]);
+		++j;
+	}
+}
+
+static void	update_keys(t_aes_ctx *ctx, uint8_t *tmp, uint8_t *c, uint8_t len)
+{
+	uint8_t	j;
+
+	j = 0;
+	while (j < 4)
+	{
+		ctx->keys[*c / 16][*c % 16] = ctx->keys[(*c - len) / 16]
+			[(*c - len) % 16] ^ tmp[j];
+		(*c)++;
+		++j;
+	}
+}
+
+void	aes_keyschedule(t_aes_ctx *ctx, uint8_t *key, uint8_t len)
 {
 	uint8_t	tmp[4];
 	uint8_t	c;
@@ -36,32 +62,16 @@ void	aes_keyexpand(t_aes_ctx *ctx, uint8_t *key, uint8_t len)
 	i = 1;
 	while (c < 240)
 	{
-		j = 0;
-		while (j < 4)
-		{
+		j = -1;
+		while (++j < 4)
 			tmp[j] = ctx->keys[(c + j - 4) / 16][(c + j - 4) % 16];
-			++j;
-		}
 		if (c % len == 0)
 		{
 			expand_core(tmp, i);
 			i++;
 		}
 		if (len == 32 && c % 32 == 16)
-		{
-			j = 0;
-			while (j < 4)
-			{
-				tmp[j] = aes_subbyte(tmp[j]);
-				++j;
-			}
-		}
-		j = 0;
-		while (j < 4)
-		{
-			ctx->keys[c / 16][c % 16] = ctx->keys[(c - len) / 16][(c - len) % 16] ^ tmp[j];
-			c++;
-			++j;
-		}
+			update_subbytes(tmp);
+		update_keys(ctx, tmp, &c, len);
 	}
 }

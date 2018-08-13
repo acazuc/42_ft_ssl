@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 14:29:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 20:25:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,13 @@ typedef struct		s_aes_data
 	uint8_t		iv[16];
 }			t_aes_data;
 
+typedef struct		s_camellia_data
+{
+	t_cipher_data	cipher;
+	uint8_t		key[32];
+	uint8_t		iv[16];
+}			t_camellia_data;
+
 typedef struct		s_chacha20_data
 {
 	t_cipher_data	cipher;
@@ -194,6 +201,24 @@ int		command_aes_256_cbc(int ac, char **av);
 int		command_aes_256_pcbc(int ac, char **av);
 int		command_aes_256_cfb(int ac, char **av);
 int		command_aes_256_ofb(int ac, char **av);
+int		command_camellia_128(int ac, char **av, t_camellia_data *data);
+int		command_camellia_128_ecb(int ac, char **av);
+int		command_camellia_128_cbc(int ac, char **av);
+int		command_camellia_128_pcbc(int ac, char **av);
+int		command_camellia_128_cfb(int ac, char **av);
+int		command_camellia_128_ofb(int ac, char **av);
+int		command_camellia_192(int ac, char **av, t_camellia_data *data);
+int		command_camellia_192_ecb(int ac, char **av);
+int		command_camellia_192_cbc(int ac, char **av);
+int		command_camellia_192_pcbc(int ac, char **av);
+int		command_camellia_192_cfb(int ac, char **av);
+int		command_camellia_192_ofb(int ac, char **av);
+int		command_camellia_256(int ac, char **av, t_camellia_data *data);
+int		command_camellia_256_ecb(int ac, char **av);
+int		command_camellia_256_cbc(int ac, char **av);
+int		command_camellia_256_pcbc(int ac, char **av);
+int		command_camellia_256_cfb(int ac, char **av);
+int		command_camellia_256_ofb(int ac, char **av);
 int		command_chacha20(int ac, char **av);
 int		command_rc4(int ac, char **av);
 int		command_cipher(int ac, char **av, t_cipher_data *data);

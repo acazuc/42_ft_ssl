@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aes256.c                                           :+:      :+:    :+:   */
+/*   camellia256.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/11 21:15:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 19:14:32 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/12 19:07:50 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/12 19:15:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cipher/aes.h"
+#include "cipher/camellia.h"
 
-t_cipher	g_cipher_aes256 = {(t_cipher_init)&aes256_init
-		, (t_cipher_update)&aes256_update, (t_cipher_final)&aes256_final
-		, 16, 32, sizeof(t_aes_ctx)};
+t_cipher	g_cipher_camellia256 = {(t_cipher_init)&camellia256_init
+		, (t_cipher_update)&camellia256_update
+		, (t_cipher_final)&camellia256_final
+		, 16, 32, sizeof(t_camellia_ctx)};
 
-int	aes256_init(t_aes_ctx *ctx, uint8_t *key, uint8_t *iv)
+int	camellia256_init(t_camellia_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
 	(void)iv;
-	aes_keyschedule(ctx, key, 32);
+	camellia_keyschedule(ctx, key, 32);
 	ctx->key_len = 32;
 	return (1);
 }
 
-int	aes256_update(t_aes_ctx *ctx, uint8_t *block, int mode)
+int	camellia256_update(t_camellia_ctx *ctx, uint8_t *block, int mode)
 {
 	if (mode)
-		aes_decrypt(ctx, block);
+		camellia_decrypt(ctx, block);
 	else
-		aes_encrypt(ctx, block);
+		camellia_encrypt(ctx, block);
 	return (1);
 }
 
-int	aes256_final(t_aes_ctx *ctx)
+int	camellia256_final(t_camellia_ctx *ctx)
 {
 	(void)ctx;
 	return (1);

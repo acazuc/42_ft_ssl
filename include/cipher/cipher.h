@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 12:13:23 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/12 15:18:32 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ struct			s_cipher_ctx
 	uint8_t		*mod2;
 	int		ended;
 	int		mode;
-	int		mod3;
+	uint64_t	mod3;
 };
 
 void		cipher_ecb_premod(t_cipher_ctx *ctx, uint8_t *data);
