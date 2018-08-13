@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 20:25:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 17:05:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,12 +158,14 @@ void		print_usage();
 void		print_usage_commands();
 int		command_help(int ac, char **av);
 int		command_hash(int ac, char **av, t_hash_data *data);
+int		command_md4(int ac, char **av);
 int		command_md5(int ac, char **av);
 int		command_sha1(int ac, char **av);
 int		command_sha224(int ac, char **av);
 int		command_sha256(int ac, char **av);
 int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
+int		command_crc32(int ac, char **av);
 int		command_base64(int ac, char **av);
 int		command_des1(int ac, char **av, t_des_data *data);
 int		command_des1_ecb(int ac, char **av);

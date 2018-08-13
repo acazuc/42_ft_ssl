@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:56:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:06:43 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 15:44:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,23 @@ t_hash		g_hash_md5 = {(t_hash_init)&md5_init
 		, (t_hash_update)&md5_update, (t_hash_final)&md5_final
 		, 16, 64, sizeof(t_md5_ctx), "MD5"};
 
-static uint32_t	g_md5_s[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7
-			, 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20
-			, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16
-			, 23, 4, 11, 16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6
-			, 10, 15, 21, 6, 10, 15, 21};
+static uint32_t	g_md5_s[64] = {0x07, 0x0c, 0x11, 0x16, 0x07, 0x0c, 0x11, 0x16
+			, 0x07, 0x0c, 0x11, 0x16, 0x07, 0x0c, 0x11, 0x16
+			, 0x05, 0x09, 0x0e, 0x14, 0x05, 0x09, 0x0e, 0x14
+			, 0x05, 0x09, 0x0e, 0x14, 0x05, 0x09, 0x0e, 0x14
+			, 0x04, 0x0b, 0x10, 0x17, 0x04, 0x0b, 0x10, 0x17
+			, 0x04, 0x0b, 0x10, 0x17, 0x04, 0x0b, 0x10, 0x17
+			, 0x06, 0x0a, 0x0f, 0x15, 0x06, 0x0a, 0x0f, 0x15
+			, 0x06, 0x0a, 0x0f, 0x15, 0x06, 0x0a, 0x0f, 0x15};
+
+static uint32_t	g_md5_g[64] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+			, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+			, 0x01, 0x06, 0x0b, 0x00, 0x05, 0x0a, 0x0f, 0x04
+			, 0x09, 0x0e, 0x03, 0x08, 0x0d, 0x02, 0x07, 0x0c
+			, 0x05, 0x08, 0x0b, 0x0e, 0x01, 0x04, 0x07, 0x0a
+			, 0x0d, 0x00, 0x03, 0x06, 0x09, 0x0c, 0x0f, 0x02
+			, 0x00, 0x07, 0x0e, 0x05, 0x0c, 0x03, 0x0a, 0x01
+			, 0x08, 0x0f, 0x06, 0x0d, 0x04, 0x0b, 0x02, 0x09};
 
 static uint32_t	g_md5_k[64] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee
 			, 0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501
@@ -40,30 +52,19 @@ static uint32_t	g_md5_k[64] = {0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee
 			, 0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1
 			, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
 
-static void	md5_loop(t_md5_ctx *ctx, int i, uint32_t *tmp, uint32_t f
-		, uint32_t g)
+static void	md5_loop(t_md5_ctx *ctx, int i, uint32_t *tmp)
 {
+	uint32_t	f;
+
 	if (i <= 15)
-	{
 		f = (tmp[1] & tmp[2]) | ((~tmp[1]) & tmp[3]);
-		g = i;
-	}
 	else if (i <= 31)
-	{
 		f = (tmp[3] & tmp[1]) | ((~tmp[3]) & tmp[2]);
-		g = (5 * i + 1) % 16;
-	}
 	else if (i <= 47)
-	{
 		f = tmp[1] ^ tmp[2] ^ tmp[3];
-		g = (3 * i + 5) % 16;
-	}
 	else
-	{
 		f = tmp[2] ^ (tmp[1] | (~tmp[3]));
-		g = (7 * i) % 16;
-	}
-	f = f + tmp[0] + g_md5_k[i] + ctx->data[g];
+	f += tmp[0] + g_md5_k[i] + ctx->data[g_md5_g[i]];
 	tmp[0] = tmp[3];
 	tmp[3] = tmp[2];
 	tmp[2] = tmp[1];
@@ -75,12 +76,10 @@ static void	md5_chunk(t_md5_ctx *ctx)
 	uint32_t	tmp[4];
 	int		i;
 
-	i = -1;
-	while (++i < 4)
-		tmp[i] = ctx->h[i];
+	ft_memcpy(tmp, ctx->h, 16);
 	i = -1;
 	while (++i < 64)
-		md5_loop(ctx, i, tmp, 0, 0);
+		md5_loop(ctx, i, tmp);
 	i = -1;
 	while (++i < 4)
 		ctx->h[i] += tmp[i];

@@ -13,6 +13,7 @@ print_result()
 
 test_hash_do()
 {
+	#./ft_ssl $1 -r $2
 	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1 | openssl sha512 -r | cut -d ' ' -f 1`
 	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1 | openssl sha512 -r | cut -d ' ' -f 1`
 	print_result "$1 $2" $ret_ftssl $ret_opssl
@@ -28,6 +29,8 @@ test_hash()
 
 test_hash_all()
 {
+	test_hash md4
+	echo
 	test_hash md5
 	echo
 	test_hash sha1

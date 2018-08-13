@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/12 20:22:32 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/13 17:11:26 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS_NAME = main.c \
 	    base64_write.c \
 	    command_help.c \
 	    command_hash.c \
+	    command_md4.c \
 	    command_md5.c \
 	    command_sha1.c \
 	    command_sha224.c \
@@ -73,6 +74,7 @@ SRCS_NAME = main.c \
 	    command_genrsa.c \
 	    command_rsa.c \
 	    command_rsautl.c \
+	    hash/md4.c \
 	    hash/md5.c \
 	    hash/sha1.c \
 	    hash/sha224.c \

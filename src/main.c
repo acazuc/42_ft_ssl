@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 20:24:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 17:11:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "bignum.h"
 
 static t_program	g_programs[] = {{"help", command_help}
+	, {"md4", command_md4}
 	, {"md5", command_md5}
 	, {"sha1", command_sha1}
 	, {"sha224", command_sha224}
