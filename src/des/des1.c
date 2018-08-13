@@ -6,27 +6,37 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 20:43:59 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 18:25:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 19:19:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/des.h"
 #include "libft.h"
 
-t_cipher	g_cipher_des1_ecb = {(t_cipher_init)&des1_init
-		, (t_cipher_update)&des1_update, (t_cipher_final)&des1_final
+t_cipher	g_cipher_des1_ecb = {"DES-ECB"
+		, (t_cipher_init)&des1_init
+		, (t_cipher_update)&des1_update
+		, (t_cipher_final)&des1_final
 		, &g_cipher_mod_ecb, 8, 8, sizeof(t_des1_ctx)};
-t_cipher	g_cipher_des1_cbc = {(t_cipher_init)&des1_init
-		, (t_cipher_update)&des1_update, (t_cipher_final)&des1_final
+t_cipher	g_cipher_des1_cbc = {"DES-CBC"
+		, (t_cipher_init)&des1_init
+		, (t_cipher_update)&des1_update
+		, (t_cipher_final)&des1_final
 		, &g_cipher_mod_cbc, 8, 8, sizeof(t_des1_ctx)};
-t_cipher	g_cipher_des1_pcbc = {(t_cipher_init)&des1_init
-		, (t_cipher_update)&des1_update, (t_cipher_final)&des1_final
+t_cipher	g_cipher_des1_pcbc = {"DES-PCBC"
+		, (t_cipher_init)&des1_init
+		, (t_cipher_update)&des1_update
+		, (t_cipher_final)&des1_final
 		, &g_cipher_mod_pcbc, 8, 8, sizeof(t_des1_ctx)};
-t_cipher	g_cipher_des1_cfb = {(t_cipher_init)&des1_init
-		, (t_cipher_update)&des1_update, (t_cipher_final)&des1_final
+t_cipher	g_cipher_des1_cfb = {"DES-CFB"
+		, (t_cipher_init)&des1_init
+		, (t_cipher_update)&des1_update
+		, (t_cipher_final)&des1_final
 		, &g_cipher_mod_cfb, 8, 8, sizeof(t_des1_ctx)};
-t_cipher	g_cipher_des1_ofb = {(t_cipher_init)&des1_init
-		, (t_cipher_update)&des1_update, (t_cipher_final)&des1_final
+t_cipher	g_cipher_des1_ofb = {"DES-OFB"
+		, (t_cipher_init)&des1_init
+		, (t_cipher_update)&des1_update
+		, (t_cipher_final)&des1_final
 		, &g_cipher_mod_ofb, 8, 8, sizeof(t_des1_ctx)};
 
 int	des1_init(t_des1_ctx *ctx, uint8_t *key, uint8_t *iv)

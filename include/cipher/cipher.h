@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 18:15:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 19:01:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_cipher_mod
 
 typedef struct		s_cipher
 {
+	char		*name;
 	t_cipher_init	init;
 	t_cipher_update	update;
 	t_cipher_final	final;
