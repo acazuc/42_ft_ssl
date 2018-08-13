@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 19:01:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/13 20:39:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ extern t_cipher_mod	g_cipher_mod_cbc;
 extern t_cipher_mod	g_cipher_mod_pcbc;
 extern t_cipher_mod	g_cipher_mod_cfb;
 extern t_cipher_mod	g_cipher_mod_ofb;
+
+# define CIPHER_GET_TEST(cipher, cipher_name) {if (!ft_strcmp(cipher.name, cipher_name)){return (&cipher);}}
 
 #endif

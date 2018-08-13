@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/13 18:33:45 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/13 21:15:26 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,45 +26,45 @@ SRCS_PATH = src/
 
 SRCS_NAME = main.c \
 	    print_usage.c \
-	    rotate_left.c \
-	    rotate_right.c \
-	    hex_bin.c \
-	    random_bytes.c \
-	    hmac.c \
-	    pbkdf2.c \
-	    vecu8.c \
 	    base64_write.c \
-	    command_help.c \
-	    command_hash.c \
-	    command_md4.c \
-	    command_md5.c \
-	    command_sha1.c \
-	    command_sha224.c \
-	    command_sha256.c \
-	    command_sha384.c \
-	    command_sha512.c \
-	    command_base64.c \
-	    command_des1.c \
-	    command_des2.c \
-	    command_des3.c \
-	    command_aes_128.c \
-	    command_aes_192.c \
-	    command_aes_256.c \
-	    command_camellia_128.c \
-	    command_camellia_192.c \
-	    command_camellia_256.c \
-	    command_chacha20.c \
-	    command_rc4.c \
-	    command_cipher.c \
-	    command_cipher_common1.c \
-	    command_cipher_execute.c \
-	    command_cipher_args.c \
-	    command_cipher_callback.c \
-	    command_cipher_initfree.c \
-	    command_bignum.c \
-	    command_genrsa.c \
-	    command_rsa.c \
-	    command_rsautl.c \
+	    utils/rotate_left.c \
+	    utils/rotate_right.c \
+	    utils/hex_bin.c \
+	    utils/random_bytes.c \
+	    utils/vecu8.c \
+	    hmac/hmac.c \
+	    pbkdf2/pbkdf2.c \
+	    command/command_help.c \
+	    command/command_hash.c \
+	    command/command_md4.c \
+	    command/command_md5.c \
+	    command/command_sha1.c \
+	    command/command_sha224.c \
+	    command/command_sha256.c \
+	    command/command_sha384.c \
+	    command/command_sha512.c \
+	    command/command_base64.c \
+	    command/command_des1.c \
+	    command/command_des2.c \
+	    command/command_des3.c \
+	    command/command_aes_128.c \
+	    command/command_aes_192.c \
+	    command/command_aes_256.c \
+	    command/command_camellia_128.c \
+	    command/command_camellia_192.c \
+	    command/command_camellia_256.c \
+	    command/command_chacha20.c \
+	    command/command_rc4.c \
+	    command/command_cipher.c \
+	    command/command_cipher_common1.c \
+	    command/command_cipher_execute.c \
+	    command/command_cipher_args.c \
+	    command/command_cipher_callback.c \
+	    command/command_cipher_initfree.c \
+	    command/command_bignum.c \
+	    command/command_genrsa.c \
+	    command/command_rsa.c \
+	    command/command_rsautl.c \
 	    hash/md4.c \
 	    hash/md5.c \
 	    hash/sha1.c \
@@ -100,6 +100,7 @@ SRCS_NAME = main.c \
 	    camellia/camellia192.c \
 	    camellia/camellia256.c \
 	    cipher/cipher.c \
+	    cipher/cipher_get.c \
 	    cipher/cipher_mod_ecb.c \
 	    cipher/cipher_mod_cbc.c \
 	    cipher/cipher_mod_pcbc.c \
@@ -204,6 +205,10 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 
 odir:
 	@mkdir -p $(OBJS_PATH)
+	@mkdir -p $(OBJS_PATH)utils
+	@mkdir -p $(OBJS_PATH)hmac
+	@mkdir -p $(OBJS_PATH)pbkdf2
+	@mkdir -p $(OBJS_PATH)command
 	@mkdir -p $(OBJS_PATH)hash
 	@mkdir -p $(OBJS_PATH)base64
 	@mkdir -p $(OBJS_PATH)des
