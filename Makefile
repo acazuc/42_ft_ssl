@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/14 15:54:43 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/14 20:35:42 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ SRCS_NAME = main.c \
 	    command/command_sha256.c \
 	    command/command_sha384.c \
 	    command/command_sha512.c \
+	    command/command_crc32.c \
+	    command/command_adler32.c \
 	    command/command_base64.c \
 	    command/command_des1.c \
 	    command/command_des1_2.c \
@@ -82,6 +84,8 @@ SRCS_NAME = main.c \
 	    hash/sha256.c \
 	    hash/sha384.c \
 	    hash/sha512.c \
+	    hash/crc32.c \
+	    hash/adler32.c \
 	    base64/base64_encode.c \
 	    base64/base64_decode.c \
 	    des/des.c \

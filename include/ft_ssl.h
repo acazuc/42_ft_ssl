@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:22:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 20:35:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ int		command_sha224(int ac, char **av);
 int		command_sha256(int ac, char **av);
 int		command_sha384(int ac, char **av);
 int		command_sha512(int ac, char **av);
+int		command_crc32(int ac, char **av);
+int		command_adler32(int ac, char **av);
 int		command_base64(int ac, char **av);
 int		command_des1(int ac, char **av, t_des_data *data);
 int		command_des1_ecb(int ac, char **av);
