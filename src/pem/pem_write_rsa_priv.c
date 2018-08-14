@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 19:40:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 22:14:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 15:35:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "pem.h"
-#include <stdio.h>
 
 static int	do_clear(t_vecu8 *vec)
 {

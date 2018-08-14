@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/13 22:00:47 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/14 15:54:43 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRCS_NAME = main.c \
 	    utils/hex_bin.c \
 	    utils/random_bytes.c \
 	    utils/vecu8.c \
+	    utils/ask_password.c \
+	    utils/transform_bin.c \
 	    hmac/hmac.c \
 	    pbkdf2/pbkdf2.c \
 	    command/command_help.c \
@@ -69,7 +71,6 @@ SRCS_NAME = main.c \
 	    command/command_cipher_execute.c \
 	    command/command_cipher_args.c \
 	    command/command_cipher_callback.c \
-	    command/command_cipher_initfree.c \
 	    command/command_bignum.c \
 	    command/command_genrsa.c \
 	    command/command_rsa.c \
@@ -190,6 +191,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_num_bits.c \
 	    bignum/bignum_num_bytes.c \
 	    pem/pem_write_rsa_priv.c \
+	    pem/pem_print_rsa_priv.c \
 	    pem/pem_bignum.c \
 	    pem/pem_len.c \
 

@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rsa_ext.c                                          :+:      :+:    :+:   */
+/*   ask_password.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/04 20:31:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/04 20:57:04 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/14 13:44:12 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/14 13:44:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int	rsa_ext_encrypt(t_rsa_ctx *ctx, uint8_t *data, size_t len)
+char	*ask_password()
 {
-	//
+	char	*pass;
+	char	*tmp;
+
+	if (!(tmp = getpass("Enter cipher password: ")))
+		return (NULL);
+	if (!(pass = ft_strdup(tmp)))
+		return (NULL);
+	if (!(tmp = getpass("Verifying - Enter cipher password: ")))
+	{
+		free(pass);
+		return (NULL);
+	}
+	if (strcmp(tmp, pass))
+	{
+		ft_putendl_fd("Password are not the same", 2);
+		free(pass);
+		return (NULL);
+	}
+	return (pass);
 }
+

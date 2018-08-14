@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 14:49:06 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 17:44:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:38:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static int	do_clear(t_bignum *tmp, t_bignum *one)
 {
-	bignum_free(tmp);
-	bignum_free(one);
+	bignum_clear(tmp);
+	bignum_clear(one);
 	return (0);
 }
 
@@ -48,25 +48,21 @@ static int	do_dmq(t_rsa_ctx *ctx, t_bignum *tmp, t_bignum *one)
 
 int	rsa_genkey_crt(t_rsa_ctx *ctx)
 {
-	t_bignum	*tmp;
-	t_bignum	*one;
+	t_bignum	tmp;
+	t_bignum	one;
 
-	tmp = NULL;
-	one = NULL;
-	if (!(tmp = bignum_new()))
-		return (do_clear(tmp, one));
-	if (!(one = bignum_new()))
-		return (do_clear(tmp, one));
-	if (!bignum_one(one))
-		return (do_clear(tmp, one));
-	if (!do_dmp(ctx, tmp, one))
-		return (do_clear(tmp, one));
-	if (!do_dmq(ctx, tmp, one))
-		return (do_clear(tmp, one));
+	bignum_init(&tmp);
+	bignum_init(&one);
+	if (!bignum_one(&one))
+		return (do_clear(&tmp, &one));
+	if (!do_dmp(ctx, &tmp, &one))
+		return (do_clear(&tmp, &one));
+	if (!do_dmq(ctx, &tmp, &one))
+		return (do_clear(&tmp, &one));
 	if (!(ctx->coef = bignum_new()))
-		return (do_clear(tmp, one));
+		return (do_clear(&tmp, &one));
 	if (!bignum_mod_inverse(ctx->coef, ctx->q, ctx->p))
-		return (do_clear(tmp, one));
-	do_clear(tmp, one);
+		return (do_clear(&tmp, &one));
+	do_clear(&tmp, &one);
 	return (1);
 }

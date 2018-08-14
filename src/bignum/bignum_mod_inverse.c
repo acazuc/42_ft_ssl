@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:48:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 19:16:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:40:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b)
 	if (ctx.old_s.sign && !bignum_add(&ctx.old_s, &ctx.old_s, &ctx.s))
 		return (do_clear(&ctx, 0));
 	bignum_trunc(&ctx.old_s);
-	if (!bignum_copy(r, &ctx.old_s))
-		return (do_clear(&ctx, 0));
+	bignum_move(r, &ctx.old_s);
 	return (do_clear(&ctx, 1));
 }

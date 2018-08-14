@@ -6,69 +6,35 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 13:45:58 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 15:35:32 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/sha512.h"
 #include "ft_ssl.h"
 
-static int	generate_keys2(t_cipher_data *data, uint8_t *salt, char *password)
+static int	generate_key2(uint8_t *key, uint32_t key_size, char *password
+		, uint8_t *salt)
 {
-	t_pbkdf2_ctx	ctx;
+	t_pbkdf2_ctx	pbkdf2_ctx;
 	uint8_t		tmp[32];
 
-	ctx.h.h = &g_hash_sha512;
-	ctx.salt = salt;
-	ctx.salt_len = 8;
-	ctx.password = (uint8_t*)password;
-	ctx.password_len = ft_strlen(password);
-	ctx.iterations = 4096;
-	ctx.out = tmp;
-	ctx.out_len = data->cipher.cipher->key_size;
-	if (!pbkdf2(&ctx))
+	pbkdf2_ctx.h.h = &g_hash_sha512;
+	pbkdf2_ctx.salt = salt;
+	pbkdf2_ctx.salt_len = 8;
+	pbkdf2_ctx.password = (uint8_t*)password;
+	pbkdf2_ctx.password_len = ft_strlen(password);
+	pbkdf2_ctx.iterations = 4096;
+	pbkdf2_ctx.out = tmp;
+	pbkdf2_ctx.out_len = key_size;
+	if (!pbkdf2(&pbkdf2_ctx))
 		return (0);
-	ft_memcpy(&data->key, tmp, 8);
+	ft_memcpy(key, tmp, 8);
 	return (1);
 }
 
-static int	transform_bin(uint8_t *bin, char *str, int max)
-{
-	int	len;
-
-	ft_memset(bin, 0, max);
-	len = ft_strlen(str);
-	if (len > max * 2)
-		len = max * 2;
-	if (!hex2bin(bin, str, len))
-		return (0);
-	return (1);
-}
-
-static char	*ask_password()
-{
-	char	*pass;
-	char	*tmp;
-
-	if (!(tmp = getpass("Enter cipher password: ")))
-		return (NULL);
-	if (!(pass = ft_strdup(tmp)))
-		return (NULL);
-	if (!(tmp = getpass("Verifying - Enter cipher password: ")))
-	{
-		free(pass);
-		return (NULL);
-	}
-	if (strcmp(tmp, pass))
-	{
-		ft_putendl_fd("Password are not the same", 2);
-		free(pass);
-		return (NULL);
-	}
-	return (pass);
-}
-
-static int	generate_keys(t_cipher_data *data, char *password, char *salt)
+static int	generate_key(uint8_t *key, uint32_t key_size, char *password
+		, char *salt)
 {
 	uint8_t	tmp[8];
 	int	ret;
@@ -87,7 +53,7 @@ static int	generate_keys(t_cipher_data *data, char *password, char *salt)
 	}
 	else if (!(password = ft_strdup(password)))
 		return (0);
-	ret = generate_keys2(data, tmp, password);
+	ret = generate_key2(key, key_size, password, tmp);
 	free(password);
 	return (ret);
 }
@@ -96,11 +62,12 @@ int		cmd_cipher_handle_key(t_cipher_data *data, t_cipher_args *args)
 {
 	if (!args->key)
 	{
-		if (!generate_keys(data, args->password, args->salt))
+		if (!generate_key(data->key, data->cipher.cipher->key_size, args->password, args->salt))
 		{
 			ft_putendl_fd("ft_ssl: Failed to generate password", 2);
 			return (0);
 		}
+		return (1);
 	}
 	if (!transform_bin(data->key, args->key, data->cipher.cipher->key_size))
 	{
@@ -119,14 +86,12 @@ int		cmd_cipher_handle_iv(t_cipher_data *data, t_cipher_args *args)
 			ft_putendl_fd("ft_ssl: Failed to generate random iv", 2);
 			return (0);
 		}
+		return (1);
 	}
-	else
+	if (!transform_bin(data->iv, args->iv, data->cipher.cipher->block_size))
 	{
-		if (!transform_bin(data->iv, args->iv, data->cipher.cipher->block_size))
-		{
-			ft_putendl_fd("ft_ssl: invalid iv", 2);
-			return (0);
-		}
+		ft_putendl_fd("ft_ssl: invalid iv", 2);
+		return (0);
 	}
 	return (1);
 }

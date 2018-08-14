@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:50:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 18:32:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:03:59 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
 	{
 		tmp = ctx->cipher->block_size - ctx->buff_pos;
 		ft_memcpy(ctx->buff + ctx->buff_pos, data, tmp);
-		ctx->buff_pos = ctx->cipher->block_size;
 		if (!do_update_part(ctx))
 			return (0);
-		if (!ctx->callback(ctx->userptr, ctx->buff, ctx->buff_pos))
+		if (!ctx->callback(ctx->userptr, ctx->buff, ctx->cipher->block_size))
 			return (0);
 		data += tmp;
 		len -= tmp;

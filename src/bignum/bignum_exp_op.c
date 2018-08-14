@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:05:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 19:01:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:50:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	bignum_exp_op(t_bignum *r, t_bignum *a, t_bignum *p)
 			return (do_clear(base, &res, ex));
 	bignum_trunc(&res);
 	bignum_move(r, &res);
+	do_clear(base, &res, ex);
 	return (1);
 }

@@ -6,12 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 10:07:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:33:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:55:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
-#include <fcntl.h>
 
 static void	do_top_bottom(t_bignum *bignum, uint32_t bits, int top
 		, int bottom)

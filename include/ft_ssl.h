@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 22:26:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:22:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ typedef struct		s_genrsa_data
 	int		fdout;
 	char		*crypt_method;
 	uint32_t	exp;
-	t_b64_write_ctx	b64_ctx;
 }			t_genrsa_data;
 
 void		print_usage();
@@ -255,6 +254,8 @@ uint64_t	rotate_right64(uint64_t v, uint64_t c);
 void		bin2hex(char *dst, const uint8_t *src, size_t len);
 int		hex2bin(uint8_t *dst, const char *src, size_t len);
 int		random_bytes(uint8_t *dst, int len);
+char		*ask_password();
+int		transform_bin(uint8_t *bin, char *str, int max);
 uint8_t		*hmac(t_hmac_ctx *ctx);
 int		pbkdf2(t_pbkdf2_ctx *ctx);
 int		base64_write_init(t_b64_write_ctx *ctx);

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rsa_free.c                                         :+:      :+:    :+:   */
+/*   transform_bin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/10 18:12:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 18:35:03 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/14 13:47:00 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/14 13:47:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rsa.h"
+#include "ft_ssl.h"
 
-void	rsa_free(t_rsa_ctx *ctx)
+int	transform_bin(uint8_t *bin, char *str, int max)
 {
-	bignum_free(ctx->n);
-	bignum_free(ctx->e);
-	bignum_free(ctx->q);
-	bignum_free(ctx->p);
-	bignum_free(ctx->d);
-	bignum_free(ctx->phi);
-	bignum_free(ctx->dmp);
-	bignum_free(ctx->dmq);
-	bignum_free(ctx->coef);
+	int	len;
+
+	ft_memset(bin, 0, max);
+	len = ft_strlen(str);
+	if (len > max * 2)
+		len = max * 2;
+	if (!hex2bin(bin, str, len))
+		return (0);
+	return (1);
 }
+

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 22:44:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/14 17:27:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ static int	do_init(t_genrsa_data *data)
 	data->exp = 0x10001;
 	data->crypt_method = NULL;
 	data->fdout = 1;
-	if (!base64_write_init(&data->b64_ctx))
-	{
-		ft_putendl_fd("ft_ssl: failed to init b64_write", 2);
-		return (0);
-	}
 	data->key_len = 512;
 	if (!bignum_rand_add_urandom())
 	{
@@ -113,7 +108,6 @@ int	command_genrsa(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (!parse_args(&data, ac, av))
 		return (EXIT_FAILURE);
-	data.b64_ctx.fdout = data.fdout;
 	if (data.key_len < 16)
 	{
 		ft_putendl_fd("ft_ssl: invalid key len, minimum is 16", 2);
@@ -129,7 +123,11 @@ int	command_genrsa(int ac, char **av)
 	ft_putstr(" (0x");
 	bignum_printhex(data.rsa_ctx.e);
 	ft_putendl(")");
-	char *dataa;
+	if (!pem_print_rsa_priv(&data.rsa_ctx, data.fdout, data.crypt_method))
+	{
+		//TODO
+	}
+	/*char *dataa;
 	int len;
 	if ((len = pem_write_rsa_priv(&dataa, &data.rsa_ctx)) == -1)
 	{
@@ -176,8 +174,7 @@ int	command_genrsa(int ac, char **av)
 		base64_write_update(&data.b64_ctx, (uint8_t*)dataa, len);
 	}
 	base64_write_final(&data.b64_ctx);
-	ft_putendl_fd("-----END RSA PRIVATE KEY-----", data.fdout);
-	free(dataa);
+	ft_putendl_fd("-----END RSA PRIVATE KEY-----", data.fdout);*/
 
 
 	ft_putstr("n: ");
@@ -202,7 +199,7 @@ int	command_genrsa(int ac, char **av)
 	ft_putstr(")\n");
 	t_bignum *a = bignum_new();
 	bignum_dec2bignum(a, "112233445566778899112233445566778899887766554433211");
-	if (!rsa_enc(&data.rsa_ctx, a, a))
+	/*if (!rsa_enc(&data.rsa_ctx, a, a))
 		ft_putendl("rsa_encrypt() failed");
 	else
 	{
@@ -217,7 +214,8 @@ int	command_genrsa(int ac, char **av)
 			bignum_print(a);
 			ft_putchar('\n');
 		}
-	}
+	}*/
+	bignum_free(a);
 	rsa_free(&data.rsa_ctx);
 	return (1);
 }
