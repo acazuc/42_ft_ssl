@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:38:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 14:19:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 19:51:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,15 @@ typedef struct		s_hash
 	uint8_t		ctx_len;
 	char		*name;
 }			t_hash;
+
+typedef struct		s_hash_ctx
+{
+	t_hash		*hash;
+	void		*ctx;
+}			t_hash_ctx;
+
+int	hash_init(t_hash_ctx *ctx, t_hash *hash);
+int	hash_update(t_hash_ctx *ctx, uint8_t *data, size_t len);
+int	hash_final(t_hash_ctx *ctx, uint8_t *md);
 
 #endif

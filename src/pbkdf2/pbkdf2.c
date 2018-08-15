@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 19:03:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 19:55:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static int	loop_part(t_pbkdf2_ctx *ctx, t_hmac_ctx *hmac_ctx
 	while (j < ctx->iterations)
 	{
 		hmac_ctx->msg = hash_tmp;
-		hmac_ctx->msg_len = ctx->h.h->digest_len;
+		hmac_ctx->msg_len = ctx->h.hash->digest_len;
 		hash_tmp2 = hmac(hmac_ctx);
 		free(hash_tmp);
 		if (!hash_tmp2)
 			return (0);
 		hash_tmp = hash_tmp2;
-		ft_memxor(sum, sum, hash_tmp, ctx->h.h->digest_len);
+		ft_memxor(sum, sum, hash_tmp, ctx->h.hash->digest_len);
 		++j;
 	}
 	return (1);
@@ -49,7 +49,7 @@ static int	loop(t_pbkdf2_ctx *ctx, int i_swap, uint8_t *tmp
 	hmac_ctx.key_len = ctx->password_len;
 	if (!(hash_tmp = hmac(&hmac_ctx)))
 		return (0);
-	ft_memcpy(sum, hash_tmp, ctx->h.h->digest_len);
+	ft_memcpy(sum, hash_tmp, ctx->h.hash->digest_len);
 	if (!loop_part(ctx, &hmac_ctx, hash_tmp, sum))
 		return (0);
 	return (1);
@@ -58,11 +58,11 @@ static int	loop(t_pbkdf2_ctx *ctx, int i_swap, uint8_t *tmp
 static int	pbkdf2_init(t_pbkdf2_ctx *ctx, uint8_t **sum, uint8_t **ret
 		, uint32_t *blocks)
 {
-	if (!(*sum = malloc(ctx->h.h->digest_len)))
+	if (!(*sum = malloc(ctx->h.hash->digest_len)))
 		return (0);
-	*blocks = ctx->out_len / ctx->h.h->digest_len
-		+ (ctx->out_len % ctx->h.h->digest_len > 0 ? 1 : 0);
-	if (!(*ret = malloc(*blocks * ctx->h.h->digest_len)))
+	*blocks = ctx->out_len / ctx->h.hash->digest_len
+		+ (ctx->out_len % ctx->h.hash->digest_len > 0 ? 1 : 0);
+	if (!(*ret = malloc(*blocks * ctx->h.hash->digest_len)))
 	{
 		free(*sum);
 		return (0);
@@ -95,8 +95,8 @@ int		pbkdf2(t_pbkdf2_ctx *ctx)
 	{
 		if (!loop(ctx, ft_swap_uint(i + 1), tmp, sum))
 			return (pbkdf2_free(sum, tmp, ret));
-		ft_memcpy(ret + i * ctx->h.h->digest_len, sum
-				, ctx->h.h->digest_len);
+		ft_memcpy(ret + i * ctx->h.hash->digest_len, sum
+				, ctx->h.hash->digest_len);
 	}
 	ft_memcpy(ctx->out, ret, ctx->out_len);
 	pbkdf2_free(sum, tmp, ret);

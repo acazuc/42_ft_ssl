@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_sha224.c                                   :+:      :+:    :+:   */
+/*   openssl_pbkdf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 10:54:19 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:56:08 by acazuc           ###   ########.fr       */
+/*   Created: 2018/08/15 19:11:34 by acazuc            #+#    #+#             */
+/*   Updated: 2018/08/15 19:45:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hash/sha224.h"
 #include "ft_ssl.h"
 
-int	command_sha224(int ac, char **av)
+int	openssl_pbkdf(t_openssl_pbkdf_ctx *ctx)
 {
-	t_hash_data	data;
-	t_sha224_ctx	ctx;
-
-	data.h.hash = &g_hash_sha224;
-	data.h.ctx = &ctx;
-	return (command_hash(ac, av, &data));
 }

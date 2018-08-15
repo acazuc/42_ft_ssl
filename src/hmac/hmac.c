@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 18:57:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 19:09:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 19:53:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ static uint8_t	*hmac_check_key_len1(t_hmac_ctx *ctx
 {
 	uint8_t	*tmp;
 
-	if (key_len > ctx->h.h->block_len)
+	if (key_len > ctx->h.hash->block_len)
 	{
-		if (!ctx->h.h->init(ctx->h.ctx))
+		if (!ctx->h.hash->init(ctx->h.ctx))
 			return (NULL);
-		if (!ctx->h.h->update(ctx->h.ctx, key, key_len))
+		if (!ctx->h.hash->update(ctx->h.ctx, key, key_len))
 			return (NULL);
-		if (!(tmp = malloc(ctx->h.h->digest_len)))
+		if (!(tmp = malloc(ctx->h.hash->digest_len)))
 			return (NULL);
-		if (!ctx->h.h->final(tmp, ctx->h.ctx))
+		if (!ctx->h.hash->final(tmp, ctx->h.ctx))
 		{
 			free(tmp);
 			return (NULL);
 		}
-		*tmp_len = ctx->h.h->digest_len;
+		*tmp_len = ctx->h.hash->digest_len;
 		return (tmp);
 	}
 	if (!(tmp = malloc(key_len)))
@@ -47,20 +47,20 @@ static int	hmac_check_key_len2(t_hmac_ctx *ctx
 	uint32_t	i;
 	uint8_t		*tmp2;
 
-	if (*tmp_len >= ctx->h.h->block_len)
+	if (*tmp_len >= ctx->h.hash->block_len)
 		return (1);
-	if (!(tmp2 = malloc(ctx->h.h->block_len)))
+	if (!(tmp2 = malloc(ctx->h.hash->block_len)))
 		return (0);
 	ft_memcpy(tmp2, *tmp, *tmp_len);
 	i = *tmp_len;
-	while (i < ctx->h.h->block_len)
+	while (i < ctx->h.hash->block_len)
 	{
 		tmp2[i] = 0;
 		++i;
 	}
 	free(*tmp);
 	*tmp = tmp2;
-	*tmp_len = ctx->h.h->block_len;
+	*tmp_len = ctx->h.hash->block_len;
 	return (1);
 }
 
@@ -68,15 +68,15 @@ static int	create_pads(t_hmac_ctx *ctx, uint8_t **pads, uint8_t *key)
 {
 	int	i;
 
-	if (!(pads[0] = malloc(ctx->h.h->block_len)))
+	if (!(pads[0] = malloc(ctx->h.hash->block_len)))
 		return (0);
-	if (!(pads[1] = malloc(ctx->h.h->block_len)))
+	if (!(pads[1] = malloc(ctx->h.hash->block_len)))
 	{
 		free(pads[0]);
 		return (0);
 	}
 	i = 0;
-	while (i < ctx->h.h->block_len)
+	while (i < ctx->h.hash->block_len)
 	{
 		pads[0][i] = key[i] ^ 0x5c;
 		pads[1][i] = key[i] ^ 0x36;
@@ -89,23 +89,23 @@ static uint8_t	*do_final(t_hmac_ctx *ctx, uint8_t **pads, uint8_t **tmp)
 {
 	uint8_t	*tmp2;
 
-	if (!ctx->h.h->init(ctx->h.ctx))
+	if (!ctx->h.hash->init(ctx->h.ctx))
 		return (NULL);
-	if (!ctx->h.h->update(ctx->h.ctx, pads[1], ctx->h.h->block_len))
+	if (!ctx->h.hash->update(ctx->h.ctx, pads[1], ctx->h.hash->block_len))
 		return (NULL);
-	if (!ctx->h.h->update(ctx->h.ctx, ctx->msg, ctx->msg_len))
+	if (!ctx->h.hash->update(ctx->h.ctx, ctx->msg, ctx->msg_len))
 		return (NULL);
-	if (!(*tmp = malloc(ctx->h.h->digest_len)))
+	if (!(*tmp = malloc(ctx->h.hash->digest_len)))
 		return (NULL);
-	if (!ctx->h.h->final(*tmp, ctx->h.ctx))
+	if (!ctx->h.hash->final(*tmp, ctx->h.ctx))
 		return (NULL);
-	if (!ctx->h.h->init(ctx->h.ctx))
+	if (!ctx->h.hash->init(ctx->h.ctx))
 		return (NULL);
-	if (!(ctx->h.h->update(ctx->h.ctx, pads[0], ctx->h.h->block_len)))
+	if (!(ctx->h.hash->update(ctx->h.ctx, pads[0], ctx->h.hash->block_len)))
 		return (NULL);
-	if (!(ctx->h.h->update(ctx->h.ctx, *tmp, ctx->h.h->digest_len)))
+	if (!(ctx->h.hash->update(ctx->h.ctx, *tmp, ctx->h.hash->digest_len)))
 		return (NULL);
-	if (!ctx->h.h->final(*tmp, ctx->h.ctx))
+	if (!ctx->h.hash->final(*tmp, ctx->h.ctx))
 		return (NULL);
 	tmp2 = *tmp;
 	*tmp = NULL;
@@ -118,7 +118,7 @@ uint8_t		*hmac(t_hmac_ctx *ctx)
 	uint8_t		*pads[2];
 	uint8_t		*result;
 	uint8_t		*tmp;
-	uint8_t		ctxx[ctx->h.h->ctx_len];
+	uint8_t		ctxx[ctx->h.hash->ctx_len];
 
 	ctx->h.ctx = ctxx;
 	if (!(tmp = hmac_check_key_len1(ctx, ctx->key, ctx->key_len

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:27:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:02:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 19:56:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	command_sha1(int ac, char **av)
 	t_hash_data	data;
 	t_sha1_ctx	ctx;
 
-	data.h.h = &g_hash_sha1;
+	data.h.hash = &g_hash_sha1;
 	data.h.ctx = &ctx;
 	return (command_hash(ac, av, &data));
 }

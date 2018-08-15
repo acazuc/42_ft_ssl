@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 15:04:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 19:51:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@ typedef struct		s_b64_write_ctx
 	uint64_t	buff_pos;
 	uint64_t	buff_len;
 }			t_b64_write_ctx;
-
-typedef struct		s_hash_ctx
-{
-	t_hash		*h;
-	void		*ctx;
-}			t_hash_ctx;
 
 typedef struct		s_hmac_ctx
 {
@@ -152,6 +146,17 @@ typedef struct		s_genrsa_data
 	char		*crypt_method;
 	uint32_t	exp;
 }			t_genrsa_data;
+
+typedef struct		s_openssl_pbkdf_ctx
+{
+	t_hash		*hash;
+	uint8_t		*key;
+	size_t		key_len;
+	uint8_t		*pw;
+	size_t		pw_len;
+	uint8_t		*iv;
+	size_t		iv_len;
+}			t_openssl_pbkdf_ctx;
 
 void		print_usage();
 void		print_usage_commands();

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/15 18:38:57 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/15 19:50:11 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ SRCS_NAME = main.c \
 	    hash/ripemd160.c \
 	    hash/ripemd256.c \
 	    hash/ripemd320.c \
+	    hash/hash.c \
 	    base64/base64_encode.c \
 	    base64/base64_decode.c \
 	    des/des.c \

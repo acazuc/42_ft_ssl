@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 13:14:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 19:55:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static int	do_final(t_hash_data *data, uint8_t *digest, int print, char *fn)
 {
 	char	*hash;
 
-	if (!(hash = malloc(sizeof(*hash) * (data->h.h->digest_len * 2 + 1))))
+	if (!(hash = malloc(sizeof(*hash) * (data->h.hash->digest_len * 2 + 1))))
 		return (0);
-	bin2hex(hash, digest, data->h.h->digest_len);
+	bin2hex(hash, digest, data->h.hash->digest_len);
 	free(digest);
-	hash[data->h.h->digest_len * 2] = 0;
+	hash[data->h.hash->digest_len * 2] = 0;
 	if (!print && !data->quiet && !data->reverse)
 	{
-		ft_putstr(data->h.h->name);
+		ft_putstr(data->h.hash->name);
 		ft_putstr("(");
 		ft_putstr(fn);
 		ft_putstr(") = ");
@@ -48,20 +48,20 @@ static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 	int		readed;
 
 	data->written = 1;
-	if (!data->h.h->init(data->h.ctx))
+	if (!data->h.hash->init(data->h.ctx))
 		return (0);
 	while ((readed = read(fd, buf, 4096)) > 0)
 	{
-		if (!data->h.h->update(data->h.ctx, buf, readed))
+		if (!data->h.hash->update(data->h.ctx, buf, readed))
 			return (0);
 		if (print)
 			readed = write(1, buf, readed);
 	}
 	if (readed == -1)
 		return (0);
-	if (!(digest = malloc(sizeof(*digest) * data->h.h->digest_len)))
+	if (!(digest = malloc(sizeof(*digest) * data->h.hash->digest_len)))
 		return (0);
-	if (!data->h.h->final(digest, data->h.ctx))
+	if (!data->h.hash->final(digest, data->h.ctx))
 		return (0);
 	return (do_final(data, digest, print, fn));
 }
@@ -77,14 +77,14 @@ static int	command_hash_string(t_hash_data *data, int ac, char **av
 		ft_putendl_fd("ft_ssl: you must specify a string to hash", 2);
 		return (0);
 	}
-	if (!data->h.h->init(data->h.ctx))
+	if (!data->h.hash->init(data->h.ctx))
 		return (0);
-	if (!data->h.h->update(data->h.ctx, (const uint8_t*)av[*i]
+	if (!data->h.hash->update(data->h.ctx, (const uint8_t*)av[*i]
 				, strlen(av[*i])))
 		return (0);
-	if (!(digest = malloc(sizeof(*digest) * data->h.h->digest_len)))
+	if (!(digest = malloc(sizeof(*digest) * data->h.hash->digest_len)))
 		return (0);
-	if (!data->h.h->final(digest, data->h.ctx))
+	if (!data->h.hash->final(digest, data->h.ctx))
 		return (0);
 	return (do_final(data, digest, 0, av[*i]));
 }
