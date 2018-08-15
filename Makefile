@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/15 15:05:01 by acazuc           ###   ########.fr        #
+#    Updated: 2018/08/15 18:38:57 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,6 +115,7 @@ SRCS_NAME = main.c \
 	    rc4/rc4.c \
 	    rc4/rc4_ext.c \
 	    camellia/camellia_keyschedule.c \
+	    camellia/camellia_keyschedule_2.c \
 	    camellia/camellia_f.c \
 	    camellia/camellia_fl.c \
 	    camellia/camellia_encrypt.c \

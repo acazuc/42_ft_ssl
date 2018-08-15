@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 16:46:48 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 21:46:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 18:38:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ uint64_t	camellia_f(uint64_t in1, uint64_t in2);
 uint64_t	camellia_fl(uint64_t in1, uint64_t in2);
 uint64_t	camellia_flinv(uint64_t in1, uint64_t in2);
 void		camellia_keyschedule(t_camellia_ctx *ctx, uint8_t *key, uint8_t len);
+void		camellia_keyschedule_128(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab);
+void		camellia_keyschedule_192_256(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab);
 void		camellia_encrypt(t_camellia_ctx *ctx, uint8_t *block);
 void		camellia_decrypt(t_camellia_ctx *ctx, uint8_t *block);
 
