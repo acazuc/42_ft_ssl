@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 16:57:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 18:40:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 21:29:58 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,73 +80,7 @@ void		camellia_keyschedule(t_camellia_ctx *ctx, uint8_t *key, uint8_t len)
 	if (len != 16)
 		fill_kb(kab, klr);
 	if (len == 16)
-	{
 		camellia_keyschedule_128(ctx, klr, kab);
-		/*rot_key(tmp, klr + 0, 0);
-		ft_memcpy(&ctx->kw[0], tmp, 16);
-		rot_key(tmp, kab + 0, 0);
-		ft_memcpy(&ctx->k[0], tmp, 16);
-		rot_key(tmp, klr + 0, 15);
-		ft_memcpy(&ctx->k[2], tmp, 16);
-		rot_key(tmp, kab + 0, 15);
-		ft_memcpy(&ctx->k[4], tmp, 16);
-		rot_key(tmp, kab + 0, 30);
-		ft_memcpy(&ctx->ke[0], tmp, 16);
-		rot_key(tmp, klr + 0, 45);
-		ft_memcpy(&ctx->k[6], tmp, 16);
-		rot_key(tmp, kab + 0, 45);
-		ft_memcpy(&ctx->k[8], tmp, 8);
-		rot_key(tmp, klr + 0, 60);
-		ft_memcpy(&ctx->k[9], tmp + 8, 8);
-		rot_key(tmp, kab + 0, 60);
-		ft_memcpy(&ctx->k[10], tmp, 16);
-		rot_key(tmp, klr + 0, 77);
-		ft_memcpy(&ctx->ke[2], tmp, 16);
-		rot_key(tmp, klr + 0, 94);
-		ft_memcpy(&ctx->k[12], tmp, 16);
-		rot_key(tmp, kab + 0, 94);
-		ft_memcpy(&ctx->k[14], tmp, 16);
-		rot_key(tmp, klr + 0, 111);
-		ft_memcpy(&ctx->k[16], tmp, 16);
-		rot_key(tmp, kab + 0, 111);
-		ft_memcpy(&ctx->kw[2], tmp, 16);*/
-	}
 	else
-	{
 		camellia_keyschedule_192_256(ctx, klr, kab);
-		/*rot_key(tmp, klr, 0);
-		ft_memcpy(&ctx->kw[0], tmp, 16);
-		rot_key(tmp, kab + 16, 0);
-		ft_memcpy(&ctx->k[0], tmp, 16);
-		rot_key(tmp, klr + 16, 15);
-		ft_memcpy(&ctx->k[2], tmp, 16);
-		rot_key(tmp, kab + 0, 15);
-		ft_memcpy(&ctx->k[4], tmp, 16);
-		rot_key(tmp, klr + 16, 30);
-		ft_memcpy(&ctx->ke[0], tmp, 16);
-		rot_key(tmp, kab + 16, 30);
-		ft_memcpy(&ctx->k[6], tmp, 16);
-		rot_key(tmp, klr + 0, 45);
-		ft_memcpy(&ctx->k[8], tmp, 16);
-		rot_key(tmp, kab + 0, 45);
-		ft_memcpy(&ctx->k[10], tmp, 16);
-		rot_key(tmp, klr + 0, 60);
-		ft_memcpy(&ctx->ke[2], tmp, 16);
-		rot_key(tmp, klr + 16, 60);
-		ft_memcpy(&ctx->k[12], tmp, 16);
-		rot_key(tmp, kab + 16, 60);
-		ft_memcpy(&ctx->k[14], tmp, 16);
-		rot_key(tmp, klr + 0, 77);
-		ft_memcpy(&ctx->k[16], tmp, 16);
-		rot_key(tmp, kab + 0, 77);
-		ft_memcpy(&ctx->ke[4], tmp, 16);
-		rot_key(tmp, klr + 16, 94);
-		ft_memcpy(&ctx->k[18], tmp, 16);
-		rot_key(tmp, kab + 0, 94);
-		ft_memcpy(&ctx->k[20], tmp, 16);
-		rot_key(tmp, klr + 0, 111);
-		ft_memcpy(&ctx->k[22], tmp, 16);
-		rot_key(tmp, kab + 16, 111);
-		ft_memcpy(&ctx->kw[2], tmp, 16);*/
-	}
 }
