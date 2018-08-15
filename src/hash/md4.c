@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 14:30:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 17:03:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 14:41:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ t_hash		g_hash_md4 = {(t_hash_init)&md4_init
 		, (t_hash_update)&md4_update, (t_hash_final)&md4_final
 		, 16, 64, sizeof(t_md4_ctx), "MD4"};
 
-static uint32_t	g_md4_s[48] = {3, 7, 11, 19, 3, 7, 11, 19, 3, 7, 11, 19, 3, 7, 11, 19
-			, 3, 5, 9, 13, 3, 5, 9, 13, 3, 5, 9, 13, 3, 5, 9, 13
-			, 3, 9, 11, 15, 3, 9, 11, 15, 3, 9, 11, 15, 3, 9, 11, 15};
+static uint32_t	g_md4_s[48] = {0x03, 0x07, 0x0b, 0x13, 0x03, 0x07, 0x0b, 0x13
+			, 0x03, 0x07, 0x0b, 0x13, 0x03, 0x07, 0x0b, 0x13
+			, 0x03, 0x05, 0x09, 0x0d, 0x03, 0x05, 0x09, 0x0d
+			, 0x03, 0x05, 0x09, 0x0d, 0x03, 0x05, 0x09, 0x0d
+			, 0x03, 0x09, 0x0b, 0x0f, 0x03, 0x09, 0x0b, 0x0f
+			, 0x03, 0x09, 0x0b, 0x0f, 0x03, 0x09, 0x0b, 0x0f};
 
-static uint32_t	g_md4_g[48] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-			, 0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15
-			, 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
+static uint32_t	g_md4_g[48] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+			, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+			, 0x00, 0x04, 0x08, 0x0c, 0x01, 0x05, 0x09, 0x0d
+			, 0x02, 0x06, 0x0a, 0x0e, 0x03, 0x07, 0x0b, 0x0f
+			, 0x00, 0x08, 0x04, 0x0c, 0x02, 0x0a, 0x06, 0x0e
+			, 0x01, 0x09, 0x05, 0x0d, 0x03, 0x0b, 0x07, 0x0f};
 
 static uint32_t	g_md4_k[48] = {0, 0x5a827999, 0x6ed9eba1};
 
@@ -107,9 +113,6 @@ int		md4_final(uint8_t *md, t_md4_ctx *ctx)
 	ft_memcpy(ctx->data + 14, &ctx->total_len, 8);
 	ctx->data_len = 64;
 	md4_update(ctx, NULL, 0);
-	ft_memcpy(md + 0, &ctx->h[0], 4);
-	ft_memcpy(md + 4, &ctx->h[1], 4);
-	ft_memcpy(md + 8, &ctx->h[2], 4);
-	ft_memcpy(md + 12, &ctx->h[3], 4);
+	ft_memcpy(md, ctx->h, 16);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:56:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 15:44:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 14:49:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,6 @@ int		md5_final(uint8_t *md, t_md5_ctx *ctx)
 	ft_memcpy(ctx->data + 14, &ctx->total_len, 8);
 	ctx->data_len = 64;
 	md5_update(ctx, NULL, 0);
-	ft_memcpy(md + 0, &ctx->h[0], 4);
-	ft_memcpy(md + 4, &ctx->h[1], 4);
-	ft_memcpy(md + 8, &ctx->h[2], 4);
-	ft_memcpy(md + 12, &ctx->h[3], 4);
+	ft_memcpy(md, ctx->h, 16);
 	return (1);
 }

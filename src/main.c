@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 20:36:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 15:05:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static t_program	g_programs[] = {{"help", command_help}
 	, {"sha512", command_sha512}
 	, {"crc32", command_crc32}
 	, {"adler32", command_adler32}
+	, {"ripemd128", command_ripemd128}
+	, {"ripemd160", command_ripemd160}
+	, {"ripemd256", command_ripemd256}
+	, {"ripemd320", command_ripemd320}
 	, {"base64", command_base64}
 	, {"des", command_des1_cbc}
 	, {"des-ecb", command_des1_ecb}

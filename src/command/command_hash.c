@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 22:27:00 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 13:14:32 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	do_final(t_hash_data *data, uint8_t *digest, int print, char *fn)
 	if (!print && !data->quiet && !data->reverse)
 	{
 		ft_putstr(data->h.h->name);
-		ft_putstr(" (");
+		ft_putstr("(");
 		ft_putstr(fn);
 		ft_putstr(") = ");
 	}
@@ -103,9 +103,8 @@ static int	command_hash_files(t_hash_data *data, int ac, char **av, int *i)
 			ft_putstr_fd(av[*i], 2);
 			ft_putendl_fd(": failed to open file", 2);
 			ret = 0;
-			continue;
 		}
-		if (!(ret = command_hash_fd(data, fd, 0, av[*i])))
+		else if (!(ret = command_hash_fd(data, fd, 0, av[*i])))
 		{
 			ft_putstr_fd("ft_ssl: ", 2);
 			ft_putstr_fd(av[*i], 2);
