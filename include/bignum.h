@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 11:19:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:25:00 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/15 22:05:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef uint32_t	t_bignum_word;
 typedef int32_t		t_bignum_sword;
 typedef __uint64_t	t_bignum_dword;
 typedef __int64_t	t_bignum_sdword;
-#endif
+# endif
 
 typedef struct		s_bignum
 {

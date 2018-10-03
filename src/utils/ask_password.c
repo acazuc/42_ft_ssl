@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 13:44:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 13:44:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 13:22:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char	*ask_password()
 		free(pass);
 		return (NULL);
 	}
-	return (pass);
+	free(pass);
+	return (tmp);
 }
-

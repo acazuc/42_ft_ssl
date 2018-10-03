@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 19:29:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 16:24:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 20:08:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int	bignum_is_bit_set(t_bignum *bignum, uint32_t n)
 	tmp = n / 8 / sizeof(*bignum->data);
 	if (bignum->len <= tmp)
 		return (0);
-	return (bignum->data[tmp] >> (n % (8 * sizeof(*bignum->data))) & 1);
+	return ((bignum->data[tmp] >> (n % (8 * sizeof(*bignum->data)))) & 1);
 }

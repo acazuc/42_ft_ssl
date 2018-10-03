@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:57:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 13:41:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	generate_key2(uint8_t *key, uint32_t key_size, char *password
 		, uint8_t *salt)
 {
 	t_pbkdf2_ctx	pbkdf2_ctx;
-	uint8_t		tmp[32];
 
 	pbkdf2_ctx.h.hash = &g_hash_sha512;
 	pbkdf2_ctx.salt = salt;
@@ -25,11 +24,10 @@ static int	generate_key2(uint8_t *key, uint32_t key_size, char *password
 	pbkdf2_ctx.password = (uint8_t*)password;
 	pbkdf2_ctx.password_len = ft_strlen(password);
 	pbkdf2_ctx.iterations = 4096;
-	pbkdf2_ctx.out = tmp;
+	pbkdf2_ctx.out = key;
 	pbkdf2_ctx.out_len = key_size;
 	if (!pbkdf2(&pbkdf2_ctx))
 		return (0);
-	ft_memcpy(key, tmp, 8);
 	return (1);
 }
 

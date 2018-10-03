@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:55:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 13:19:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	loop_part(t_pbkdf2_ctx *ctx, t_hmac_ctx *hmac_ctx
 		ft_memxor(sum, sum, hash_tmp, ctx->h.hash->digest_len);
 		++j;
 	}
+	free(hash_tmp);
 	return (1);
 }
 

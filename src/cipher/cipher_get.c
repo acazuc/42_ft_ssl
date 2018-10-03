@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 20:35:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 20:57:51 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/16 17:18:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ static t_cipher	*cipher_get_des(char *name)
 	CIPHER_GET_TEST(g_cipher_des1_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_des1_cfb, name);
 	CIPHER_GET_TEST(g_cipher_des1_ofb, name);
+	CIPHER_GET_TEST(g_cipher_des1_ctr, name);
 	CIPHER_GET_TEST(g_cipher_des2_ecb, name);
 	CIPHER_GET_TEST(g_cipher_des2_cbc, name);
 	CIPHER_GET_TEST(g_cipher_des2_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_des2_cfb, name);
 	CIPHER_GET_TEST(g_cipher_des2_ofb, name);
+	CIPHER_GET_TEST(g_cipher_des2_ctr, name);
 	CIPHER_GET_TEST(g_cipher_des3_ecb, name);
 	CIPHER_GET_TEST(g_cipher_des3_cbc, name);
 	CIPHER_GET_TEST(g_cipher_des3_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_des3_cfb, name);
 	CIPHER_GET_TEST(g_cipher_des3_ofb, name);
+	CIPHER_GET_TEST(g_cipher_des3_ctr, name);
 	return (NULL);
 }
 
@@ -44,16 +47,19 @@ static t_cipher	*cipher_get_aes(char *name)
 	CIPHER_GET_TEST(g_cipher_aes128_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_aes128_cfb, name);
 	CIPHER_GET_TEST(g_cipher_aes128_ofb, name);
+	CIPHER_GET_TEST(g_cipher_aes128_ctr, name);
 	CIPHER_GET_TEST(g_cipher_aes192_ecb, name);
 	CIPHER_GET_TEST(g_cipher_aes192_cbc, name);
 	CIPHER_GET_TEST(g_cipher_aes192_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_aes192_cfb, name);
 	CIPHER_GET_TEST(g_cipher_aes192_ofb, name);
+	CIPHER_GET_TEST(g_cipher_aes192_ctr, name);
 	CIPHER_GET_TEST(g_cipher_aes256_ecb, name);
 	CIPHER_GET_TEST(g_cipher_aes256_cbc, name);
 	CIPHER_GET_TEST(g_cipher_aes256_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_aes256_cfb, name);
 	CIPHER_GET_TEST(g_cipher_aes256_ofb, name);
+	CIPHER_GET_TEST(g_cipher_aes256_ctr, name);
 	return (NULL);
 }
 
@@ -64,16 +70,19 @@ static t_cipher	*cipher_get_camellia(char *name)
 	CIPHER_GET_TEST(g_cipher_camellia128_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_camellia128_cfb, name);
 	CIPHER_GET_TEST(g_cipher_camellia128_ofb, name);
+	CIPHER_GET_TEST(g_cipher_camellia128_ctr, name);
 	CIPHER_GET_TEST(g_cipher_camellia192_ecb, name);
 	CIPHER_GET_TEST(g_cipher_camellia192_cbc, name);
 	CIPHER_GET_TEST(g_cipher_camellia192_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_camellia192_cfb, name);
 	CIPHER_GET_TEST(g_cipher_camellia192_ofb, name);
+	CIPHER_GET_TEST(g_cipher_camellia192_ctr, name);
 	CIPHER_GET_TEST(g_cipher_camellia256_ecb, name);
 	CIPHER_GET_TEST(g_cipher_camellia256_cbc, name);
 	CIPHER_GET_TEST(g_cipher_camellia256_pcbc, name);
 	CIPHER_GET_TEST(g_cipher_camellia256_cfb, name);
 	CIPHER_GET_TEST(g_cipher_camellia256_ofb, name);
+	CIPHER_GET_TEST(g_cipher_camellia256_ctr, name);
 	return (NULL);
 }
 

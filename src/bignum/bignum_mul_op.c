@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:02:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 20:55:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 15:11:26 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 		bignum_clear(&tmp);
 		return (0);
 	}
-	ft_memset(tmp.data, 0, (a->len + b->len) * sizeof(*tmp.data));
+	ft_bzero(tmp.data, (a->len + b->len) * sizeof(*tmp.data));
 	i = 0;
 	while (i < a->len)
 	{

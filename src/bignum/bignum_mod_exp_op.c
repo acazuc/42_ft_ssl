@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:10:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 19:30:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 19:51:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static int	do_clear(t_bignum *base, t_bignum *res, t_bignum *ex)
 {
-	bignum_free(base);
+	bignum_clear(base);
 	bignum_clear(res);
-	bignum_free(ex);
+	bignum_clear(ex);
 	return (0);
 }
 
@@ -57,8 +57,8 @@ static int	do_init(t_bignum *a, t_bignum *r, t_bignum *p, int *ret)
 
 int	bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m)
 {
-	t_bignum	*base;
-	t_bignum	*ex;
+	t_bignum	base;
+	t_bignum	ex;
 	t_bignum	res;
 	int		ret;
 
@@ -66,18 +66,17 @@ int	bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m)
 		return (ret);
 	if (bignum_is_one(p))
 		return (bignum_copy(r, a));
-	base = NULL;
-	ex = NULL;
+	bignum_init(&base);
+	bignum_init(&ex);
 	bignum_init(&res);
-	if (!(ex = bignum_dup(p))
-			|| !(base = bignum_dup(a))
-			|| !(bignum_mod(base, base, m)) || !bignum_grow(&res, 1))
-		return (do_clear(base, &res, ex));
-	while (!bignum_is_zero(ex))
-		if (!do_loop(&res, base, ex, m))
-			return (do_clear(base, &res, ex));
+	if (!bignum_copy(&ex, p) || !bignum_copy(&base, a)
+			|| !bignum_mod(&base, &base, m) || !bignum_grow(&res, 1))
+		return (do_clear(&base, &res, &ex));
+	while (!bignum_is_zero(&ex))
+		if (!do_loop(&res, &base, &ex, m))
+			return (do_clear(&base, &res, &ex));
 	bignum_trunc(&res);
 	bignum_move(r, &res);
-	do_clear(base, &res, ex);
+	do_clear(&base, &res, &ex);
 	return (1);
 }

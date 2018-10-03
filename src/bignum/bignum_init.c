@@ -6,17 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 22:20:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:44:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 19:52:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
-#include <stddef.h>
+#include "libft.h"
 
 void	bignum_init(t_bignum *bignum)
 {
-	bignum->data = NULL;
-	bignum->len = 0;
-	bignum->sign = 0;
-	bignum->cap = 0;
+	ft_bzero(bignum, sizeof(*bignum));
 }

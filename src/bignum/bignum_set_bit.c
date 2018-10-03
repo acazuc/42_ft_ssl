@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 19:34:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 20:24:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 20:08:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 int	bignum_set_bit(t_bignum *bignum, uint32_t n)
 {
 	uint32_t	len;
+	uint32_t	tmp;
 
-	len = 1 + n / 8 / sizeof(*bignum->data);
+	tmp = n / 8 / sizeof(*bignum->data);
+	len = tmp + 1;
 	if (bignum->len < len && !bignum_resize(bignum, len))
 		return (0);
-	bignum->data[n / 8 / sizeof(*bignum->data)] |= (t_bignum_word)1
-		<< (n % (8 * sizeof(*bignum->data)));
+	bignum->data[tmp] |= (t_bignum_word)1 << (n % (8 * sizeof(*bignum->data)));
 	return (1);
 }

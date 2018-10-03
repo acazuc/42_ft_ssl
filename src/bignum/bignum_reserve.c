@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:11:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 19:32:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/08/17 20:00:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	bignum_reserve(t_bignum *bignum, uint32_t len)
 	if (len <= bignum->cap)
 		return (1);
 	npot = bignum_npot(len);
-	if (npot < 8)
-		npot = 8;
+	if (npot < 32)
+		npot = 32;
 	if (!(tmp = malloc(sizeof(*tmp) * npot)))
 		return (0);
 	ft_memcpy(tmp, bignum->data, bignum->len * sizeof(*tmp));
