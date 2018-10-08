@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 17:36:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 10:43:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	command_bignum(int ac, char **av)
 		return (do_execute1(ac, av, &bignum_add));
 	if (!ft_strcmp(av[1], "-"))
 		return (do_execute1(ac, av, &bignum_sub));
-	if (!ft_strcmp(av[1], "*"))
+	if (!ft_strcmp(av[1], "_"))
 		return (do_execute1(ac, av, &bignum_mul));
 	if (!ft_strcmp(av[1], "/"))
 		return (do_execute1(ac, av, &bignum_div));

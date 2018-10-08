@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:55:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 10:17:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	do_final(t_hash_data *data, uint8_t *digest, int print, char *fn)
 	bin2hex(hash, digest, data->h.hash->digest_len);
 	free(digest);
 	hash[data->h.hash->digest_len * 2] = 0;
-	if (!print && !data->quiet && !data->reverse)
+	if (!print && !data->quiet && !data->reverse && fn[0])
 	{
 		ft_putstr(data->h.hash->name);
 		ft_putstr("(");
@@ -130,7 +130,7 @@ int	command_hash(int ac, char **av, t_hash_data *data)
 	while (i < ac)
 	{
 		if (!ft_strcmp(av[i], "-p"))
-			err |= !command_hash_fd(data, 0, 1, "stdin");
+			err |= !command_hash_fd(data, 0, 1, "");
 		else if (!ft_strcmp(av[i], "-q"))
 			data->quiet = 1;
 		else if (!ft_strcmp(av[i], "-r"))
@@ -142,6 +142,6 @@ int	command_hash(int ac, char **av, t_hash_data *data)
 		++i;
 	}
 	if (!data->written)
-		return (command_hash_fd(data, 0, 0, "stdin"));
+		return (command_hash_fd(data, 0, 0, ""));
 	return (err ? EXIT_FAILURE : EXIT_SUCCESS);
 }

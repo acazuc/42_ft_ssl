@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/08/17 20:31:40 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/03 22:05:15 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME = ft_ssl
 
 CC = gcc
 
-LDFLAGS = -flto=4 -fwhole-program
+LDFLAGS = -flto -fwhole-program
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -rdynamic
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g
 #CFLAGS+= -fsanitize=address
 #CFLAGS+= -flto
 

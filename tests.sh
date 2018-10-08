@@ -1,21 +1,20 @@
-#!/bin/bash -f
+#!/bin/bash
 print_result()
 {
-	echo -n "$1: "
 	if [ "$2" == "$3" ]
 	then
-		echo -ne "\e[1;32mPassed"
+		val=`printf "\e[1;32mPassed"`
 	else
-		echo -ne "\e[1;31mFailed"
+		val=`printf "\e[1;31mFailed"`
 	fi
-	echo -e "\e[0;0m"
+	printf "$1: $val \e[0;0m\n"
 }
 
 test_hash_do()
 {
 	#./ft_ssl $1 -r $2
-	ret_ftssl=`./ft_ssl $1 -r $2 | cut -d ' ' -f 1 | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -r $2  | cut -d ' ' -f 1 | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl $1 $2 | cut -d ' ' -f3 | openssl sha1`
+	ret_opssl=`openssl $1 $2  | cut -d ' ' -f2 | openssl sha1`
 	print_result "$1 $2" $ret_ftssl $ret_opssl
 }
 
@@ -35,19 +34,19 @@ test_hash_all()
 	echo
 	test_hash sha1
 	echo
-	test_hash sha224
-	echo
-	test_hash sha256
-	echo
-	test_hash sha384
-	echo
-	test_hash sha512
+	#test_hash sha224
+	#echo
+	#test_hash sha256
+	#echo
+	#test_hash sha384
+	#echo
+	#test_hash sha512
 }
 
 test_base64_encode()
 {
-	ret_ftssl=`./ft_ssl base64 -i $1 | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl base64 -in $1 | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl base64 -i $1 | openssl sha1`
+	ret_opssl=`openssl base64 -in $1 | openssl sha1`
 	print_result "base64 encode $1" $ret_ftssl $ret_opssl
 }
 
@@ -57,8 +56,8 @@ test_base64_decode()
 	cat $1 | openssl base64 > $file
 	#./ft_ssl base64 -d -i $file | hexdump -C
 	#openssl base64 -d -in $file | hexdump -C
-	ret_ftssl=`./ft_ssl base64 -d -i $file | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl base64 -d -in $file | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl base64 -d -i $file | openssl sha1`
+	ret_opssl=`openssl base64 -d -in $file | openssl sha1`
 	rm $file
 	print_result "base64 decode $1" $ret_ftssl $ret_opssl
 }
@@ -85,8 +84,8 @@ test_cipher_encrypt()
 	iv="8877665544332211"
 	#./ft_ssl $1 -e -k $2 -v $iv -i $3 | hexdump -C
 	#openssl $1 -e -K $2 -iv $iv -in $3 | hexdump -C
-	ret_ftssl=`./ft_ssl $1 -a -e -k $2 -v $iv -i $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -a -e -K $2 -iv $iv -in $3 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl $1 -a -e -k $2 -v $iv -i $3 2>&- | openssl sha1`
+	ret_opssl=`openssl $1 -a -e -K $2 -iv $iv -in $3 2>&- | openssl sha1`
 	print_result "$1 encrypt $3" $ret_ftssl $ret_opssl
 }
 
@@ -97,8 +96,8 @@ test_cipher_decrypt()
 	cat $3 | openssl $1 -a -e -K $2 -iv $iv > $file 2>&-
 	#./ft_ssl $1 -a -d -k $2 -v $iv -i $file | hexdump -C
 	#openssl $1 -a -d -K $2 -iv $iv -in $file | hexdump -C
-	ret_ftssl=`./ft_ssl $1 -a -d -k $2 -v $iv -i $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
-	ret_opssl=`openssl $1 -a -d -K $2 -iv $iv -in $file 2>&- | openssl sha512 -r | cut -d ' ' -f 1`
+	ret_ftssl=`./ft_ssl $1 -a -d -k $2 -v $iv -i $file 2>&- | openssl sha1`
+	ret_opssl=`openssl $1 -a -d -K $2 -iv $iv -in $file 2>&- | openssl sha1`
 	rm $file
 	print_result "$1 decrypt $3" $ret_ftssl $ret_opssl
 }
@@ -249,7 +248,7 @@ test_rc4()
 
 test_bignum()
 {
-	ret_ftssl=`./ft_ssl bignum $2 $3 $4`
+	ret_ftssl=`./ft_ssl bignum $2 "$3" $4`
 	print_result $1 $ret_ftssl $5
 }
 
@@ -283,16 +282,16 @@ test_bignum_all()
 	test_bignum sub_negative_nng -9 - -3 -6
 	test_bignum sub_negative_nnl -4 - -9 5
 	echo
-	test_bignum mul_simple 3 '*' 2 6
-	test_bignum mul_zero 3 '*' 0 0
-	test_bignum mul_one 1 '*' 8 8
-	test_bignum mul_big_small 112233445566778899 '*' 9 1010101010101010091
-	test_bignum mul_big_big 112233445566778899 '*' 112233445566778899 12596346303791122097392430351652201
-	test_bignum mul_huge_huge 2538687043280516217968757858774735713134894094727501826178087490310416 '*' 2538687043280516217968757858774735713134894094727501826178087490310316 6444931903720369624895988058295186490773351122708453192597035122359526207702594532528293432256556085010669425565620297661676703939007051456
+	test_bignum mul_simple 3 _ 2 6
+	test_bignum mul_zero 3 _ 0 0
+	test_bignum mul_one 1 _ 8 8
+	test_bignum mul_big_small 112233445566778899 _ 9 1010101010101010091
+	test_bignum mul_big_big 112233445566778899 _ 112233445566778899 12596346303791122097392430351652201
+	test_bignum mul_huge_huge 2538687043280516217968757858774735713134894094727501826178087490310416 _ 2538687043280516217968757858774735713134894094727501826178087490310316 6444931903720369624895988058295186490773351122708453192597035122359526207702594532528293432256556085010669425565620297661676703939007051456
 	echo
-	test_bignum mul_negative_pn 6 '*' -2 -12
-	test_bignum mul_negative_np -3 '*' 7 -21
-	test_bignum mul_negative_nn -5 '*' -3 15
+	test_bignum mul_negative_pn 6 _ -2 -12
+	test_bignum mul_negative_np -3 _ 7 -21
+	test_bignum mul_negative_nn -5 _ -3 15
 	echo
 	test_bignum div_simple 7 / 2 3
 	test_bignum div_zero 7 / 0 ""
