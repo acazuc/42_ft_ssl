@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 13:47:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 13:47:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:58:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ int	transform_bin(uint8_t *bin, char *str, int max)
 		return (0);
 	return (1);
 }
-

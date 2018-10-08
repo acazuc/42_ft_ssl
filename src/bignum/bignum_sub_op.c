@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 16:50:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 20:06:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:55:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	do_init(t_bignum *result, t_bignum *a, t_bignum *b)
 	return (1);
 }
 
-int		bignum_sub_op(t_bignum *r, t_bignum *a, t_bignum *b)
+int			bignum_sub_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
-	t_bignum	result;
+	t_bignum		result;
 	t_bignum_sdword	carry;
-	uint32_t	i;
+	uint32_t		i;
 
 	if (!do_init(&result, a, b))
 		return (0);

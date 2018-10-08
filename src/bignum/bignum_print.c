@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 17:58:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 17:37:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:56:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static int	do_init(t_bignum *div, t_bignum *tmp1, t_bignum *tmp2)
 	return (1);
 }
 
-int		bignum_print_fd(t_bignum *bignum, int fd)
+int			bignum_print_fd(t_bignum *bignum, int fd)
 {
 	t_bignum	tmp1;
 	t_bignum	tmp2;
 	t_bignum	div;
-	int		ret;
+	int			ret;
 
 	bignum_trunc(bignum);
 	if (bignum->sign)
@@ -77,7 +77,7 @@ int		bignum_print_fd(t_bignum *bignum, int fd)
 	return (ret);
 }
 
-int		bignum_print(t_bignum *bignum)
+int			bignum_print(t_bignum *bignum)
 {
 	return (bignum_print_fd(bignum, 1));
 }

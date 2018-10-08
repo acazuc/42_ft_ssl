@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:15:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 20:30:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:54:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	do_test_0(t_bignum *bignum, int fd)
 	return (0);
 }
 
-int		bignum_printhex_fd(t_bignum *bignum, int fd)
+int			bignum_printhex_fd(t_bignum *bignum, int fd)
 {
 	uint32_t	i;
 
@@ -67,13 +67,13 @@ int		bignum_printhex_fd(t_bignum *bignum, int fd)
 	{
 		print_hex(bignum->data[i], fd, i == bignum->len - 1);
 		if (!i)
-			break;
+			break ;
 		--i;
 	}
 	return (1);
 }
 
-int		bignum_printhex(t_bignum *bignum)
+int			bignum_printhex(t_bignum *bignum)
 {
 	return (bignum_printhex_fd(bignum, 1));
 }

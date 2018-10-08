@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 20:35:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/16 17:18:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:48:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static t_cipher	*cipher_get_camellia(char *name)
 	return (NULL);
 }
 
-t_cipher	*cipher_get(char *name)
+t_cipher		*cipher_get(char *name)
 {
 	t_cipher	*tmp;
 

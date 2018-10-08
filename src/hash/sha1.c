@@ -6,16 +6,18 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 14:49:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:14:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/sha1.h"
 #include "ft_ssl.h"
 
-t_hash		g_hash_sha1 = {(t_hash_init)&sha1_init
-		, (t_hash_update)&sha1_update, (t_hash_final)&sha1_final
-		, 20, 64, sizeof(t_sha1_ctx), "SHA1"};
+t_hash		g_hash_sha1 = {"SHA1",
+	(t_hash_init)sha1_init,
+	(t_hash_update)sha1_update,
+	(t_hash_final)sha1_final,
+	20, 64, sizeof(t_sha1_ctx)};
 
 static uint32_t		g_sha1_k[4] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC
 	, 0xCA62C1D6};
@@ -44,7 +46,7 @@ static void	sha1_chunk(t_sha1_ctx *ctx)
 {
 	uint32_t	tmp[5];
 	uint32_t	w[80];
-	int		i;
+	int			i;
 
 	i = -1;
 	while (++i < 16)
@@ -66,7 +68,7 @@ static void	sha1_chunk(t_sha1_ctx *ctx)
 		ctx->h[i] += tmp[i];
 }
 
-int		sha1_init(t_sha1_ctx *ctx)
+int			sha1_init(t_sha1_ctx *ctx)
 {
 	ctx->total_len = 0;
 	ctx->data_len = 0;
@@ -78,7 +80,7 @@ int		sha1_init(t_sha1_ctx *ctx)
 	return (1);
 }
 
-int		sha1_update(t_sha1_ctx *ctx, const uint8_t *data, size_t len)
+int			sha1_update(t_sha1_ctx *ctx, const uint8_t *data, size_t len)
 {
 	while (1)
 	{
@@ -99,7 +101,7 @@ int		sha1_update(t_sha1_ctx *ctx, const uint8_t *data, size_t len)
 	return (1);
 }
 
-int		sha1_final(uint8_t *md, t_sha1_ctx *ctx)
+int			sha1_final(uint8_t *md, t_sha1_ctx *ctx)
 {
 	int	i;
 

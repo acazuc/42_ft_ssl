@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 16:59:14 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:13:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:59:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 uint64_t	g_bignum_rand;
 
-uint64_t	bignum_rand_get()
+uint64_t	bignum_rand_get(void)
 {
 	t_sha1_ctx	ctx;
 	uint8_t		digest[20];

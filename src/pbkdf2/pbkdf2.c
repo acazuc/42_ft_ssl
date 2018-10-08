@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 13:19:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:57:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	pbkdf2_free(uint8_t *sum, uint8_t *tmp, uint8_t *ret)
 	return (0);
 }
 
-int		pbkdf2(t_pbkdf2_ctx *ctx)
+int			pbkdf2(t_pbkdf2_ctx *ctx)
 {
 	uint32_t	blocks;
 	uint32_t	i;

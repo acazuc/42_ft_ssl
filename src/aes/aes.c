@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 12:44:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:29:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 11:23:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_rounds_count(t_aes_ctx *ctx)
 	return (14);
 }
 
-void	aes_encrypt(t_aes_ctx *ctx, uint8_t *block)
+void		aes_encrypt(t_aes_ctx *ctx, uint8_t *block)
 {
 	uint8_t	rounds;
 	uint8_t	i;
@@ -43,7 +43,7 @@ void	aes_encrypt(t_aes_ctx *ctx, uint8_t *block)
 	ft_memxor(block, block, ctx->keys[rounds], 16);
 }
 
-void	aes_decrypt(t_aes_ctx *ctx, uint8_t *block)
+void		aes_decrypt(t_aes_ctx *ctx, uint8_t *block)
 {
 	uint8_t	rounds;
 	uint8_t	i;

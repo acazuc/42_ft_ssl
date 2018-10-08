@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:11:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 20:00:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:54:59 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	bignum_reserve(t_bignum *bignum, uint32_t len)
 {
 	t_bignum_word	*tmp;
-	uint32_t	npot;
+	uint32_t		npot;
 
 	if (len <= bignum->cap)
 		return (1);

@@ -6,42 +6,42 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 19:07:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 21:40:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:28:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/camellia.h"
 
-t_cipher	g_cipher_camellia128_ecb = {"CAMELLIA-128-ECB"
-		, (t_cipher_init)&camellia128_init
-		, (t_cipher_update)&camellia128_update
-		, (t_cipher_final)&camellia128_final
-		, &g_cipher_mod_ecb, 16, 16, sizeof(t_camellia_ctx)};
-t_cipher	g_cipher_camellia128_cbc = {"CAMELLIA-128-CBC"
-		, (t_cipher_init)&camellia128_init
-		, (t_cipher_update)&camellia128_update
-		, (t_cipher_final)&camellia128_final
-		, &g_cipher_mod_cbc, 16, 16, sizeof(t_camellia_ctx)};
-t_cipher	g_cipher_camellia128_pcbc = {"CAMELLIA-128-PCBC"
-		, (t_cipher_init)&camellia128_init
-		, (t_cipher_update)&camellia128_update
-		, (t_cipher_final)&camellia128_final
-		, &g_cipher_mod_pcbc, 16, 16, sizeof(t_camellia_ctx)};
-t_cipher	g_cipher_camellia128_cfb = {"CAMELLIA-128-CFB"
-		, (t_cipher_init)&camellia128_init
-		, (t_cipher_update)&camellia128_update
-		, (t_cipher_final)&camellia128_final
-		, &g_cipher_mod_cfb, 16, 16, sizeof(t_camellia_ctx)};
-t_cipher	g_cipher_camellia128_ofb = {"CAMELLIA-128-OFB"
-		, (t_cipher_init)&camellia128_init
-		, (t_cipher_update)&camellia128_update
-		, (t_cipher_final)&camellia128_final
-		, &g_cipher_mod_ofb, 16, 16, sizeof(t_camellia_ctx)};
-t_cipher	g_cipher_camellia128_ctr = {"CAMELLIA-128-CTR"
-		, (t_cipher_init)&camellia128_init
-		, (t_cipher_update)&camellia128_update
-		, (t_cipher_final)&camellia128_final
-		, &g_cipher_mod_ctr128, 16, 16, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia128_ecb = {"CAMELLIA-128-ECB",
+	(t_cipher_init)camellia128_init,
+	(t_cipher_update)camellia128_update,
+	(t_cipher_final)camellia128_final,
+	&g_cipher_mod_ecb, 16, 16, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia128_cbc = {"CAMELLIA-128-CBC",
+	(t_cipher_init)camellia128_init,
+	(t_cipher_update)camellia128_update,
+	(t_cipher_final)camellia128_final,
+	&g_cipher_mod_cbc, 16, 16, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia128_pcbc = {"CAMELLIA-128-PCBC",
+	(t_cipher_init)camellia128_init,
+	(t_cipher_update)camellia128_update,
+	(t_cipher_final)camellia128_final,
+	&g_cipher_mod_pcbc, 16, 16, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia128_cfb = {"CAMELLIA-128-CFB",
+	(t_cipher_init)camellia128_init,
+	(t_cipher_update)camellia128_update,
+	(t_cipher_final)camellia128_final,
+	&g_cipher_mod_cfb, 16, 16, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia128_ofb = {"CAMELLIA-128-OFB",
+	(t_cipher_init)camellia128_init,
+	(t_cipher_update)camellia128_update,
+	(t_cipher_final)camellia128_final,
+	&g_cipher_mod_ofb, 16, 16, sizeof(t_camellia_ctx)};
+t_cipher	g_cipher_camellia128_ctr = {"CAMELLIA-128-CTR",
+	(t_cipher_init)camellia128_init,
+	(t_cipher_update)camellia128_update,
+	(t_cipher_final)camellia128_final,
+	&g_cipher_mod_ctr128, 16, 16, sizeof(t_camellia_ctx)};
 
 int	camellia128_init(t_camellia_ctx *ctx, uint8_t *key, uint8_t *iv)
 {

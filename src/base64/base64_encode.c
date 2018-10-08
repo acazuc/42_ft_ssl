@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:23:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:03:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static uint8_t	get_next_val(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 	return (ret);
 }
 
-static void	b64e_chunk(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
+static void		b64e_chunk(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 {
 	uint8_t	vals[3];
 
@@ -51,7 +51,7 @@ static void	b64e_chunk(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 	ctx->buff[ctx->buff_len++] = g_alphabet[vals[2] & 0x3f];
 }
 
-int		b64e_init(t_b64e_ctx *ctx)
+int				b64e_init(t_b64e_ctx *ctx)
 {
 	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
 		return (0);
@@ -61,7 +61,7 @@ int		b64e_init(t_b64e_ctx *ctx)
 }
 
 
-int		b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
+int				b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
 {
 	if (!len)
 		return (1);
@@ -82,7 +82,7 @@ int		b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
 	return (1);
 }
 
-int		b64e_final(t_b64e_ctx *ctx)
+int				b64e_final(t_b64e_ctx *ctx)
 {
 	if (!ctx->tmp_len)
 	{

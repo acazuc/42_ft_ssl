@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 16:47:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 20:54:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:49:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static int	do_end(t_bignum *result, t_bignum *r, t_bignum_word carry)
 	return (1);
 }
 
-int		bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b)
+int			bignum_add_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
-	t_bignum	result;
+	t_bignum		result;
 	t_bignum_dword	carry;
-	uint32_t	to;
-	uint32_t	i;
+	uint32_t		to;
+	uint32_t		i;
 
 	if (!do_init(&result, a, b, &to))
 		return (0);

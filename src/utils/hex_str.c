@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:43:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/06/26 16:52:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:58:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 char	*str2hex(const char *str)
 {
 	char	*result;
-	int	len;
-	int	i;
+	int		len;
+	int		i;
 
 	len = ft_strlen(str);
 	if (!(result = malloc(len * 2 + 1)))

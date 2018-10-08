@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:56:46 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 20:00:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:55:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	do_init(t_bignum *tmp1, t_bignum *tmp2, t_bignum *tmp3)
 	return (1);
 }
 
-int		bignum_rshift_op(t_bignum *r, t_bignum *a, uint32_t n)
+int			bignum_rshift_op(t_bignum *r, t_bignum *a, uint32_t n)
 {
 	t_bignum	tmp1;
 	t_bignum	tmp2;

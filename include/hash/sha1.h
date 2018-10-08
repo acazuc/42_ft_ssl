@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:19:28 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:39:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:23:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,19 @@
 
 # include "hash.h"
 
-typedef struct		s_sha1_ctx
+typedef struct	s_sha1_ctx
 {
 	uint32_t	h[5];
 	uint32_t	data[16];
 	uint32_t	data_len;
 	uint64_t	total_len;
-}			t_sha1_ctx;
+}				t_sha1_ctx;
 
-int	sha1_init(t_sha1_ctx *ctx);
-int	sha1_update(t_sha1_ctx *ctx, const uint8_t *data, size_t len);
-int	sha1_final(uint8_t *md, t_sha1_ctx *ctx);
+int				sha1_init(t_sha1_ctx *ctx);
+int				sha1_update(t_sha1_ctx *ctx, const uint8_t *data
+		, size_t len);
+int				sha1_final(uint8_t *md, t_sha1_ctx *ctx);
 
-extern t_hash		g_hash_sha1;
+extern t_hash	g_hash_sha1;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:02:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 15:11:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:55:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint32_t i)
 {
 	t_bignum_dword	carry;
 	t_bignum_dword	ai;
-	uint32_t	j;
+	uint32_t		j;
 
 	carry = 0;
 	j = 0;
@@ -56,7 +56,7 @@ static void	do_loop(t_bignum *tmp, t_bignum *a, t_bignum *b, uint32_t i)
 		tmp->data[i + j] += carry;
 }
 
-int		bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
+int			bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	t_bignum	tmp;
 	uint32_t	i;

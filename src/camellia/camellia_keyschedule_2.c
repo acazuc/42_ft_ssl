@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 18:22:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 18:42:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 11:41:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static	void	rot_key(uint8_t *dst, uint8_t *src, uint8_t rot)
 	}
 }
 
-static void	ks_128_2(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab)
+static void		ks_128_2(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab)
 {
 	uint8_t	tmp[16];
 
@@ -41,7 +41,7 @@ static void	ks_128_2(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab)
 	ft_memcpy(&ctx->kw[2], tmp, 16);
 }
 
-void	camellia_keyschedule_128(t_camellia_ctx *ctx, uint8_t *klr
+void			camellia_keyschedule_128(t_camellia_ctx *ctx, uint8_t *klr
 		, uint8_t *kab)
 {
 	uint8_t	tmp[16];
@@ -71,7 +71,7 @@ void	camellia_keyschedule_128(t_camellia_ctx *ctx, uint8_t *klr
 	ks_128_2(ctx, klr, kab);
 }
 
-static void	ks_192_256_2(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab)
+static void		ks_192_256_2(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab)
 {
 	uint8_t	tmp[16];
 
@@ -89,7 +89,7 @@ static void	ks_192_256_2(t_camellia_ctx *ctx, uint8_t *klr, uint8_t *kab)
 	ft_memcpy(&ctx->kw[2], tmp, 16);
 }
 
-void		camellia_keyschedule_192_256(t_camellia_ctx *ctx, uint8_t *klr
+void			camellia_keyschedule_192_256(t_camellia_ctx *ctx, uint8_t *klr
 		, uint8_t *kab)
 {
 	uint8_t	tmp[16];

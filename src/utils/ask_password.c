@@ -6,13 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 13:44:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 13:22:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:58:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-char	*ask_password()
+char	*ask_password(void)
 {
 	char	*pass;
 	char	*tmp;

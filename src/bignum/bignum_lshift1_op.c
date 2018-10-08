@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:53:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 20:03:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:52:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static int	do_init(t_bignum *r, t_bignum *a, uint32_t *ret)
 	return (0);
 }
 
-int		bignum_lshift1_op(t_bignum *r, t_bignum *a)
+int			bignum_lshift1_op(t_bignum *r, t_bignum *a)
 {
 	t_bignum_word	carry;
 	t_bignum_word	tmp;
 	t_bignum_word	msk;
-	uint32_t	i;
+	uint32_t		i;
 
 	if (do_init(r, a, &i))
 		return (i);

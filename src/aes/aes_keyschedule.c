@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 13:24:26 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 13:41:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 11:23:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	expand_core(uint8_t *data, uint8_t i)
 	data[1] = aes_subbyte(data[1]);
 	data[2] = aes_subbyte(data[2]);
 	data[3] = aes_subbyte(data[3]);
-        data[0] ^= aes_rcon(i);
+	data[0] ^= aes_rcon(i);
 }
 
 static void	update_subbytes(uint8_t *tmp)
@@ -49,7 +49,7 @@ static void	update_keys(t_aes_ctx *ctx, uint8_t *tmp, uint8_t *c, uint8_t len)
 	}
 }
 
-void	aes_keyschedule(t_aes_ctx *ctx, uint8_t *key, uint8_t len)
+void		aes_keyschedule(t_aes_ctx *ctx, uint8_t *key, uint8_t len)
 {
 	uint8_t	tmp[4];
 	uint8_t	c;

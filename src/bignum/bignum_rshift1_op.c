@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:57:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 19:47:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:55:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	bignum_rshift1_op(t_bignum *r, t_bignum *a)
 {
 	t_bignum_word	carry;
 	t_bignum_word	tmp;
-	uint32_t	i;
+	uint32_t		i;
 
 	bignum_trunc(a);
 	if (bignum_is_zero(a))
@@ -34,7 +34,7 @@ int	bignum_rshift1_op(t_bignum *r, t_bignum *a)
 		r->data[i] = (a->data[i] >> 1) | carry;
 		carry = tmp;
 		if (!i)
-			break;
+			break ;
 		--i;
 	}
 	return (1);

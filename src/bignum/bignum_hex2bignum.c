@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 23:13:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:43:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:51:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	do_fill(t_bignum *bignum, char *s, int len)
 	return (1);
 }
 
-int	bignum_hex2bignum(t_bignum *bignum, char *s)
+int			bignum_hex2bignum(t_bignum *bignum, char *s)
 {
 	int	len;
 	int	i;
@@ -59,7 +59,7 @@ int	bignum_hex2bignum(t_bignum *bignum, char *s)
 		if (!do_fill(bignum, s + i - 8, 8))
 			return (0);
 		if (i < 8)
-			break;
+			break ;
 		i -= 8;
 	}
 	if (i)

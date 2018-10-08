@@ -6,16 +6,18 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 19:58:33 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 20:31:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:20:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/crc32.h"
 #include "libft.h"
 
-t_hash		g_hash_crc32 = {(t_hash_init)&crc32_init
-		, (t_hash_update)&crc32_update, (t_hash_final)&crc32_final
-		, 4, 1, sizeof(t_crc32_ctx), "CRC32"};
+t_hash		g_hash_crc32 = {"CRC32",
+	(t_hash_init)crc32_init,
+	(t_hash_update)crc32_update,
+	(t_hash_final)crc32_final,
+	4, 1, sizeof(t_crc32_ctx)};
 
 static uint32_t	g_crc32_table[256] = {
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba,
@@ -96,7 +98,8 @@ int		crc32_update(t_crc32_ctx *ctx, const uint8_t *data, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		ctx->value = (ctx->value >> 8) ^ g_crc32_table[(ctx->value & 0xff) ^ data[i]];
+		ctx->value = (ctx->value >> 8)
+			^ g_crc32_table[(ctx->value & 0xff) ^ data[i]];
 		++i;
 	}
 	return (1);

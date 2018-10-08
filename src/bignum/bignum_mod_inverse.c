@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:48:18 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:40:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:53:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	do_part(t_mod_inv_ctx *ctx, t_bignum *v, t_bignum *old_v)
 	return (1);
 }
 
-int	bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b)
+int			bignum_mod_inverse(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	t_mod_inv_ctx	ctx;
 

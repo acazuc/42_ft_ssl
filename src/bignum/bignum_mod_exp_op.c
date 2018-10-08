@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:10:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 19:51:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:53:06 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ static int	do_init(t_bignum *a, t_bignum *r, t_bignum *p, int *ret)
 	return (0);
 }
 
-int	bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p, t_bignum *m)
+int			bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p
+		, t_bignum *m)
 {
 	t_bignum	base;
 	t_bignum	ex;
 	t_bignum	res;
-	int		ret;
+	int			ret;
 
 	if (do_init(a, r, p, &ret))
 		return (ret);

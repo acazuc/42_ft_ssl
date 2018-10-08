@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:08:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 19:05:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:51:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	do_part(t_bignum *rq, t_bignum *a, t_bignum *b, uint64_t i)
 	if (!bignum_lshift1_op(&rq[0], &rq[0]))
 		return (0);
 	if (bignum_is_bit_set(a, i) && !bignum_set_bit(&rq[0], 0))
-			return (0);
+		return (0);
 	if (bignum_ucmp(&rq[0], b) >= 0)
 	{
 		if (!bignum_sub_op(&rq[0], &rq[0], b))
@@ -69,13 +69,14 @@ static int	do_exec(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 		if (!do_part(rq, a, b, i))
 			return (do_clear(rq));
 		if (!i)
-			break;
+			break ;
 		--i;
 	}
 	return (do_final(&rq[0], &rq[1], dv, rm));
 }
 
-int	bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
+int			bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a
+		, t_bignum *b)
 {
 	bignum_trunc(a);
 	bignum_trunc(b);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 16:53:17 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:26:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:54:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	bignum_rand_add_file(char *file)
 	ssize_t	readed;
 	ssize_t	tmp;
 	char	buf[2048];
-	int	fd;
+	int		fd;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
 		return (0);

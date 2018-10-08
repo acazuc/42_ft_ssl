@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 15:39:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:34:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:49:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static int	do_init(t_bignum *tmp, t_bignum *mul)
 	return (1);
 }
 
-int		bignum_dec2bignum(t_bignum *bignum, char *s)
+int			bignum_dec2bignum(t_bignum *bignum, char *s)
 {
 	t_bignum	tmp;
 	t_bignum	mul;
-	int		len;
-	int		i;
+	int			len;
+	int			i;
 
 	if (!do_init(&tmp, &mul))
 		return (do_clear(&tmp, &mul));

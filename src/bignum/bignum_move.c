@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 19:26:25 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 18:45:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:53:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	bignum_move(t_bignum *a, t_bignum *b)
 {
 	if (a == b)
-		return;
+		return ;
 	free(a->data);
 	a->data = b->data;
 	a->len = b->len;

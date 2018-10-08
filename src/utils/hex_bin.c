@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:05:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 14:04:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:58:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	bin2hex(char *dst, const uint8_t *src, size_t len)
 	}
 }
 
-int	ishex(char c)
+int		ishex(char c)
 {
 	if (c >= 'a' && c <= 'f')
 		return (1);
@@ -52,7 +52,7 @@ uint8_t	char2bin(char c)
 	return (c - '0');
 }
 
-int	hex2bin(uint8_t *dst, const char *src, size_t len)
+int		hex2bin(uint8_t *dst, const char *src, size_t len)
 {
 	size_t	i;
 

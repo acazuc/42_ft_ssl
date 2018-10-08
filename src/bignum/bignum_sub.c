@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:27:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/09 23:43:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:55:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	do_part(t_bignum *r, t_bignum *a, t_bignum *b)
 	return (0);
 }
 
-int		bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b)
+int			bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	int	ret;
 

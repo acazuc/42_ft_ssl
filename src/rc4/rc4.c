@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 14:08:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 14:37:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:59:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		rc4_init_state(t_rc4_ctx *ctx, uint8_t *key)
 {
 	uint8_t	tmp;
 	uint8_t	j;
-	int	i;
+	int		i;
 
 	ctx->i = 0;
 	ctx->j = 0;

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 22:18:59 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 21:09:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 11:25:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,10 +226,14 @@ void	aes_mixcolumns(uint8_t *block)
 	while (i < 4)
 	{
 		ft_memcpy(a, block + 4 * i, 4);
-		block[4 * i + 0] = g_lookup2[a[0]] ^ a[3] ^ a[2] ^ g_lookup3[a[1]];
-		block[4 * i + 1] = g_lookup2[a[1]] ^ a[0] ^ a[3] ^ g_lookup3[a[2]];
-		block[4 * i + 2] = g_lookup2[a[2]] ^ a[1] ^ a[0] ^ g_lookup3[a[3]];
-		block[4 * i + 3] = g_lookup2[a[3]] ^ a[2] ^ a[1] ^ g_lookup3[a[0]];
+		block[4 * i + 0] = g_lookup2[a[0]]
+			^ a[3] ^ a[2] ^ g_lookup3[a[1]];
+		block[4 * i + 1] = g_lookup2[a[1]]
+			^ a[0] ^ a[3] ^ g_lookup3[a[2]];
+		block[4 * i + 2] = g_lookup2[a[2]]
+			^ a[1] ^ a[0] ^ g_lookup3[a[3]];
+		block[4 * i + 3] = g_lookup2[a[3]]
+			^ a[2] ^ a[1] ^ g_lookup3[a[0]];
 		++i;
 	}
 }
@@ -243,10 +247,14 @@ void	aes_invmixcolumns(uint8_t *block)
 	while (i < 4)
 	{
 		ft_memcpy(a, block + 4 * i, 4);
-		block[4 * i + 0] = g_lookup14[a[0]] ^ g_lookup9[a[3]] ^ g_lookup13[a[2]] ^ g_lookup11[a[1]];
-		block[4 * i + 1] = g_lookup14[a[1]] ^ g_lookup9[a[0]] ^ g_lookup13[a[3]] ^ g_lookup11[a[2]];
-		block[4 * i + 2] = g_lookup14[a[2]] ^ g_lookup9[a[1]] ^ g_lookup13[a[0]] ^ g_lookup11[a[3]];
-		block[4 * i + 3] = g_lookup14[a[3]] ^ g_lookup9[a[2]] ^ g_lookup13[a[1]] ^ g_lookup11[a[0]];
+		block[4 * i + 0] = g_lookup14[a[0]] ^ g_lookup9[a[3]]
+			^ g_lookup13[a[2]] ^ g_lookup11[a[1]];
+		block[4 * i + 1] = g_lookup14[a[1]] ^ g_lookup9[a[0]]
+			^ g_lookup13[a[3]] ^ g_lookup11[a[2]];
+		block[4 * i + 2] = g_lookup14[a[2]] ^ g_lookup9[a[1]]
+			^ g_lookup13[a[0]] ^ g_lookup11[a[3]];
+		block[4 * i + 3] = g_lookup14[a[3]] ^ g_lookup9[a[2]]
+			^ g_lookup13[a[1]] ^ g_lookup11[a[0]];
 		++i;
 	}
 }

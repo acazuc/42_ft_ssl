@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:50:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:03:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:48:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	init_free(t_cipher_ctx *ctx)
 	return (0);
 }
 
-int		cipher_init(t_cipher_ctx *ctx, uint8_t *key, uint8_t *iv)
+int			cipher_init(t_cipher_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
 	ctx->buff_pos = 0;
 	ctx->ended = 0;
@@ -52,7 +52,7 @@ static int	do_update_part(t_cipher_ctx *ctx)
 	return (1);
 }
 
-int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
+int			cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
 {
 	size_t	tmp;
 
@@ -73,7 +73,7 @@ int		cipher_update(t_cipher_ctx *ctx, uint8_t *data, size_t len)
 	return (1);
 }
 
-int		cipher_final(t_cipher_ctx *ctx)
+int			cipher_final(t_cipher_ctx *ctx)
 {
 	int	ret;
 

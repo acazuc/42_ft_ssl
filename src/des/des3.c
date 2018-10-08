@@ -6,43 +6,43 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 20:52:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 21:48:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:29:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/des.h"
 #include "libft.h"
 
-t_cipher	g_cipher_des3_ecb = {"DES-EDE3-ECB"
-		, (t_cipher_init)&des3_init
-		, (t_cipher_update)&des3_update
-		, (t_cipher_final)&des3_final
-		, &g_cipher_mod_ecb, 8, 24, sizeof(t_des3_ctx)};
-t_cipher	g_cipher_des3_cbc = {"DES-EDE3-CBC"
-		, (t_cipher_init)&des3_init
-		, (t_cipher_update)&des3_update
-		, (t_cipher_final)&des3_final
-		, &g_cipher_mod_cbc, 8, 24, sizeof(t_des3_ctx)};
-t_cipher	g_cipher_des3_pcbc = {"DES-EDE3-PCBC"
-		, (t_cipher_init)&des3_init
-		, (t_cipher_update)&des3_update
-		, (t_cipher_final)&des3_final
-		, &g_cipher_mod_pcbc, 8, 24, sizeof(t_des3_ctx)};
-t_cipher	g_cipher_des3_cfb = {"DES-EDE3-CFB"
-		, (t_cipher_init)&des3_init
-		, (t_cipher_update)&des3_update
-		, (t_cipher_final)&des3_final
-		, &g_cipher_mod_cfb, 8, 24, sizeof(t_des3_ctx)};
-t_cipher	g_cipher_des3_ofb = {"DES-EDE3-OFB"
-		, (t_cipher_init)&des3_init
-		, (t_cipher_update)&des3_update
-		, (t_cipher_final)&des3_final
-		, &g_cipher_mod_ofb, 8, 24, sizeof(t_des3_ctx)};
-t_cipher	g_cipher_des3_ctr = {"DES-EDE3-CTR"
-		, (t_cipher_init)&des3_init
-		, (t_cipher_update)&des3_update
-		, (t_cipher_final)&des3_final
-		, &g_cipher_mod_ctr64, 8, 24, sizeof(t_des3_ctx)};
+t_cipher	g_cipher_des3_ecb = {"DES-EDE3-ECB",
+	(t_cipher_init)des3_init,
+	(t_cipher_update)des3_update,
+	(t_cipher_final)des3_final,
+	&g_cipher_mod_ecb, 8, 24, sizeof(t_des3_ctx)};
+t_cipher	g_cipher_des3_cbc = {"DES-EDE3-CBC",
+	(t_cipher_init)des3_init,
+	(t_cipher_update)des3_update,
+	(t_cipher_final)des3_final,
+	&g_cipher_mod_cbc, 8, 24, sizeof(t_des3_ctx)};
+t_cipher	g_cipher_des3_pcbc = {"DES-EDE3-PCBC",
+	(t_cipher_init)des3_init,
+	(t_cipher_update)des3_update,
+	(t_cipher_final)des3_final,
+	&g_cipher_mod_pcbc, 8, 24, sizeof(t_des3_ctx)};
+t_cipher	g_cipher_des3_cfb = {"DES-EDE3-CFB",
+	(t_cipher_init)des3_init,
+	(t_cipher_update)des3_update,
+	(t_cipher_final)des3_final,
+	&g_cipher_mod_cfb, 8, 24, sizeof(t_des3_ctx)};
+t_cipher	g_cipher_des3_ofb = {"DES-EDE3-OFB",
+	(t_cipher_init)&des3_init,
+	(t_cipher_update)des3_update,
+	(t_cipher_final)des3_final,
+	&g_cipher_mod_ofb, 8, 24, sizeof(t_des3_ctx)};
+t_cipher	g_cipher_des3_ctr = {"DES-EDE3-CTR",
+	(t_cipher_init)des3_init,
+	(t_cipher_update)des3_update,
+	(t_cipher_final)des3_final,
+	&g_cipher_mod_ctr64, 8, 24, sizeof(t_des3_ctx)};
 
 int	des3_init(t_des3_ctx *ctx, uint8_t *key, uint8_t *iv)
 {

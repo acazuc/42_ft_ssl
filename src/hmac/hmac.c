@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 18:57:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:53:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 12:57:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static uint8_t	*hmac_check_key_len1(t_hmac_ctx *ctx
 	return (tmp);
 }
 
-static int	hmac_check_key_len2(t_hmac_ctx *ctx
+static int		hmac_check_key_len2(t_hmac_ctx *ctx
 		, uint8_t **tmp, uint32_t *tmp_len)
 {
 	uint32_t	i;
@@ -64,7 +64,7 @@ static int	hmac_check_key_len2(t_hmac_ctx *ctx
 	return (1);
 }
 
-static int	create_pads(t_hmac_ctx *ctx, uint8_t **pads, uint8_t *key)
+static int		create_pads(t_hmac_ctx *ctx, uint8_t **pads, uint8_t *key)
 {
 	int	i;
 
@@ -112,7 +112,7 @@ static uint8_t	*do_final(t_hmac_ctx *ctx, uint8_t **pads, uint8_t **tmp)
 	return (tmp2);
 }
 
-uint8_t		*hmac(t_hmac_ctx *ctx)
+uint8_t			*hmac(t_hmac_ctx *ctx)
 {
 	uint32_t	tmp_len;
 	uint8_t		*pads[2];

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 10:07:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:55:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:58:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	do_top_bottom(t_bignum *bignum, uint32_t bits, int top
 			(t_bignum_word)1 << ((bits - 2) % (8 * sizeof(*bignum->data)));
 }
 
-int	bignum_rand(t_bignum *bignum, uint32_t bits, int top, int bottom)
+int			bignum_rand(t_bignum *bignum, uint32_t bits, int top, int bottom)
 {
 	uint32_t	pos;
 

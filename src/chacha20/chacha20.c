@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 11:08:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 14:07:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:01:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		chacha20_operate_block(t_chacha20_ctx *ctx, uint8_t *block)
 {
 	uint32_t	tmp[16];
 	uint32_t	x[16];
-	int		i;
+	int			i;
 
 	ft_memcpy(tmp, block, 16 * 4);
 	ft_memcpy(x, ctx->state, 16 * 4);

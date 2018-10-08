@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 21:34:44 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 19:08:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:50:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static int	do_part(t_bignum *rm, t_bignum *tmp, int bsign)
 	return (1);
 }
 
-int	bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
+int			bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 {
 	t_bignum	tmp;
-	int		signs;
-	int		ret;
+	int			signs;
+	int			ret;
 
 	bignum_init(&tmp);
 	if (rm && a->sign != b->sign && !bignum_copy(&tmp, b))

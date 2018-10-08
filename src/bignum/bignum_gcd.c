@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 23:10:24 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 19:04:56 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 13:50:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	do_part(t_bignum *tmp1, t_bignum *tmp2, t_bignum *tmp3)
 	return (1);
 }
 
-int		bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b)
+int			bignum_gcd(t_bignum *r, t_bignum *a, t_bignum *b)
 {
 	t_bignum	tmp1;
 	t_bignum	tmp2;
