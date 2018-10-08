@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 10:11:10 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/17 13:40:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:26:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,17 @@ static int	do_free(t_cipher_data *data, int ret)
 	free(data->buff);
 	return (ret);
 }
-int		command_cipher(int ac, char **av, t_cipher_data *data)
+
+int			command_cipher(int ac, char **av, t_cipher_data *data)
 {
 	t_cipher_args	args;
 
-	data->cipher.callback = (t_cipher_cb)&cmd_cipher_callback;
+	data->cipher.callback = (t_cipher_cb)cmd_cipher_callback;
 	data->cipher.userptr = data;
 	if (!do_init(data, &args, ac, av))
 		return (EXIT_FAILURE);
-	if (!cmd_cipher_parse_args(data, &args) || !cmd_cipher_handle_key(data, &args)
+	if (!cmd_cipher_parse_args(data, &args)
+			|| !cmd_cipher_handle_key(data, &args)
 			|| !cmd_cipher_handle_iv(data, &args))
 		return (do_free(data, EXIT_FAILURE));
 	if (!cipher_init(&data->cipher, data->key, data->iv))

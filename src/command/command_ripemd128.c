@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 13:16:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:56:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:24:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	command_ripemd128(int ac, char **av)
 {
-	t_hash_data	data;
+	t_hash_data		data;
 	t_ripemd128_ctx	ctx;
 
 	data.h.hash = &g_hash_ripemd128;

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:35:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:56:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:24:07 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	command_adler32(int ac, char **av)
 {
-	t_hash_data	data;
+	t_hash_data		data;
 	t_adler32_ctx	ctx;
 
 	data.h.hash = &g_hash_adler32;

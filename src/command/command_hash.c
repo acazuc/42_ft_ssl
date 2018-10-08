@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 10:17:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:25:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 {
 	uint8_t		*digest;
 	uint8_t		buf[4096];
-	int		readed;
+	int			readed;
 
 	data->written = 1;
 	if (!data->h.hash->init(data->h.ctx))
@@ -117,7 +117,7 @@ static int	command_hash_files(t_hash_data *data, int ac, char **av, int *i)
 	return (ret);
 }
 
-int	command_hash(int ac, char **av, t_hash_data *data)
+int			command_hash(int ac, char **av, t_hash_data *data)
 {
 	int	err;
 	int	i;

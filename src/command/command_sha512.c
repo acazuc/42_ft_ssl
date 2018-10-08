@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 09:31:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 19:56:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:25:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	command_sha512(int ac, char **av)
 {
-	t_hash_data	data;
+	t_hash_data		data;
 	t_sha512_ctx	ctx;
 
 	data.h.hash = &g_hash_sha512;

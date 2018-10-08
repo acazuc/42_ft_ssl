@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 16:19:14 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/11 18:20:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:23:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	push_data(t_b64_write_ctx *ctx, uint8_t *data, size_t len)
 {
 	size_t	tmp;
-	int	osef;
+	int		osef;
 
 	while (ctx->buff_pos + len >= ctx->buff_len)
 	{
@@ -33,7 +33,7 @@ static void	push_data(t_b64_write_ctx *ctx, uint8_t *data, size_t len)
 
 static void	b64_callback(t_b64_write_ctx *ctx, uint8_t *data, size_t len)
 {
-	int		tmp;
+	int			tmp;
 	char		nl;
 
 	while (ctx->count + len >= 64)
@@ -52,7 +52,7 @@ static void	b64_callback(t_b64_write_ctx *ctx, uint8_t *data, size_t len)
 	push_data(ctx, data, len);
 }
 
-int	base64_write_init(t_b64_write_ctx *ctx)
+int			base64_write_init(t_b64_write_ctx *ctx)
 {
 	ctx->count = 0;
 	ctx->buff_pos = 0;
@@ -69,12 +69,12 @@ int	base64_write_init(t_b64_write_ctx *ctx)
 	return (1);
 }
 
-int	base64_write_update(t_b64_write_ctx *ctx, uint8_t *data, size_t len)
+int			base64_write_update(t_b64_write_ctx *ctx, uint8_t *data, size_t len)
 {
 	return (b64e_update(&ctx->b64e_ctx, data, len));
 }
 
-int	base64_write_final(t_b64_write_ctx *ctx)
+int			base64_write_final(t_b64_write_ctx *ctx)
 {
 	int	res;
 	int	osef;

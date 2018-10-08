@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:16 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 10:19:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:24:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	do_update(t_cipher_data *ctx, uint8_t *data, size_t len)
 	return (1);
 }
 
-int		cmd_cipher_callback(t_cipher_data *ctx, uint8_t *data, size_t len)
+int			cmd_cipher_callback(t_cipher_data *ctx, uint8_t *data, size_t len)
 {
 	if (!do_update(ctx, data, len))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:14:46 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 10:14:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:25:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static int	parse_args1(t_cipher_data *data, t_cipher_args *args)
 	return (1);
 }
 
-int		cmd_cipher_parse_args(t_cipher_data *data, t_cipher_args *args)
+int			cmd_cipher_parse_args(t_cipher_data *data, t_cipher_args *args)
 {
 	args->i = 0;
 	while (args->i < args->ac)

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 11:16:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/08 14:24:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 static void	encode_callback(void *userptr, uint8_t *data, size_t len)
 {
 	t_b64e_data	*ptr;
-	int		osef;
-	int		tmp;
+	int			osef;
+	int			tmp;
 
 	ptr = (t_b64e_data*)userptr;
 	while (ptr->count + len >= 64)
@@ -42,7 +42,7 @@ static int	encode(int fdin, int fdout)
 	t_b64e_data	data;
 	t_b64e_ctx	ctx;
 	uint8_t		buffer[4096];
-	int		readed;
+	int			readed;
 
 	ctx.callback = encode_callback;
 	ctx.userptr = &data;
@@ -68,7 +68,7 @@ static int	decode(int fdin, int fdout)
 {
 	t_b64d_ctx	ctx;
 	uint8_t		buffer[4096];
-	int		readed;
+	int			readed;
 
 	ctx.callback = (t_b64_callback)write;
 	ctx.userptr = (void*)(uint64_t)fdout;
@@ -96,7 +96,7 @@ static int	file_open(int ac, char **av, int *i, int type)
 	return (open(av[*i], O_RDONLY));
 }
 
-int		command_base64(int ac, char **av)
+int			command_base64(int ac, char **av)
 {
 	int	fdout;
 	int	fdin;
