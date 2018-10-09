@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:27:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 10:14:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	do_execute3(int ac, char **av, int (*fn)(t_bignum *r, t_bignum *a))
 static int	do_execute_prime(char *v)
 {
 	t_bignum	a;
-	int		is_prime;
+	int			is_prime;
 
 	bignum_init(&a);
 	if (!bignum_dec2bignum(&a, v))

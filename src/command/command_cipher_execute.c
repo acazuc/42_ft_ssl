@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:22:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:26:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 10:15:14 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ static int	do_update(t_cipher_data *data)
 				ft_putendl_fd("ft_ssl: cipher error", 2);
 				return (0);
 			}
-			continue;
 		}
-		if (!cipher_update(&data->cipher, buff, ret))
+		else if (!cipher_update(&data->cipher, buff, ret))
 		{
 			ft_putendl_fd("ft_ssl: cipher error", 2);
 			return (0);

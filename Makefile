@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/08 14:08:18 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/09 10:11:18 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -205,6 +205,7 @@ SRCS_NAME = main.c \
 	    bignum/bignum_prime_checks_count.c \
 	    bignum/bignum_num_bits.c \
 	    bignum/bignum_num_bytes.c \
+		bignum/bignum_word_one.c \
 	    pem/pem_write_rsa_priv.c \
 	    pem/pem_print_rsa_priv.c \
 	    pem/pem_bignum.c \
