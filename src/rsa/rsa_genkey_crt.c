@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 14:49:06 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 17:38:15 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:18:07 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	do_dmq(t_rsa_ctx *ctx, t_bignum *tmp, t_bignum *one)
 	return (1);
 }
 
-int	rsa_genkey_crt(t_rsa_ctx *ctx)
+int			rsa_genkey_crt(t_rsa_ctx *ctx)
 {
 	t_bignum	tmp;
 	t_bignum	one;

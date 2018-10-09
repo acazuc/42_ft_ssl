@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:38:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:18:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	do_print_plus(int print, uint32_t n)
 	uint32_t	i;
 
 	if (!print)
-		return;
+		return ;
 	i = 0;
 	while (i < n)
 	{
@@ -44,20 +44,20 @@ static int	genprime(t_bignum *r, uint32_t bits, int print)
 					, BIGNUM_RAND_BOT_ODD))
 			return (0);
 		if (!bignum_is_prime_fasttest(r))
-			continue;
+			continue ;
 		if (print)
 			ft_putchar('.');
 		if (bignum_is_prime(r, BIGNUM_PRIME_CHECKS_AUTO, &passed) == 1)
 		{
 			do_print_plus(print, passed);
-			break;
+			break ;
 		}
 		do_print_plus(print, passed);
 	}
 	return (1);
 }
 
-int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print)
+int			rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print)
 {
 	if (!(ctx->p = bignum_new()))
 		return (do_clear(ctx));
@@ -72,7 +72,7 @@ int		rsa_genkey_pq(t_rsa_ctx *ctx, uint32_t bits, int print)
 		if (!genprime(ctx->q, bits - (bits + 1) / 2, print))
 			return (do_clear(ctx));
 		if (bignum_cmp(ctx->p, ctx->q))
-			break;
+			break ;
 	}
 	if (print)
 		ft_putchar('\n');

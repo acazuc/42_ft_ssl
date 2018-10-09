@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:14:53 by acazuc            #+#    #+#             */
-/*   Updated: 2018/07/22 14:59:14 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:18:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	do_clear(t_rsa_ctx *ctx, t_bignum *tmp, t_bignum *one)
 	return (0);
 }
 
-int		rsa_genkey_phi(t_rsa_ctx *ctx)
+int			rsa_genkey_phi(t_rsa_ctx *ctx)
 {
 	t_bignum	*tmp;
 	t_bignum	*one;

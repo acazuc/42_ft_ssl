@@ -6,25 +6,25 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 21:27:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:17:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void		print_usage()
+void		print_usage(void)
 {
 	ft_putendl("usage: ft_ssl command [command options] [commands args]\n");
 	print_usage_commands();
 }
 
-static void	print_commands_standard()
+static void	print_commands_standard(void)
 {
 	ft_putendl("Standard commands:");
 	ft_putendl("genrsa\trsa\trsautl");
 }
 
-static void	print_commands_md()
+static void	print_commands_md(void)
 {
 	ft_putendl("Message digest commands:");
 	ft_putendl("md4\tmd5\tsha1");
@@ -32,7 +32,7 @@ static void	print_commands_md()
 	ft_putendl("\tsha512");
 }
 
-static void	print_commands_ciphers()
+static void	print_commands_ciphers(void)
 {
 	ft_putendl("Cipher commands:");
 	ft_putendl("base64");
@@ -57,7 +57,7 @@ static void	print_commands_ciphers()
 	ft_putendl("chacha20\t\trc4");
 }
 
-void		print_usage_commands()
+void			print_usage_commands(void)
 {
 	print_commands_standard();
 	ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:24:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:58:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,18 @@ static int	decode(int fdin, int fdout)
 	return (EXIT_SUCCESS);
 }
 
-static int	file_open(int ac, char **av, int *i, int type)
+static int	file_open(int ac, char **av, int *i, int *fds)
 {
+	int	type;
+
+	if (!ft_strcmp(av[*i], "-i"))
+		type = 0;
+	else
+		type = 1;
+	if (type == 0 && fds[0] != 0)
+		close(fds[0]);
+	if (type == 1 && fds[1] != 1)
+		close(fds[1]);
 	(*i)++;
 	if (*i >= ac)
 		return (-1);
@@ -98,36 +108,28 @@ static int	file_open(int ac, char **av, int *i, int type)
 
 int			command_base64(int ac, char **av)
 {
-	int	fdout;
-	int	fdin;
+	int	fds[2];
 	int	mode;
 	int	i;
 
 	mode = 0;
-	i = 0;
-	fdin = 0;
-	fdout = 1;
-	while (i < ac)
-	{
+	i = -1;
+	fds[0] = 0;
+	fds[1] = 1;
+	while (++i < ac)
 		if (!ft_strcmp(av[i], "-e"))
 			mode = 0;
 		else if (!ft_strcmp(av[i], "-d"))
 			mode = 1;
 		else if (!ft_strcmp(av[i], "-i"))
 		{
-			if (fdin != 0)
-				close(fdin);
-			if ((fdin = file_open(ac, av, &i, 0)) == -1)
+			if ((fds[0] = file_open(ac, av, &i, fds)) == -1)
 				return (EXIT_FAILURE);
 		}
 		else if (!ft_strcmp(av[i], "-o"))
 		{
-			if (fdout != 1)
-				close(fdout);
-			if ((fdout = file_open(ac, av, &i, 1)) == -1)
+			if ((fds[1] = file_open(ac, av, &i, fds)) == -1)
 				return (EXIT_FAILURE);
 		}
-		++i;
-	}
-	return (mode ? decode(fdin, fdout) : encode(fdin, fdout));
+	return (mode ? decode(fds[0], fds[1]) : encode(fds[0], fds[1]));
 }
