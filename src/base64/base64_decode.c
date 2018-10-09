@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:29:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:02:40 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:04:55 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,14 @@ static char	g_invtab[] = {
 
 static void	assemble(t_b64d_ctx *ctx)
 {
-	ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[0]] << 2) | (g_invtab[ctx->tmp[1]] >> 4);
+	ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[0]] << 2)
+		| (g_invtab[ctx->tmp[1]] >> 4);
 	if (ctx->tmp[2] != '=')
-		ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[1]] << 4) | (g_invtab[ctx->tmp[2]] >> 2);
+		ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[1]] << 4)
+			| (g_invtab[ctx->tmp[2]] >> 2);
 	if (ctx->tmp[2] != '=' && ctx->tmp[3] != '=')
-		ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[2]] << 6) | g_invtab[ctx->tmp[3]];
+		ctx->buff[ctx->buff_len++] = (g_invtab[ctx->tmp[2]] << 6)
+			| g_invtab[ctx->tmp[3]];
 	ctx->tmp_len = 0;
 }
 
@@ -65,7 +68,7 @@ static int	b64d_chunk(t_b64d_ctx *ctx, const uint8_t **data, size_t *len)
 
 int			b64d_init(t_b64d_ctx *ctx)
 {
-	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
+	if (!(ctx->buff = malloc(1024 * sizeof(*ctx->buff))))
 		return (0);
 	ctx->buff_len = 0;
 	ctx->tmp_len = 0;
@@ -81,7 +84,7 @@ int			b64d_update(t_b64d_ctx *ctx, const uint8_t *data, size_t len)
 	{
 		if (!b64d_chunk(ctx, &data, &len))
 			return (0);
-		if (ctx->buff_len >= BASE64_BUFF_LEN - 3)
+		if (ctx->buff_len >= 1024 - 3)
 		{
 			ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
 			ctx->buff_len = 0;

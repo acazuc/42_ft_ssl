@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:19:31 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:03:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:05:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "libft.h"
 
 static char	g_alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw"
-	"xyz0123456789+/";
+"xyz0123456789+/";
 
 static uint8_t	get_next_val(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 {
 	uint8_t	ret;
-	int	i;
+	int		i;
 
 	if (ctx->tmp_len)
 	{
@@ -53,13 +53,12 @@ static void		b64e_chunk(t_b64e_ctx *ctx, const uint8_t **data, size_t *len)
 
 int				b64e_init(t_b64e_ctx *ctx)
 {
-	if (!(ctx->buff = malloc(BASE64_BUFF_LEN * sizeof(*ctx->buff))))
+	if (!(ctx->buff = malloc(1024 * sizeof(*ctx->buff))))
 		return (0);
 	ctx->buff_len = 0;
 	ctx->tmp_len = 0;
 	return (1);
 }
-
 
 int				b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
 {
@@ -69,7 +68,7 @@ int				b64e_update(t_b64e_ctx *ctx, const uint8_t *data, size_t len)
 	while (len + ctx->tmp_len >= 3)
 	{
 		b64e_chunk(ctx, &data, &len);
-		if (ctx->buff_len >= BASE64_BUFF_LEN - 4)
+		if (ctx->buff_len >= 1024 - 4)
 		{
 			ctx->callback(ctx->userptr, ctx->buff, ctx->buff_len);
 			ctx->buff_len = 0;

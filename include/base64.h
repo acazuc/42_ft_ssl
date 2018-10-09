@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:25:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:04:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 11:04:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,5 @@ int					b64d_init(t_b64d_ctx *ctx);
 int					b64d_update(t_b64d_ctx *ctx, const uint8_t *data
 		, size_t len);
 int					b64d_final(t_b64d_ctx *ctx);
-
-# define BASE64_BUFF_LEN 1024
 
 #endif
