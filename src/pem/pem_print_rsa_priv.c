@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:36:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 12:11:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 13:48:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/cipher.h"
+#include "hash/sha512.h"
 #include "ft_ssl.h"
 #include "libft.h"
 #include "pem.h"
@@ -30,52 +31,65 @@ static int	do_cipher(t_cipher_ctx *ctx, uint8_t *data, int len)
 	return (1);
 }
 
-static void	do_write_salt_iv(t_cipher *cipher, uint8_t *salt, uint8_t *iv
-		, int fd)
+static void	do_write_salt_iv(t_cipher *cipher, uint8_t *salt_iv, int fd)
 {
-	char	salt_text[17];
-	char	iv_text[cipher->block_size * 2 + 1];
+	char	salt_iv_text[FT_MAX(17, cipher->block_size * 2 + 1)];
 
-	bin2hex(salt_text, salt, 8);
-	salt_text[16] = 0;
-	bin2hex(iv_text, iv, cipher->block_size);
-	iv_text[cipher->block_size * 2] = 0;
+	bin2hex(salt_iv_text, salt_iv, cipher->block_size);
+	salt_iv_text[FT_MAX(16, cipher->block_size * 2)] = 0;
 	ft_putendl_fd("Proc-Type: 4,ENCRYPTED", fd);
 	ft_putstr_fd("DEK-Info: ", fd);
 	ft_putstr_fd(cipher->name, fd);
 	ft_putchar_fd(',', fd);
-	//ft_putstr_fd(salt_text, fd);
-	ft_putstr_fd(iv_text, fd);
+	ft_putstr_fd(salt_iv_text, fd);
 	ft_putstr_fd("\n\n", fd);
 }
 
-//static uint64_t osef = 0x3ed7dceaf266cafe;//f032b9d5db224717;
-static uint64_t osef = 0xfeca66f2eadcd73e;//f032b9d5db224717;
+static int	get_key(t_cipher_ctx *ctx, uint8_t *key, uint8_t *salt_iv
+		, char *password)
+{
+	t_pbkdf2_ctx	pbkdf2_ctx;
+
+	pbkdf2_ctx.h.hash = &g_hash_sha512;
+	pbkdf2_ctx.salt = salt_iv;
+	pbkdf2_ctx.salt_len = FT_MAX(8, ctx->cipher->block_size);
+	pbkdf2_ctx.password = (uint8_t*)password;
+	pbkdf2_ctx.password_len = ft_strlen(password);
+	pbkdf2_ctx.iterations = 4096;
+	pbkdf2_ctx.out = key;
+	pbkdf2_ctx.out_len = ctx->cipher->key_size;
+	if (!pbkdf2(&pbkdf2_ctx))
+		return (0);
+	return (1);
+}
 
 static int	do_print_ciphered(t_b64_write_ctx *ctx, uint8_t *data, int len
-		, char *cipher_name)
+		, t_cipher *cipher)
 {
 	t_cipher_ctx	cipher_ctx;
-	uint8_t			*key;
-	uint8_t			*iv;
+	uint8_t			salt_iv[FT_MAX(8, cipher->block_size)];
+	char			*password;
+	uint8_t			key[cipher->key_size];
 
-	if (!(cipher_ctx.cipher = cipher_get(cipher_name)))
+	if (!(cipher_ctx.cipher = cipher))
 	{
 		ft_putendl_fd("ft_ssl: invalid cipher", 2);
 		return (0);
 	}
-	key = (uint8_t*)&osef;//TODO
-	iv = (uint8_t*)"0123456789abcdef";//TODO
-	do_write_salt_iv(cipher_ctx.cipher, key, iv, ctx->fdout);
+	if (!(password = ask_password())
+		|| !random_bytes(salt_iv, FT_MAX(8, cipher->block_size))
+		|| !get_key(&cipher_ctx, key, salt_iv, password))
+		return (0);
+	do_write_salt_iv(cipher_ctx.cipher, salt_iv, ctx->fdout);
 	cipher_ctx.mode = 0;
 	cipher_ctx.callback = (t_cipher_cb)base64_write_update;
 	cipher_ctx.userptr = ctx;
-	if (!cipher_init(&cipher_ctx, key, iv))
+	if (!cipher_init(&cipher_ctx, key, salt_iv))
 	{
 		ft_putendl_fd("ft_ssl: cipher failed", 2);
 		return (0);
 	}
-	ft_memcpy(cipher_ctx.mod1, iv, cipher_ctx.cipher->block_size);
+	ft_memcpy(cipher_ctx.mod1, salt_iv, cipher_ctx.cipher->block_size);
 	return (do_cipher(&cipher_ctx, data, len));
 }
 
@@ -106,7 +120,7 @@ int			pem_print_rsa_priv(t_rsa_ctx *ctx, int fd, char *cipher_name)
 		return (0);
 	ft_putendl_fd("-----BEGIN RSA PRIVATE KEY-----", fd);
 	if ((cipher_name && !do_print_ciphered(&b64_ctx, (uint8_t*)data, len
-					, cipher_name))
+					, cipher_get(cipher_name)))
 			|| (!cipher_name && !base64_write_update(&b64_ctx, (uint8_t*)data
 					, len)))
 	{

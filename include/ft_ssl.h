@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:03:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 13:45:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@
 
 # include "ft_ssl_structs.h"
 # include "ft_ssl_prototypes.h"
+
+# define FT_MIN(a, b) (a < b ? a : b)
+# define FT_MAX(a, b) (a > b ? a : b)
 
 #endif
