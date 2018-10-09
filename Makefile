@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/09 10:11:18 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/09 12:11:46 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 LDFLAGS = -flto -fwhole-program
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -flto
 #CFLAGS+= -fsanitize=address
 #CFLAGS+= -flto
 

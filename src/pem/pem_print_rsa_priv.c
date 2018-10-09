@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:36:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/15 17:22:05 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 12:11:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	do_cipher(t_cipher_ctx *ctx, uint8_t *data, int len)
 	return (1);
 }
 
-static void	do_write_salt_iv(t_cipher *cipher, uint8_t *salt, uint8_t *iv, int fd)
+static void	do_write_salt_iv(t_cipher *cipher, uint8_t *salt, uint8_t *iv
+		, int fd)
 {
 	char	salt_text[17];
 	char	iv_text[cipher->block_size * 2 + 1];
@@ -51,22 +52,23 @@ static void	do_write_salt_iv(t_cipher *cipher, uint8_t *salt, uint8_t *iv, int f
 //static uint64_t osef = 0x3ed7dceaf266cafe;//f032b9d5db224717;
 static uint64_t osef = 0xfeca66f2eadcd73e;//f032b9d5db224717;
 
-static int	do_print_ciphered(t_b64_write_ctx *ctx, uint8_t *data, int len, char *cipher_name)
+static int	do_print_ciphered(t_b64_write_ctx *ctx, uint8_t *data, int len
+		, char *cipher_name)
 {
 	t_cipher_ctx	cipher_ctx;
-	uint8_t		*key;
-	uint8_t		*iv;
+	uint8_t			*key;
+	uint8_t			*iv;
 
 	if (!(cipher_ctx.cipher = cipher_get(cipher_name)))
 	{
 		ft_putendl_fd("ft_ssl: invalid cipher", 2);
 		return (0);
 	}
-	key = (uint8_t*)&osef;//"0123456789abcdef";//TODO
+	key = (uint8_t*)&osef;//TODO
 	iv = (uint8_t*)"0123456789abcdef";//TODO
 	do_write_salt_iv(cipher_ctx.cipher, key, iv, ctx->fdout);
 	cipher_ctx.mode = 0;
-	cipher_ctx.callback = (t_cipher_cb)&base64_write_update;
+	cipher_ctx.callback = (t_cipher_cb)base64_write_update;
 	cipher_ctx.userptr = ctx;
 	if (!cipher_init(&cipher_ctx, key, iv))
 	{
@@ -77,7 +79,8 @@ static int	do_print_ciphered(t_b64_write_ctx *ctx, uint8_t *data, int len, char 
 	return (do_cipher(&cipher_ctx, data, len));
 }
 
-static int	do_init(t_b64_write_ctx *b64_ctx, t_rsa_ctx *ctx, char **data, int *len)
+static int	do_init(t_b64_write_ctx *b64_ctx, t_rsa_ctx *ctx, char **data
+		, int *len)
 {
 	if (!base64_write_init(b64_ctx))
 	{
@@ -92,18 +95,20 @@ static int	do_init(t_b64_write_ctx *b64_ctx, t_rsa_ctx *ctx, char **data, int *l
 	return (1);
 }
 
-int		pem_print_rsa_priv(t_rsa_ctx *ctx, int fd, char *cipher_name)
+int			pem_print_rsa_priv(t_rsa_ctx *ctx, int fd, char *cipher_name)
 {
 	t_b64_write_ctx	b64_ctx;
-	char		*data;
-	int		len;
+	char			*data;
+	int				len;
 
 	b64_ctx.fdout = fd;
 	if (!do_init(&b64_ctx, ctx, &data, &len))
 		return (0);
 	ft_putendl_fd("-----BEGIN RSA PRIVATE KEY-----", fd);
-	if ((cipher_name && !do_print_ciphered(&b64_ctx, (uint8_t*)data, len, cipher_name))
-			|| (!cipher_name && !base64_write_update(&b64_ctx, (uint8_t*)data, len)))
+	if ((cipher_name && !do_print_ciphered(&b64_ctx, (uint8_t*)data, len
+					, cipher_name))
+			|| (!cipher_name && !base64_write_update(&b64_ctx, (uint8_t*)data
+					, len)))
 	{
 		free(data);
 		return (0);

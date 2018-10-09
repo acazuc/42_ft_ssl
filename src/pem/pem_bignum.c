@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/10 21:24:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 12:09:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static int	do_read_datas(t_vecu8 *data, uint32_t len, t_bignum *bignum)
 	i = 1;
 	while (i < len)
 	{
-		bignum->data[i / sizeof(*bignum->data)]
-			|= ((t_bignum_word)data->data[i])
+		bignum->data[i / sizeof(*bignum->data)] |=
+			((t_bignum_word)data->data[i])
 			<< (8 * (i % sizeof(*bignum->data)));
 		++i;
 	}
 	return (1);
 }
 
-int		pem_read_bignum(t_vecu8 *data, t_bignum *bignum)
+int			pem_read_bignum(t_vecu8 *data, t_bignum *bignum)
 {
 	uint32_t	len;
 	int32_t		ret;
@@ -79,13 +79,13 @@ static int	do_write_datas(t_vecu8 *data, t_bignum *bignum)
 		if (!vecu8_push(data, (uint8_t*)&tmp, 1))
 			return (0);
 		if (!i)
-			break;
+			break ;
 		--i;
 	}
 	return (1);
 }
 
-int		pem_write_bignum(t_vecu8 *data, t_bignum *bignum)
+int			pem_write_bignum(t_vecu8 *data, t_bignum *bignum)
 {
 	uint8_t		tmp[5];
 

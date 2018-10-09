@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 19:40:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/14 15:35:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 12:08:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	get_len(t_rsa_ctx *ctx)
 	return (total);
 }
 
-int	pem_write_rsa_priv(char **dst, t_rsa_ctx *ctx)
+int			pem_write_rsa_priv(char **dst, t_rsa_ctx *ctx)
 {
 	t_vecu8	vec;
 	uint8_t	tmp[64];

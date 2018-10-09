@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 14:08:42 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 12:59:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 12:18:56 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ void		rc4_init_state(t_rc4_ctx *ctx, uint8_t *key)
 
 	ctx->i = 0;
 	ctx->j = 0;
-	i = 0;
-	while (i < 256)
-	{
+	i = -1;
+	while (++i < 256)
 		ctx->state[i] = i;
-		++i;
-	}
 	i = 0;
 	j = 0;
 	while (i < 256)

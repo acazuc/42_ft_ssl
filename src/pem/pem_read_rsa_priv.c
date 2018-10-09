@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 15:45:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 17:59:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 12:11:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,4 @@
 
 int	pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len)
 {
-	//
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 11:17:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/09 12:07:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	print_commands_ciphers(void)
 	ft_putendl("chacha20\t\trc4");
 }
 
-void			print_usage_commands(void)
+void		print_usage_commands(void)
 {
 	print_commands_standard();
 	ft_putchar('\n');
