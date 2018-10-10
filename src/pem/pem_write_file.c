@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:24:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 11:32:16 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:10:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int			pem_print_ciphered(t_pem_write_ctx *ctx)
 	ft_memcpy(cipher_ctx.mod1, salt_iv, cipher_ctx.cipher->block_size);
 	return (do_cipher(&cipher_ctx, (uint8_t*)ctx->data, ctx->len));
 }
-
 
 int			pem_write_init(t_pem_write_ctx *ctx)
 {

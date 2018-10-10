@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:25:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 10:35:55 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:10:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int	pem_get_key(t_cipher_ctx *ctx, uint8_t *key, uint8_t *salt_iv
 		return (0);
 	return (1);
 }
-
