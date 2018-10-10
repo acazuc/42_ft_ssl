@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:24:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:30:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:13:24 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ int			pem_print_ciphered(t_pem_write_ctx *ctx)
 {
 	t_cipher_ctx	cipher_ctx;
 	uint8_t			salt_iv[FT_MAX(8, ctx->cipher->block_size)];
-	char			*password;
 	uint8_t			key[ctx->cipher->key_size];
 
 	cipher_ctx.cipher = ctx->cipher;
-	if (!(password = ask_password_confirm())
+	if ((!ctx->password && !(ctx->password = ask_password_confirm()))
 		|| !random_bytes(salt_iv, FT_MAX(8, ctx->cipher->block_size))
-		|| !pem_get_key(&cipher_ctx, key, salt_iv, password))
+		|| !pem_get_key(&cipher_ctx, key, salt_iv, ctx->password))
 		return (0);
 	ft_putendl_fd(ctx->begin_text, ctx->b64_ctx.fdout);
 	do_write_salt_iv(cipher_ctx.cipher, salt_iv, ctx->b64_ctx.fdout);

@@ -6,19 +6,21 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 11:34:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:08:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pem.h"
 
-int			pem_write_rsa_pub_file(t_rsa_ctx *ctx, int fd, char *cipher_name)
+int			pem_write_rsa_pub_file(t_rsa_ctx *ctx, int fd, char *cipher_name
+		, char *password)
 {
 	t_pem_write_ctx	pem_ctx;
 
 	pem_ctx.b64_ctx.fdout = fd;
 	pem_ctx.ciphered = cipher_name != NULL;
 	pem_ctx.cipher = cipher_name ? cipher_get(cipher_name) : NULL;
+	pem_ctx.password = password;
 	pem_ctx.begin_text = "-----BEGIN PUBLIC KEY-----";
 	pem_ctx.end_text = "-----END PUBLIC KEY-----";
 	if ((pem_ctx.len = pem_write_rsa_pub(&pem_ctx.data, ctx)) == -1)

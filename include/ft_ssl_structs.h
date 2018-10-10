@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:45:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 13:07:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:06:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct		s_genrsa_data
 	uint64_t		key_len;
 	int				fdout;
 	char			*crypt_method;
+	char			*passout;
 	uint32_t		exp;
 }					t_genrsa_data;
 

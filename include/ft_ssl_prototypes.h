@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:30:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:03:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int			command_bignum(int ac, char **av);
 int			command_genrsa(int ac, char **av);
 void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data
 		, size_t len);
+int			cmd_genrsa_parse_args(t_genrsa_data *data, int ac, char **av);
 int			cmd_genrsa_write(t_genrsa_data *data);
 int			command_rsa(int ac, char **av);
 int			command_rsautl(int ac, char **av);

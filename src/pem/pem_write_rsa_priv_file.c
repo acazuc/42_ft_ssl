@@ -6,19 +6,21 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:36:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:09:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:08:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pem.h"
 
-int			pem_write_rsa_priv_file(t_rsa_ctx *ctx, int fd, char *cipher_name)
+int			pem_write_rsa_priv_file(t_rsa_ctx *ctx, int fd, char *cipher_name
+		, char *password)
 {
 	t_pem_write_ctx	pem_ctx;
 
 	pem_ctx.b64_ctx.fdout = fd;
 	pem_ctx.ciphered = cipher_name != NULL;
 	pem_ctx.cipher = cipher_name ? cipher_get(cipher_name) : NULL;
+	pem_ctx.password = password;
 	pem_ctx.begin_text = "-----BEGIN RSA PRIVATE KEY-----";
 	pem_ctx.end_text = "-----END RSA PRIVATE KEY-----";
 	if ((pem_ctx.len = pem_write_rsa_priv(&pem_ctx.data, ctx)) == -1)

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/10 12:32:54 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/10 13:04:14 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRCS_NAME = main.c \
 	    command/command_cipher_callback.c \
 	    command/command_bignum.c \
 	    command/command_genrsa.c \
+		command/command_genrsa_args.c \
 	    command/command_rsa.c \
 	    command/command_rsautl.c \
 	    hash/md4.c \
