@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:08:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:53:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "rsa.h"
 #include "pem.h"
 
-static int	do_init(t_genrsa_data *data)
+static int	do_init(t_genrsa_data *data, int ac, char **av)
 {
 	ft_memset(data, 0, sizeof(data));
 	data->exp = 0x10001;
@@ -24,6 +24,13 @@ static int	do_init(t_genrsa_data *data)
 	if (!bignum_rand_add_urandom())
 	{
 		ft_putendl_fd("ft_ssl: failed to init rng", 2);
+		return (0);
+	}
+	if (!cmd_genrsa_parse_args(data, ac, av))
+		return (0);
+	if (data->key_len < 16)
+	{
+		ft_putendl_fd("ft_ssl: invalid key length, minimum is 16", 2);
 		return (0);
 	}
 	return (1);
@@ -54,7 +61,7 @@ static void	run_test(t_genrsa_data *data)
 	ft_putul(bignum_num_bits(data->rsa_ctx.d));
 	ft_putstr(")\n");
 	a = bignum_new();
-	bignum_dec2bignum(a, "112233445566778899112233445566778899887766554433211");
+	bignum_dec2bignum(a, "1122334455667788991122334455667788998877665544332");
 	if (!rsa_enc(&data->rsa_ctx, a, a))
 	{
 		ft_putendl("rsa_encrypt() failed");
@@ -82,15 +89,8 @@ int			command_genrsa(int ac, char **av)
 {
 	t_genrsa_data	data;
 
-	if (!do_init(&data))
+	if (!do_init(&data, ac, av))
 		return (EXIT_FAILURE);
-	if (!cmd_genrsa_parse_args(&data, ac, av))
-		return (EXIT_FAILURE);
-	if (data.key_len < 16)
-	{
-		ft_putendl_fd("ft_ssl: invalid key length, minimum is 16", 2);
-		return (EXIT_FAILURE);
-	}
 	if (!rsa_genkey(&data.rsa_ctx, data.key_len, data.exp, 1))
 	{
 		ft_putendl_fd("ft_ssl: failed to generate key", 2);
@@ -101,8 +101,10 @@ int			command_genrsa(int ac, char **av)
 	ft_putstr_fd(" (0x", 2);
 	bignum_printhex_fd(data.rsa_ctx.e, 2);
 	ft_putendl_fd(")", 2);
-	if (!pem_write_rsa_priv_file(&data.rsa_ctx, data.fdout, data.crypt_method, data.passout))
+	if (!pem_write_rsa_priv_file(&data.rsa_ctx, data.fdout
+				, data.crypt_method, data.passout))
 	{
+		rsa_free(&data.rsa_ctx);
 		ft_putendl_fd("ft_ssl: failed to write PEM key", 2);
 		return (EXIT_FAILURE);
 	}

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/10 13:04:14 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/10 13:54:04 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -208,6 +208,8 @@ SRCS_NAME = main.c \
 	    bignum/bignum_num_bits.c \
 	    bignum/bignum_num_bytes.c \
 		bignum/bignum_word_one.c \
+		bignum/bignum_bin2bignum.c \
+		bignum/bignum_bignum2bin.c \
 	    pem/pem_write_rsa_priv.c \
 	    pem/pem_write_rsa_priv_file.c \
 		pem/pem_read_rsa_priv.c \
@@ -219,6 +221,7 @@ SRCS_NAME = main.c \
 	    pem/pem_bignum.c \
 		pem/pem_utils.c \
 		pem/pem_write_file.c \
+		pem/pem_write_file_init_final.c \
 	    pem/pem_len.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))

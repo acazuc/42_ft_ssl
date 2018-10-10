@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pem_read_rsa_priv.c                                :+:      :+:    :+:   */
+/*   bignum_bignum2bin.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/09 15:45:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:38:02 by acazuc           ###   ########.fr       */
+/*   Created: 2018/10/10 13:45:40 by acazuc            #+#    #+#             */
+/*   Updated: 2018/10/10 13:54:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pem.h"
+#include "bignum.h"
 
-int	pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len)
+int	bignum_bignum2bin(t_bignum *a, unsigned char *to)
 {
-	(void)ctx;
-	(void)data;
-	(void)len;
-	return (0);
+	int	i;
+	int	bytes;
+
+	bytes = bignum_num_bytes(a);
+	i = 0;
+	while (i < bytes)
+	{
+		to[i] = ((unsigned char*)a->data)[bytes - 1 - i];
+		++i;
+	}
+	return (bytes);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:12:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:25:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int32_t				pem_read_len(uint8_t *data, uint32_t len
 uint32_t			pem_bignum_len(t_bignum *bignum);
 int					pem_get_key(t_cipher_ctx *ctx, uint8_t *key
 		, uint8_t *salt_iv, char *password);
-int					pem_print_ciphered(t_pem_write_ctx *ctx);
 int					pem_write_init(t_pem_write_ctx *ctx);
 int					pem_write_write(t_pem_write_ctx *ctx);
 int					pem_write_final(t_pem_write_ctx *ctx);

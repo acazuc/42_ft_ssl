@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:24:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:13:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:26:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	do_cipher(t_cipher_ctx *ctx, uint8_t *data, int len)
 	return (1);
 }
 
-int			pem_print_ciphered(t_pem_write_ctx *ctx)
+static int	pem_print_ciphered(t_pem_write_ctx *ctx)
 {
 	t_cipher_ctx	cipher_ctx;
 	uint8_t			salt_iv[FT_MAX(8, ctx->cipher->block_size)];
@@ -66,21 +66,6 @@ int			pem_print_ciphered(t_pem_write_ctx *ctx)
 	return (do_cipher(&cipher_ctx, (uint8_t*)ctx->data, ctx->len));
 }
 
-int			pem_write_init(t_pem_write_ctx *ctx)
-{
-	if (!base64_write_init(&ctx->b64_ctx))
-	{
-		ft_putendl_fd("ft_ssl: failed to init b64 ctx", 2);
-		return (0);
-	}
-	if (ctx->ciphered && !ctx->cipher)
-	{
-		ft_putendl_fd("ft_ssl: invalid cipher", 2);
-		return (0);
-	}
-	return (1);
-}
-
 int			pem_write_write(t_pem_write_ctx *ctx)
 {
 	if (ctx->ciphered)
@@ -94,12 +79,5 @@ int			pem_write_write(t_pem_write_ctx *ctx)
 		if (!base64_write_update(&ctx->b64_ctx, (uint8_t*)ctx->data, ctx->len))
 			return (0);
 	}
-	return (1);
-}
-
-int			pem_write_final(t_pem_write_ctx *ctx)
-{
-	base64_write_final(&ctx->b64_ctx);
-	ft_putendl_fd(ctx->end_text, ctx->b64_ctx.fdout);
 	return (1);
 }

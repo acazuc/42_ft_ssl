@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:20:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 10:12:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 13:50:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,8 @@ int				bignum_is_prime_witness(t_miller_ctx *ctx
 int				bignum_is_prime_fasttest(t_bignum *bignun);
 int				bignum_prime_checks_count(t_bignum *bignum);
 t_bignum_word	bignum_word_one(void);
+int				bignum_bignum2bin(t_bignum *a, unsigned char *to);
+t_bignum		*bignum_bin2bignum(unsigned char *s, int len
+		, t_bignum *ret);
 
 #endif
