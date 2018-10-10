@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pem_read_rsa_priv.c                                :+:      :+:    :+:   */
+/*   pem_read_rsa_pub.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/09 15:45:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 10:33:28 by acazuc           ###   ########.fr       */
+/*   Created: 2018/10/10 10:13:58 by acazuc            #+#    #+#             */
+/*   Updated: 2018/10/10 10:33:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pem.h"
 
-int	pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len)
+int	pem_read_rsa_pub(t_rsa_ctx *ctx, void *data, size_t len)
 {
 	(void)ctx;
 	(void)data;

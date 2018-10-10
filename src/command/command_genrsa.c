@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 14:41:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:08:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int			command_genrsa(int ac, char **av)
 	ft_putstr(" (0x");
 	bignum_printhex(data.rsa_ctx.e);
 	ft_putendl(")");
-	if (!pem_print_rsa_priv(&data.rsa_ctx, data.fdout, data.crypt_method))
+	if (!pem_write_rsa_priv_file(&data.rsa_ctx, data.fdout, data.crypt_method))
 	{
 		ft_putendl_fd("ft_ssl: failed to write PEM key", 2);
 		return (EXIT_FAILURE);

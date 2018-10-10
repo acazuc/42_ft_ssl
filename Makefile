@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/09 12:11:46 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/10 10:39:52 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 LDFLAGS = -flto -fwhole-program
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -flto
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g
 #CFLAGS+= -fsanitize=address
 #CFLAGS+= -flto
 
@@ -207,8 +207,16 @@ SRCS_NAME = main.c \
 	    bignum/bignum_num_bytes.c \
 		bignum/bignum_word_one.c \
 	    pem/pem_write_rsa_priv.c \
-	    pem/pem_print_rsa_priv.c \
+	    pem/pem_write_rsa_priv_file.c \
+		pem/pem_read_rsa_priv.c \
+		pem/pem_read_rsa_priv_file.c \
+		pem/pem_write_rsa_pub.c \
+		pem/pem_write_rsa_pub_file.c \
+		pem/pem_read_rsa_pub.c \
+		pem/pem_read_rsa_pub_file.c \
 	    pem/pem_bignum.c \
+		pem/pem_utils.c \
+		pem/pem_write_file.c \
 	    pem/pem_len.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))

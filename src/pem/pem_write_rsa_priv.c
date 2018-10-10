@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 19:40:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 12:08:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:07:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,5 @@ int			pem_write_rsa_priv(char **dst, t_rsa_ctx *ctx)
 	if (!write_bignums(&vec, ctx))
 		return (do_clear(&vec));
 	*dst = (char*)vec.data;
-	vec.data = NULL;
 	return (vec.size);
 }
