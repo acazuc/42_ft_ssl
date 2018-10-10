@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:24:04 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:11:15 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:30:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			pem_print_ciphered(t_pem_write_ctx *ctx)
 	uint8_t			key[ctx->cipher->key_size];
 
 	cipher_ctx.cipher = ctx->cipher;
-	if (!(password = ask_password())
+	if (!(password = ask_password_confirm())
 		|| !random_bytes(salt_iv, FT_MAX(8, ctx->cipher->block_size))
 		|| !pem_get_key(&cipher_ctx, key, salt_iv, password))
 		return (0);

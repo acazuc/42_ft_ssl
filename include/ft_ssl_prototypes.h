@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:03:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:30:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		bin2hex(char *dst, const uint8_t *src, size_t len);
 int			hex2bin(uint8_t *dst, const char *src, size_t len);
 int			random_bytes(uint8_t *dst, int len);
 char		*ask_password();
+char		*ask_password_confirm();
 int			transform_bin(uint8_t *bin, char *str, int max);
 void		uint32_swap(uint32_t *a, uint32_t *b);
 uint8_t		*hmac(t_hmac_ctx *ctx);

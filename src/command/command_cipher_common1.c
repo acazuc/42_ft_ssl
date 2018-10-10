@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 10:16:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:31:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	generate_key(uint8_t *key, uint32_t key_size, char *password
 		return (0);
 	if (!password)
 	{
-		if (!(password = ask_password()))
+		if (!(password = ask_password_confirm()))
 			return (0);
 	}
 	else if (!(password = ft_strdup(password)))

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/10 10:39:52 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/10 12:32:54 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_NAME = main.c \
 	    utils/ask_password.c \
 	    utils/transform_bin.c \
 	    utils/swap.c \
+		utils/ask_password_confirm.c \
 	    hmac/hmac.c \
 	    pbkdf2/pbkdf2.c \
 	    command/command_help.c \
