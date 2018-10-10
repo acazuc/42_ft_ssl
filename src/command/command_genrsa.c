@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:08:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/10 12:12:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,11 +167,11 @@ int			command_genrsa(int ac, char **av)
 		ft_putendl_fd("ft_ssl: failed to generate key", 2);
 		return (EXIT_FAILURE);
 	}
-	ft_putstr("e is ");
-	bignum_print(data.rsa_ctx.e);
-	ft_putstr(" (0x");
-	bignum_printhex(data.rsa_ctx.e);
-	ft_putendl(")");
+	ft_putstr_fd("e is ", 2);
+	bignum_print_fd(data.rsa_ctx.e, 2);
+	ft_putstr_fd(" (0x", 2);
+	bignum_printhex_fd(data.rsa_ctx.e, 2);
+	ft_putendl_fd(")", 2);
 	if (!pem_write_rsa_priv_file(&data.rsa_ctx, data.fdout, data.crypt_method))
 	{
 		ft_putendl_fd("ft_ssl: failed to write PEM key", 2);
