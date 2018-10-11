@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 17:59:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 18:51:26 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,46 @@ static void	do_print_plus(int print, uint32_t n)
 	}
 }
 
-static int	genprime(t_bignum *r, t_bignum *e, uint32_t bits, int print)
+static int	do_op(t_bignum *tmp, t_bignum *one, int *ret, int op)
+{
+	if (op)
+	{
+		bignum_init(tmp);
+		bignum_init(one);
+		*ret = 0;
+		return (bignum_one(one));
+	}
+	bignum_clear(tmp);
+	bignum_clear(one);
+	return (1);
+}
+
+static int	genprime(t_bignum *r, t_bignum *e, uint32_t b, int print)
 {
 	t_bignum	one;
 	t_bignum	tmp;
 	int		ret;
 	uint32_t	passed;
 
-	bignum_init(&tmp);
-	bignum_init(&one);
-	if (!bignum_one(&one))
+	if (!do_op(&tmp, &one, &ret, 1))
 		return (0);
-	ret = 0;
-	while (1)
+	passed = 0;
+	while (!ret)
 	{
-		if (!bignum_rand(r, bits, BIGNUM_RAND_TOP_TWO
-					, BIGNUM_RAND_BOT_ODD)
-				||!bignum_sub(&tmp, r, &one)
-				|| !bignum_gcd(&tmp, &tmp, e))
+		do_print_plus(print, passed);
+		if (!bignum_rand(r, b, BIGNUM_RAND_TOP_TWO, BIGNUM_RAND_BOT_ODD)
+		|| !bignum_sub(&tmp, r, &one) || !bignum_gcd(&tmp, &tmp, e))
 			break ;
 		if (!bignum_is_word(&tmp, 1) || !bignum_is_prime_fasttest(r))
 			continue ;
 		if (print)
 			ft_putchar_fd('.', 2);
-		if (bignum_is_prime(r, BIGNUM_PRIME_CHECKS_AUTO, &passed) == 1)
-		{
-			do_print_plus(print, passed);
-			ret = 1;
-			break ;
-		}
+		if (bignum_is_prime(r, BIGNUM_PRIME_CHECKS_AUTO, &passed) != 1)
+			continue ;
+		ret = 1;
 		do_print_plus(print, passed);
 	}
-	bignum_clear(&tmp);
-	bignum_clear(&one);
+	do_op(&tmp, &one, &ret, 0);
 	return (ret);
 }
 
