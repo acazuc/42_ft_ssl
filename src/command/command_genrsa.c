@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:53:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 14:54:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ static void	run_test(t_genrsa_data *data)
 	bignum_print(data->rsa_ctx.d);
 	ft_putstr(" (");
 	ft_putul(bignum_num_bits(data->rsa_ctx.d));
+	ft_putstr(")\n");
+	ft_putstr("phi: ");
+	bignum_print(data->rsa_ctx.phi);
+	ft_putstr(" (");
+	ft_putul(bignum_num_bits(data->rsa_ctx.phi));
 	ft_putstr(")\n");
 	a = bignum_new();
 	bignum_dec2bignum(a, "1122334455667788991122334455667788998877665544332");

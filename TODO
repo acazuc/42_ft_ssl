@@ -1,3 +1,4 @@
 genrsa [-rand] [-o] [-i?]
+genrsa: test if d is 1. If so, rebuild p/q; caused because gcd(phi, e) != 1 (=3, enorme blague), thus giving invalid mod_inverse (because, you know, maths); phi must be coprime to e, how to generate such p;q ? Check for gcd(e, p) & gcd(e, q) since e is prime (if both are 1, then gcd((p - 1) * (q - 1), e) should be 1 !)
 rsa [-inform PEM] [-outform PEM] [-in file] [-passin arg] [-out file] [-passout arg] [-des] [-text] [-noout] [-modulus] [-check] [-pubin] [-pubout]
 rsautl [-in file] [-out file] [-inkey file] [-pubin] [-encrypt] [-decrypt] [-hexdump]

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 19:40:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:07:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 11:11:40 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@ static int	do_clear(t_vecu8 *vec)
 
 static int	write_bignums(t_vecu8 *vec, t_rsa_ctx *ctx)
 {
-	if (!pem_write_bignum(vec, ctx->n))
+	if (!pem_bignum_write(vec, ctx->n))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->e))
+	if (!pem_bignum_write(vec, ctx->e))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->d))
+	if (!pem_bignum_write(vec, ctx->d))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->p))
+	if (!pem_bignum_write(vec, ctx->p))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->q))
+	if (!pem_bignum_write(vec, ctx->q))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->dmp))
+	if (!pem_bignum_write(vec, ctx->dmp))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->dmq))
+	if (!pem_bignum_write(vec, ctx->dmq))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->coef))
+	if (!pem_bignum_write(vec, ctx->coef))
 		return (0);
 	return (1);
 }
@@ -74,11 +74,7 @@ int			pem_write_rsa_priv(char **dst, t_rsa_ctx *ctx)
 		return (do_clear(&vec));
 	if (!vecu8_push(&vec, tmp, pem_write_len(tmp, get_len(ctx))))
 		return (do_clear(&vec));
-	if (!vecu8_pushu8(&vec, 0x2))
-		return (do_clear(&vec));
-	if (!vecu8_pushu8(&vec, 0x1))
-		return (do_clear(&vec));
-	if (!vecu8_pushu8(&vec, 0))
+	if (!vecu8_push(&vec, (uint8_t*)"\x2\x1\x0", 3))
 		return (do_clear(&vec));
 	if (!write_bignums(&vec, ctx))
 		return (do_clear(&vec));

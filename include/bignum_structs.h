@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:22:13 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:22:23 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 14:59:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ typedef struct		s_mod_inv_ctx
 	t_bignum		q;
 	t_bignum		r;
 	t_bignum		s;
+	t_bignum		t;
 	t_bignum		old_r;
 	t_bignum		old_s;
+	t_bignum		old_t;
 	t_bignum		tmp;
 }					t_mod_inv_ctx;
 

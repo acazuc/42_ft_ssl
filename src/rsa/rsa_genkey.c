@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:16:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 11:18:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 14:44:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int			rsa_genkey(t_rsa_ctx *ctx, uint32_t bits, uint32_t e, int print)
 	if (bits < 16)
 		return (0);
 	ft_memset(ctx, 0, sizeof(*ctx));
-	if (!rsa_genkey_pq(ctx, bits, print))
-		return (do_clear(ctx));
-	if (!rsa_genkey_phi(ctx))
-		return (do_clear(ctx));
 	if (!(ctx->e = bignum_new()))
 		return (do_clear(ctx));
 	if (!bignum_grow(ctx->e, e))
+		return (do_clear(ctx));
+	if (!rsa_genkey_pq(ctx, bits, print))
+		return (do_clear(ctx));
+	if (!rsa_genkey_phi(ctx))
 		return (do_clear(ctx));
 	if (!(ctx->n = bignum_new()))
 		return (do_clear(ctx));

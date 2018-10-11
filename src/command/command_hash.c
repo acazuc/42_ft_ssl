@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:37:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 12:04:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	command_hash_string(t_hash_data *data, int ac, char **av
 	uint8_t		*digest;
 
 	data->written = 1;
-	if ((*i)++ >= ac)
+	if (++(*i) >= ac)
 	{
 		ft_putendl_fd("ft_ssl: you must specify a string to hash", 2);
 		return (0);

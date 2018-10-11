@@ -6,49 +6,48 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:44:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 11:10:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "pem.h"
 
-static int	do_read_datas(t_vecu8 *data, uint32_t len, t_bignum *bignum)
+static void	do_read_datas(void *data, uint32_t bn_len, t_bignum *bignum)
 {
 	uint32_t	i;
 
-	if (data->data[0] & 0x80)
+	if (((uint8_t*)data)[0] & 0x80)
 		bignum->sign = 1;
-	bignum->data[0] = data->data[0] & (~0x80);
+	else
+		bignum->sign = 0;
+	bignum->data[0] = ((uint8_t*)data)[0] & (~0x80);
 	i = 1;
-	while (i < len)
+	while (i < bn_len)
 	{
 		bignum->data[i / sizeof(*bignum->data)] |=
-			((t_bignum_word)data->data[i])
+			(((t_bignum_word*)data)[i])
 			<< (8 * (i % sizeof(*bignum->data)));
 		++i;
 	}
-	return (1);
 }
 
-int			pem_read_bignum(t_vecu8 *data, t_bignum *bignum)
+int			pem_bignum_read(t_bignum *bignum, void *data, size_t len)
 {
-	uint32_t	len;
+	uint32_t	bn_len;
 	int32_t		ret;
 
-	ret = pem_read_len(data->data, data->size, &len);
-	if (ret < 0 || len + ret > data->size)
-		return (0);
-	data->data += ret;
-	data->size -= ret;
+	ret = pem_read_len(data, len, &bn_len);
+	if (ret < 0 || bn_len + ret > len)
+		return (-1);
 	bignum_zero(bignum);
-	if (!len)
-		return (1);
-	if (!bignum_resize(bignum, (len + sizeof(*bignum->data) - 1)
+	if (!bn_len)
+		return (ret);
+	if (!bignum_resize(bignum, (bn_len + sizeof(*bignum->data) - 1)
 				/ sizeof(*bignum->data)))
-		return (0);
-	do_read_datas(data, len, bignum);
-	return (1);
+		return (-1);
+	do_read_datas(data, bn_len, bignum);
+	return (ret + bn_len);
 }
 
 uint32_t	pem_bignum_len(t_bignum *bignum)
@@ -85,7 +84,7 @@ static int	do_write_datas(t_vecu8 *data, t_bignum *bignum)
 	return (1);
 }
 
-int			pem_write_bignum(t_vecu8 *data, t_bignum *bignum)
+int			pem_bignum_write(t_vecu8 *data, t_bignum *bignum)
 {
 	uint8_t		tmp[5];
 

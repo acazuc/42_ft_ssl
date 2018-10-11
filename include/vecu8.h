@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 16:07:45 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:18:15 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 10:21:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct	s_vecu8
 {
 	uint8_t		*data;
+	size_t		pos;
 	size_t		size;
 }				t_vecu8;
 

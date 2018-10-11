@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:14:20 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:25:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 11:12:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static int	do_clear(t_vecu8 *vec)
 
 static int	write_bignums(t_vecu8 *vec, t_rsa_ctx *ctx)
 {
-	if (!pem_write_bignum(vec, ctx->n))
+	if (!pem_bignum_write(vec, ctx->n))
 		return (0);
-	if (!pem_write_bignum(vec, ctx->e))
+	if (!pem_bignum_write(vec, ctx->e))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 15:35:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 12:59:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 10:23:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	vecu8_init(t_vecu8 *vec)
 {
 	vec->data = NULL;
 	vec->size = 0;
+	vec->pos = 0;
 }
 
 int		vecu8_get(t_vecu8 *vec, void *data, uint32_t len)
 {
-	if (len > vec->size)
+	if (len > vec->pos + vec->size)
 		return (0);
-	ft_memcpy(data, vec->data, len);
-	vec->data += len;
-	vec->size -= len;
+	ft_memcpy(data, vec->data + vec->pos, len);
+	vec->pos += len;
 	return (1);
 }
 
@@ -55,4 +55,5 @@ void	vecu8_free(t_vecu8 *vec)
 	free(vec->data);
 	vec->data = NULL;
 	vec->size = 0;
+	vec->pos = 0;
 }
