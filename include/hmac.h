@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl.h                                           :+:      :+:    :+:   */
+/*   hmac.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:35:14 by acazuc           ###   ########.fr       */
+/*   Created: 2018/10/11 19:31:35 by acazuc            #+#    #+#             */
+/*   Updated: 2018/10/11 19:37:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_H
-# define FT_SSL_H
+#ifndef HMAC_H
+# define HMAC_H
 
-# include "cipher/cipher.h"
-# include "hash/hash.h"
-# include "base64.h"
-# include "libft.h"
-# include "rsa.h"
 # include <stdint.h>
-# include <math.h>
 
-# include "ft_ssl_structs.h"
-# include "ft_ssl_prototypes.h"
+typedef struct s_hash_ctx	t_hash_ctx;
 
-# define FT_MIN(a, b) (a < b ? a : b)
-# define FT_MAX(a, b) (a > b ? a : b)
+typedef struct		s_hmac_ctx
+{
+	t_hash_ctx		h;
+	uint8_t			*key;
+	uint32_t		key_len;
+	uint8_t			*msg;
+	uint32_t		msg_len;
+}					t_hmac_ctx;
+
+uint8_t		*hmac(t_hmac_ctx *ctx);
 
 #endif

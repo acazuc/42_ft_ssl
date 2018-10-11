@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:03:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:32:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ char		*ask_password();
 char		*ask_password_confirm();
 int			transform_bin(uint8_t *bin, char *str, int max);
 void		uint32_swap(uint32_t *a, uint32_t *b);
-uint8_t		*hmac(t_hmac_ctx *ctx);
-int			pbkdf2(t_pbkdf2_ctx *ctx);
 int			base64_write_init(t_b64_write_ctx *ctx);
 int			base64_write_update(t_b64_write_ctx *ctx, uint8_t *data
 		, size_t len);

@@ -6,11 +6,13 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 18:57:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 12:57:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:37:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "hash/hash.h"
+#include "libft.h"
+#include "hmac.h"
 
 static uint8_t	*hmac_check_key_len1(t_hmac_ctx *ctx
 		, uint8_t *key, uint32_t key_len

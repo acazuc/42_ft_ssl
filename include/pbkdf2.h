@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl.h                                           :+:      :+:    :+:   */
+/*   pbkdf2.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/23 17:17:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:35:14 by acazuc           ###   ########.fr       */
+/*   Created: 2018/10/11 19:32:21 by acazuc            #+#    #+#             */
+/*   Updated: 2018/10/11 19:36:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_H
-# define FT_SSL_H
+#ifndef PBKDF2_H
+# define PBKDF2_H
 
-# include "cipher/cipher.h"
-# include "hash/hash.h"
-# include "base64.h"
-# include "libft.h"
-# include "rsa.h"
 # include <stdint.h>
-# include <math.h>
 
-# include "ft_ssl_structs.h"
-# include "ft_ssl_prototypes.h"
+typedef struct s_hash_ctx	t_hash_ctx;
 
-# define FT_MIN(a, b) (a < b ? a : b)
-# define FT_MAX(a, b) (a > b ? a : b)
+typedef struct		s_pbkdf2_ctx
+{
+	t_hash_ctx		h;
+	uint8_t			*password;
+	uint32_t		password_len;
+	uint8_t			*salt;
+	uint32_t		salt_len;
+	uint32_t		iterations;
+	uint8_t			*out;
+	uint32_t		out_len;
+}					t_pbkdf2_ctx;
+
+int			pbkdf2(t_pbkdf2_ctx *ctx);
 
 #endif

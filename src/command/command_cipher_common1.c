@@ -6,11 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:31:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:35:07 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/sha512.h"
+#include "pbkdf2.h"
 #include "ft_ssl.h"
 
 static int	generate_key2(uint8_t *key, uint32_t key_size, char *password

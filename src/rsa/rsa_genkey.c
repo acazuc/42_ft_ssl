@@ -6,11 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:16:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 14:44:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:24:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "libft.h"
 #include "rsa.h"
 
 static int	do_clear(t_rsa_ctx *ctx)

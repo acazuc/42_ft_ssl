@@ -6,11 +6,10 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 11:10:10 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:30:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
 #include "pem.h"
 
 static void	do_read_datas(void *data, uint32_t bn_len, t_bignum *bignum)

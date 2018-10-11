@@ -6,12 +6,12 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:25:12 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:28:22 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:34:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/sha512.h"
-#include "ft_ssl.h"
+#include "pbkdf2.h"
 #include "pem.h"
 
 int	pem_get_key(t_cipher_ctx *ctx, uint8_t *key, uint8_t *salt_iv

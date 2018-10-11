@@ -6,11 +6,14 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 16:54:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 12:57:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:39:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "hash/hash.h"
+#include "pbkdf2.h"
+#include "libft.h"
+#include "hmac.h"
 
 static int	loop_part(t_pbkdf2_ctx *ctx, t_hmac_ctx *hmac_ctx
 		, uint8_t *hash_tmp, uint8_t *sum)

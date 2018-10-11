@@ -6,11 +6,10 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 14:49:06 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 11:18:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:25:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
 #include "rsa.h"
 
 static int	do_clear(t_bignum *tmp, t_bignum *one)

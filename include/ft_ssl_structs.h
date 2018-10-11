@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:45:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:06:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/11 19:32:54 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,6 @@ typedef struct		s_b64_write_ctx
 	uint64_t		buff_pos;
 	uint64_t		buff_len;
 }					t_b64_write_ctx;
-
-typedef struct		s_hmac_ctx
-{
-	t_hash_ctx		h;
-	uint8_t			*key;
-	uint32_t		key_len;
-	uint8_t			*msg;
-	uint32_t		msg_len;
-}					t_hmac_ctx;
-
-typedef struct		s_pbkdf2_ctx
-{
-	t_hash_ctx		h;
-	uint8_t			*password;
-	uint32_t		password_len;
-	uint8_t			*salt;
-	uint32_t		salt_len;
-	uint32_t		iterations;
-	uint8_t			*out;
-	uint32_t		out_len;
-}					t_pbkdf2_ctx;
 
 typedef struct		s_hash_data
 {
