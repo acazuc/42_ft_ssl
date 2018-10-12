@@ -6,11 +6,25 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 15:45:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:18:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:53:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pem.h"
+
+static int	read_bignums2(t_rsa_ctx *ctx, void *data, uint32_t len
+		, uint32_t readed)
+{
+	int	ret;
+
+	if ((ret = pem_bignum_read(ctx->dmq, data + readed, len - readed)) == -1)
+		return (0);
+	readed += ret;
+	if ((ret = pem_bignum_read(ctx->coef, data + readed, len - readed)) == -1)
+		return (0);
+	readed += ret;
+	return (readed == len);
+}
 
 static int	read_bignums(t_rsa_ctx *ctx, void *data, uint32_t len
 		, uint32_t readed)
@@ -35,16 +49,10 @@ static int	read_bignums(t_rsa_ctx *ctx, void *data, uint32_t len
 	if ((ret = pem_bignum_read(ctx->dmp, data + readed, len - readed)) == -1)
 		return (0);
 	readed += ret;
-	if ((ret = pem_bignum_read(ctx->dmq, data + readed, len - readed)) == -1)
-		return (0);
-	readed += ret;
-	if ((ret = pem_bignum_read(ctx->coef, data + readed, len - readed)) == -1)
-		return (0);
-	readed += ret;
-	return (readed == len);
+	return (read_bignums2(ctx, data, len, readed));
 }
 
-int	pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len)
+int			pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len)
 {
 	uint32_t	readed;
 	uint32_t	total_len;

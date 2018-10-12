@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:39:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:51:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,14 @@ void		cmd_rsa_print_text(t_rsa_data *data);
 int			cmd_rsa_check(t_rsa_data *data);
 int			command_rsautl(int ac, char **av);
 int			cmd_rsautl_args(t_rsautl_data *data, int ac, char **av);
-int			cmd_rsautl_handle_passin(t_rsautl_data *data, int ac, char **av, int *i);
-int			cmd_rsautl_handle_inkey(t_rsautl_data *data, int ac, char **av, int *i);
-int			cmd_rsautl_handle_in(t_rsautl_data *data, int ac, char **av, int *i);
-int			cmd_rsautl_handle_out(t_rsautl_data *data, int ac, char **av, int *i);
+int			cmd_rsautl_handle_passin(t_rsautl_data *data, int ac, char **av
+		, int *i);
+int			cmd_rsautl_handle_inkey(t_rsautl_data *data, int ac, char **av
+		, int *i);
+int			cmd_rsautl_handle_in(t_rsautl_data *data, int ac, char **av
+		, int *i);
+int			cmd_rsautl_handle_out(t_rsautl_data *data, int ac, char **av
+		, int *i);
 int			cmd_rsautl_read(t_rsautl_data *data);
 int			cmd_rsautl_readkey(t_rsautl_data *data);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);

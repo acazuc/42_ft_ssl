@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 19:32:21 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:36:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:51:13 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct		s_pbkdf2_ctx
 	uint32_t		out_len;
 }					t_pbkdf2_ctx;
 
-int			pbkdf2(t_pbkdf2_ctx *ctx);
+int					pbkdf2(t_pbkdf2_ctx *ctx);
 
 #endif

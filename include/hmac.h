@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 19:31:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:37:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:51:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ typedef struct		s_hmac_ctx
 	uint32_t		msg_len;
 }					t_hmac_ctx;
 
-uint8_t		*hmac(t_hmac_ctx *ctx);
+uint8_t				*hmac(t_hmac_ctx *ctx);
 
 #endif

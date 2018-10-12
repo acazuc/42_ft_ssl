@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:13:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 11:05:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:54:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	read_bignums(t_rsa_ctx *ctx, void *data, uint32_t len
 	return (1);
 }
 
-int	pem_read_rsa_pub(t_rsa_ctx *ctx, void *data, size_t len)
+int			pem_read_rsa_pub(t_rsa_ctx *ctx, void *data, size_t len)
 {
 	uint32_t	readed;
 	uint32_t	total_len;
@@ -49,11 +49,8 @@ int	pem_read_rsa_pub(t_rsa_ctx *ctx, void *data, size_t len)
 	if ((tmp = pem_read_len(data + readed, len - readed, &total_len)) == -1)
 		return (0);
 	readed += tmp;
-	if (len < readed + 2)
-		return (0);
-	if (ft_memcpy("\x00\x30", data + readed, 2))
-		return (0);
-	if (!read_bignums(ctx, data, len, readed))
+	if (len < readed + 2 || ft_memcpy("\x00\x30", data + readed, 2)
+			|| !read_bignums(ctx, data, len, readed))
 		return (0);
 	return (1);
 }
