@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:48:23 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 20:48:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,48 @@ static int	do_convert_bignum(t_rsautl_data *data, char *bdata, int readed
 	return (1);
 }
 
+static int	do_read_data(t_rsautl_data *data, char **bdata, int *len
+		, int *readed)
+{
+	if (!(*len = bignum_num_bytes(data->rsa_ctx.n)))
+	{
+		ft_putendl_fd("ft_ssl: modulus length is 0 !", 2);
+		return (0);
+	}
+	if (!(*bdata = malloc(*len + 1)))
+	{
+		ft_putendl_fd("ft_ssl: malloc failed", 2);
+		return (0);
+	}
+	if ((*readed = read(data->fdin, *bdata, *len + 1)) == -1)
+	{
+		ft_putendl_fd("ft_ssl: failed to read input", 2);
+		free(bdata);
+		return (0);
+	}
+	return (1);
+}
+
+static int	do_convert_oaep(t_rsautl_data *data, char **bdata, int *len
+		, int *readed)
+{
+	//
+}
+
 int			cmd_rsautl_read(t_rsautl_data *data)
 {
 	char	*bdata;
 	int		len;
 	int		readed;
 
-	if (!(len = bignum_num_bytes(data->rsa_ctx.n)))
-	{
-		ft_putendl_fd("ft_ssl: modulus length is 0 !", 2);
+	if (!do_read_data(data, &bdata, &len, &readed))
 		return (0);
-	}
-	if (!(bdata = malloc(len + 1)))
+	if (data->mode == RSAUTL_MODE_ENCRYPT || data->mode == RSAUTL_MODE_SIGN)
 	{
-		ft_putendl_fd("ft_ssl: malloc failed", 2);
-		return (0);
+		if (!do_convert_bignum(data, bdata, readed, len))
+			return (0);
 	}
-	if ((readed = read(data->fdin, bdata, len + 1)) == -1)
-	{
-		ft_putendl_fd("ft_ssl: failed to read input", 2);
-		free(bdata);
-		return (0);
-	}
-	if (!do_convert_bignum(data, bdata, readed, len))
+	else if (!do_convert_oaep(data, bdata, readed, len))
 		return (0);
 	return (1);
 }
