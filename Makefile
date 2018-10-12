@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/12 14:12:06 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/12 14:49:24 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,8 @@ SRCS_NAME = main.c \
 	    command/command_rsautl.c \
 		command/command_rsautl_args.c \
 		command/command_rsautl_args2.c \
+		command/command_rsautl_read.c \
+		command/command_rsautl_readkey.c \
 	    hash/md4.c \
 	    hash/md5.c \
 	    hash/sha1.c \

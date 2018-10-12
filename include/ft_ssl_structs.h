@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:45:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 12:57:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:21:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct		s_rsa_data
 typedef struct		s_rsautl_data
 {
 	t_rsa_ctx		rsa_ctx;
+	t_bignum		*bignum;
 	int				fdin;
 	int				fdout;
 	int				keyfd;

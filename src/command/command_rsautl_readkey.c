@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bignum_bin2bginum.c                                :+:      :+:    :+:   */
+/*   command_rsautl_readkey.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/10 13:38:37 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:49:37 by acazuc           ###   ########.fr       */
+/*   Created: 2018/10/12 14:38:17 by acazuc            #+#    #+#             */
+/*   Updated: 2018/10/12 14:49:00 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bignum.h"
-#include <stddef.h>
+#include "ft_ssl.h"
+#include "pem.h"
 
-t_bignum	*bignum_bin2bignum(unsigned char *s, int len, t_bignum *ret)
+int	cmd_rsautl_readkey(t_rsautl_data *data)
 {
-	int	i;
-
-	if (!ret)
-		ret = bignum_new();
-	if (!ret)
-		return (NULL);
-	if (!bignum_resize(ret, len / sizeof(*ret->data)))
-		return (NULL);
-	i = 0;
-	while (i < len)
+	if (data->pubin)
 	{
-		((unsigned char*)ret->data)[len - 1 - i] = s[i];
-		++i;
+		if (!pem_read_rsa_pub_file(&data->rsa_ctx, data->keyfd, data->passin))
+			return (0);
 	}
-	return (ret);
+	else
+	{
+		if (!pem_read_rsa_priv_file(&data->rsa_ctx, data->keyfd, data->passin))
+			return (0);
+	}
+	return (1);
 }

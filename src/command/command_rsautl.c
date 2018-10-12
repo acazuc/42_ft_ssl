@@ -6,12 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 21:28:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 13:21:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:48:45 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "pem.h"
 
 static int	check_params(t_rsautl_data *data)
 {
@@ -48,6 +47,7 @@ static int	do_init(t_rsautl_data *data, int ac, char **av)
 	data->mode = -1;
 	data->hexdump = 0;
 	data->passin = NULL;
+	data->bignum = NULL;
 	if (!cmd_rsautl_args(data, ac, av))
 		return (0);
 	if (!check_params(data))
@@ -55,26 +55,65 @@ static int	do_init(t_rsautl_data *data, int ac, char **av)
 	return (1);
 }
 
+static int	do_clear(t_rsautl_data *data, int ret)
+{
+	if (data->fdin != 0)
+		close(data->fdin);
+	if (data->fdout != 1)
+		close(data->fdout);
+	close(data->keyfd);
+	if (data->bignum)
+		bignum_free(data->bignum);
+	return (ret);
+}
+
+static int	do_op(t_rsautl_data *data)
+{
+	if (data->mode == RSAUTL_MODE_ENCRYPT)
+	{
+		if (!rsa_enc(&data->rsa_ctx, data->bignum, data->bignum))
+			return (0);
+	}
+	else if (data->mode == RSAUTL_MODE_DECRYPT)
+	{
+		if (!rsa_dec(&data->rsa_ctx, data->bignum, data->bignum))
+			return (0);
+	}
+	else if (data->mode == RSAUTL_MODE_SIGN)
+	{
+		if (!rsa_sign(&data->rsa_ctx, data->bignum, data->bignum))
+			return (0);
+	}
+	else if (data->mode == RSAUTL_MODE_VERIFY)
+	{
+		if (!rsa_verify(&data->rsa_ctx, data->bignum, data->bignum))
+			return (0);
+	}
+	return (1);
+}
+
+static int	do_write(t_rsautl_data *data)
+{
+	(void)data;
+	return (0);
+}
+
 int			command_rsautl(int ac, char **av)
 {
 	t_rsautl_data	data;
 
 	if (!do_init(&data, ac, av))
-		return (EXIT_FAILURE);
-	if (data.pubin)
+		return (do_clear(&data, EXIT_FAILURE));
+	if (!cmd_rsautl_readkey(&data))
+		return (do_clear(&data, EXIT_FAILURE));
+	if (!cmd_rsautl_read(&data))
+		return (do_clear(&data, EXIT_FAILURE));
+	if (!do_op(&data))
 	{
-		if (!pem_read_rsa_pub_file(&data.rsa_ctx, data.keyfd, data.passin))
-			return (0);
+		ft_putendl_fd("ft_ssl: rsa operation failed", 2);
+		return (do_clear(&data, EXIT_FAILURE));
 	}
-	else
-	{
-		if (!pem_read_rsa_priv_file(&data.rsa_ctx, data.keyfd, data.passin))
-			return (0);
-	}
-	//Convert input as bignum
-	//Check if bignum size is greater than keys modulus size, if so, error
-	//encrypt/decrypt/verify/sign
-	//output to fdout (in hex in flag set)
-	//youpi
-	return (EXIT_SUCCESS);
+	if (!do_write(&data))
+		return (do_clear(&data, EXIT_FAILURE));
+	return (do_clear(&data, EXIT_SUCCESS));
 }
