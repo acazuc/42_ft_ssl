@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 13:29:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:17:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 15:03:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	check_coef(t_rsa_data *data)
 	}
 	if (bignum_cmp(&tmp, data->rsa_ctx.coef))
 	{
-		ft_putendl_fd("ft_ssl: coef is not equal to mod_inverse(p, q)", 2);
+		ft_putendl_fd("ft_ssl: coef is not equal to mod_inverse(q, p)", 2);
 		bignum_clear(&tmp);
 		return (0);
 	}

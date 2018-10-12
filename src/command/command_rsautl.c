@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 21:28:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:48:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 14:56:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ static int	do_op(t_rsautl_data *data)
 	return (1);
 }
 
-static int	do_write(t_rsautl_data *data)
-{
-	(void)data;
-	return (0);
-}
-
 int			command_rsautl(int ac, char **av)
 {
 	t_rsautl_data	data;
@@ -113,7 +107,7 @@ int			command_rsautl(int ac, char **av)
 		ft_putendl_fd("ft_ssl: rsa operation failed", 2);
 		return (do_clear(&data, EXIT_FAILURE));
 	}
-	if (!do_write(&data))
+	if (!cmd_rsautl_write(&data))
 		return (do_clear(&data, EXIT_FAILURE));
 	return (do_clear(&data, EXIT_SUCCESS));
 }
