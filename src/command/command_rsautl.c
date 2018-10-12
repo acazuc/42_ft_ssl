@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 21:28:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 12:58:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 13:21:26 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	check_params(t_rsautl_data *data)
 	}
 	return (1);
 }
+
 static int	do_init(t_rsautl_data *data, int ac, char **av)
 {
 	data->fdin = 0;
@@ -70,5 +71,10 @@ int			command_rsautl(int ac, char **av)
 		if (!pem_read_rsa_priv_file(&data.rsa_ctx, data.keyfd, data.passin))
 			return (0);
 	}
+	//Convert input as bignum
+	//Check if bignum size is greater than keys modulus size, if so, error
+	//encrypt/decrypt/verify/sign
+	//output to fdout (in hex in flag set)
+	//youpi
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 12:54:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 13:13:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 13:18:32 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	do_print_bignum(t_bignum *bignum, char *name)
 		ft_putchar('\n');
 }
 
-void			cmd_rsa_print_text(t_rsa_data *data)
+void		cmd_rsa_print_text(t_rsa_data *data)
 {
 	if (data->pubin)
 	{
