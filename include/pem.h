@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 11:11:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 12:26:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,11 @@ int					pem_write_rsa_priv_file(t_rsa_ctx *ctx, int fd
 int					pem_write_rsa_pub(char **dst, t_rsa_ctx *ctx);
 int					pem_write_rsa_pub_file(t_rsa_ctx *ctx, int fd
 		, char *cipher_name, char *password);
+int					pem_read_rsa_pub(t_rsa_ctx *ctx);
+int					pem_read_rsa_pub_file(t_rsa_ctx *ctx, int fd
+		, char *password);
+int					pem_read_rsa_priv(t_rsa_ctx *ctx);
+int					pem_read_rsa_priv_file(t_rsa_ctx *ctx, int fd
+		, char *password);
 
 #endif

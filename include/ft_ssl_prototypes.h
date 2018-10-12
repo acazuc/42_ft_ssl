@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 11:52:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 13:13:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ int			cmd_rsa_handle_passin_passout(t_rsa_data *data, int ac, char **av
 		, int *i);
 int			cmd_rsa_handle_in(t_rsa_data *data, int ac, char **av, int *i);
 int			cmd_rsa_handle_out(t_rsa_data *data, int ac, char **av, int *i);
+int			cmd_rsa_read(t_rsa_data *data);
+int			cmd_rsa_write(t_rsa_data *data);
+void		cmd_rsa_print_text(t_rsa_data *data);
 int			command_rsautl(int ac, char **av);
 int			cmd_rsautl_args(t_rsautl_data *data, int ac, char **av);
 int			cmd_rsautl_handle_passin(t_rsautl_data *data, int ac, char **av, int *i);
