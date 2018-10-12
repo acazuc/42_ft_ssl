@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 12:57:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:19:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 11:22:02 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,23 @@ static int	cmd_genrsa_parse_args3(t_genrsa_data *data, int *i, int ac
 		, char **av)
 {
 	if (!ft_strcmp(av[*i], "-des"))
-		data->crypt_method = "DES-CBC";
+		data->cipher_name = "DES-CBC";
 	else if (!ft_strcmp(av[*i], "-des2"))
-		data->crypt_method = "DES-EDE-CBC";
+		data->cipher_name = "DES-EDE-CBC";
 	else if (!ft_strcmp(av[*i], "-des3"))
-		data->crypt_method = "DES-EDE3-CBC";
+		data->cipher_name = "DES-EDE3-CBC";
 	else if (!ft_strcmp(av[*i], "-aes128"))
-		data->crypt_method = "AES-128-CBC";
+		data->cipher_name = "AES-128-CBC";
 	else if (!ft_strcmp(av[*i], "-aes192"))
-		data->crypt_method = "AES-192-CBC";
+		data->cipher_name = "AES-192-CBC";
 	else if (!ft_strcmp(av[*i], "-aes256"))
-		data->crypt_method = "AES-256-CBC";
+		data->cipher_name = "AES-256-CBC";
 	else if (!ft_strcmp(av[*i], "-camellia128"))
-		data->crypt_method = "CAMELLIA-128-CBC";
+		data->cipher_name = "CAMELLIA-128-CBC";
 	else if (!ft_strcmp(av[*i], "-camellia192"))
-		data->crypt_method = "CAMELLIA-192-CBC";
+		data->cipher_name = "CAMELLIA-192-CBC";
 	else if (!ft_strcmp(av[*i], "-camellia256"))
-		data->crypt_method = "CAMELLIA-256-CBC";
+		data->cipher_name = "CAMELLIA-256-CBC";
 	else
 		return (0);
 	return (1);

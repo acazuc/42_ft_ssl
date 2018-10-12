@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 14:54:19 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 11:24:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	do_init(t_genrsa_data *data, int ac, char **av)
 {
 	ft_memset(data, 0, sizeof(data));
 	data->exp = 0x10001;
-	data->crypt_method = NULL;
+	data->cipher_name = NULL;
 	data->fdout = 1;
 	data->key_len = 512;
 	if (!bignum_rand_add_urandom())
@@ -107,7 +107,7 @@ int			command_genrsa(int ac, char **av)
 	bignum_printhex_fd(data.rsa_ctx.e, 2);
 	ft_putendl_fd(")", 2);
 	if (!pem_write_rsa_priv_file(&data.rsa_ctx, data.fdout
-				, data.crypt_method, data.passout))
+				, data.cipher_name, data.passout))
 	{
 		rsa_free(&data.rsa_ctx);
 		ft_putendl_fd("ft_ssl: failed to write PEM key", 2);

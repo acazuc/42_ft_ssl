@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/11 11:10:24 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/12 11:53:13 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,11 @@ SRCS_NAME = main.c \
 	    command/command_genrsa.c \
 		command/command_genrsa_args.c \
 	    command/command_rsa.c \
+		command/command_rsa_args.c \
+		command/command_rsa_args2.c \
 	    command/command_rsautl.c \
+		command/command_rsautl_args.c \
+		command/command_rsautl_args2.c \
 	    hash/md4.c \
 	    hash/md5.c \
 	    hash/sha1.c \

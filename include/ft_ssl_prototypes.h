@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:32:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 11:52:53 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,19 @@ void		cmd_genrsa_b64_callback(t_genrsa_data *ctx, uint8_t *data
 int			cmd_genrsa_parse_args(t_genrsa_data *data, int ac, char **av);
 int			cmd_genrsa_write(t_genrsa_data *data);
 int			command_rsa(int ac, char **av);
+int			cmd_rsa_args(t_rsa_data *data, int ac, char **av);
+int			cmd_rsa_handle_inform_outform(t_rsa_data *data, int ac, char **av
+		, int *i);
+int			cmd_rsa_handle_passin_passout(t_rsa_data *data, int ac, char **av
+		, int *i);
+int			cmd_rsa_handle_in(t_rsa_data *data, int ac, char **av, int *i);
+int			cmd_rsa_handle_out(t_rsa_data *data, int ac, char **av, int *i);
 int			command_rsautl(int ac, char **av);
+int			cmd_rsautl_args(t_rsautl_data *data, int ac, char **av);
+int			cmd_rsautl_handle_passin(t_rsautl_data *data, int ac, char **av, int *i);
+int			cmd_rsautl_handle_inkey(t_rsautl_data *data, int ac, char **av, int *i);
+int			cmd_rsautl_handle_in(t_rsautl_data *data, int ac, char **av, int *i);
+int			cmd_rsautl_handle_out(t_rsautl_data *data, int ac, char **av, int *i);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

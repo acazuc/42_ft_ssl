@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:08:40 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:51:24 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 10:38:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ static int	do_exec(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 	t_bignum	rq[2];
 	uint64_t	i;
 
+	if (bignum_ucmp(a, b) < 0)
+	{
+		if (dv)
+			bignum_zero(dv);
+		if (rm)
+			bignum_copy(rm, a);
+		return (1);
+	}
 	bignum_init(&rq[0]);
 	bignum_init(&rq[1]);
 	if (!bignum_reserve(&rq[0], b->len)
@@ -68,9 +76,8 @@ static int	do_exec(t_bignum *dv, t_bignum *rm, t_bignum *a, t_bignum *b)
 	{
 		if (!do_part(rq, a, b, i))
 			return (do_clear(rq));
-		if (!i)
+		if (!i--)
 			break ;
-		--i;
 	}
 	return (do_final(&rq[0], &rq[1], dv, rm));
 }

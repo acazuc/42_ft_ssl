@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:45:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:32:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 11:58:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef struct		s_genrsa_data
 	t_rsa_ctx		rsa_ctx;
 	uint64_t		key_len;
 	int				fdout;
-	char			*crypt_method;
+	char			*cipher_name;
 	char			*passout;
 	uint32_t		exp;
 }					t_genrsa_data;
@@ -129,5 +129,40 @@ typedef struct		s_openssl_pbkdf_ctx
 	uint8_t			*iv;
 	size_t			iv_len;
 }					t_openssl_pbkdf_ctx;
+
+# define RSA_FORMAT_PEM 1
+
+typedef struct		s_rsa_data
+{
+	int				inform;
+	int				outform;
+	char			*passin;
+	char			*passout;
+	int				fdin;
+	int				fdout;
+	int				pubin;
+	int				pubout;
+	int				print_text;
+	int				print_modulus;
+	int				noout;
+	int				check;
+	char			*cipher_name;
+}					t_rsa_data;
+
+# define RSAUTL_MODE_ENCRYPT	0
+# define RSAUTL_MODE_DECRYPT	1
+# define RSAUTL_MODE_SIGN		2
+# define RSAUTL_MODE_VERIFY		3
+
+typedef struct		s_rsautl_data
+{
+	int				fdin;
+	int				fdout;
+	int				keyfd;
+	int				pubin;
+	int				mode;
+	int				hexdump;
+	char			*passin;
+}					t_rsautl_data;
 
 #endif

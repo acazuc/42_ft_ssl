@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:18:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:29:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/12 12:04:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	genprime(t_bignum *r, t_bignum *e, uint32_t b, int print)
 {
 	t_bignum	one;
 	t_bignum	tmp;
-	int		ret;
+	int			ret;
 	uint32_t	passed;
 
 	if (!do_op(&tmp, &one, &ret, 1))
