@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/12 13:11:43 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/12 14:12:06 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ SRCS_NAME = main.c \
 		command/command_rsa_args2.c \
 		command/command_rsa_read_write.c \
 		command/command_rsa_print_text.c \
+		command/command_rsa_check.c \
 	    command/command_rsautl.c \
 		command/command_rsautl_args.c \
 		command/command_rsautl_args2.c \
