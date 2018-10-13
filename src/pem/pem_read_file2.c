@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 14:19:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 14:20:09 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 14:29:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,25 @@ int	pem_read_file_salt_iv(t_pem_read_ctx *ctx, char *line, int line_len)
 		return (0);
 	return (1);
 }
+
+int	pem_read_file_line(t_pem_read_ctx *ctx, char *data)
+{
+	int	readed;
+	int	i;
+
+	i = 0;
+	while (i < 65)
+	{
+		if ((readed = read(ctx->fd, data, 1)) == -1)
+			return (-1);
+		if (!readed || *data == '\n')
+		{
+			*data = '\0';
+			return (i);
+		}
+		++data;
+		++i;
+	}
+	return (-1);
+}
+

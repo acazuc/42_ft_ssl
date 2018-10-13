@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 14:20:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 14:29:19 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int					pem_read_rsa_priv_file(t_rsa_ctx *ctx, int fd
 int					pem_read_file_check_begin(t_pem_read_ctx *ctx);
 int					pem_read_file_salt_iv(t_pem_read_ctx *ctx, char *line
 		, int line_len);
+int					pem_read_file_line(t_pem_read_ctx *ctx, char *data);
 int					pem_read_file(t_pem_read_ctx *ctx);
 
 #endif

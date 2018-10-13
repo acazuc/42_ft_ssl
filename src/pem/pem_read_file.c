@@ -6,38 +6,18 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 11:17:43 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 14:23:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 14:47:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pem.h"
-
-int			pem_read_file_line(t_pem_read_ctx *ctx, char *data)
-{
-	int	readed;
-	int	i;
-
-	i = 0;
-	while (i < 65)
-	{
-		if ((readed = read(ctx->fd, data, 1)) == -1)
-			return (-1);
-		if (!readed || *data == '\n')
-		{
-			*data = '\0';
-			return (i);
-		}
-		++data;
-		++i;
-	}
-	return (-1);
-}
 
 static int	pem_read_file_data_callback(t_pem_read_ctx *ctx, uint8_t *data
 		, size_t len)
 {
 	uint8_t	*tmp;
 
+	//TODO handle cipher !
 	if (!(tmp = malloc(len + ctx->len)))
 		return (0);
 	ft_memcpy(tmp, ctx->data, ctx->len);
@@ -89,9 +69,8 @@ int			pem_read_file(t_pem_read_ctx *ctx)
 	ctx->data = NULL;
 	ctx->salt_iv = NULL;
 	ctx->len = 0;
-	if (!pem_read_file_check_begin(ctx))
-		return (do_clear(ctx, 0));
-	if ((line_len = pem_read_file_line(ctx, line)) == -1)
+	if (!pem_read_file_check_begin(ctx)
+			|| (line_len = pem_read_file_line(ctx, line)) == -1)
 		return (do_clear(ctx, 0));
 	if (ctx->ciphered && !ft_strcmp(line, "Proc-Type: 4,ENCRYPTED"))
 	{
@@ -102,9 +81,7 @@ int			pem_read_file(t_pem_read_ctx *ctx)
 				|| (line_len = pem_read_file_line(ctx, line)) == -1)
 			return (do_clear(ctx, 0));
 	}
-	if (!line_len)
-		return (do_clear(ctx, 0));
-	if (!pem_read_file_data(ctx, line, line_len))
+	if (!line_len || !pem_read_file_data(ctx, line, line_len))
 		return (do_clear(ctx, 0));
 	return (do_clear(ctx, 1));
 }
