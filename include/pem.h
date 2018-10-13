@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:47 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:19:00 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 12:40:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,25 @@ typedef struct		s_pem_write_ctx
 	t_cipher		*cipher;
 	int				ciphered;
 	char			*data;
-	int32_t			len;
+	int				len;
 	char			*password;
 	char			*begin_text;
 	char			*end_text;
 }					t_pem_write_ctx;
+
+typedef struct		s_pem_read_ctx
+{
+	t_cipher		*cipher;
+	int				fd;
+	uint8_t			*data;
+	int				len;
+	uint8_t			*salt_iv;
+	int				salt_iv_len;
+	int				ciphered;
+	char			*password;
+	char			*begin_text;
+	char			*end_text;
+}					t_pem_read_ctx;
 
 uint32_t			pem_len_len(uint32_t len);
 uint32_t			pem_write_len(uint8_t *data, uint32_t len);
@@ -58,5 +72,6 @@ int					pem_read_rsa_pub_file(t_rsa_ctx *ctx, int fd
 int					pem_read_rsa_priv(t_rsa_ctx *ctx, void *data, size_t len);
 int					pem_read_rsa_priv_file(t_rsa_ctx *ctx, int fd
 		, char *password);
+int					pem_read_file(t_pem_read_ctx *ctx);
 
 #endif

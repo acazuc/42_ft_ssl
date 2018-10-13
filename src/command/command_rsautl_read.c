@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 20:48:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 12:08:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,15 @@ static int	do_read_data(t_rsautl_data *data, char **bdata, int *len
 	return (1);
 }
 
-static int	do_convert_oaep(t_rsautl_data *data, char **bdata, int *len
-		, int *readed)
+static int	do_convert_oaep(t_rsautl_data *data, char *bdata, int len
+		, int readed)
 {
-	//
+	//https://tools.ietf.org/html/rfc2313
+	(void)data;
+	(void)bdata;
+	(void)len;
+	(void)readed;
+	return (0);
 }
 
 int			cmd_rsautl_read(t_rsautl_data *data)

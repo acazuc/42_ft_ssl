@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 12:38:49 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:10:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 12:22:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int			command_rsa(int ac, char **av)
 	if (!do_init(&data, ac, av))
 		return (EXIT_FAILURE);
 	if (!cmd_rsa_read(&data))
+	{
+		ft_putendl_fd("ft_ssl: invalid key", 2);
 		return (EXIT_FAILURE);
+	}
 	if (data.check)
 		cmd_rsa_check(&data);
 	if (data.print_text)
@@ -51,6 +54,9 @@ int			command_rsa(int ac, char **av)
 		bignum_printhex(data.rsa_ctx.n);
 	}
 	if (!data.noout && !cmd_rsa_write(&data))
+	{
+		ft_putendl_fd("ft_ssl: failed to write PEM key", 2);
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

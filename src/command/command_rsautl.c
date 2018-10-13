@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 21:28:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:56:37 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 11:15:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ int			command_rsautl(int ac, char **av)
 	if (!do_init(&data, ac, av))
 		return (do_clear(&data, EXIT_FAILURE));
 	if (!cmd_rsautl_readkey(&data))
+	{
+		ft_putendl_fd("ft_ssl: invalid key", 2);
 		return (do_clear(&data, EXIT_FAILURE));
+	}
 	if (!cmd_rsautl_read(&data))
 		return (do_clear(&data, EXIT_FAILURE));
 	if (!do_op(&data))

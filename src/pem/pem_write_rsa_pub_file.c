@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:08:22 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 12:22:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ int			pem_write_rsa_pub_file(t_rsa_ctx *ctx, int fd, char *cipher_name
 {
 	t_pem_write_ctx	pem_ctx;
 
+	(void)cipher_name;
+	(void)password;
 	pem_ctx.b64_ctx.fdout = fd;
-	pem_ctx.ciphered = cipher_name != NULL;
-	pem_ctx.cipher = cipher_name ? cipher_get(cipher_name) : NULL;
-	pem_ctx.password = password;
+	pem_ctx.ciphered = 0;
+	pem_ctx.cipher = NULL;
+	pem_ctx.password = NULL;
 	pem_ctx.begin_text = "-----BEGIN PUBLIC KEY-----";
 	pem_ctx.end_text = "-----END PUBLIC KEY-----";
 	if ((pem_ctx.len = pem_write_rsa_pub(&pem_ctx.data, ctx)) == -1)

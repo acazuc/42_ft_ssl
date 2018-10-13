@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/12 14:57:52 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/13 13:50:23 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC = gcc
 LDFLAGS = -flto -fwhole-program
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g
-#CFLAGS+= -fsanitize=address
+CFLAGS+= -fsanitize=address
 #CFLAGS+= -flto
 
 INCLUDES = -I include/ -I libft/include
@@ -233,6 +233,7 @@ SRCS_NAME = main.c \
 		pem/pem_write_file.c \
 		pem/pem_write_file_init_final.c \
 	    pem/pem_len.c \
+		pem/pem_read_file.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

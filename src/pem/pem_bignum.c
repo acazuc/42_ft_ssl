@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/22 20:46:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 13:21:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 14:13:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ static void	do_read_datas(void *data, uint32_t bn_len, t_bignum *bignum)
 		bignum->sign = 1;
 	else
 		bignum->sign = 0;
-	bignum->data[0] = ((uint8_t*)data)[0] & (~0x80);
-	i = 1;
+	i = 0;
 	while (i < bn_len)
 	{
-		bignum->data[i / sizeof(*bignum->data)] |=
-			(((t_bignum_word*)data)[i])
-			<< (8 * (i % sizeof(*bignum->data)));
+		((uint8_t*)bignum->data)[i] = ((uint8_t*)data)[bn_len - 1 - i];
 		++i;
 	}
 }
@@ -36,6 +33,12 @@ int			pem_bignum_read(t_bignum *bignum, void *data, size_t len)
 	uint32_t	bn_len;
 	int32_t		ret;
 
+	if (len < 1)
+		return (-1);
+	if (*(uint8_t*)data != 0x02)
+		return (-1);
+	data++;
+	len--;
 	ret = pem_read_len(data, len, &bn_len);
 	if (ret < 0 || bn_len + ret > len)
 		return (-1);
@@ -45,8 +48,8 @@ int			pem_bignum_read(t_bignum *bignum, void *data, size_t len)
 	if (!bignum_resize(bignum, (bn_len + sizeof(*bignum->data) - 1)
 				/ sizeof(*bignum->data)))
 		return (-1);
-	do_read_datas(data, bn_len, bignum);
-	return (ret + bn_len);
+	do_read_datas(data + ret, bn_len, bignum);
+	return (1 + ret + bn_len);
 }
 
 uint32_t	pem_bignum_len(t_bignum *bignum)

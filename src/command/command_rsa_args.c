@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 10:39:24 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 11:54:43 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/13 12:47:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ static int	cmd_rsa_args2(t_rsa_data *data, int ac, char **av, int *i)
 		data->noout = 1;
 	else if (!ft_strcmp(av[*i], "-check"))
 		data->check = 1;
-	return (cmd_rsa_args3(data, av, i));
+	else if (!cmd_rsa_args3(data, av, i))
+		return (0);
+	return (1);
 }
 
 int			cmd_rsa_args(t_rsa_data *data, int ac, char **av)
