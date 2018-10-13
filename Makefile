@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/13 13:50:23 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/13 14:20:18 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -234,6 +234,7 @@ SRCS_NAME = main.c \
 		pem/pem_write_file_init_final.c \
 	    pem/pem_len.c \
 		pem/pem_read_file.c \
+		pem/pem_read_file2.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
