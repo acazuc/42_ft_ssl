@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 12:08:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/14 09:14:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	do_read_data(t_rsautl_data *data, char **bdata, int *len
 	if ((*readed = read(data->fdin, *bdata, *len + 1)) == -1)
 	{
 		ft_putendl_fd("ft_ssl: failed to read input", 2);
-		free(bdata);
+		free(*bdata);
 		return (0);
 	}
 	return (1);

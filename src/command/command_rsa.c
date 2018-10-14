@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 12:38:49 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 12:22:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/14 10:02:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	do_init(t_rsa_data *data, int ac, char **av)
 	data->print_text = 0;
 	data->print_modulus = 0;
 	data->noout = 0;
+	data->check = 0;
 	data->cipher_name = NULL;
 	if (!cmd_rsa_args(data, ac, av))
 		return (0);

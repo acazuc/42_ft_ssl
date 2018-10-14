@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:14:09 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 14:13:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/14 10:07:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	pem_read_rsa_pub_file(t_rsa_ctx *ctx, int fd, char *password)
 	if (!pem_read_file(&pem_ctx))
 		return (0);
 	if (!pem_read_rsa_pub(ctx, pem_ctx.data, pem_ctx.len))
+	{
+		free(pem_ctx.data);
 		return (0);
+	}
+	free(pem_ctx.data);
 	return (1);
 }

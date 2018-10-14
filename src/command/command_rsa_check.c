@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 13:29:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 15:03:36 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/14 11:20:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static int	check2(t_rsa_data *data)
 		bignum_clear(&tmp);
 		return (0);
 	}
+	bignum_clear(&tmp);
 	if (data->rsa_ctx.dmq && !check_dmq(data))
 		return (0);
 	if (data->rsa_ctx.dmp && !check_dmp(data))

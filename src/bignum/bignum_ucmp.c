@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 20:53:36 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 11:39:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/14 11:20:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	bignum_ucmp(t_bignum *a, t_bignum *b)
 {
 	uint64_t	i;
 
+	bignum_trunc(a);
+	bignum_trunc(b);
 	if (a->len > b->len)
 		return (1);
 	if (b->len > a->len)

@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 14:19:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 14:29:21 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/14 10:40:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	pem_read_file_salt_iv(t_pem_read_ctx *ctx, char *line, int line_len)
 	ctx->salt_iv_len = iv_len / 2;
 	if (!(ctx->salt_iv = malloc(ctx->salt_iv_len)))
 		return (0);
-	if (!hex2bin(ctx->salt_iv, coma + 1, ctx->salt_iv_len))
+	if (!hex2bin(ctx->salt_iv, coma + 1, iv_len))
 		return (0);
 	return (1);
 }
