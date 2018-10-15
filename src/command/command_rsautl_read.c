@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/15 12:20:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/15 13:21:44 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,28 @@ static int	do_read_data(t_rsautl_data *data, char **bdata, int *len
 	return (1);
 }
 
+static int	do_check_len(t_rsautl_data *data, int *bn_len, int len)
+{
+	if (!(*bn_len = bignum_num_bytes(data->rsa_ctx.n)))
+	{
+		ft_putendl_fd("ft_ssl: error, modulus is 0 !", 2);
+		return (0);
+	}
+	if (len > *bn_len - 3)
+	{
+		ft_putendl_fd("ft_ssl: input too long", 2);
+		return (0);
+	}
+	return (1);
+}
+
 static int	do_convert_pkcs(t_rsautl_data *data, char *bdata, int len)
 {
 	uint8_t	*out;
 	int		bn_len;
 
-	if (!(bn_len = bignum_num_bytes(data->rsa_ctx.n)))
-	{
-		ft_putendl_fd("ft_ssl: error, modulus is 0 !", 2);
+	if (!do_check_len(data, &bn_len, len))
 		return (0);
-	}
-	if (len > bn_len - 3)
-	{
-		ft_putendl_fd("ft_ssl: input too long", 2);
-		return (0);
-	}
 	if (!(out = malloc(bn_len)))
 	{
 		ft_putendl_fd("ft_ssl: malloc failed", 2);
