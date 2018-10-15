@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/14 09:21:52 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/15 11:29:19 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -236,6 +236,8 @@ SRCS_NAME = main.c \
 	    pem/pem_read_file.c \
 	    pem/pem_read_file2.c \
 	    pem/pem_read_file_data.c \
+		pkcs1.5/pkcs1.5_pad.c \
+		pkcs1.5/pkcs1.5_unpad.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
@@ -275,6 +277,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum
 	@mkdir -p $(OBJS_PATH)pem
+	@mkdir -p $(OBJS_PATH)pkcs1.5
 
 clean:
 	@make -C libft clean

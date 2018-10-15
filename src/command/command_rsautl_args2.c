@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 11:52:15 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 11:55:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/15 12:23:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	cmd_rsautl_handle_inkey(t_rsautl_data *data, int ac, char **av, int *i)
 		ft_putendl_fd(av[*i + 1], 2);
 		return (0);
 	}
+	(*i)++;
 	return (1);
 }
 
@@ -56,6 +57,7 @@ int	cmd_rsautl_handle_in(t_rsautl_data *data, int ac, char **av, int *i)
 		ft_putendl_fd(av[*i + 1], 2);
 		return (0);
 	}
+	(*i)++;
 	return (1);
 }
 
@@ -75,5 +77,6 @@ int	cmd_rsautl_handle_out(t_rsautl_data *data, int ac, char **av, int *i)
 		ft_putendl_fd(av[*i + 1], 2);
 		return (0);
 	}
+	(*i)++;
 	return (1);
 }

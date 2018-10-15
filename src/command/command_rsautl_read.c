@@ -6,11 +6,12 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/14 09:14:41 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/15 12:20:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "pkcs1.5.h"
 
 static int	do_convert_bignum(t_rsautl_data *data, char *bdata, int readed
 		, int len)
@@ -58,15 +59,36 @@ static int	do_read_data(t_rsautl_data *data, char **bdata, int *len
 	return (1);
 }
 
-static int	do_convert_oaep(t_rsautl_data *data, char *bdata, int len
-		, int readed)
+static int	do_convert_pkcs(t_rsautl_data *data, char *bdata, int len)
 {
-	//https://tools.ietf.org/html/rfc2313
-	(void)data;
-	(void)bdata;
-	(void)len;
-	(void)readed;
-	return (0);
+	uint8_t	*out;
+	int		bn_len;
+
+	if (!(bn_len = bignum_num_bytes(data->rsa_ctx.n)))
+	{
+		ft_putendl_fd("ft_ssl: error, modulus is 0 !", 2);
+		return (0);
+	}
+	if (len > bn_len - 3)
+	{
+		ft_putendl_fd("ft_ssl: input too long", 2);
+		return (0);
+	}
+	if (!(out = malloc(bn_len)))
+	{
+		ft_putendl_fd("ft_ssl: malloc failed", 2);
+		return (0);
+	}
+	if (!pkcs1_5_pad(out, bn_len, (uint8_t*)bdata, len))
+	{
+		free(out);
+		ft_putendl_fd("ft_ssl: padding failed", 2);
+		return (0);
+	}
+	free(bdata);
+	if (!do_convert_bignum(data, (char*)out, bn_len, bn_len))
+		return (0);
+	return (1);
 }
 
 int			cmd_rsautl_read(t_rsautl_data *data)
@@ -79,10 +101,10 @@ int			cmd_rsautl_read(t_rsautl_data *data)
 		return (0);
 	if (data->mode == RSAUTL_MODE_ENCRYPT || data->mode == RSAUTL_MODE_SIGN)
 	{
-		if (!do_convert_bignum(data, bdata, readed, len))
+		if (!do_convert_pkcs(data, bdata, readed))
 			return (0);
 	}
-	else if (!do_convert_oaep(data, bdata, readed, len))
+	else if (!do_convert_bignum(data, bdata, readed, len))
 		return (0);
 	return (1);
 }

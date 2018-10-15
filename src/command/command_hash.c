@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:47:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/15 10:14:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@
 
 static int	do_final(t_hash_data *data, uint8_t *digest, int print, char *fn)
 {
-	char	*hash;
+	char	hash[data->h.hash->digest_len * 2 + 1];
 
-	if (!(hash = malloc(sizeof(*hash) * (data->h.hash->digest_len * 2 + 1))))
-		return (0);
 	bin2hex(hash, digest, data->h.hash->digest_len);
-	free(digest);
 	hash[data->h.hash->digest_len * 2] = 0;
 	if (!print && !data->quiet && !data->reverse && fn[0])
 	{
@@ -37,13 +34,12 @@ static int	do_final(t_hash_data *data, uint8_t *digest, int print, char *fn)
 		ft_putstr(fn);
 	}
 	ft_putchar('\n');
-	free(hash);
 	return (1);
 }
 
 static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 {
-	uint8_t		*digest;
+	uint8_t		digest[data->h.hash->digest_len];
 	uint8_t		buf[4096];
 	int			readed;
 
@@ -59,8 +55,6 @@ static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 	}
 	if (readed == -1)
 		return (0);
-	if (!(digest = malloc(sizeof(*digest) * data->h.hash->digest_len)))
-		return (0);
 	if (!data->h.hash->final(digest, data->h.ctx))
 		return (0);
 	return (do_final(data, digest, print, fn));
@@ -69,7 +63,7 @@ static int	command_hash_fd(t_hash_data *data, int fd, int print, char *fn)
 static int	command_hash_string(t_hash_data *data, int ac, char **av
 		, int *i)
 {
-	uint8_t		*digest;
+	uint8_t		digest[data->h.hash->digest_len];
 
 	data->written = 1;
 	if (++(*i) >= ac)
@@ -81,8 +75,6 @@ static int	command_hash_string(t_hash_data *data, int ac, char **av
 		return (0);
 	if (!data->h.hash->update(data->h.ctx, (const uint8_t*)av[*i]
 				, strlen(av[*i])))
-		return (0);
-	if (!(digest = malloc(sizeof(*digest) * data->h.hash->digest_len)))
 		return (0);
 	if (!data->h.hash->final(digest, data->h.ctx))
 		return (0);
@@ -97,6 +89,7 @@ static int	command_hash_files(t_hash_data *data, int ac, char **av, int *i)
 	ret = 1;
 	while (*i < ac)
 	{
+		data->written = 1;
 		if ((fd = open(av[*i], O_RDONLY)) == -1)
 		{
 			ft_putstr_fd("ft_ssl: ", 2);
