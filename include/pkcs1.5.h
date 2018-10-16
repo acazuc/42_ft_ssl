@@ -6,12 +6,12 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 10:59:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/15 11:25:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/16 10:25:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PKCS_1_5_H
-# define PKCS_1_5_H
+#ifndef PKCS1_5_H
+# define PKCS1_5_H
 
 # include <stdint.h>
 

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 14:37:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/15 14:39:12 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/16 10:36:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	rsa_dec(t_rsa_ctx *ctx, t_bignum *m, t_bignum *c)
 			|| !bignum_mul(&m1, &m1, ctx->q)
 			|| !bignum_add(&m1, &m1, &m2))
 		ret = 0;
+	else
+		bignum_move(m, &m1);
 	bignum_clear(&m1);
 	bignum_clear(&m2);
 	return (ret);

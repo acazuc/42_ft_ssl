@@ -6,13 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:56:56 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 12:24:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/16 10:34:51 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hash/ripemd160.h"
 #include "ft_ssl.h"
-#include <stdio.h>
 
 t_hash		g_hash_ripemd160 = {"RIPEMD160",
 	(t_hash_init)ripemd160_init,
