@@ -6,14 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 19:09:35 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 21:29:50 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 19:56:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/cipher.h"
 #include "libft.h"
 
-t_cipher_mod	g_cipher_mod_ofb = {cipher_ofb_premod, cipher_ofb_postmod, 1};
+t_cipher_mod	g_cipher_mod_ofb = {cipher_ofb_premod, cipher_ofb_postmod
+	, 1, 1};
 
 void	cipher_ofb_premod(t_cipher_ctx *ctx, uint8_t *data)
 {

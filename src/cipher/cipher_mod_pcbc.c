@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/30 18:53:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:48:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 19:57:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 
 t_cipher_mod	g_cipher_mod_pcbc = {cipher_pcbc_premod,
-	cipher_pcbc_postmod, 0};
+	cipher_pcbc_postmod, 0, 1};
 
 void	cipher_pcbc_premod(t_cipher_ctx *ctx, uint8_t *data)
 {

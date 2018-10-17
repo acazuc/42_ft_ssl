@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 21:49:27 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/13 21:49:51 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 19:56:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 
 t_cipher_mod	g_cipher_mod_ctr64 = {cipher_ctr64_premod
-	, cipher_ctr64_postmod, 1};
+	, cipher_ctr64_postmod, 1, 1};
 
 void	cipher_ctr64_premod(t_cipher_ctx *ctx, uint8_t *data)
 {

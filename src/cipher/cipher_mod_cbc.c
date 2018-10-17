@@ -6,14 +6,15 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 21:25:44 by acazuc            #+#    #+#             */
-/*   Updated: 2018/08/12 11:59:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 19:56:43 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/cipher.h"
 #include "libft.h"
 
-t_cipher_mod	g_cipher_mod_cbc = {cipher_cbc_premod, cipher_cbc_postmod, 0};
+t_cipher_mod	g_cipher_mod_cbc = {cipher_cbc_premod, cipher_cbc_postmod
+	, 0, 1};
 
 void	cipher_cbc_premod(t_cipher_ctx *ctx, uint8_t *data)
 {

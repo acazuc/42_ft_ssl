@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:18:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:35:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 20:01:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,19 @@ int			cmd_cipher_handle_key(t_cipher_data *data, t_cipher_args *args)
 
 int			cmd_cipher_handle_iv(t_cipher_data *data, t_cipher_args *args)
 {
-	if (!args->iv)
+	if (!args->iv && data->cipher.cipher->mod->require_iv)
 	{
+		ft_putendl_fd("ft_ssl: iv required", 2);
+		return (0);
+	}
+	/*{
 		if (!random_bytes(data->iv, data->cipher.cipher->block_size))
 		{
 			ft_putendl_fd("ft_ssl: Failed to generate random iv", 2);
 			return (0);
 		}
 		return (1);
-	}
+	}*/
 	if (!transform_bin(data->iv, args->iv, data->cipher.cipher->block_size))
 	{
 		ft_putendl_fd("ft_ssl: invalid iv", 2);
