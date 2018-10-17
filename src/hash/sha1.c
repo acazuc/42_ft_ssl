@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 22:21:08 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 12:14:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 13:03:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int			sha1_final(uint8_t *md, t_sha1_ctx *ctx)
 	ctx->data_len++;
 	if (ctx->data_len > 56)
 	{
-		ft_memcpy((char*)ctx->data + ctx->data_len, 0, 64 - ctx->data_len);
+		ft_memset((char*)ctx->data + ctx->data_len, 0, 64 - ctx->data_len);
 		ctx->data_len = 64;
 		sha1_update(ctx, NULL, 0);
 	}
