@@ -14,7 +14,7 @@ test_hash_do()
 {
 	#./ft_ssl $1 -r $2
 	ret_ftssl=`./ft_ssl $1 $2 | cut -d ' ' -f3 | openssl sha1`
-	ret_opssl=`openssl $1 $2  | cut -d ' ' -f2 | openssl sha1`
+	ret_opssl=`openssl $1 $2  | cut -d ' ' -f3 | openssl sha1`
 	print_result "$1 $2" $ret_ftssl $ret_opssl
 }
 
@@ -377,7 +377,43 @@ test_bignum_all()
 	test_bignum is_prime_huge_no 173595967255825177671338937551019479316666998993775123240829393474377123659353963373337070902624048512825454641905090447123113341790233547359778733674889927077625565221007272383568497900935065546549429354535026002846488966213929642837090828644809149794625119581137692313935281347548744981442897801650653080519 is_prime osef 0
 }
 
-ops=${@:-"hash base64 des aes camellia chacha20 rc4 bignum"}
+test_rsa()
+{
+	#generate key
+	./ft_ssl genrsa 256 -out /tmp/ft_ssl_rsa_key 1>&- 2>&-
+
+	#encrypt author
+	./ft_ssl rsautl -encrypt -inkey /tmp/ft_ssl_rsa_key -in author -out /tmp/ft_ssl_author
+	openssl rsautl -encrypt -inkey /tmp/ft_ssl_rsa_key -in author -out /tmp/openssl_author
+	df=`diff /tmp/ft_ssl_author /tmp/openssl_author`
+	print_result rsa_encrypt_priv $df ""
+
+	#decrypt author
+	./ft_ssl rsautl -decrypt -inkey /tmp/ft_ssl_rsa_key -in /tmp/openssl_author -out /tmp/ft_ssl_author_2
+	df=`diff /tmp/ft_ssl_author_2 author`
+	print_result rsa_decrypt $df ""
+
+	#encrypt with public
+	openssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/openssl_rsa_key_pub -pubout >&- 2>&-
+	./ft_ssl rsautl -encrypt -pubin -inkey /tmp/openssl_rsa_key_pub -in author -out /tmp/ft_ssl_author_pub
+	openssl rsautl -encrypt -pubin -inkey /tmp/openssl_rsa_key_pub -in author -out /tmp/openssl_author_pub
+	df=`diff /tmp/ft_ssl_author_pub /tmp/openssl_author_pub`
+	print_result rsa_encrypt_priv $df ""
+
+	#rsa priv to priv
+	./ft_ssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/ft_ssl_rsa_key_priv
+	openssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/openssl_rsa_key_priv >&- 2>&-
+	df=`diff /tmp/ft_ssl_rsa_key_priv /tmp/openssl_rsa_key_priv`
+	print_result rsa_privtopriv $df ""
+
+	#rsa priv to pub
+	./ft_ssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/ft_ssl_rsa_key_pub -pubout
+	openssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/openssl_rsa_key_pub -pubout >&- 2>&-
+	df=`diff /tmp/ft_ssl_rsa_key_pub /tmp/openssl_rsa_key_pub`
+	print_result rsa_privtopub $df ""
+}
+
+ops=${@:-"hash base64 des aes camellia chacha20 rc4 bignum rsa"}
 
 for var in $ops
 do
@@ -448,6 +484,10 @@ do
 			;;
 		"bignum")
 			test_bignum_all
+			echo
+			;;
+		"rsa")
+			test_rsa
 			echo
 			;;
 	esac

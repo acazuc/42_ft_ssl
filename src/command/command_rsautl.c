@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 21:28:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/15 12:46:46 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 20:48:58 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	do_init(t_rsautl_data *data, int ac, char **av)
 	data->hexdump = 0;
 	data->passin = NULL;
 	data->bignum = NULL;
+	ft_memset(&data->rsa_ctx, 0, sizeof(data->rsa_ctx));
 	if (!cmd_rsautl_args(data, ac, av))
 		return (0);
 	if (!check_params(data))
@@ -62,8 +63,8 @@ static int	do_clear(t_rsautl_data *data, int ret)
 	if (data->fdout != 1)
 		close(data->fdout);
 	close(data->keyfd);
-	if (data->bignum)
-		bignum_free(data->bignum);
+	bignum_free(data->bignum);
+	rsa_free(&data->rsa_ctx);
 	return (ret);
 }
 

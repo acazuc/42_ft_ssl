@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:47:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 20:51:01 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	do_init(t_genrsa_data *data, int ac, char **av)
 {
-	ft_memset(data, 0, sizeof(data));
+	ft_memset(data, 0, sizeof(*data));
 	data->exp = 0x10001;
 	data->cipher_name = NULL;
 	data->fdout = 1;

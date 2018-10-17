@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 14:47:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 19:55:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_cipher_mod
 	t_cipher_mod_fn	premod;
 	t_cipher_mod_fn	postmod;
 	int				nopad;
+	int				require_iv;
 }					t_cipher_mod;
 
 typedef struct		s_cipher

@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 12:38:49 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/14 10:02:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 20:50:28 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	do_init(t_rsa_data *data, int ac, char **av)
 	data->noout = 0;
 	data->check = 0;
 	data->cipher_name = NULL;
+	ft_memset(&data->rsa_ctx, 0, sizeof(data->rsa_ctx));
 	if (!cmd_rsa_args(data, ac, av))
 		return (0);
 	if (data->pubin)
@@ -34,16 +35,22 @@ static int	do_init(t_rsa_data *data, int ac, char **av)
 	return (1);
 }
 
+static int	do_clear(t_rsa_data *data, int ret)
+{
+	rsa_free(&data->rsa_ctx);
+	return (ret);
+}
+
 int			command_rsa(int ac, char **av)
 {
 	t_rsa_data	data;
 
 	if (!do_init(&data, ac, av))
-		return (EXIT_FAILURE);
+		return (do_clear(&data, EXIT_FAILURE));
 	if (!cmd_rsa_read(&data))
 	{
 		ft_putendl_fd("ft_ssl: invalid key", 2);
-		return (EXIT_FAILURE);
+		return (do_clear(&data, EXIT_FAILURE));
 	}
 	if (data.check)
 		cmd_rsa_check(&data);
@@ -57,7 +64,7 @@ int			command_rsa(int ac, char **av)
 	if (!data.noout && !cmd_rsa_write(&data))
 	{
 		ft_putendl_fd("ft_ssl: failed to write PEM key", 2);
-		return (EXIT_FAILURE);
+		return (do_clear(&data, EXIT_FAILURE));
 	}
-	return (EXIT_SUCCESS);
+	return (do_clear(&data, EXIT_SUCCESS));
 }

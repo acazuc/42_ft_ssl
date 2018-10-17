@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 12:57:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 11:22:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/17 20:29:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 static int	handle_out(t_genrsa_data *data, int ac, char **av, int *i)
 {
-	++(*i);
-	if (*i >= ac)
+	if (++(*i) >= ac)
 	{
 		ft_putendl_fd("ft_ssl: file expected after -out", 2);
 		return (0);
