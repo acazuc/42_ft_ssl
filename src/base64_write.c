@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 16:19:14 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:33:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 20:40:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int			base64_write_init(t_b64_write_ctx *ctx)
 {
 	ctx->count = 0;
 	ctx->buff_pos = 0;
-	ctx->buff_len = 1024;
-	if (!(ctx->buff = malloc(1024)))
+	ctx->buff_len = 4096;
+	if (!(ctx->buff = malloc(4096)))
 		return (0);
 	if (!b64e_init(&ctx->b64e_ctx))
 	{
