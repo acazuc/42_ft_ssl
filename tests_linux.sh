@@ -12,9 +12,8 @@ print_result()
 
 test_hash_do()
 {
-	#./ft_ssl $1 -r $2
-	ret_ftssl=`./ft_ssl $1 $2 | cut -d ' ' -f3 | openssl sha1`
-	ret_opssl=`openssl $1 $2  | cut -d ' ' -f3 | openssl sha1`
+	ret_ftssl=`./ft_ssl $1 $2 | cut -d ' ' -f3`
+	ret_opssl=`openssl $1 $2 | cut -d ' ' -f2`
 	print_result "$1 $2" $ret_ftssl $ret_opssl
 }
 
@@ -382,13 +381,14 @@ test_rsa()
 	#generate key
 	./ft_ssl genrsa 256 -out /tmp/ft_ssl_rsa_key 1>&- 2>&-
 
-	#encrypt author
+	#encrypt with priv
 	./ft_ssl rsautl -encrypt -inkey /tmp/ft_ssl_rsa_key -in author -out /tmp/ft_ssl_author
-	openssl rsautl -encrypt -inkey /tmp/ft_ssl_rsa_key -in author -out /tmp/openssl_author
-	df=`diff /tmp/ft_ssl_author /tmp/openssl_author`
+	openssl rsautl -decrypt -inkey /tmp/ft_ssl_rsa_key -in /tmp/ft_ssl_author -out /tmp/openssl_author
+	df=`diff author /tmp/openssl_author`
 	print_result rsa_encrypt_priv $df ""
 
-	#decrypt author
+	#decrypt
+	openssl rsautl -encrypt -inkey /tmp/ft_ssl_rsa_key -in author -out /tmp/openssl_author
 	./ft_ssl rsautl -decrypt -inkey /tmp/ft_ssl_rsa_key -in /tmp/openssl_author -out /tmp/ft_ssl_author_2
 	df=`diff /tmp/ft_ssl_author_2 author`
 	print_result rsa_decrypt $df ""
@@ -396,9 +396,9 @@ test_rsa()
 	#encrypt with public
 	openssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/openssl_rsa_key_pub -pubout >&- 2>&-
 	./ft_ssl rsautl -encrypt -pubin -inkey /tmp/openssl_rsa_key_pub -in author -out /tmp/ft_ssl_author_pub
-	openssl rsautl -encrypt -pubin -inkey /tmp/openssl_rsa_key_pub -in author -out /tmp/openssl_author_pub
-	df=`diff /tmp/ft_ssl_author_pub /tmp/openssl_author_pub`
-	print_result rsa_encrypt_priv $df ""
+	openssl rsautl -decrypt -inkey /tmp/ft_ssl_rsa_key -in /tmp/ft_ssl_author_pub -out /tmp/openssl_author
+	df=`diff author /tmp/openssl_author`
+	print_result rsa_encrypt_pub $df ""
 
 	#rsa priv to priv
 	./ft_ssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/ft_ssl_rsa_key_priv
@@ -411,6 +411,18 @@ test_rsa()
 	openssl rsa -in /tmp/ft_ssl_rsa_key -out /tmp/openssl_rsa_key_pub -pubout >&- 2>&-
 	df=`diff /tmp/ft_ssl_rsa_key_pub /tmp/openssl_rsa_key_pub`
 	print_result rsa_privtopub $df ""
+
+	#rsa pub to pub
+	./ft_ssl rsa -pubin -in /tmp/ft_ssl_rsa_key_pub -out /tmp/ft_ssl_rsa_key_pub_2 -pubout
+	openssl rsa -pubin -in /tmp/ft_ssl_rsa_key_pub -out /tmp/openssl_rsa_key_pub_2 -pubout >&- 2>&-
+	df=`diff /tmp/ft_ssl_rsa_key_pub_2 /tmp/openssl_rsa_key_pub_2`
+	print_result rsa_pubtopub $df ""
+
+	#rsa pub to priv
+	./ft_ssl rsa -pubin -in /tmp/ft_ssl_rsa_key_pub -out /tmp/ft_ssl_rsa_key_pub_3
+	openssl rsa -pubin -in /tmp/ft_ssl_rsa_key_pub -out /tmp/openssl_rsa_key_pub_3 >&- 2>&-
+	df=`diff /tmp/ft_ssl_rsa_key_pub_3 /tmp/openssl_rsa_key_pub_3`
+	print_result rsa_pubtopriv $df ""
 }
 
 ops=${@:-"hash base64 des aes camellia chacha20 rc4 bignum rsa"}
