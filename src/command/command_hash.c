@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/15 12:54:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 16:12:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ int			command_hash(int ac, char **av, t_hash_data *data)
 	data->written = 0;
 	data->quiet = 0;
 	err = 0;
-	i = 0;
-	while (i < ac)
+	i = -1;
+	while (++i < ac)
 	{
 		if (!ft_strcmp(av[i], "-p"))
 			err |= !command_hash_fd(data, 0, 1, "");
@@ -132,9 +132,9 @@ int			command_hash(int ac, char **av, t_hash_data *data)
 			err |= !command_hash_string(data, ac, av, &i);
 		else
 			err |= !command_hash_files(data, ac, av, &i);
-		++i;
 	}
 	if (!data->written)
-		return (command_hash_fd(data, 0, 0, ""));
+		return (command_hash_fd(data, 0, 0, "")
+				? EXIT_SUCCESS : EXIT_FAILURE);
 	return (err ? EXIT_FAILURE : EXIT_SUCCESS);
 }

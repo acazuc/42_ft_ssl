@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 19:56:57 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 12:57:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 16:11:35 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ int			command_genrsa(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 	rsa_free(&data.rsa_ctx);
-	return (1);
+	return (EXIT_SUCCESS);
 }

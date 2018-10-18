@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/18 12:19:33 by acazuc           ###   ########.fr        #
+#    Updated: 2018/10/18 15:14:39 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC = gcc
 LDFLAGS = -flto -fwhole-program
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g
-CFLAGS+= -fsanitize=address
+#CFLAGS+= -fsanitize=address
 #CFLAGS+= -flto
 
 INCLUDES = -I include/ -I libft/include

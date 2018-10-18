@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 12:03:02 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 12:51:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 14:44:26 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		cmd_rsautl_write_hex(t_rsautl_data *data, uint8_t *ptr, int len)
 
 	if (!data->hexdump)
 	{
-		write(data->fdout, ptr, len);
+		i = write(data->fdout, ptr, len);
 		return ;
 	}
 	i = 0;

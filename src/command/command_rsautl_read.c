@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 12:02:17 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 16:16:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	do_check_len(t_rsautl_data *data, int *bn_len, int len)
 		ft_putendl_fd("ft_ssl: error, modulus is 0 !", 2);
 		return (0);
 	}
-	if (len > *bn_len - 3)
+	if (len > *bn_len - 11)
 	{
 		ft_putendl_fd("ft_ssl: input too long", 2);
 		return (0);

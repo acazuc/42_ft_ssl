@@ -6,12 +6,11 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 19:34:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 10:13:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 19:31:23 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bignum.h"
-#include "libft.h"
 
 int	bignum_set_bit(t_bignum *bignum, uint32_t n)
 {

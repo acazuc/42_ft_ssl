@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/12 11:08:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 11:14:44 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 15:13:49 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void		chacha20_init_state(t_chacha20_ctx *ctx, uint8_t *key, uint8_t *iv)
 {
-	ctx->state[0x0] = 0x65787061;
-	ctx->state[0x1] = 0x6E642051;
-	ctx->state[0x2] = 0x322D6279;
-	ctx->state[0x3] = 0x7465206b;
+	ctx->state[0x0] = 0x61707865u;
+	ctx->state[0x1] = 0x3320646Eu;
+	ctx->state[0x2] = 0x79622D32u;
+	ctx->state[0x3] = 0x6B206574u;
 	ctx->state[0x4] = ((uint32_t*)key)[0];
 	ctx->state[0x5] = ((uint32_t*)key)[1];
 	ctx->state[0x6] = ((uint32_t*)key)[2];
@@ -47,14 +47,14 @@ static void	chacha20_round(uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
 
 static void	chacha20_rounds(uint32_t *x)
 {
-	chacha20_round(&x[0], &x[4], &x[8], &x[12]);
-	chacha20_round(&x[1], &x[5], &x[9], &x[13]);
-	chacha20_round(&x[2], &x[6], &x[10], &x[14]);
-	chacha20_round(&x[3], &x[7], &x[11], &x[15]);
-	chacha20_round(&x[0], &x[5], &x[10], &x[15]);
-	chacha20_round(&x[1], &x[6], &x[11], &x[12]);
-	chacha20_round(&x[2], &x[7], &x[8], &x[13]);
-	chacha20_round(&x[3], &x[4], &x[9], &x[14]);
+	chacha20_round(x + 0x0, x + 0x4, x + 0x8, x + 0xC);
+	chacha20_round(x + 0x1, x + 0x5, x + 0x9, x + 0xD);
+	chacha20_round(x + 0x2, x + 0x6, x + 0xA, x + 0xE);
+	chacha20_round(x + 0x3, x + 0x7, x + 0xB, x + 0xF);
+	chacha20_round(x + 0x0, x + 0x5, x + 0xA, x + 0xF);
+	chacha20_round(x + 0x1, x + 0x6, x + 0xB, x + 0xC);
+	chacha20_round(x + 0x2, x + 0x7, x + 0x8, x + 0xD);
+	chacha20_round(x + 0x3, x + 0x4, x + 0x9, x + 0xE);
 }
 
 void		chacha20_operate_block(t_chacha20_ctx *ctx, uint8_t *block)

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:22:29 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/17 19:58:02 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 18:46:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	do_update(t_cipher_data *data)
 {
-	uint8_t	buff[4096];
+	uint8_t	buff[1024 * 16];
 	int		ret;
 
-	while ((ret = read(data->fdin, buff, 4096)) > 0)
+	while ((ret = read(data->fdin, buff, 1024 * 16)) > 0)
 	{
 		if (data->base64 && data->cipher.mode)
 		{
