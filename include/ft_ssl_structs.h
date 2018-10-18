@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:45:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:21:53 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 12:46:43 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,9 @@ typedef struct		s_rsautl_data
 	int				mode;
 	int				hexdump;
 	char			*passin;
+	int				hex_pos;
+	uint8_t			hex_line[16];
+	int				hex_write;
 }					t_rsautl_data;
 
 #endif

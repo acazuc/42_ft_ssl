@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/09 12:00:33 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 11:19:59 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	encode_callback(void *userptr, uint8_t *data, size_t len)
 		data += tmp;
 		len -= tmp;
 		ptr->count = 0;
-		ft_putchar('\n');
+		ft_putchar_fd('\n', ptr->fd);
 	}
 	ptr->count += len;
 	osef = write(ptr->fd, data, len);
@@ -60,7 +60,7 @@ static int	encode(int fdin, int fdout)
 	if (!b64e_final(&ctx))
 		return (EXIT_FAILURE);
 	if (data.count)
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fdout);
 	return (EXIT_SUCCESS);
 }
 

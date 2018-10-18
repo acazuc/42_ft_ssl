@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 21:28:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/17 20:48:58 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 12:46:52 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ static int	do_init(t_rsautl_data *data, int ac, char **av)
 	data->fdout = 1;
 	data->keyfd = -1;
 	data->pubin = 0;
-	data->mode = -1;
+	data->mode = RSAUTL_MODE_DECRYPT;
 	data->hexdump = 0;
 	data->passin = NULL;
 	data->bignum = NULL;
+	data->hex_pos = 0;
+	data->hex_write = 0;
 	ft_memset(&data->rsa_ctx, 0, sizeof(data->rsa_ctx));
 	if (!cmd_rsautl_args(data, ac, av))
 		return (0);

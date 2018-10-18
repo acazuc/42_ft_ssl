@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:56:05 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/17 20:46:05 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 12:34:21 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ static int	do_depad(t_rsautl_data *data)
 		ft_putendl_fd("ft_ssl: pkcs1.5 depadding failed", 2);
 		return (0);
 	}
-	outlen = write(data->fdout, out, outlen);
+	cmd_rsautl_write_hex(data, out, outlen);
+	cmd_rsautl_write_hex_line(data);
 	free(bn_data);
 	free(out);
 	return (1);
@@ -79,7 +80,6 @@ int			cmd_rsautl_write(t_rsautl_data *data)
 {
 	int	len;
 	int	i;
-	int	osef;
 
 	if (data->mode == RSAUTL_MODE_DECRYPT || data->mode == RSAUTL_MODE_VERIFY)
 		return (do_depad(data));
@@ -87,9 +87,10 @@ int			cmd_rsautl_write(t_rsautl_data *data)
 	i = 0;
 	while (i < len)
 	{
-		osef = write(data->fdout, ((uint8_t*)data->bignum->data) + len - 1 - i, 1);
+		cmd_rsautl_write_hex(data, ((uint8_t*)data->bignum->data)
+				+ len - i - 1, 1);
 		++i;
 	}
-	(void)osef;
+	cmd_rsautl_write_hex_line(data);
 	return (1);
 }

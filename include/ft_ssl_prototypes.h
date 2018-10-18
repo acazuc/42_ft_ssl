@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 14:56:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 12:30:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int			cmd_rsautl_handle_out(t_rsautl_data *data, int ac, char **av
 int			cmd_rsautl_read(t_rsautl_data *data);
 int			cmd_rsautl_readkey(t_rsautl_data *data);
 int			cmd_rsautl_write(t_rsautl_data *data);
+void		cmd_rsautl_write_hex(t_rsautl_data *data, uint8_t *ptr, int len);
+void		cmd_rsautl_write_hex_line(t_rsautl_data *data);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);

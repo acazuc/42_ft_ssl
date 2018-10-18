@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 10:13:58 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/13 13:57:30 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 10:40:58 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,21 @@
 static int	read_bignums(t_rsa_ctx *ctx, void *data, uint32_t len
 		, uint32_t readed)
 {
-	int	ret;
+	uint32_t	tmp;
+	int			ret;
 
+	if ((ret = pem_read_len(data + readed, len - readed, &tmp)) == -1)
+		return (0);
+	if (tmp + 1 != len - readed)
+		return (0);
+	readed += ret;
+	if (!(ctx->n = bignum_new()))
+		return (0);
 	if ((ret = pem_bignum_read(ctx->n, data + readed, len - readed)) == -1)
 		return (0);
 	readed += ret;
+	if (!(ctx->e = bignum_new()))
+		return (0);
 	if ((ret = pem_bignum_read(ctx->e, data + readed, len - readed)) == -1)
 		return (0);
 	readed += ret;
@@ -50,7 +60,7 @@ int			pem_read_rsa_pub(t_rsa_ctx *ctx, void *data, size_t len)
 		return (0);
 	readed += tmp;
 	if (len < readed + 2 || ft_memcmp("\x00\x30", data + readed, 2)
-			|| !read_bignums(ctx, data, len, readed))
+			|| !read_bignums(ctx, data, len, readed + 2))
 		return (0);
 	return (1);
 }

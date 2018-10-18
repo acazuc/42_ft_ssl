@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 10:59:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/16 10:25:38 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 10:44:38 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <stdint.h>
 
-int			pkcs1_5_pad(uint8_t *out, int outlen, uint8_t *in, int inlen);
+int			pkcs1_5_pad_1(uint8_t *out, int outlen, uint8_t *in, int inlen);
+int			pkcs1_5_pad_2(uint8_t *out, int outlen, uint8_t *in, int inlen);
 int			pkcs1_5_unpad(uint8_t *out, int *outlen, uint8_t *in, int inlen);
 
 #endif

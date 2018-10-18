@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 14:32:51 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/17 20:34:22 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/18 12:02:17 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	do_read_data(t_rsautl_data *data, char **bdata, int *len
 	}
 	if ((*readed = read(data->fdin, *bdata, *len + 1)) == -1)
 	{
-		ft_putendl_fd("ft_ssl: failed to read input", 2);
+		ft_putendl_fd("ft_ssl: failedMa to read input", 2);
 		free(*bdata);
 		return (0);
 	}
@@ -86,7 +86,10 @@ static int	do_convert_pkcs(t_rsautl_data *data, char *bdata, int len)
 		ft_putendl_fd("ft_ssl: malloc failed", 2);
 		return (0);
 	}
-	if (!pkcs1_5_pad(out, bn_len, (uint8_t*)bdata, len))
+	if ((data->mode == RSAUTL_MODE_SIGN
+		&& !pkcs1_5_pad_1(out, bn_len, (uint8_t*)bdata, len))
+	|| (data->mode != RSAUTL_MODE_SIGN
+		&& !pkcs1_5_pad_2(out, bn_len, (uint8_t*)bdata, len)))
 	{
 		free(out);
 		ft_putendl_fd("ft_ssl: padding failed", 2);
