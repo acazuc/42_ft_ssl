@@ -446,6 +446,17 @@ test_rsautl()
 
 	#test just invalid size
 	echo -n "aaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_size || print_result_ok inrsautl_valid_size
+
+	#sign
+	$FTSSL_BIN rsautl -sign -inkey /tmp/ftssl_rsa_key -in author -out /tmp/ftssl_sign
+	$OPSSL_BIN rsautl -sign -inkey /tmp/ftssl_rsa_key -in author -out /tmp/opssl_sign
+	df=`diff /tmp/ftssl_sign /tmp/opssl_sign`
+	print_result rsautl_sign $df ""
+
+	#verify
+	$FTSSL_BIN rsautl -verify -inkey /tmp/ftssl_rsa_key -in /tmp/opssl_sign -out /tmp/ftssl_author_verify
+	df=`diff /tmp/ftssl_author_verify author`
+	print_result rsautl_verify $df ""
 }
 
 test_rsa()
