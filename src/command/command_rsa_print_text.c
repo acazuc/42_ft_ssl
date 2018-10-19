@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 12:54:54 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/12 13:18:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 13:13:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	print_hex(uint8_t val)
 {
 	if (val >= 10)
-		ft_putchar('A' + val);
+		ft_putchar('a' + val - 10);
 	else
 		ft_putchar('0' + val);
 }
