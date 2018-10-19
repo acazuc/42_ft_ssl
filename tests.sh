@@ -421,7 +421,7 @@ test_rsautl()
 	#no pubin with public key
 	$FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key_pub -in author > /dev/null 2> /dev/null && print_result_ko rsautl_nopubin_public || print_result_ok rsautl_nopubin_public
 
-	#rsautl hexdump
+	#hexdump
 	$OPSSL_BIN rsautl -encrypt -inkey /tmp/ftssl_rsa_key -in author -out /tmp/opssl_author
 	$FTSSL_BIN rsautl -in /tmp/opssl_author -decrypt -inkey /tmp/ftssl_rsa_key -out /tmp/ftssl_hexdump_priv -hexdump
 	$OPSSL_BIN rsautl -in /tmp/opssl_author -decrypt -inkey /tmp/ftssl_rsa_key -out /tmp/opssl_hexdump_priv -hexdump
@@ -431,39 +431,49 @@ test_rsautl()
 	#input too long
 	$FTSSL_BIN rsautl -encrypt -inkey /tmp/ftssl_rsa_key -in Makefile -out /dev/null 2> /dev/null && print_result_ko rsautl_toolong || print_result_ok rsautl_toolong
 
-	#rsa invalid pub
-	$FTSSL_BIN rsautl -pubin -inkey /tmp/ftssl_rsa_key -in author > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_pubin || print_result_ok rsa_invalid_pubin
+	#invalid pub
+	$FTSSL_BIN rsautl -pubin -inkey /tmp/ftssl_rsa_key -in author > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_pubin || print_result_ok rsautl_invalid_pubin
 
-	#rsa invalid priv
-	$FTSSL_BIN rsautl -inkey /tmp/ftssl_rsa_key_pub -in author > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_privin || print_result_ok rsa_invalid_privin
+	#invalid priv
+	$FTSSL_BIN rsautl -inkey /tmp/ftssl_rsa_key_pub -in author > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_privin || print_result_ok rsautl_invalid_privin
+
+	#invalid decrypt input
+	$FTSSL_BIN rsautl -decrypt -inkey /tmp/ftssl_rsa_key_pub -in author > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_decrypt_input || print_result_ok rsautl_invalid_decrypt_input
+
+	#test just valid size
+	$OPSSL_BIN genrsa -out /tmp/opssl_rsa_key 256 2> /dev/null
+	echo -n "aaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ok rsautl_valid_size || print_result_ko rsautl_valid_size
+
+	#test just invalid size
+	echo -n "aaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_size || print_result_ok inrsautl_valid_size
 }
 
 test_rsa()
 {
 	#generate key
-	$FTSSL_BIN genrsa 256 -out /tmp/ftssl_rsa_key 1>&- 2>&-
+	$FTSSL_BIN genrsa 256 -out /tmp/ftssl_rsa_key > /dev/null 2> /dev/null
 
 	#rsa priv to priv
 	$FTSSL_BIN rsa -in /tmp/ftssl_rsa_key -out /tmp/ftssl_rsa_key_priv
-	$OPSSL_BIN rsa -in /tmp/ftssl_rsa_key -out /tmp/opssl_rsa_key_priv >&- 2>&-
+	$OPSSL_BIN rsa -in /tmp/ftssl_rsa_key -out /tmp/opssl_rsa_key_priv > /dev/null 2> /dev/null
 	df=`diff /tmp/ftssl_rsa_key_priv /tmp/opssl_rsa_key_priv`
 	print_result rsa_privtopriv $df ""
 
 	#rsa priv to pub
 	$FTSSL_BIN rsa -in /tmp/ftssl_rsa_key -out /tmp/ftssl_rsa_key_pub -pubout
-	$OPSSL_BIN rsa -in /tmp/ftssl_rsa_key -out /tmp/opssl_rsa_key_pub -pubout >&- 2>&-
+	$OPSSL_BIN rsa -in /tmp/ftssl_rsa_key -out /tmp/opssl_rsa_key_pub -pubout > /dev/null 2> /dev/null
 	df=`diff /tmp/ftssl_rsa_key_pub /tmp/opssl_rsa_key_pub`
 	print_result rsa_privtopub $df ""
 
 	#rsa pub to pub
 	$FTSSL_BIN rsa -pubin -in /tmp/ftssl_rsa_key_pub -out /tmp/ftssl_rsa_key_pub_2 -pubout
-	$OPSSL_BIN rsa -pubin -in /tmp/ftssl_rsa_key_pub -out /tmp/opssl_rsa_key_pub_2 -pubout >&- 2>&-
+	$OPSSL_BIN rsa -pubin -in /tmp/ftssl_rsa_key_pub -out /tmp/opssl_rsa_key_pub_2 -pubout > /dev/null 2> /dev/null
 	df=`diff /tmp/ftssl_rsa_key_pub_2 /tmp/opssl_rsa_key_pub_2`
 	print_result rsa_pubtopub $df ""
 
 	#rsa pub to priv
 	$FTSSL_BIN rsa -pubin -in /tmp/ftssl_rsa_key_pub -out /tmp/ftssl_rsa_key_pub_3
-	$OPSSL_BIN rsa -pubin -in /tmp/ftssl_rsa_key_pub -out /tmp/opssl_rsa_key_pub_3 >&- 2>&-
+	$OPSSL_BIN rsa -pubin -in /tmp/ftssl_rsa_key_pub -out /tmp/opssl_rsa_key_pub_3 > /dev/null 2> /dev/null
 	df=`diff /tmp/ftssl_rsa_key_pub_3 /tmp/opssl_rsa_key_pub_3`
 	print_result rsa_pubtopriv $df ""
 
