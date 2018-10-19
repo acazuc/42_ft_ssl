@@ -445,7 +445,7 @@ test_rsautl()
 	echo -n "aaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ok rsautl_valid_size || print_result_ko rsautl_valid_size
 
 	#test just invalid size
-	echo -n "aaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_size || print_result_ok inrsautl_valid_size
+	echo -n "aaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_size || print_result_ok rsautl_invalid_size
 
 	#sign
 	$FTSSL_BIN rsautl -sign -inkey /tmp/ftssl_rsa_key -in author -out /tmp/ftssl_sign
