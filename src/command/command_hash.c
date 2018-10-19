@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 16:12:47 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 10:27:20 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ int			command_hash(int ac, char **av, t_hash_data *data)
 			err |= !command_hash_files(data, ac, av, &i);
 	}
 	if (!data->written)
-		return (command_hash_fd(data, 0, 0, "")
-				? EXIT_SUCCESS : EXIT_FAILURE);
+		err = !command_hash_fd(data, 0, 0, "");
 	return (err ? EXIT_FAILURE : EXIT_SUCCESS);
 }
