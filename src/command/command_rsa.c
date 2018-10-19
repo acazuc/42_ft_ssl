@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/12 12:38:49 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/17 20:50:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 13:16:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			command_rsa(int ac, char **av)
 	{
 		ft_putstr("Modulus=");
 		bignum_printhex(data.rsa_ctx.n);
+		ft_putchar('\n');
 	}
 	if (!data.noout && !cmd_rsa_write(&data))
 	{
