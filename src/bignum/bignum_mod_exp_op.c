@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 17:10:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 13:53:06 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 16:54:33 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static int	do_loop(t_bignum *res, t_bignum *base, t_bignum *ex, t_bignum *m)
 {
 	if (bignum_is_odd(ex))
 	{
-		if (!bignum_mul(res, res, base))
+		if (!bignum_mul_op(res, res, base))
 			return (0);
-		if (!bignum_mod(res, res, m))
+		if (!bignum_div_mod_op(NULL, res, res, m))
 			return (0);
 	}
-	if (!bignum_mul(base, base, base))
+	if (!bignum_sqr_op(base, base))
 		return (0);
-	if (!bignum_mod(base, base, m))
+	if (!bignum_div_mod_op(NULL, base, base, m))
 		return (0);
-	if (!bignum_rshift1(ex, ex))
+	if (!bignum_rshift1_op(ex, ex))
 		return (0);
 	return (1);
 }
@@ -71,7 +71,7 @@ int			bignum_mod_exp_op(t_bignum *r, t_bignum *a, t_bignum *p
 	bignum_init(&ex);
 	bignum_init(&res);
 	if (!bignum_copy(&ex, p) || !bignum_copy(&base, a)
-			|| !bignum_mod(&base, &base, m) || !bignum_grow(&res, 1))
+	|| !bignum_div_mod_op(NULL, &base, &base, m) || !bignum_grow(&res, 1))
 		return (do_clear(&base, &res, &ex));
 	while (!bignum_is_zero(&ex))
 		if (!do_loop(&res, &base, &ex, m))
