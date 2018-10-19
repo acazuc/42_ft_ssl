@@ -40,9 +40,9 @@ test_hash()
 
 test_hash_sha2_do()
 {
-	ret_ftssl=`$FTSSL_BIN sha$1 $2 | cut -d ' ' -f3`
-	ret_opssl=`$OPSSL_BIN sha1 -sha$1 $2 | cut -d ' ' -f2`
-	print_result "sha$1 $2" $ret_ftssl $ret_opssl
+	ret_ftssl=`$FTSSL_BIN $1 $2 | cut -d ' ' -f3`
+	ret_opssl=`$OPSSL_BIN dgst -$1 $2 | cut -d ' ' -f2`
+	print_result "$1 $2" $ret_ftssl $ret_opssl
 }
 
 test_hash_sha2()
@@ -61,13 +61,13 @@ test_hash_all()
 	echo
 	test_hash sha1
 	echo
-	test_hash sha224
+	test_hash_sha2 sha224
 	echo
-	test_hash sha256
+	test_hash_sha2 sha256
 	echo
-	test_hash sha384
+	test_hash_sha2 sha384
 	echo
-	test_hash sha512
+	test_hash_sha2 sha512
 }
 
 test_base64_encode()
