@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 17:14:46 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/08 14:25:48 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 10:38:27 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static int	file_open(t_cipher_args *args, int type)
 
 	args->i++;
 	if (args->i >= args->ac)
+	{
+		ft_putstr_fd("ft_ssl: expected file after ", 2);
+		ft_putendl_fd(args->av[args->i - 1], 2);
 		return (-1);
+	}
 	if (type)
 		ret = open(args->av[args->i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else

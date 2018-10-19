@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 23:30:38 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 11:19:59 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 10:39:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,18 @@ static int	file_open(int ac, char **av, int *i, int *fds)
 		close(fds[1]);
 	(*i)++;
 	if (*i >= ac)
+	{
+		ft_putstr_fd("ft_ssl: expected file after ", 2);
+		ft_putendl_fd(av[(*i) - 1], 2);
 		return (-1);
+	}
 	if (type)
-		return (open(av[*i], O_WRONLY | O_CREAT | O_TRUNC, 0644));
-	return (open(av[*i], O_RDONLY));
+		type = open(av[*i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		type = open(av[*i], O_RDONLY);
+	if (type == -1)
+		ft_putendl_fd("ft_ssl: failed to open file", 2);
+	return (type);
 }
 
 int			command_base64(int ac, char **av)
