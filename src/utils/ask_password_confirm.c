@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 12:28:46 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 12:31:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/03/03 18:09:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ask_password_confirm(void)
 		free(pass);
 		return (NULL);
 	}
-	if (strcmp(tmp, pass))
+	if (ft_strcmp(tmp, pass))
 	{
 		ft_putendl_fd("Password are not the same", 2);
 		free(pass);

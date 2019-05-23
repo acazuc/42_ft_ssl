@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2018/10/18 15:14:39 by acazuc           ###   ########.fr        #
+#    Updated: 2019/05/23 17:49:23 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 LDFLAGS = -flto -fwhole-program
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g
+CFLAGS = -Wall -Wextra -Werror -Ofast -march=native -g -Wno-cast-function-type
 #CFLAGS+= -fsanitize=address
 #CFLAGS+= -flto
 
@@ -221,6 +221,8 @@ SRCS_NAME = main.c \
 	    bignum/bignum_word_one.c \
 	    bignum/bignum_bin2bignum.c \
 	    bignum/bignum_bignum2bin.c \
+	    bignum/bignum_sqr.c \
+	    bignum/bignum_sqr_op.c \
 	    pem/pem_write_rsa_priv.c \
 	    pem/pem_write_rsa_priv_file.c \
 	    pem/pem_read_rsa_priv.c \

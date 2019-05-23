@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 14:19:07 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/15 10:14:52 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/03/03 18:10:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	pem_read_file_check_begin(t_pem_read_ctx *ctx)
 	int		begin_len;
 	char	*data;
 
-	begin_len = strlen(ctx->begin_text);
+	begin_len = ft_strlen(ctx->begin_text);
 	if (!(data = malloc(begin_len + 1)))
 		return (0);
 	if ((readed = read(ctx->fd, data, begin_len + 1)) != begin_len + 1)
@@ -26,7 +26,7 @@ int	pem_read_file_check_begin(t_pem_read_ctx *ctx)
 		free(data);
 		return (0);
 	}
-	if (memcmp(data, ctx->begin_text, begin_len))
+	if (ft_memcmp(data, ctx->begin_text, begin_len))
 	{
 		free(data);
 		return (0);

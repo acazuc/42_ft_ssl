@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/10 18:30:34 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/17 19:55:49 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/05/23 17:48:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ int					cipher_final(t_cipher_ctx *ctx);
 t_cipher			*cipher_get(char *name);
 
 extern t_cipher_mod	g_cipher_mod_ecb;
+extern t_cipher_mod	g_cipher_mod_ecb_iv;
 extern t_cipher_mod	g_cipher_mod_ecb_nopad;
+extern t_cipher_mod	g_cipher_mod_ecb_nopad_iv;
 extern t_cipher_mod	g_cipher_mod_cbc;
 extern t_cipher_mod	g_cipher_mod_pcbc;
 extern t_cipher_mod	g_cipher_mod_cfb;

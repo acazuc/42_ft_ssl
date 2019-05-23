@@ -391,7 +391,8 @@ test_genrsa()
 test_rsautl()
 {
 	#generate key
-	$FTSSL_BIN genrsa 256 -out /tmp/ftssl_rsa_key 2> /dev/null
+	$FTSSL_BIN genrsa 512 -out /tmp/ftssl_rsa_key 2> /dev/null
+	$OPSSL_BIN genrsa -out /tmp/opssl_rsa_key 512 2> /dev/null
 
 	#encrypt with priv
 	$FTSSL_BIN rsautl -encrypt -inkey /tmp/ftssl_rsa_key -in author -out /tmp/ftssl_author
@@ -441,11 +442,10 @@ test_rsautl()
 	$FTSSL_BIN rsautl -decrypt -inkey /tmp/ftssl_rsa_key_pub -in author > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_decrypt_input || print_result_ok rsautl_invalid_decrypt_input
 
 	#test just valid size
-	$OPSSL_BIN genrsa -out /tmp/opssl_rsa_key 256 2> /dev/null
-	echo -n "aaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ok rsautl_valid_size || print_result_ko rsautl_valid_size
+	echo -n "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ok rsautl_valid_size || print_result_ko rsautl_valid_size
 
 	#test just invalid size
-	echo -n "aaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_size || print_result_ok rsautl_invalid_size
+	echo -n "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" | $FTSSL_BIN rsautl -encrypt -inkey /tmp/opssl_rsa_key > /dev/null 2> /dev/null && print_result_ko rsautl_invalid_size || print_result_ok rsautl_invalid_size
 
 	#sign
 	$FTSSL_BIN rsautl -sign -inkey /tmp/ftssl_rsa_key -in author -out /tmp/ftssl_sign
@@ -493,6 +493,14 @@ test_rsa()
 
 	#rsa invalid priv
 	$FTSSL_BIN rsa -in /tmp/ftssl_rsa_key_pub > /dev/null 2> /dev/null && print_result_ko rsa_invalid_privin || print_result_ok rsa_invalid_privin
+
+	#rsa check pub
+	$FTSSL_BIN rsa -pubin -check -in /tmp/ftssl_rsa_key_pub -noout > /dev/null 2> /dev/null && print_result_ok rsa_check_pub_valid || print_result_ko rsa_check_pub_valid
+	$FTSSL_BIN rsa -pubin -check -in Makefile -noout > /dev/null 2> /dev/null && print_result_ko rsa_check_pub_invalid || print_result_ok rsa_check_pub_invalid
+
+	#rsa check priv
+	$FTSSL_BIN rsa -check -in /tmp/ftssl_rsa_key -noout > /dev/null 2> /dev/null && print_result_ok rsa_check_priv_valid || print_result_ko rsa_check_priv_valid
+	$FTSSL_BIN rsa -check -in Makefile -noout > /dev/null 2> /dev/null && print_result_ko rsa_check_priv_invalid || print_result_ok rsa_check_priv_invalid
 }
 
 has_printed_ln=0

@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 14:20:23 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/10 13:50:42 by acazuc           ###   ########.fr       */
+/*   Updated: 2018/10/19 16:54:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int				bignum_sub(t_bignum *r, t_bignum *a, t_bignum *b);
 int				bignum_sub_op(t_bignum *r, t_bignum *a, t_bignum *b);
 int				bignum_mul(t_bignum *r, t_bignum *a, t_bignum *b);
 int				bignum_mul_op(t_bignum *r, t_bignum *a, t_bignum *b);
+int				bignum_sqr(t_bignum *r, t_bignum *a);
+int				bignum_sqr_op(t_bignum *r, t_bignum *a);
 int				bignum_div_mod(t_bignum *dv, t_bignum *rm, t_bignum *a
 		, t_bignum *b);
 int				bignum_div_mod_op(t_bignum *dv, t_bignum *rm, t_bignum *a

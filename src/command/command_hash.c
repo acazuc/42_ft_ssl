@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:45:55 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/19 10:27:20 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/03/03 18:09:34 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	command_hash_string(t_hash_data *data, int ac, char **av
 	if (!data->h.hash->init(data->h.ctx))
 		return (0);
 	if (!data->h.hash->update(data->h.ctx, (const uint8_t*)av[*i]
-				, strlen(av[*i])))
+				, ft_strlen(av[*i])))
 		return (0);
 	if (!data->h.hash->final(digest, data->h.ctx))
 		return (0);

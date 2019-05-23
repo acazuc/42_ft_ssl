@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/07 22:14:30 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/19 16:56:36 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/05/23 17:23:09 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ static int	do_execute_prime(char *v)
 		return (EXIT_FAILURE);
 	}
 	if (is_prime)
-		ft_putchar('1');
+		ft_putstr("1\n");
 	else
-		ft_putchar('0');
+		ft_putstr("0\n");
 	bignum_clear(&a);
 	return (EXIT_SUCCESS);
 }
