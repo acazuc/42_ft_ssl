@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/11 19:42:39 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 14:43:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ static void	print_commands_ciphers(void)
 	ft_putendl("camellia-192-fcbc\tcamellia-192-cfb\tcamellia-192-ofb");
 	ft_putendl("camellia-256\t\tcamellia-256-ecb\tcamellia-256-cbc");
 	ft_putendl("camellia-256-fcbc\tcamellia-256-cfb\tcamellia-256-ofb");
+	ft_putendl("aria-128\t\taria-128-ecb\t\taria-128-cbc");
+	ft_putendl("aria-128-fcbc\t\taria-128-cfb\t\taria-128-ofb");
+	ft_putendl("aria-192\t\taria-192-ecb\t\taria-192-cbc");
+	ft_putendl("aria-192-fcbc\t\taria-192-cfb\t\taria-192-ofb");
+	ft_putendl("aria-256\t\taria-256-ecb\t\taria-256-cbc");
+	ft_putendl("aria-256-fcbc\t\taria-256-cfb\t\taria-256-ofb");
 	ft_putendl("chacha20\t\trc4");
 }
 

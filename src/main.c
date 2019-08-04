@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2019/03/03 18:18:28 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 14:40:40 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,27 @@ static t_program	g_programs[] = {
 	{"camellia-256-cfb", command_camellia_256_cfb},
 	{"camellia-256-ofb", command_camellia_256_ofb},
 	{"camellia-256-ctr", command_camellia_256_ctr},
+	{"aria-128", command_aria_128_cbc},
+	{"aria-128-ecb", command_aria_128_ecb},
+	{"aria-128-cbc", command_aria_128_cbc},
+	{"aria-128-pcbc", command_aria_128_pcbc},
+	{"aria-128-cfb", command_aria_128_cfb},
+	{"aria-128-ofb", command_aria_128_ofb},
+	{"aria-128-ctr", command_aria_128_ctr},
+	{"aria-192", command_aria_192_cbc},
+	{"aria-192-ecb", command_aria_192_ecb},
+	{"aria-192-cbc", command_aria_192_cbc},
+	{"aria-192-pcbc", command_aria_192_pcbc},
+	{"aria-192-cfb", command_aria_192_cfb},
+	{"aria-192-ofb", command_aria_192_ofb},
+	{"aria-192-ctr", command_aria_192_ctr},
+	{"aria-256", command_aria_256_cbc},
+	{"aria-256-ecb", command_aria_256_ecb},
+	{"aria-256-cbc", command_aria_256_cbc},
+	{"aria-256-pcbc", command_aria_256_pcbc},
+	{"aria-256-cfb", command_aria_256_cfb},
+	{"aria-256-ofb", command_aria_256_ofb},
+	{"aria-256-ctr", command_aria_256_ctr},
 	{"chacha20", command_chacha20},
 	{"rc4", command_rc4},
 	{"bignum", command_bignum},

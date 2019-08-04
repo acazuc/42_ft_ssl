@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:45:01 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 12:46:43 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 14:41:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ typedef struct		s_camellia_data
 	uint8_t			key[32];
 	uint8_t			iv[16];
 }					t_camellia_data;
+
+typedef struct		s_aria_data
+{
+	t_cipher_data	cipher;
+	uint8_t			key[32];
+	uint8_t			iv[16];
+}					t_aria_data;
 
 typedef struct		s_chacha20_data
 {

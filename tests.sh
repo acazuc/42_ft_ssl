@@ -249,6 +249,44 @@ test_camellia()
 	test_camellia256
 }
 
+test_aria_part()
+{
+	test_cipher $1-ecb $2
+	echo
+	test_cipher $1-cbc $2
+	echo
+	test_cipher $1-cfb $2
+	echo
+	test_cipher $1-ofb $2
+}
+
+test_aria128()
+{
+	key="0123456789abcdef1122334455667788"
+	test_aria_part aria-128 $key
+}
+
+test_aria192()
+{
+	key="0123456789abcdef1122334455667788fedcba9876543210"
+	test_aria_part aria-192 $key
+}
+
+test_aria256()
+{
+	key="0123456789abcdef1122334455667788fedcba98765432108877665544332211"
+	test_aria_part aria-256 $key
+}
+
+test_aria()
+{
+	test_aria128
+	echo
+	test_aria192
+	echo
+	test_aria256
+}
+
 test_chacha20()
 {
 	key="0123456789abcdef1122334455667788fedcba98765432108877665544332211"
@@ -575,6 +613,22 @@ do
 		"camellia-256")
 			nl_if_not_first
 			test_camellia256
+			;;
+		"aria")
+			nl_if_not_first
+			test_aria
+			;;
+		"aria-128")
+			nl_if_not_first
+			test_aria128
+			;;
+		"aria-192")
+			nl_if_not_first
+			test_aria192
+			;;
+		"aria-256")
+			nl_if_not_first
+			test_aria256
 			;;
 		"chacha20")
 			nl_if_not_first

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2019/05/23 17:49:23 by acazuc           ###   ########.fr        #
+#    Updated: 2019/08/04 14:40:25 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,12 @@ SRCS_NAME = main.c \
 	    command/command_camellia_192_2.c \
 	    command/command_camellia_256.c \
 	    command/command_camellia_256_2.c \
+	    command/command_aria_128.c \
+	    command/command_aria_128_2.c \
+	    command/command_aria_192.c \
+	    command/command_aria_192_2.c \
+	    command/command_aria_256.c \
+	    command/command_aria_256_2.c \
 	    command/command_chacha20.c \
 	    command/command_rc4.c \
 	    command/command_cipher.c \
@@ -137,6 +143,12 @@ SRCS_NAME = main.c \
 	    camellia/camellia128.c \
 	    camellia/camellia192.c \
 	    camellia/camellia256.c \
+	    aria/aria_keyschedule.c \
+	    aria/aria_round.c \
+	    aria/aria.c \
+	    aria/aria128.c \
+	    aria/aria192.c \
+	    aria/aria256.c \
 	    cipher/cipher.c \
 	    cipher/cipher_get.c \
 	    cipher/cipher_mod_ecb.c \
@@ -276,6 +288,7 @@ odir:
 	@mkdir -p $(OBJS_PATH)chacha20
 	@mkdir -p $(OBJS_PATH)rc4
 	@mkdir -p $(OBJS_PATH)camellia
+	@mkdir -p $(OBJS_PATH)aria
 	@mkdir -p $(OBJS_PATH)cipher
 	@mkdir -p $(OBJS_PATH)rsa
 	@mkdir -p $(OBJS_PATH)bignum

@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2018/10/18 12:30:36 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 14:40:04 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,27 @@ int			command_camellia_256_pcbc(int ac, char **av);
 int			command_camellia_256_cfb(int ac, char **av);
 int			command_camellia_256_ofb(int ac, char **av);
 int			command_camellia_256_ctr(int ac, char **av);
+int			command_aria_128(int ac, char **av, t_aria_data *data);
+int			command_aria_128_ecb(int ac, char **av);
+int			command_aria_128_cbc(int ac, char **av);
+int			command_aria_128_pcbc(int ac, char **av);
+int			command_aria_128_cfb(int ac, char **av);
+int			command_aria_128_ofb(int ac, char **av);
+int			command_aria_128_ctr(int ac, char **av);
+int			command_aria_192(int ac, char **av, t_aria_data *data);
+int			command_aria_192_ecb(int ac, char **av);
+int			command_aria_192_cbc(int ac, char **av);
+int			command_aria_192_pcbc(int ac, char **av);
+int			command_aria_192_cfb(int ac, char **av);
+int			command_aria_192_ofb(int ac, char **av);
+int			command_aria_192_ctr(int ac, char **av);
+int			command_aria_256(int ac, char **av, t_aria_data *data);
+int			command_aria_256_ecb(int ac, char **av);
+int			command_aria_256_cbc(int ac, char **av);
+int			command_aria_256_pcbc(int ac, char **av);
+int			command_aria_256_cfb(int ac, char **av);
+int			command_aria_256_ofb(int ac, char **av);
+int			command_aria_256_ctr(int ac, char **av);
 int			command_chacha20(int ac, char **av);
 int			command_rc4(int ac, char **av);
 int			command_cipher(int ac, char **av, t_cipher_data *data);
@@ -142,9 +163,11 @@ void		cmd_rsautl_write_hex_line(t_rsautl_data *data);
 uint32_t	rotate_left28(uint32_t v, uint32_t c);
 uint32_t	rotate_left32(uint32_t v, uint32_t c);
 uint64_t	rotate_left64(uint64_t v, uint64_t c);
+void		rotate_leftn(uint8_t *dst, uint8_t *src, uint64_t c, uint64_t bytes);
 uint32_t	rotate_right28(uint32_t v, uint32_t c);
 uint32_t	rotate_right32(uint32_t v, uint32_t c);
 uint64_t	rotate_right64(uint64_t v, uint64_t c);
+void		rotate_rightn(uint8_t *dst, uint8_t *src, uint64_t c, uint64_t bytes);
 void		bin2hex(char *dst, const uint8_t *src, size_t len);
 int			hex2bin(uint8_t *dst, const char *src, size_t len);
 int			random_bytes(uint8_t *dst, int len);
