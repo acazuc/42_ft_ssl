@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2019/08/04 14:40:40 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 17:30:37 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static t_program	g_programs[] = {
 	{"help", command_help},
+	{"md2", command_md2},
 	{"md4", command_md4},
 	{"md5", command_md5},
 	{"sha1", command_sha1},

@@ -6,7 +6,7 @@
 /*   By: acazuc <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 13:43:50 by acazuc            #+#    #+#             */
-/*   Updated: 2019/08/04 14:40:04 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 17:31:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		print_usage();
 void		print_usage_commands();
 int			command_help(int ac, char **av);
 int			command_hash(int ac, char **av, t_hash_data *data);
+int			command_md2(int ac, char **av);
 int			command_md4(int ac, char **av);
 int			command_md5(int ac, char **av);
 int			command_sha1(int ac, char **av);

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 17:19:00 by acazuc            #+#    #+#             */
-/*   Updated: 2019/08/04 14:43:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 18:04:26 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ static void	print_commands_standard(void)
 static void	print_commands_md(void)
 {
 	ft_putendl("Message digest commands:");
-	ft_putendl("md4\t\tmd5\t\tsha1");
-	ft_putendl("sha224\t\tsha256\t\tsha384");
-	ft_putendl("sha512\t\tripemd128\tripemd160");
-	ft_putendl("ripemd256\tripemd320\tcrc32");
-	ft_putendl("adler32");
+	ft_putendl("md2\t\tmd4\t\tmd5");
+	ft_putendl("sha1\t\tsha224\t\tsha256");
+	ft_putendl("sha384\t\tsha512");
+	ft_putendl("ripemd128\tripemd160\tripemd256");
+	ft_putendl("ripemd320");
+	ft_putendl("crc32\t\tadler32");
 }
 
 static void	print_commands_ciphers(void)

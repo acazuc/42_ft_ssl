@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2019/08/04 14:40:25 by acazuc           ###   ########.fr        #
+#    Updated: 2019/08/04 17:30:27 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS_NAME = main.c \
 	    pbkdf2/pbkdf2.c \
 	    command/command_help.c \
 	    command/command_hash.c \
+	    command/command_md2.c \
 	    command/command_md4.c \
 	    command/command_md5.c \
 	    command/command_sha1.c \
@@ -101,6 +102,7 @@ SRCS_NAME = main.c \
 	    command/command_rsautl_readkey.c \
 	    command/command_rsautl_write.c \
 	    command/command_rsautl_write_hex.c \
+	    hash/md2.c \
 	    hash/md4.c \
 	    hash/md5.c \
 	    hash/sha1.c \
