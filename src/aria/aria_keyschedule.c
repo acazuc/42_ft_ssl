@@ -6,14 +6,12 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 12:32:53 by acazuc            #+#    #+#             */
-/*   Updated: 2019/08/04 16:22:08 by acazuc           ###   ########.fr       */
+/*   Updated: 2019/08/04 16:22:47 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher/aria.h"
 #include "ft_ssl.h"
-#include "libft.h"
-#include <stdio.h>
 
 static uint8_t	c1[16] = {
 	0x51, 0x7c, 0xc1, 0xb7, 0x27, 0x22, 0x0a, 0x94,
